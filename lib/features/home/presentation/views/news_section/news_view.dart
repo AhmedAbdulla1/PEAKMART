@@ -131,6 +131,7 @@ class _AnimatedNewsContainerState extends State<AnimatedNewsContainer> with Sing
                       ),
                     ),
                     alignment: Alignment.center,
+
                     child: isExpanded
                         ? Text(
                             "News",

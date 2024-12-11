@@ -6,7 +6,7 @@ void showSnackBar(BuildContext context, String message) {
     SnackBar(
       // width: 100,
       duration: const Duration(seconds: 2),
-      backgroundColor: ColorManager.grey,
+      backgroundColor: ColorManager.grey1,
       content: Center(
           child: Text(
         message,

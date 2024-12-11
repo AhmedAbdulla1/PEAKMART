@@ -45,6 +45,15 @@ dependencies:
   flutter_bloc: ^8.1.6
   text_scroll: ^0.2.0
   flutter_otp_text_field: ^1.2.0
+  intl_phone_field: ^3.2.0
+  easy_localization: ^3.0.7
+  dio: ^5.7.0
+  get_it: ^8.0.2
+  image_picker: ^1.1.2
+  internet_connection_checker: ^1.0.0+1
+  shared_preferences: ^2.3.3
+  multiple_stream_builder: ^3.0.2
+  flutter_phoenix: ^1.1.1
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +82,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/translations/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

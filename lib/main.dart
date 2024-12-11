@@ -1,6 +1,23 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/app/app.dart';
+import 'package:peakmart/app/app_prefs.dart';
+import 'package:peakmart/app/di.dart';
+import 'package:peakmart/app/resources/language_manager.dart';
 
-void main() {
-  runApp(MyApp());
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initAppModule();
+  await EasyLocalization.ensureInitialized();
+  await ScreenUtil.ensureScreenSize();
+
+  runApp(EasyLocalization(
+    supportedLocales: const  [englishLocale,arabicLocale],
+    path: assetPathLocalizations,
+    child: Phoenix(
+      child: MyApp(),
+    ),
+  ));
 }

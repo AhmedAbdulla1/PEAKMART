@@ -38,16 +38,16 @@ class OtpVerificationBody extends StatelessWidget {
           ),
           const AccountCreationOrLoginPrompt(
               text: 'Didn\'t receive a code?', textButton: 'Resend'),
-          Spacer(
+          const Spacer(
             flex: 8,
           ),
           CustomElevatedButton(
             textButton: 'Continue',
             onPressed: () {
-              Navigator.pushNamed(context, ChangePasswordView.routeName);
+              Navigator.pushNamed(context,Routes.mainScreen);
             },
           ),
-          Spacer(
+         const Spacer(
             flex: 1,
           )
         ],

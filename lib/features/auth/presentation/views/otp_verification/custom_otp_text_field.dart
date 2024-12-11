@@ -17,7 +17,7 @@ class CustomOtpTextField extends StatelessWidget {
       fieldHeight: 75,
       fieldWidth: MediaQuery.of(context).size.width * .18,
       borderRadius: BorderRadius.circular(12),
-      borderColor: ColorManager.grey,
+      borderColor: ColorManager.grey1,
       textStyle:
           getRegularStyle(fontSize: FontSize.s32, color: ColorManager.black),
       showFieldAsBox: true,

@@ -1,0 +1,137 @@
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:intl_phone_field/countries.dart';
+import 'package:peakmart/app/di.dart';
+import 'package:peakmart/app/resources/color_manager.dart';
+import 'package:peakmart/app/resources/font_manager.dart';
+import 'package:peakmart/app/resources/string_manager.dart';
+import 'package:peakmart/app/resources/style_manager.dart';
+import 'package:peakmart/app/resources/values_manager.dart';
+import 'package:peakmart/app/shared_widgets/text_fields.dart';
+import 'package:peakmart/app/shared_widgets/buttons.dart';
+import 'package:peakmart/features/auth/presentation/shared_widgets/account_creation_or_login_prompt.dart';
+import 'package:peakmart/features/auth/presentation/views/reset_password/forget_password_view.dart';
+import 'package:peakmart/features/auth/presentation/views/sign_in/login_view_model.dart';
+import 'package:peakmart/features/auth/presentation/views/sign_in/widgets/login_divider_widget.dart';
+import 'package:peakmart/features/auth/presentation/views/sign_in/widgets/other_login_ways.dart';
+
+class LogInView extends StatefulWidget {
+  const LogInView({super.key, this.fromScreen});
+
+  static const String routeName = '/login';
+  final String? fromScreen;
+
+  @override
+  State<LogInView> createState() => _LogInViewState();
+}
+
+class _LogInViewState extends State<LogInView> {
+  final LoginViewModel _loginViewModel = instance<LoginViewModel>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  // final AppPreferences _appPreferences = instance<AppPreferences>();
+  _bind() {
+    _emailController.addListener(
+      () => _loginViewModel.setEmail(_emailController.text),
+    );
+    _passwordController.addListener(
+      () => _loginViewModel.setPassword(_passwordController.text),
+    );
+    _loginViewModel.isUserLoginSuccessfullyStreamController.stream
+        .listen((isLogin) {
+      if (isLogin) {
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          // Navigator.of(context).pushNamed(
+          //   OTPView.routeName,
+          //   arguments: SendOtpInput(
+          //     countryCode: _loginViewModel.loginRequest.countryCode,
+          //     phone: _loginViewModel.loginRequest.phoneNum,
+          //     fromScreen: widget.fromScreen,
+          //     fromLogin: true,
+          //   ),
+          // );
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _loginViewModel.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    _bind();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        // resizeToAvoidBottomInset: false,
+        body: _getContent(),
+      ),
+    );
+  }
+
+  Widget _getContent() {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: AppSize.s130),
+            Text(
+              'Welcome Back!',
+              style: getSemiBoldStyle(
+                      fontSize: FontSize.s32, color: ColorManager.black)
+                  .copyWith(fontFamily: FontConstants.fontMontserratFamily),
+            ),
+
+            const SizedBox(height: AppSize.s40),
+            CustomTextFormWithStream(
+              stream: _loginViewModel.outEmailValidation,
+              prefixIcon: const Icon(Icons.person),
+              textEditingController: _emailController,
+              hintText: AppStrings.email,
+            ),
+            const SizedBox(height: AppSize.s25),
+            PasswordTextFieldWithStream(
+              stream: _loginViewModel.outPasswordValidation,
+              textEditingController: _passwordController,
+            ),
+            const SizedBox(height: AppSize.s14),
+            Align(
+              alignment: AlignmentDirectional.centerEnd,
+              child: CustomTextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, ForgotPasswordView.routeName);
+                },
+                title: AppStrings.forgotPassword,
+              ),
+            ),
+            const SizedBox(height: AppSize.s8),
+            CustomElevatedButton(
+              stream: _loginViewModel.outAreInputsValid,
+              text: AppStrings.login,
+              onPressed: () {},
+            ),
+            const SizedBox(height: AppSize.s35),
+            const OtherLoginWays(),
+            const SizedBox(height: AppSize.s20),
+            const AccountCreationOrLoginPrompt(
+              text: 'Create An Account',
+              textButton: 'Sign Up',
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}

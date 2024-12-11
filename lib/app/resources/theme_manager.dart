@@ -31,7 +31,7 @@ ThemeData getApplicationTheme() {
     cardTheme: CardTheme(
       color: ColorManager.white,
       elevation: AppSize.s4,
-      shadowColor: ColorManager.grey,
+      shadowColor: ColorManager.grey1,
     ),
     //appBar Theme
     appBarTheme: AppBarTheme(
@@ -47,7 +47,7 @@ ThemeData getApplicationTheme() {
     // button theme
     buttonTheme: ButtonThemeData(
       shape: const StadiumBorder(),
-      disabledColor: ColorManager.grey,
+      disabledColor: ColorManager.grey1,
       buttonColor: ColorManager.primary,
       splashColor: ColorManager.white,
     ),
@@ -72,12 +72,12 @@ ThemeData getApplicationTheme() {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         textStyle:
-            getBoldStyle(color: ColorManager.white, fontSize: FontSize.s16),
+            getBoldStyle(color: ColorManager.white, fontSize: FontSize.s20),
         backgroundColor: ColorManager.primary,
         foregroundColor: ColorManager.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
-            AppSize.s10,
+            AppSize.s15,
           ),
         ),
       ),
@@ -108,10 +108,7 @@ ThemeData getApplicationTheme() {
         color: ColorManager.simiBlue,
         fontSize: FontSize.s14,
       ),
-      headlineSmall: getMediumStyle(
-        color: ColorManager.grey,
-        fontSize: AppSize.s14,
-      ),
+
       bodyLarge: getRegularStyle(
         color: ColorManager.primary,
         fontSize: FontSize.s14,
@@ -145,16 +142,12 @@ ThemeData getApplicationTheme() {
         fontSize: FontSize.s16,
         color: ColorManager.simiBlack,
       ),
-      bodyMedium: getLightStyle(
-        color: ColorManager.grey,
-        fontSize: FontSize.s12,
-      ),
     ),
     //input decoration theme
     inputDecorationTheme: InputDecorationTheme(
       //content padding
       contentPadding: const EdgeInsets.all(
-        AppPadding.p16,
+        AppPadding.p20,
       ),
       //error style
       errorStyle: getRegularStyle(
@@ -164,7 +157,7 @@ ThemeData getApplicationTheme() {
 
       //hint style
       hintStyle: getRegularStyle(
-        color: ColorManager.simiBlue,
+        color: ColorManager.grey1,
         fontSize: FontSize.s14,
       ),
       //label style
@@ -172,7 +165,7 @@ ThemeData getApplicationTheme() {
         color: ColorManager.grey1,
         fontSize: FontSize.s14,
       ),
-      fillColor: ColorManager.grey,
+      fillColor: ColorManager.textFormBackground,
       filled: true,
       //enable border style
       enabledBorder: OutlineInputBorder(
@@ -189,6 +182,7 @@ ThemeData getApplicationTheme() {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(
           AppSize.s12,
+
         ),
         borderSide: BorderSide(
           color: ColorManager.primary,

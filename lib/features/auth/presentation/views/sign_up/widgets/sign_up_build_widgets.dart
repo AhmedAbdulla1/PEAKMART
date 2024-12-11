@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/app/resources/color_manager.dart';
 import 'package:peakmart/app/resources/font_manager.dart';
+import 'package:peakmart/app/resources/routes_manager.dart';
 import 'package:peakmart/app/resources/style_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/account_creation_or_login_prompt.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/cutom_elevated_button.dart';
@@ -57,7 +58,7 @@ class _SignUpBuildWidgetsState extends State<SignUpBuildWidgets> {
           ),
            CustomElevatedButton(
             textButton: 'Create an account',onPressed: () {
-              
+              Navigator.pushNamed(context, Routes.otpVerification);
             },
           ),
           SizedBox(

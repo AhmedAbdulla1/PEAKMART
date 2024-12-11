@@ -1,9 +1,21 @@
+import 'package:easy_localization/easy_localization.dart';
+
 class AppStrings {
+
+  static  String phone = tr('mobile_number');
+  static  String phoneHint = tr('mobile_number_hint');
+  static  String phoneError = tr("invalid_mobile_number");
+  static  String searchCountry =tr("search_country");
+  static  String email = tr('email');
+  static  String emailErrorEmpty = tr('email_empty');
+  static  String emailNotValid = tr('email_not_valid');
+  static  String password = tr('password');
+  static  String passwordErrorEmpty = tr('password_empty');
+
+
 
 
   ///////////////////////////////////////////////////////////////
-  static const String splashTitle = "FireBox";
-  static const String splashSubTitle = "A new way to control your home ";
   static const String noRouteFound = "No Route Found";
   static const String getStart = 'Get Started';
   static const String loginTitle = 'SIGN IN';
@@ -64,11 +76,8 @@ class AppStrings {
   static const String nameError1 = 'Please enter your name ';
   static const String nameError2 = 'Please enter at least 3 characters ';
   static const String confirmError = 'Password not confirm';
-  static const String email = 'Email';
-  static const String emailError = 'Please enter your email ';
-  static const String emailError2 = 'Please enter valid email ';
-  static const String password = 'Password';
-  static const String passwordError = 'Please enter your password';
+
+
   static const String search = "Search or Add New Exercise";
 
   static const String popularDoctor = "Popular Doctor";

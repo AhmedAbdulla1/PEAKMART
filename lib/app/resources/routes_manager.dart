@@ -18,11 +18,12 @@
 // import '../profile_details_screen/view.dart';
 //
 import 'package:flutter/material.dart';
+import 'package:peakmart/app/di.dart';
 import 'package:peakmart/app/resources/string_manager.dart';
 import 'package:peakmart/features/auth/presentation/views/reset_password/change_password.dart';
 import 'package:peakmart/features/auth/presentation/views/reset_password/forget_password_view.dart';
 import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification.dart';
-import 'package:peakmart/features/auth/presentation/views/sign_in/sign_in_view.dart';
+import 'package:peakmart/features/auth/presentation/views/sign_in/login_view.dart';
 import 'package:peakmart/features/auth/presentation/views/sign_up/sign_up_view.dart';
 import 'package:peakmart/features/main/main_view.dart';
 
@@ -43,12 +44,13 @@ class RouteGenerator {
 
       case Routes.mainScreen:
         return MaterialPageRoute(builder: (_) =>  MainView());
-      case Routes.signInScreen:
-        return MaterialPageRoute(builder: (_) => const SignInView());
+      case LogInView.routeName:
+        initLoginModule();
+        return MaterialPageRoute(builder: (_) => const LogInView());
       case Routes.signUpScreen:
         return MaterialPageRoute(builder: (_) => const SignUpView());
-      case Routes.forgetPasswordScreen:
-        return MaterialPageRoute(builder: (_) => const ForgetPasswordView());
+      case ForgotPasswordView.routeName:
+        return MaterialPageRoute(builder: (_) => const ForgotPasswordView());
       case Routes.otpVerification:
         return MaterialPageRoute(builder: (_) => const OtpVerification());
       case ChangePasswordView.routeName:

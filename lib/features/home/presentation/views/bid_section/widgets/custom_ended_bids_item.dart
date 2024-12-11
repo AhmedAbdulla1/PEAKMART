@@ -35,11 +35,22 @@ class CustomEndedBidsItem extends StatelessWidget {
                       topRight: Radius.circular(23),
                     ),
                   ),
-                  child: Image.asset(
-                    endedBidsCardModel.image,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
+                  child: Stack(
+                    children:[ Image.asset(
+                      endedBidsCardModel.image,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child: Image.asset(
+                        'assets/images/like.svg',
+                        color: ColorManager.white,
+                      ),
+                    )
+                    ]),
                 ),
               ),
               // CachedNetworkImage(

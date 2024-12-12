@@ -7,8 +7,9 @@ final class SignUpInitialState extends SignUpState {}
 final class SignUpLoadingState extends SignUpState {}
 
 final class SignUpFailureState extends SignUpState {
-  final String errorMessage;
-  SignUpFailureState({required this.errorMessage});
+  final AppErrors errors;
+  final Function() onRetry;
+  SignUpFailureState({required this.errors, required this.onRetry});
 }
 
 final class SignUpSuccessState extends SignUpState {}

@@ -23,7 +23,7 @@ import 'package:peakmart/app/resources/string_manager.dart';
 import 'package:peakmart/features/auth/presentation/views/reset_password/change_password.dart';
 import 'package:peakmart/features/auth/presentation/views/reset_password/forget_password_view.dart';
 import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification.dart';
-import 'package:peakmart/features/auth/presentation/views/sign_in/login_view.dart';
+import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
 import 'package:peakmart/features/auth/presentation/views/sign_up/sign_up_view.dart';
 import 'package:peakmart/features/main/main_view.dart';
 

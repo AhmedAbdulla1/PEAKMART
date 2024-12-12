@@ -6,7 +6,7 @@ import 'package:peakmart/app/resources/routes_manager.dart';
 import 'package:peakmart/app/resources/style_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/account_creation_or_login_prompt.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/cutom_elevated_button.dart';
-import 'package:peakmart/features/auth/presentation/views/sign_in/widgets/other_login_ways.dart';
+import 'package:peakmart/features/auth/presentation/views/login/widgets/other_login_ways.dart';
 import 'package:peakmart/features/auth/presentation/views/sign_up/widgets/register_agreement_text.dart';
 import 'package:peakmart/features/auth/presentation/views/sign_up/widgets/sign_up_user_accept_data.dart';
 class SignUpBuildWidgets extends StatefulWidget {

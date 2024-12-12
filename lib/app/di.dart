@@ -3,7 +3,8 @@ import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:peakmart/app/app_prefs.dart';
-import 'package:peakmart/features/auth/presentation/views/sign_in/login_view_model.dart';
+import 'package:peakmart/app/network_info.dart';
+import 'package:peakmart/features/auth/presentation/views/login/login_view_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -19,7 +20,11 @@ Future<void> initAppModule() async {
       instance<SharedPreferences>(),
     ),
   );
-
+  instance.registerLazySingleton<NetWorkInfo>(
+        () => NetworkInfoImpl(
+      InternetConnectionChecker(),
+    ),
+  );
 
   // instant for dioFactory
   // instance.registerLazySingleton<DioFactory>(

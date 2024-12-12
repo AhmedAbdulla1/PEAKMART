@@ -54,6 +54,11 @@ dependencies:
   shared_preferences: ^2.3.3
   multiple_stream_builder: ^3.0.2
   flutter_phoenix: ^1.1.1
+  dartz: ^0.10.1
+  freezed_annotation: ^2.4.4
+  equatable: ^2.0.7
+  injectable: ^2.5.0
+  package_info: ^2.0.2
 
 dev_dependencies:
   flutter_test:

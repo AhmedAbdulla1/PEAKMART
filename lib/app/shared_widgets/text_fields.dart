@@ -168,7 +168,6 @@ class PasswordTextFieldWithStream extends StatefulWidget {
 class _PasswordTextFieldWithStreamState
     extends State<PasswordTextFieldWithStream> {
   bool obscureText = true;
-
   void onIconPressed() {
     print(obscureText);
     setState(() {

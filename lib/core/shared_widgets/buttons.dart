@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 
@@ -29,8 +30,9 @@ class CustomElevatedButton extends StatelessWidget {
           child: Text(
             text,
             style: TextStyle(
-              color:
-                  (snapshot.data ?? false) ? Colors.white : ColorManager.primary,
+              color: (snapshot.data ?? false)
+                  ? Colors.white
+                  : ColorManager.primary,
             ),
           ),
         ),
@@ -52,6 +54,33 @@ class CustomTextButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         title,
+      ),
+    );
+  }
+}
+
+class CustomElevatedButtonWithoutStream extends StatelessWidget {
+  const CustomElevatedButtonWithoutStream(
+      {super.key,
+      required this.onPressed,
+      required this.text,
+      this.width = double.infinity,
+      this.height = AppSize.s55});
+
+  final VoidCallback onPressed;
+  final String text;
+  final double width, height;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: width,
+      height: height,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        child: Text(
+          text,
+        ),
       ),
     );
   }

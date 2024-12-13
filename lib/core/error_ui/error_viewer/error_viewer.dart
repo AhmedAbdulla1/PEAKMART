@@ -53,14 +53,15 @@ class ErrorViewer {
     VoidCallback callback, {
     ErrorViewerOptions errorViewerOptions = const ErrVDialogOptions(),
   }) {
-    if (errorViewerOptions is ErrVSnackBarOptions) {
-      showErrorSnackBar(
-        message:  AppStrings.timeoutError,
-        context: context,
-        callback: callback,
-        errVSnackBarOptions: errorViewerOptions,
-      );
-    } else if (errorViewerOptions is ErrVToastOptions) {
+    // if (errorViewerOptions is ErrVSnackBarOptions) {
+    //   // showErrorSnackBar(
+    //   //   message:  AppStrings.timeoutError,
+    //   //   context: context,
+    //   //   callback: callback,
+    //   //   errVSnackBarOptions: errorViewerOptions,
+    //   // );
+    // } else
+      if (errorViewerOptions is ErrVToastOptions) {
       showErrorToast(
         message: AppStrings.timeoutError,
         errVToastOptions: errorViewerOptions,
@@ -84,14 +85,15 @@ class ErrorViewer {
     VoidCallback callback, {
     ErrorViewerOptions errorViewerOptions = const ErrVDialogOptions(),
   }) {
-    if (errorViewerOptions is ErrVSnackBarOptions) {
-      showErrorSnackBar(
-        message: AppStrings.internalServerError,
-        context: context,
-        callback: callback,
-        errVSnackBarOptions: errorViewerOptions,
-      );
-    } else if (errorViewerOptions is ErrVToastOptions) {
+    // if (errorViewerOptions is ErrVSnackBarOptions) {
+    //   showErrorSnackBar(
+    //     message: AppStrings.internalServerError,
+    //     context: context,
+    //     callback: callback,
+    //     errVSnackBarOptions: errorViewerOptions,
+    //   );
+    // } else
+      if (errorViewerOptions is ErrVToastOptions) {
       showErrorToast(
         message:AppStrings.internalServerError,
         errVToastOptions: errorViewerOptions,
@@ -113,14 +115,15 @@ class ErrorViewer {
     VoidCallback callback, {
     ErrorViewerOptions errorViewerOptions = const ErrVDialogOptions(),
   }) {
-    if (errorViewerOptions is ErrVSnackBarOptions) {
-      showErrorSnackBar(
-        message:AppStrings.defaultError,
-        context: context,
-        callback: callback,
-        errVSnackBarOptions: errorViewerOptions,
-      );
-    } else if (errorViewerOptions is ErrVToastOptions) {
+    // if (errorViewerOptions is ErrVSnackBarOptions) {
+    //   showErrorSnackBar(
+    //     message:AppStrings.defaultError,
+    //     context: context,
+    //     callback: callback,
+    //     errVSnackBarOptions: errorViewerOptions,
+    //   );
+    // } else
+      if (errorViewerOptions is ErrVToastOptions) {
       showErrorToast(
         message:AppStrings.defaultError,
         errVToastOptions: errorViewerOptions,
@@ -142,14 +145,15 @@ class ErrorViewer {
     VoidCallback callback, {
     ErrorViewerOptions errorViewerOptions = const ErrVDialogOptions(),
   }) {
-    if (errorViewerOptions is ErrVSnackBarOptions) {
-      showErrorSnackBar(
-        message: AppStrings.noInternetError,
-        context: context,
-        callback: callback,
-        errVSnackBarOptions: errorViewerOptions,
-      );
-    } else if (errorViewerOptions is ErrVToastOptions) {
+    // if (errorViewerOptions is ErrVSnackBarOptions) {
+    //   showErrorSnackBar(
+    //     message: AppStrings.noInternetError,
+    //     context: context,
+    //     callback: callback,
+    //     errVSnackBarOptions: errorViewerOptions,
+    //   );
+    // } else
+      if (errorViewerOptions is ErrVToastOptions) {
       showErrorToast(
         message: AppStrings.noInternetError,
         errVToastOptions: errorViewerOptions,
@@ -172,14 +176,15 @@ class ErrorViewer {
     ErrorViewerOptions errorViewerOptions = const ErrVSnackBarOptions(),
     VoidCallback? callback,
   }) {
-    if (errorViewerOptions is ErrVSnackBarOptions) {
-      showErrorSnackBar(
-        context: context,
-        message: message,
-        callback: callback,
-        errVSnackBarOptions: errorViewerOptions,
-      );
-    } else if (errorViewerOptions is ErrVToastOptions) {
+    // if (errorViewerOptions is ErrVSnackBarOptions) {
+    //   showErrorSnackBar(
+    //     context: context,
+    //     message: message,
+    //     callback: callback,
+    //     errVSnackBarOptions: errorViewerOptions,
+    //   );
+    // } else
+      if (errorViewerOptions is ErrVToastOptions) {
       showErrorToast(
         message: message,
         errVToastOptions: errorViewerOptions,
@@ -201,14 +206,15 @@ class ErrorViewer {
     ErrorViewerOptions errorViewerOptions = const ErrVSnackBarOptions(),
     VoidCallback? callback,
   }) {
-    if (errorViewerOptions is ErrVSnackBarOptions) {
-      showErrorSnackBar(
-        context: context,
-        callback: callback,
-        message:AppStrings.defaultError,
-        errVSnackBarOptions: errorViewerOptions,
-      );
-    } else if (errorViewerOptions is ErrVToastOptions) {
+    // if (errorViewerOptions is ErrVSnackBarOptions) {
+    //   showErrorSnackBar(
+    //     context: context,
+    //     callback: callback,
+    //     message:AppStrings.defaultError,
+    //     errVSnackBarOptions: errorViewerOptions,
+    //   );
+    // } else
+      if (errorViewerOptions is ErrVToastOptions) {
       showErrorToast(
         message: AppStrings.defaultError,
         errVToastOptions: errorViewerOptions,
@@ -231,14 +237,15 @@ class ErrorViewer {
     VoidCallback? callback,
     required bool retryWhenNotAuthorized,
   }) {
-    if (errorViewerOptions is ErrVSnackBarOptions) {
-      showErrorSnackBar(
-        context: context,
-        message: AppStrings.unauthorizedError ,
-        callback: callback,
-        errVSnackBarOptions: errorViewerOptions,
-      );
-    } else if (errorViewerOptions is ErrVToastOptions) {
+    // if (errorViewerOptions is ErrVSnackBarOptions) {
+    //   showErrorSnackBar(
+    //     context: context,
+    //     message: AppStrings.unauthorizedError ,
+    //     callback: callback,
+    //     errVSnackBarOptions: errorViewerOptions,
+    //   );
+    // } else
+      if (errorViewerOptions is ErrVToastOptions) {
       showErrorToast(
         message: AppStrings.unauthorizedError,
         errVToastOptions: errorViewerOptions,
@@ -261,14 +268,15 @@ class ErrorViewer {
     ErrorViewerOptions errorViewerOptions = const ErrVSnackBarOptions(),
     VoidCallback? callback,
   }) {
-    if (errorViewerOptions is ErrVSnackBarOptions) {
-      showErrorSnackBar(
-        message: message ??AppStrings.badRequestError,
-        context: context,
-        callback: callback,
-        errVSnackBarOptions: errorViewerOptions,
-      );
-    } else if (errorViewerOptions is ErrVToastOptions) {
+    // if (errorViewerOptions is ErrVSnackBarOptions) {
+    //   showErrorSnackBar(
+    //     message: message ??AppStrings.badRequestError,
+    //     context: context,
+    //     callback: callback,
+    //     errVSnackBarOptions: errorViewerOptions,
+    //   );
+    // } else
+      if (errorViewerOptions is ErrVToastOptions) {
       showErrorToast(
         message: message ??AppStrings.badRequestError,
         errVToastOptions: errorViewerOptions,
@@ -291,14 +299,15 @@ class ErrorViewer {
     VoidCallback? callback,
     required bool retryWhenNotAuthorized,
   }) {
-    if (errorViewerOptions is ErrVSnackBarOptions) {
-      showErrorSnackBar(
-        context: context,
-        message: AppStrings.forbiddenError,
-        callback: callback,
-        errVSnackBarOptions: errorViewerOptions,
-      );
-    } else if (errorViewerOptions is ErrVToastOptions) {
+    // if (errorViewerOptions is ErrVSnackBarOptions) {
+    //   showErrorSnackBar(
+    //     context: context,
+    //     message: AppStrings.forbiddenError,
+    //     callback: callback,
+    //     errVSnackBarOptions: errorViewerOptions,
+    //   );
+    // } else
+      if (errorViewerOptions is ErrVToastOptions) {
       showErrorToast(
         message: AppStrings.forbiddenError,
         errVToastOptions: errorViewerOptions,
@@ -321,14 +330,15 @@ class ErrorViewer {
     ErrorViewerOptions errorViewerOptions = const ErrVSnackBarOptions(),
     VoidCallback? callback,
   }) {
-    if (errorViewerOptions is ErrVSnackBarOptions) {
-      showErrorSnackBar(
-        context: context,
-        message: AppStrings.notFoundError,
-        callback: callback,
-        errVSnackBarOptions: errorViewerOptions,
-      );
-    } else if (errorViewerOptions is ErrVToastOptions) {
+    // if (errorViewerOptions is ErrVSnackBarOptions) {
+    //   showErrorSnackBar(
+    //     context: context,
+    //     message: AppStrings.notFoundError,
+    //     callback: callback,
+    //     errVSnackBarOptions: errorViewerOptions,
+    //   );
+    // } else
+      if (errorViewerOptions is ErrVToastOptions) {
       showErrorToast(
         message:AppStrings.notFoundError,
         errVToastOptions: errorViewerOptions,
@@ -350,14 +360,15 @@ class ErrorViewer {
     ErrorViewerOptions errorViewerOptions = const ErrVSnackBarOptions(),
     VoidCallback? callback,
   }) {
-    if (errorViewerOptions is ErrVSnackBarOptions) {
-      showErrorSnackBar(
-        context: context,
-        message: AppStrings.conflictError,
-        callback: callback,
-        errVSnackBarOptions: errorViewerOptions,
-      );
-    } else if (errorViewerOptions is ErrVToastOptions) {
+    // if (errorViewerOptions is ErrVSnackBarOptions) {
+    //   showErrorSnackBar(
+    //     context: context,
+    //     message: AppStrings.conflictError,
+    //     callback: callback,
+    //     errVSnackBarOptions: errorViewerOptions,
+    //   );
+    // } else
+      if (errorViewerOptions is ErrVToastOptions) {
       showErrorToast(
         message:AppStrings.conflictError,
         errVToastOptions: errorViewerOptions,
@@ -379,14 +390,15 @@ class ErrorViewer {
     ErrorViewerOptions errorViewerOptions = const ErrVSnackBarOptions(),
     VoidCallback? callback,
   }) {
-    if (errorViewerOptions is ErrVSnackBarOptions) {
-      showErrorSnackBar(
-        context: context,
-        message: AppStrings.timeoutError,
-        callback: callback,
-        errVSnackBarOptions: errorViewerOptions,
-      );
-    } else if (errorViewerOptions is ErrVToastOptions) {
+    // if (errorViewerOptions is ErrVSnackBarOptions) {
+    //   showErrorSnackBar(
+    //     context: context,
+    //     message: AppStrings.timeoutError,
+    //     callback: callback,
+    //     errVSnackBarOptions: errorViewerOptions,
+    //   );
+    // } else
+      if (errorViewerOptions is ErrVToastOptions) {
       showErrorToast(
         message: AppStrings.timeoutError,
         errVToastOptions: errorViewerOptions,
@@ -408,19 +420,21 @@ class ErrorViewer {
     ErrorViewerOptions errorViewerOptions = const ErrVSnackBarOptions(),
     VoidCallback? callback,
   }) {
-    if (errorViewerOptions is ErrVSnackBarOptions) {
-      showErrorSnackBar(
-        message: AppStrings.unknownError,
-        callback: callback,
-        context: context,
-        errVSnackBarOptions: errorViewerOptions,
-      );
-    } else if (errorViewerOptions is ErrVToastOptions) {
+    // if (errorViewerOptions is ErrVSnackBarOptions) {
+    //   showErrorSnackBar(
+    //     message: AppStrings.unknownError,
+    //     callback: callback,
+    //     context: context,
+    //     errVSnackBarOptions: errorViewerOptions,
+    //   );
+    // } else
+      if (errorViewerOptions is ErrVToastOptions) {
       showErrorToast(
         message: AppStrings.unknownError,
         errVToastOptions: errorViewerOptions,
       );
-    } else if (errorViewerOptions is ErrVDialogOptions) {
+    } else
+      if (errorViewerOptions is ErrVDialogOptions) {
       showCustomErrorDialog(
         context: context,
         message: AppStrings.unknownError,

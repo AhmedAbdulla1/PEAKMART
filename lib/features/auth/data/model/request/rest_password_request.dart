@@ -1,23 +1,22 @@
 import 'dart:developer';
+
 import 'package:peakmart/core/requests/base_request.dart';
 
-class LoginRequest extends BaseRequest {
 
+class RestPasswordRequest extends BaseRequest {
   final String email;
-  final String password;
 
-  LoginRequest({required this.email, required this.password});
+  RestPasswordRequest({required this.email});
 
   @override
   void printRequest() {
-    log("email: $email, password: $password");
+    log("email: $email");
   }
 
   @override
   Map<String, dynamic> toJson() {
     return {
       "email": email,
-      "password": password
     };
   }
 }

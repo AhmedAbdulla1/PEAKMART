@@ -13,9 +13,26 @@ class AppStrings {
   static  String passwordErrorEmpty = tr('password_empty');
   static  String cancel = tr('cancel');
   static  String confirm = tr('confirm');
-
-
+  static String forgotPassword = tr('forgot_password');
+  static String resetPassword = tr('reset_password');
+  static String forgotPasswordHint = tr('reset_password_hint');
+  static String rPSMessage = 'Send you a message to set or reset your new password';
   ///////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   static const String noRouteFound = "No Route Found";
   static const String getStart = 'Get Started';
   static const String loginTitle = 'SIGN IN';
@@ -84,10 +101,8 @@ class AppStrings {
   static const String featureDoctor = "Feature Doctor";
   static const String seeAll = "See all >>";
   static const String haveAccount = 'Have an account? Log in';
-  static const String forgotPassword = 'Forgot password';
   static const String enterYourEmailVerification =
       'Enter your email for the verification process,we will send 4 digits code to your email.';
-  static const String resetPassword = 'Reset Password';
   static const String enter4Digits = 'Enter 4 Digits Code';
   static const String enter4digitsSubTitle =
       'Enter the 4 digits code that you received on your email.';
@@ -97,7 +112,7 @@ class AppStrings {
 
   static const String updatePassword = 'Update Password';
 
-  static const String success = "success";
+  static const String success = "Success";
   static const String register = 'Not a member ? Sign Up';
   static const String reLogin = 'already member? sign in ';
   static const String loading = 'loading';

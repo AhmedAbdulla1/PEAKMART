@@ -104,7 +104,7 @@ class CustomTextFormWithStream extends StatelessWidget {
   final Stream<String?> stream;
   final TextEditingController textEditingController;
   final TextInputType textInputType;
-  final Widget? prefixIcon;
+  final IconData? prefixIcon;
   final Function()? onComplete;
   final Function()? onTap;
   final TextInputAction? textInputAction;
@@ -134,7 +134,10 @@ class CustomTextFormWithStream extends StatelessWidget {
         onEditingComplete: onComplete,
         textInputAction: textInputAction,
         decoration: InputDecoration(
-            prefixIcon: prefixIcon,
+            prefixIcon: Icon(
+              prefixIcon,
+              color: ColorManager.grey1,
+            ),
             iconColor: ColorManager.grey1,
             labelText: hintText,
             errorText: snapshot.data,

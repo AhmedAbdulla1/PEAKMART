@@ -60,6 +60,7 @@ dependencies:
   injectable: ^2.5.0
   lottie: ^3.2.0
   fluttertoast: ^8.2.8
+  timer_button: ^2.1.1
 #  package_info: ^2.0.2
 
 dev_dependencies:

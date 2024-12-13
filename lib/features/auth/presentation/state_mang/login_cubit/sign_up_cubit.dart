@@ -17,14 +17,11 @@ class LoginCubit extends Cubit<SignUpState> {
   Future<void> login(
       {required String email, required String password}) async {
     emit(SignUpLoadingState());
-    print(email);
     Result<AppErrors, LoginEntity> result = await authRepo
         .login(LoginRequest(email: email, password: password));
     result.pick(onData: (data) {
-      print(data);
       emit(SignUpSuccessState());
     }, onError: (error) {
-      print(error.toString()  );
       emit(SignUpFailureState(errors: error, onRetry: () {}));
     });
   }

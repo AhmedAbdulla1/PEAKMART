@@ -18,7 +18,7 @@ class IconsAssets{
 
 class ImageAssets{
   static const  String landingBg="$imagePath/landing_bg.png";
-
+  static const String success="$imagePath/success.png";
 
 
 

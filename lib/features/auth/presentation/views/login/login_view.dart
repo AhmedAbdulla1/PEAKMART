@@ -11,7 +11,7 @@ import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/account_creation_or_login_prompt.dart';
 import 'package:peakmart/features/auth/presentation/state_mang/login_cubit/sign_up_cubit.dart';
-import 'package:peakmart/features/auth/presentation/views/reset_password/forget_password_view.dart';
+import 'package:peakmart/features/auth/presentation/views/reset_password/view.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view_model.dart';
 import 'package:peakmart/features/auth/presentation/views/login/widgets/other_login_ways.dart';
 
@@ -100,7 +100,7 @@ class _LogInViewState extends State<LogInView> {
             const SizedBox(height: AppSize.s40),
             CustomTextFormWithStream(
               stream: _loginViewModel.outEmailValidation,
-              prefixIcon: const Icon(Icons.person),
+              prefixIcon: Icons.person,
               textEditingController: _emailController,
               hintText: AppStrings.email,
             ),

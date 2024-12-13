@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
-import 'package:peakmart/features/auth/presentation/views/reset_password/change_password.dart';
-import 'package:peakmart/features/auth/presentation/views/reset_password/forget_password_view.dart';
+import 'package:peakmart/features/auth/presentation/views/reset_password/view_model.dart';
+import 'package:peakmart/features/auth/presentation/views/reset_password/view.dart';
 import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
 import 'package:peakmart/features/auth/presentation/views/sign_up/sign_up_view.dart';
@@ -35,8 +35,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const ForgotPasswordView());
       case Routes.otpVerification:
         return MaterialPageRoute(builder: (_) => const OtpVerification());
-      case ChangePasswordView.routeName:
-        return MaterialPageRoute(builder: (_) => const ChangePasswordView());
       default:
         return unDefinedRoute();
     }

@@ -8,7 +8,7 @@ import 'base_model.dart';
 class AddAddressRequest extends BaseResponse{
   AddAddressRequest({
     this.validationErrors,
-  }) : super(message: '', status: '');
+  }) : super(message: '', status: '',code: 200);
 
   final List<ValidationError>? validationErrors;
 
@@ -35,7 +35,7 @@ class ValidationError extends BaseResponse{
 
     this.field,
     this.erros,
-  }) : super(message: '', status: '');
+  }) : super(message: '', status: '',code: 200);
 
   final String? field;
   final List<String>? erros;

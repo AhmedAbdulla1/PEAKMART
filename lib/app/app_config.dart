@@ -2,12 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:package_info/package_info.dart';
-import 'package:peakmart/app/app_options/app_options.dart';
+import 'package:peakmart/core/app_options/app_options.dart';
 import 'package:peakmart/app/app_prefs.dart';
-import 'package:peakmart/app/constants/app/app_constants.dart';
-import 'package:peakmart/app/constants/enums/app_theme_enum.dart';
-import 'package:peakmart/app/constants/enums/system_type.dart';
+import 'package:peakmart/core/constants/app/app_constants.dart';
+import 'package:peakmart/core/constants/enums/app_theme_enum.dart';
+import 'package:peakmart/core/constants/enums/system_type.dart';
 import 'package:peakmart/app/di.dart';
 
 import '../../main.dart';
@@ -74,10 +73,10 @@ class AppConfig {
     }
 
     /// get version
-    final packageInfo = await PackageInfo.fromPlatform();
-    _currentVersion = packageInfo.version;
-    _buildNumber = packageInfo.buildNumber;
-    _appName = packageInfo.appName;
+    // final packageInfo = await PackageInfo.fromPlatform();
+    // _currentVersion = packageInfo.version;
+    // _buildNumber = packageInfo.buildNumber;
+    // _appName = packageInfo.appName;
 
     /// Get Initital App Theme
 

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/app/resources/assets_manager.dart';
+import 'package:peakmart/core/resources/assets_manager.dart';
 import 'package:peakmart/features/auth/presentation/views/login/widgets/login_divider_widget.dart';
 import 'package:peakmart/features/auth/presentation/views/login/widgets/other_login_method_shape.dart';
 

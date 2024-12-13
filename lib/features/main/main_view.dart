@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/app/resources/assets_manager.dart';
-import 'package:peakmart/app/resources/color_manager.dart';
-import 'package:peakmart/app/resources/style_manager.dart';
+import 'package:peakmart/core/resources/assets_manager.dart';
+import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/features/home/presentation/views/home_view.dart';
 import 'package:peakmart/features/main/main_view_model.dart';
 import 'package:peakmart/features/main/widget/custom_nav_bar.dart';

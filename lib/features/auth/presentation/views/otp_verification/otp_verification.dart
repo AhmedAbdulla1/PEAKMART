@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/app/resources/color_manager.dart';
+import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
 import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification_body.dart';
 

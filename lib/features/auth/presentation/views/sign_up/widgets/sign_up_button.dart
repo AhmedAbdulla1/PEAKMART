@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:peakmart/app/resources/color_manager.dart';
+import 'package:peakmart/core/resources/color_manager.dart';
 
 class SignUpButton extends StatefulWidget {
   const SignUpButton({super.key, this.onPressed});

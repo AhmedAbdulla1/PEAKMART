@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:peakmart/app/resources/language_manager.dart';
+import 'package:peakmart/core/resources/language_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -73,6 +73,7 @@ class AppPreferences {
   Future<void > setFcmToken( String value) async {
     _sharedPreferences.setString(pushNotificationKey, value);
   }
+
   String getFcmToken()  {
     return _sharedPreferences.getString(pushNotificationKey)??  '';
   }

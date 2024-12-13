@@ -1,4 +1,4 @@
-import 'package:peakmart/app/entities/base_entity.dart';
+import 'package:peakmart/core/entities/base_entity.dart';
 
 class LoginEntity extends BaseEntity {
   final String email;

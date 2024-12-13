@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/app/resources/assets_manager.dart';
-import 'package:peakmart/app/resources/color_manager.dart';
-import 'package:peakmart/app/resources/font_manager.dart';
-import 'package:peakmart/app/resources/style_manager.dart';
-import 'package:peakmart/app/resources/values_manager.dart';
+import 'package:peakmart/core/resources/assets_manager.dart';
+import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/font_manager.dart';
+import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/values_manager.dart';
 
 class LandingView extends StatelessWidget {
   const LandingView({super.key});

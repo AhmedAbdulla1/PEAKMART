@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:peakmart/app/resources/color_manager.dart';
-import 'package:peakmart/app/resources/font_manager.dart';
-import 'package:peakmart/app/resources/style_manager.dart';
+import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/font_manager.dart';
+import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/ended_bids_card_model.dart';
 
-import '../../../../../../app/resources/values_manager.dart';
+import '../../../../../../core/resources/values_manager.dart';
 
 class CustomEndedBidsItem extends StatelessWidget {
   const CustomEndedBidsItem({super.key, required this.endedBidsCardModel});

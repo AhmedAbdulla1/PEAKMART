@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/app/resources/color_manager.dart';
+import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
 import 'package:peakmart/features/auth/presentation/views/reset_password/widgets/forget_password_view_body.dart';
 

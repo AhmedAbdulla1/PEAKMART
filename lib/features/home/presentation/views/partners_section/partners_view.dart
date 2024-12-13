@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/app/resources/color_manager.dart';
-import 'package:peakmart/app/resources/font_manager.dart';
-import 'package:peakmart/app/resources/style_manager.dart';
-import 'package:peakmart/app/resources/values_manager.dart';
+import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/font_manager.dart';
+import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/features/home/presentation/views/partners_section/partner_card.dart';
 
 class PartnersView extends StatelessWidget {

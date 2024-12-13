@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/app/resources/style_manager.dart';
+import 'package:peakmart/core/resources/style_manager.dart';
 
 class CustomNavigationBar extends StatefulWidget {
   final List<NavBarItem> items;

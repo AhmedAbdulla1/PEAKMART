@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/app/app_prefs.dart';
-import 'package:peakmart/app/resources/routes_manager.dart';
-import 'package:peakmart/app/resources/theme_manager.dart';
+import 'package:peakmart/core/resources/routes_manager.dart';
+import 'package:peakmart/core/resources/theme_manager.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
 import 'package:peakmart/app/di.dart' as di;
 

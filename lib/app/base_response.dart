@@ -1,12 +1,11 @@
-import 'package:peakmart/app/entities/base_entity.dart';
+import 'package:peakmart/core/entities/base_entity.dart';
 
 abstract class BaseResponse<T extends BaseEntity> {
   String message;
-  bool status;
-  String error;
+  String status;
 
   BaseResponse(
-      {required this.message, required this.status, required this.error});
+      {required this.message, required this.status});
 
   T toEntity();
 }

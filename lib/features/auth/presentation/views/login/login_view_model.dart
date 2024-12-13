@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:peakmart/app/resources/string_manager.dart';
+import 'package:peakmart/core/resources/string_manager.dart';
 
 class LoginViewModel extends LoginViewModelOutput {
   final StreamController<String> _emailStreamController =
       StreamController.broadcast();
   final StreamController<String> _passwordStreamController =
       StreamController.broadcast();
-
+  String email = '', password = '';
   final StreamController<void> _areInputsValid = StreamController.broadcast();
   StreamController isUserLoginSuccessfullyStreamController =
       StreamController<bool>();
@@ -21,12 +21,14 @@ class LoginViewModel extends LoginViewModelOutput {
 
   @override
   setEmail(String email) {
+    this.email = email;
     _emailStreamController.add(email);
     _areInputsValid.add(null);
   }
 
   @override
   setPassword(String password) {
+    this.password = password;
     _passwordStreamController.add(password);
     _areInputsValid.add(null);
   }
@@ -55,18 +57,19 @@ class LoginViewModel extends LoginViewModelOutput {
     );
 
     print(emailRegex.hasMatch(email));
-    return emailRegex.hasMatch(email) ?null: AppStrings.emailNotValid;
+    return emailRegex.hasMatch(email) ? null : AppStrings.emailNotValid;
   }
 
   String? _passwordValidation(String email) {
-   if(email.isEmpty){
-     return AppStrings.passwordErrorEmpty;
-   }
+    if (email.isEmpty) {
+      return AppStrings.passwordErrorEmpty;
+    }
     return null;
   }
 
   bool _areAllInputsValid() {
-    return true;
+    return _emailValidation(email) == null &&
+        _passwordValidation(password) == null;
   }
 }
 

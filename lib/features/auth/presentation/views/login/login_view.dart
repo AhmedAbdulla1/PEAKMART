@@ -1,19 +1,18 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:intl_phone_field/countries.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/app/di.dart';
-import 'package:peakmart/app/resources/color_manager.dart';
-import 'package:peakmart/app/resources/font_manager.dart';
-import 'package:peakmart/app/resources/string_manager.dart';
-import 'package:peakmart/app/resources/style_manager.dart';
-import 'package:peakmart/app/resources/values_manager.dart';
-import 'package:peakmart/app/shared_widgets/text_fields.dart';
-import 'package:peakmart/app/shared_widgets/buttons.dart';
+import 'package:peakmart/core/shared_widgets/buttons.dart';
+import 'package:peakmart/core/shared_widgets/text_fields.dart';
+import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/font_manager.dart';
+import 'package:peakmart/core/resources/string_manager.dart';
+import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/account_creation_or_login_prompt.dart';
+import 'package:peakmart/features/auth/presentation/state_mang/login_cubit/sign_up_cubit.dart';
 import 'package:peakmart/features/auth/presentation/views/reset_password/forget_password_view.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view_model.dart';
-import 'package:peakmart/features/auth/presentation/views/login/widgets/login_divider_widget.dart';
 import 'package:peakmart/features/auth/presentation/views/login/widgets/other_login_ways.dart';
 
 class LogInView extends StatefulWidget {
@@ -30,6 +29,7 @@ class _LogInViewState extends State<LogInView> {
   final LoginViewModel _loginViewModel = instance<LoginViewModel>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final LoginCubit _loginCubit = instance<LoginCubit>();
 
   // final AppPreferences _appPreferences = instance<AppPreferences>();
   _bind() {
@@ -60,6 +60,9 @@ class _LogInViewState extends State<LogInView> {
   @override
   void dispose() {
     _loginViewModel.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _loginCubit.close();
     super.dispose();
   }
 
@@ -74,7 +77,8 @@ class _LogInViewState extends State<LogInView> {
     return SafeArea(
       child: Scaffold(
         // resizeToAvoidBottomInset: false,
-        body: _getContent(),
+        body: BlocProvider<LoginCubit>(
+            create: (context) => _loginCubit, child: _getContent()),
       ),
     );
   }
@@ -93,7 +97,6 @@ class _LogInViewState extends State<LogInView> {
                       fontSize: FontSize.s32, color: ColorManager.black)
                   .copyWith(fontFamily: FontConstants.fontMontserratFamily),
             ),
-
             const SizedBox(height: AppSize.s40),
             CustomTextFormWithStream(
               stream: _loginViewModel.outEmailValidation,
@@ -120,7 +123,12 @@ class _LogInViewState extends State<LogInView> {
             CustomElevatedButton(
               stream: _loginViewModel.outAreInputsValid,
               text: AppStrings.login,
-              onPressed: () {},
+              onPressed: () {
+                _loginCubit.login(
+                  email: _emailController.text.trim(),
+                  password: _passwordController.text.trim(),
+                );
+              },
             ),
             const SizedBox(height: AppSize.s35),
             const OtherLoginWays(),

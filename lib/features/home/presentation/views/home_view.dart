@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/app/resources/values_manager.dart';
+import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/features/home/presentation/state_m/news_cubit/cubit.dart';
 import 'package:peakmart/features/home/presentation/state_m/news_cubit/state.dart';
 import 'package:peakmart/features/home/presentation/views/apply_section/apply_view.dart';

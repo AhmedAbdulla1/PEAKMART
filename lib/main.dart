@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/app/app.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
-import 'package:peakmart/app/resources/language_manager.dart';
+import 'package:peakmart/core/resources/language_manager.dart';
 
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();

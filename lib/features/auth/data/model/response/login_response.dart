@@ -1,25 +1,27 @@
-import 'package:peakmart/app/base_response.dart';
+import 'dart:developer';
+
+import 'package:peakmart/core/models/base_model.dart';
+import 'package:peakmart/core/entities/base_entity.dart';
 import 'package:peakmart/features/auth/domain/entity/login_entity.dart';
 
-class LoginResponse extends BaseResponse<LoginEntity> {
+class LoginResponse extends BaseResponse<BaseEntity> {
   LoginData data;
 
   LoginResponse({
     required super.status,
     required super.message,
-    required super.error,
     required this.data,
   });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
+    log('on from json');
     return LoginResponse(
-      status: json['status']??false,
-      message: json['message'],
-      error: json['error'],
+      status: json['status']??"",
+      message: json['message']??"",
       data: LoginData(
-        email: json['data']['email'],
-        userId: json['data']['userId'],
-        userName: json['data']['userName'],
+        email: json['data']['EMAIL'],
+        userId: json['data']['USER_ID'],
+        userName: json['data']['USER_NAME'],
       ),
     );
   }
@@ -28,7 +30,7 @@ class LoginResponse extends BaseResponse<LoginEntity> {
   LoginEntity toEntity() {
     return LoginEntity(
       email: data.email,
-      userId: data.userId,
+      userId: data.userId.toString(),
       userName: data.userName,
     );
   }
@@ -36,7 +38,7 @@ class LoginResponse extends BaseResponse<LoginEntity> {
 
 class LoginData {
   String email;
-  String userId;
+  int userId;
   String userName;
 
   LoginData({

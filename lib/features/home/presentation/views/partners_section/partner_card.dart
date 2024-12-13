@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:peakmart/app/resources/values_manager.dart';
+import 'package:peakmart/core/resources/values_manager.dart';
 
 class PartnerCard extends StatelessWidget {
   const PartnerCard({super.key ,required this.imageLink});

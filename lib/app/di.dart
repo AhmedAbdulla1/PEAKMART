@@ -4,6 +4,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/network_info.dart';
+import 'package:peakmart/features/auth/data/repository_imp.dart';
+import 'package:peakmart/features/auth/domain/repository/auth_repo.dart';
+import 'package:peakmart/features/auth/presentation/state_mang/login_cubit/sign_up_cubit.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -76,10 +79,12 @@ Future<void> initAppModule() async {
 
 initLoginModule() {
   if (!GetIt.I.isRegistered<LoginViewModel>()) {
-    // instance.registerFactory<LoginUseCase>(
-    //     () => LoginUseCase(instance<Repository>()));
+    instance.registerCachedFactory<LoginCubit>(()=> LoginCubit());
     instance.registerFactory<LoginViewModel>(
         () => LoginViewModel());
+  }
+  if (!GetIt.I.isRegistered<AuthRepo>()) {
+    instance.registerCachedFactory<AuthRepo>(()=> AuthRepositoryImp());
   }
 }
 //

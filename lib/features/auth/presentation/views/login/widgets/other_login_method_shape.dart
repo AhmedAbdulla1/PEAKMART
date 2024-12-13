@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:peakmart/app/resources/color_manager.dart';
-import 'package:peakmart/app/resources/font_manager.dart';
-import 'package:peakmart/app/resources/style_manager.dart';
-import 'package:peakmart/app/resources/values_manager.dart';
+import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/font_manager.dart';
+import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/values_manager.dart';
 
 class OtherLoginMethodsShape extends StatelessWidget {
   const OtherLoginMethodsShape({
@@ -23,7 +24,9 @@ class OtherLoginMethodsShape extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Phoenix.rebirth(context);
+          },
           splashColor: const Color(0xffFCF3F6),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),

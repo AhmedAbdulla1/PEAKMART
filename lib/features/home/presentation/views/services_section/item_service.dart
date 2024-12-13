@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/app/resources/font_manager.dart';
-import 'package:peakmart/app/resources/style_manager.dart';
+import 'package:peakmart/core/resources/font_manager.dart';
+import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/features/home/presentation/views/services_section/item_service_model.dart';
 
 class ItemService extends StatelessWidget {

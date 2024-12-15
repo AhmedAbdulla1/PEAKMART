@@ -1,0 +1,9 @@
+import 'package:bloc/bloc.dart';
+
+class NewsCubit extends Cubit<bool> {
+  NewsCubit() : super(false);
+
+  void showNewsSection() => emit(true);
+
+  void hideNewsSection() => emit(false);
+}

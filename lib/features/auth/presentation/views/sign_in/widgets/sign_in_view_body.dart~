@@ -1,0 +1,24 @@
+import 'package:flutter/material.dart';
+import 'package:peakmart/features/Auth/sign_in/presentation/views/widgets/sign_in_build_widgets.dart';
+
+class SignInViewBody extends StatefulWidget {
+  const SignInViewBody({super.key});
+
+  @override
+  State<SignInViewBody> createState() => _SignInViewBodyState();
+}
+
+GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+class _SignInViewBodyState extends State<SignInViewBody> {
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: formKey,
+      child: const Padding(
+        padding: EdgeInsets.fromLTRB(29, 50, 29, 30),
+        child: SignInBuildWidgets(),
+      ),
+    );
+  }
+}

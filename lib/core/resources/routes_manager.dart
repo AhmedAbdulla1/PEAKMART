@@ -36,6 +36,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const OtpVerification());
       default:
         return unDefinedRoute();
+
     }
   }
 

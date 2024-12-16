@@ -10,6 +10,7 @@ import 'package:peakmart/features/auth/data/model/request/login_request.dart';
 import 'package:peakmart/features/auth/data/model/request/register_request.dart';
 import 'package:peakmart/features/auth/data/model/request/rest_password_request.dart';
 import 'package:peakmart/features/auth/data/model/request/send_otp_request.dart';
+import 'package:peakmart/features/auth/data/model/request/verfiy_otp_request.dart';
 import 'package:peakmart/features/auth/data/model/response/login_response.dart';
 import 'package:peakmart/features/auth/data/model/response/register_response.dart';
 import 'package:peakmart/features/auth/data/model/response/send_otp_response.dart';
@@ -30,7 +31,6 @@ class AuthRepositoryImp implements AuthRepo {
       try {
         Either<AppErrors, LoginResponse> response =
             await _authDataSource.login(loginRequest);
-        print(response);
         result = response.fold((error) {
           return Result(error: error);
         }, (response) {
@@ -46,7 +46,8 @@ class AuthRepositoryImp implements AuthRepo {
   }
 
   @override
-  Future<Result<AppErrors, EmptyEntity>> restPassword(RestPasswordRequest resetPassword)async {
+  Future<Result<AppErrors, EmptyEntity>> restPassword(
+      RestPasswordRequest resetPassword) async {
     Result<AppErrors, EmptyEntity> result;
     if (await _networkInfo.isConnected) {
       try {
@@ -65,6 +66,7 @@ class AuthRepositoryImp implements AuthRepo {
     }
     return result;
   }
+
   @override
   Future<Result<AppErrors, RegisterEntity>> register(
       RegisterRequest registerRequest) async {
@@ -108,4 +110,29 @@ class AuthRepositoryImp implements AuthRepo {
     }
     return result;
   }
+  
+  @override
+  Future<Result<AppErrors, EmptyEntity>> verfiyOtp(VerfiyOtpRequest verfiyOtpRequest) async {
+    Result<AppErrors, EmptyEntity> result;
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors, EmptyResponse> response =
+            await _authDataSource.verfiyOtp(verfiyOtpRequest);
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          return Result(data: response.toEntity());
+        });
+      } catch (error) {
+        result = Result(error: const AppErrors.responseError());
+      }
+    } else {
+      result = Result(error: const AppErrors.connectionError());
+    }
+    return result;
+  }
+
+ 
+ 
 }
+ 

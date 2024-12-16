@@ -9,6 +9,7 @@ import 'package:peakmart/features/auth/data/model/request/login_request.dart';
 import 'package:peakmart/features/auth/data/model/request/register_request.dart';
 import 'package:peakmart/features/auth/data/model/request/rest_password_request.dart';
 import 'package:peakmart/features/auth/data/model/request/send_otp_request.dart';
+import 'package:peakmart/features/auth/data/model/request/verfiy_otp_request.dart';
 import 'package:peakmart/features/auth/data/model/response/login_response.dart';
 import 'package:peakmart/features/auth/data/model/response/register_response.dart';
 import 'package:peakmart/features/auth/data/model/response/send_otp_response.dart';
@@ -23,7 +24,6 @@ class AuthDataSource extends RemoteDataSource {
 
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
-          print(json);
           return LoginResponse.fromJson(json);
         },
         url: APIUrls.login
@@ -63,6 +63,18 @@ class AuthDataSource extends RemoteDataSource {
           return SendOtpResponse.fromJson(json);
         },
         url: APIUrls.sendOtp
+    );
+  }
+    Future<Either<AppErrors, EmptyResponse>> verfiyOtp(VerfiyOtpRequest verfiyOtpRequest)  async {
+    return request<EmptyResponse>(
+        method: HttpMethod.POST,
+        body: verfiyOtpRequest.toJson(),
+
+        responseValidator: DefaultResponseValidator(),
+        converter: (json) {
+          return EmptyResponse.fromJson(json);
+        },
+        url: APIUrls.verfiyOtp
     );
   }
 }

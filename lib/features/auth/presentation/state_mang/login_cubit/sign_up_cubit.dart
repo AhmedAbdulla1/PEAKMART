@@ -19,11 +19,16 @@ class LoginCubit extends Cubit<LoginState> {
 
   LoginCubit() : super(SignUpInitialState());
   late BuildContext context;
-  Future<void> login(
-      {required String email, required String password}) async {
+
+  Future<void> login({required String email, required String password}) async {
     emit(SignUpLoadingState());
-    Result<AppErrors, LoginEntity> result = await authRepo
-        .login(LoginRequest(email: email, password: password));
+    ShowDialog().showElasticDialog(
+      context: context,
+      builder: (context) => WaitingWidget(),
+      barrierDismissible: false,
+    );
+    Result<AppErrors, LoginEntity> result =
+        await authRepo.login(LoginRequest(email: email, password: password));
     result.pick(onData: (data) {
       Navigator.pop(context);
       emit(SignUpSuccessState());

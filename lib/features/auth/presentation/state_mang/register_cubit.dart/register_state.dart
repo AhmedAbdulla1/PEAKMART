@@ -9,7 +9,6 @@ final class RegisterLoadingState extends RegisterState {}
 final class RegisterFailureState extends RegisterState {
   final AppErrors errors;
   final Function() onRetry;
-
   RegisterFailureState({required this.errors, required this.onRetry});
 }
 

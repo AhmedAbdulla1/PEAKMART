@@ -30,6 +30,7 @@ void passNotTheSame(BuildContext context) {
 }
 
 Future<void> userRegister(BuildContext context) async {
+  BlocProvider.of<RegisterCubit>(context).context = context;
   await BlocProvider.of<RegisterCubit>(context).register(
       registerRequest: RegisterRequest(
           email: email,

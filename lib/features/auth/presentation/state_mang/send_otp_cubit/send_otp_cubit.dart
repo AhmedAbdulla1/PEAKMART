@@ -19,11 +19,11 @@ class SendOtpCubit extends Cubit<SendOtpState> {
       SendOtpLoadingState(),
     );
     debugPrint('in cubit key is ${sendOtpRequest.key}');
-    Result<AppErrors, SendOtpEntity> result = await authRepo.sendOtp(
-      SendOtpRequest(
-          key: sendOtpRequest.key,
-      )
-    );
+    Result<AppErrors, SendOtpEntity> result =
+        await authRepo.sendOtp(SendOtpRequest(
+      key: sendOtpRequest.key,
+    ));
+    debugPrint('in cubit key is ${sendOtpRequest.key}');
     emit(
       SendOtpSuccessState(),
     );

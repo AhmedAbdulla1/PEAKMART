@@ -6,9 +6,9 @@ import 'package:peakmart/core/resources/style_manager.dart';
 
 class CustomOtpTextField extends StatelessWidget {
   const CustomOtpTextField({
-    super.key,
+    super.key, this.onSubmit,
   });
-
+final Function(String)? onSubmit;
   @override
   Widget build(BuildContext context) {
     return OtpTextField(
@@ -21,30 +21,14 @@ class CustomOtpTextField extends StatelessWidget {
       textStyle:
           getRegularStyle(fontSize: FontSize.s32, color: ColorManager.black),
       showFieldAsBox: true,
-      //runs when a code is typed in
-      onCodeChanged: (String code) {
-        //handle validation or checks here
-      },
-      //runs when every textfield is filled
-      onSubmit: (String verificationCode) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const Text("Done")));
-        // showDialog(
-        //   context: context,
-        //   builder: (context) {
-        //     return AlertDialog(
-        //         title: Text(
-        //           "Verification Code",
-        //           style: getRegularStyle(
-        //               fontSize: FontSize.s24, color: ColorManager.black),
-        //         ),
-        //         content: Text(
-        //           'Code entered is $verificationCode',
-        //           style: getRegularStyle(
-        //               fontSize: FontSize.s18, color: ColorManager.black),
-        //         ));
-        //   },
-        // );
-      }, // end onSubmit
+      onCodeChanged: (String code) {},
+      onSubmit: onSubmit
+      //(String verificationCode) {
+      //   debugPrint("Code submitted: $verificationCode");
+       
+      //   // Navigator.push(context,
+      //   //     MaterialPageRoute(builder: (context) => const Text("Done")));
+      // },
     );
   }
 }

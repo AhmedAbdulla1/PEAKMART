@@ -1,6 +1,8 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/string_manager.dart';
+import 'package:peakmart/core/resources/values_manager.dart';
 
 class SignUpButton extends StatefulWidget {
   const SignUpButton({super.key, this.onPressed});
@@ -17,15 +19,14 @@ class _SignUpButtonState extends State<SignUpButton> {
       onPressed: widget.onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: ColorManager.simiBlue,
-        minimumSize: const Size(double.infinity, 50),
+        minimumSize:  Size(double.infinity, 50.h),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(AppPadding.p10),
         ),
       ),
-      child: const FittedBox(
+      child:  FittedBox(
         child: Text(
-          'Sign Up',
-         
+          AppStrings.signUp
         ),
       ),
     );

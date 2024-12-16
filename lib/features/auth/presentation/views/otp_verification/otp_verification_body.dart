@@ -7,7 +7,6 @@ import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/account_creation_or_login_prompt.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/cutom_elevated_button.dart';
 import 'package:peakmart/features/auth/presentation/views/otp_verification/custom_otp_text_field.dart';
-import 'package:peakmart/features/auth/presentation/views/reset_password/view_model.dart';
 
 class OtpVerificationBody extends StatelessWidget {
   const OtpVerificationBody({super.key});

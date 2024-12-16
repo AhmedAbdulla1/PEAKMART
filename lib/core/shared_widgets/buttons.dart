@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 
 class CustomElevatedButton extends StatelessWidget {

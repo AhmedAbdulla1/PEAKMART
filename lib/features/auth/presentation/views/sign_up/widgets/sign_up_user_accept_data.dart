@@ -1,39 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl_phone_field/countries.dart';
+import 'package:peakmart/core/resources/string_manager.dart';
+import 'package:peakmart/core/shared_widgets/text_fields.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
+import 'package:peakmart/features/auth/presentation/shared_widgets/password_text_form_field.dart';
+import 'package:peakmart/features/auth/presentation/views/sign_up/widgets/sign_up_build_widgets.dart';
 
-class SignUpUserAcceptData extends StatelessWidget {
-  const SignUpUserAcceptData({super.key, required this.onEmailChanged, required this.onPasswordChanged, required this.onPhoneNumberChanged});
-final Function(String) onEmailChanged;
-final Function(String) onPasswordChanged;
-final Function(String) onPhoneNumberChanged;
+class SignUpUserAcceptData extends StatefulWidget {
+  const SignUpUserAcceptData({
+    super.key,
+    required this.usernameController,
+    required this.emailController,
+    required this.phoneController,
+    required this.passwordController,
+    required this.confirmPassController,
+    required this.onCountryChanged,
+  });
+
+  final TextEditingController usernameController;
+  final TextEditingController emailController;
+  final TextEditingController phoneController;
+  final TextEditingController passwordController;
+  final TextEditingController confirmPassController;
+  final Function(Country)? onCountryChanged;
+  @override
+  State<SignUpUserAcceptData> createState() => _SignUpUserAcceptDataState();
+}
+
+class _SignUpUserAcceptDataState extends State<SignUpUserAcceptData> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
-         CustomTextFormField(
-          labelText: 'Username or Email',
-          hintText: 'Username or Email',
+        CustomTextFormField(
+          labelText: AppStrings.userName,
+          hintText: AppStrings.userNameHint,
           iconData: Icons.person,
-          onChanged:onEmailChanged
+          controller: widget.usernameController,
+          inputType: TextInputType.name,
         ),
-        SizedBox(
-          height: 25.h,
+        SizedBox(height: 25.h),
+        CustomTextFormField(
+          labelText: AppStrings.email,
+          hintText: AppStrings.emailHint,
+          iconData: Icons.email,
+          controller: widget.emailController,
+          inputType: TextInputType.emailAddress,
         ),
-         CustomTextFormField(
-          labelText: 'Phone number',
-          hintText: 'Phone number',
-          iconData: Icons.phone,
-          onChanged: onPhoneNumberChanged,
+        SizedBox(height: 25.h),
+
+        CustomPhoneTextField(
+          controller: phoneController,
+          onCountryChanged: widget.onCountryChanged,
         ),
-        SizedBox(
-          height: 25.h,
+        SizedBox(height: 10.h),
+        PasswordTextFormField(
+          labelText: AppStrings.password,
+          hintText: AppStrings.passwordHint,
+          controller: widget.passwordController,
         ),
-         CustomTextFormField(
-          labelText: 'Password',
-          hintText: 'Password',
-          iconData: Icons.lock,
-          onChanged: onPasswordChanged,
+        SizedBox(height: 25.h),
+        PasswordTextFormField(
+          labelText: AppStrings.confirmPassword,
+          hintText: AppStrings.confirmPasswordHint,
+          controller: widget.confirmPassController,
         ),
       ],
     );

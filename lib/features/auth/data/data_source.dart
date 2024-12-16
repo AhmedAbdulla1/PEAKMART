@@ -6,8 +6,12 @@ import 'package:peakmart/core/net/api_url.dart';
 import 'package:peakmart/core/net/response_validators/default_response_validator.dart';
 import 'package:peakmart/core/responses/emty_response.dart';
 import 'package:peakmart/features/auth/data/model/request/login_request.dart';
+import 'package:peakmart/features/auth/data/model/request/register_request.dart';
 import 'package:peakmart/features/auth/data/model/request/rest_password_request.dart';
+import 'package:peakmart/features/auth/data/model/request/send_otp_request.dart';
 import 'package:peakmart/features/auth/data/model/response/login_response.dart';
+import 'package:peakmart/features/auth/data/model/response/register_response.dart';
+import 'package:peakmart/features/auth/data/model/response/send_otp_response.dart';
 
 
 
@@ -37,5 +41,27 @@ class AuthDataSource extends RemoteDataSource {
         url: APIUrls.resetPassword
     );
   }
+  Future<Either<AppErrors, RegisterResponse>> register(RegisterRequest registerRequest)  async {
+    return request<RegisterResponse>(
+        method: HttpMethod.POST,
+        body: registerRequest.toJson(),
 
+        responseValidator: DefaultResponseValidator(),
+        converter: (json) {
+          return RegisterResponse.fromJson(json);
+        },
+        url: APIUrls.register
+    );
+  } Future<Either<AppErrors, SendOtpResponse>> sendOtp(SendOtpRequest sendOtpRequest)  async {
+    return request<SendOtpResponse>(
+        method: HttpMethod.POST,
+        body: sendOtpRequest.toJson(),
+
+        responseValidator: DefaultResponseValidator(),
+        converter: (json) {
+          return SendOtpResponse.fromJson(json);
+        },
+        url: APIUrls.sendOtp
+    );
+  }
 }

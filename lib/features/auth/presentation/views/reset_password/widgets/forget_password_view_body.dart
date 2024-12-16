@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/routes_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/shared_widgets/buttons.dart';
@@ -52,7 +51,7 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
             stream: _viewModel.emailValidationStream,
             textEditingController: _emailController,
             hintText: AppStrings.email,
-            prefixIcon: Icons.email,
+            prefixIcon: const Icon(Icons.email),
             onComplete: () {
               _restPassCubit
                   .resetPassword(email: _emailController.text)

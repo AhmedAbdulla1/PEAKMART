@@ -11,67 +11,59 @@ import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 
 class CustomPhoneTextField extends StatelessWidget {
-  const CustomPhoneTextField(
-      {super.key,
-      required this.controller,
-      required this.onCountryChanged,
-      this.autoFocus = false});
+  const CustomPhoneTextField({
+    super.key,
+    required this.controller,
+    this.onCountryChanged,
+    this.autoFocus = false,
+  });
 
   final TextEditingController controller;
   final bool autoFocus;
-
-  final void Function(Country) onCountryChanged;
+  final void Function(Country)? onCountryChanged;
 
   @override
   Widget build(BuildContext context) {
     return IntlPhoneField(
       textInputAction: TextInputAction.done,
       keyboardType: TextInputType.phone,
-      cursorRadius: const Radius.circular(20),
       cursorColor: ColorManager.primary,
       style: getRegularStyle(
-        color: ColorManager.grey1,
-        fontSize: FontSize.s22,
-      ),
-      dropdownTextStyle: TextStyle(
-        color: ColorManager.grey1,
-        fontSize: FontSize.s20,
-        fontWeight: FontWeightManager.medium,
-      ),
-      dropdownDecoration: BoxDecoration(
         color: ColorManager.primary,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(5.0),
-        ),
+        fontSize: FontSize.s16,
+      ),
+      dropdownTextStyle: getRegularStyle(
+        color: ColorManager.grey1,
+        fontSize: FontSize.s16,
+      ),
+      initialCountryCode: 'EG',
+      dropdownDecoration: BoxDecoration(
+        color: ColorManager.primary.withOpacity(0.01),
+        borderRadius: BorderRadius.circular(8.r),
       ),
       inputFormatters: [
-        FilteringTextInputFormatter.allow((RegExp("[0-9]"))),
+        FilteringTextInputFormatter.allow(RegExp("[0-9]")),
       ],
       controller: controller,
       invalidNumberMessage: AppStrings.phoneError,
-      showDropdownIcon: false,
-      initialCountryCode: 'SA',
+      showDropdownIcon: true,
       pickerDialogStyle: PickerDialogStyle(
         searchFieldCursorColor: ColorManager.grey1,
-        countryCodeStyle: TextStyle(
+        countryCodeStyle: getRegularStyle(
           color: ColorManager.grey1,
-          fontSize: FontSize.s20,
-          fontWeight: FontWeightManager.medium,
+          fontSize: FontSize.s16,
         ),
-        countryNameStyle: TextStyle(
+        countryNameStyle: getRegularStyle(
           color: ColorManager.grey1,
-          fontSize: FontSize.s20,
-          fontWeight: FontWeightManager.medium,
+          fontSize: FontSize.s16,
         ),
-        searchFieldPadding: const EdgeInsets.only(
-            top: AppPadding.p8, right: AppPadding.p8, left: AppPadding.p8),
+        searchFieldPadding: EdgeInsets.all(AppPadding.p8.w),
         searchFieldInputDecoration: InputDecoration(
           hintText: AppStrings.searchCountry,
           hintStyle: getMediumStyle(
             color: ColorManager.primary,
-            fontSize: FontSize.s20,
+            fontSize: FontSize.s16,
           ),
-          alignLabelWithHint: true,
         ),
       ),
       onCountryChanged: onCountryChanged,
@@ -79,7 +71,13 @@ class CustomPhoneTextField extends StatelessWidget {
       textAlign: TextAlign.start,
       decoration: InputDecoration(
         hintText: AppStrings.phone,
-        contentPadding: EdgeInsets.symmetric(horizontal: AppPadding.p28.h),
+        hintStyle: getRegularStyle(
+          color: ColorManager.grey1,
+          fontSize: FontSize.s14,
+        ),
+        contentPadding: const EdgeInsets.all(
+          AppPadding.p16,
+        ),
       ),
     );
   }
@@ -104,7 +102,7 @@ class CustomTextFormWithStream extends StatelessWidget {
   final Stream<String?> stream;
   final TextEditingController textEditingController;
   final TextInputType textInputType;
-  final IconData? prefixIcon;
+  final Widget? prefixIcon;
   final Function()? onComplete;
   final Function()? onTap;
   final TextInputAction? textInputAction;
@@ -134,10 +132,7 @@ class CustomTextFormWithStream extends StatelessWidget {
         onEditingComplete: onComplete,
         textInputAction: textInputAction,
         decoration: InputDecoration(
-            prefixIcon: Icon(
-              prefixIcon,
-              color: ColorManager.grey1,
-            ),
+            prefixIcon: prefixIcon,
             iconColor: ColorManager.grey1,
             labelText: hintText,
             errorText: snapshot.data,

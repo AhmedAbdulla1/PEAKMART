@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
+import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 
 class RegisterAgreementText extends StatelessWidget {
@@ -16,19 +17,19 @@ class RegisterAgreementText extends StatelessWidget {
       TextSpan(
         children: [
           TextSpan(
-            text: 'By clicking the',
+            text: AppStrings.byClicking,
             style: getRegularStyle(
               fontSize: FontSize.s15,
               color: const Color(0xff676767),
             ),
           ),
           TextSpan(
-            text: ' Register ',
+            text:AppStrings.register,
             style: getRegularStyle(
                 fontSize: FontSize.s15, color: ColorManager.primary),
           ),
           TextSpan(
-            text: 'button, you agree to the public offer',
+            text: AppStrings.agreeText,
             style: getRegularStyle(
               fontSize: FontSize.s15,
               color: const Color(0xff676767),

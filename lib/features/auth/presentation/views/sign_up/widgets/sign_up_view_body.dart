@@ -1,4 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:peakmart/core/resources/routes_manager.dart';
+import 'package:peakmart/core/resources/values_manager.dart';
+import 'package:peakmart/features/auth/presentation/state_mang/register_cubit.dart/register_cubit.dart';
 import 'package:peakmart/features/auth/presentation/views/sign_up/widgets/sign_up_build_widgets.dart';
 
 class SignUpViewBody extends StatefulWidget {
@@ -8,16 +14,40 @@ class SignUpViewBody extends StatefulWidget {
   State<SignUpViewBody> createState() => _SignUpViewBodyState();
 }
 
-GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
 class _SignUpViewBodyState extends State<SignUpViewBody> {
   @override
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
-      child: const Padding(
-        padding: EdgeInsets.fromLTRB(29, 0, 29, 30),
-        child: SignUpBuildWidgets(),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(
+            AppPadding.p29, 0, AppPadding.p29, AppPadding.p30),
+        child: BlocConsumer<RegisterCubit, RegisterState>(
+          listener: (context, state) {
+            if (state is RegisterLoadingState) {
+              log('loading state');
+
+              const Center(child: CircularProgressIndicator());
+            } else if (state is RegisterSuccessState) {
+              log('success state');
+              log(
+                'Successful with an email is: ${email.toString()}, password is: ${password.toString()}, user name is: ${userName.toString()}, phone number is: ${phoneNumber.toString()}',
+              );
+
+              Navigator.pushNamed(context, Routes.otpVerification);
+            } else if (state is RegisterFailureState) {
+              log('error state');
+              // ScaffoldMessenger.of(context).showSnackBar(
+              //   SnackBar(
+              //     content: Text(state.errors.toString()),
+              //   ),
+              // );
+            }
+          },
+          builder: (context, state) {
+            return const SingleChildScrollView(child: SignUpBuildWidgets());
+          },
+        ),
       ),
     );
   }

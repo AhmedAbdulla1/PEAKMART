@@ -6,10 +6,9 @@ class AppStrings {
   static  String phoneHint = tr('mobile_number_hint');
   static  String phoneError = tr("invalid_mobile_number");
   static  String searchCountry =tr("search_country");
-  static  String email = tr('email');
+
   static  String emailErrorEmpty = tr('email_empty');
   static  String emailNotValid = tr('email_not_valid');
-  static  String password = tr('password');
   static  String passwordErrorEmpty = tr('password_empty');
   static  String cancel = tr('cancel');
   static  String confirm = tr('confirm');
@@ -18,7 +17,26 @@ class AppStrings {
   static String forgotPasswordHint = tr('reset_password_hint');
   static String rPSMessage = 'Send you a message to set or reset your new password';
   ///////////////////////////////////////////////////////////////
-
+static String createAccount = tr('Create an account');
+  static String alreadyHaveAnAccount = tr('Already have an account?');
+  static String login = tr('Login');
+  static String signUp = tr('Sign Up');
+  static String otp = tr('OTP');
+  static String otpHeader =
+      tr('Enter the code we sent you to your e-mail here');
+  static String otpNotReceived = tr('Didn\'t receive a code?');
+  static String otpResend = tr('Resend');
+  static String byClicking = tr('By clicking the');
+  static String register = tr(' Register ');
+  static String agreeText = tr('button, you agree to the public offer');
+  static String userName = tr('Username');
+  static String userNameHint = tr('Enter your username');
+  static String email = tr('Email');
+  static String emailHint = tr('Enter your email');
+  static String password = tr('Password');
+  static String passwordHint = tr('Enter your password');
+  static String confirmPassword = tr('Confirm Password');
+  static String confirmPasswordHint = tr('Confirm your password');
 
 
 
@@ -43,7 +61,6 @@ class AppStrings {
   static const String addNewDevice = 'Add New Device';
       static const String loginSubTitle =
       'Looks like you don’t have an account. Let’s create a new account for you.';
-  static const String login = 'LOGIN';
   static const String google = 'Sign Up with Google';
   static const String apple = 'Sign Up with Apple';
   static const String haveAnAccount = "have an account?";
@@ -67,7 +84,6 @@ class AppStrings {
   static const String changePasswordTitle = 'Change Password';
   static const String changePasswordSubTitle = "Create a new, strong password that you don’t use before" ;
   static const String newPassword = 'New Password';
-  static const String confirmPassword = 'Confirm Password';
   static const String profile = 'Profile';
   static const String bodyWeight ='Body Weight';
   static const String height ='Height';
@@ -113,7 +129,6 @@ class AppStrings {
   static const String updatePassword = 'Update Password';
 
   static const String success = "Success";
-  static const String register = 'Not a member ? Sign Up';
   static const String reLogin = 'already member? sign in ';
   static const String loading = 'loading';
   static const String ok = 'OK';

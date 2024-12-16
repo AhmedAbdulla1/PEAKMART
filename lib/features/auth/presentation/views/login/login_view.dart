@@ -100,7 +100,7 @@ class _LogInViewState extends State<LogInView> {
             const SizedBox(height: AppSize.s40),
             CustomTextFormWithStream(
               stream: _loginViewModel.outEmailValidation,
-              prefixIcon: Icons.person,
+              prefixIcon: const Icon(Icons.person),
               textEditingController: _emailController,
               hintText: AppStrings.email,
             ),

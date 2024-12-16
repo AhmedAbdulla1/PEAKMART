@@ -5,13 +5,13 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
-import 'package:peakmart/features/home/domain/models/news_model.dart';
+import 'package:peakmart/features/home/domain/entity/news_entity.dart';
 import 'package:peakmart/features/home/presentation/views/news_section/animations_view_model.dart';
 import 'package:text_scroll/text_scroll.dart';
 
 class AnimatedNewsContainer extends StatefulWidget {
   const AnimatedNewsContainer({super.key,required this.newsModel,  required this.windowSize});
-  final NewsModel newsModel;
+  final NewsData newsModel;
   final Size windowSize;
 
   @override
@@ -84,7 +84,7 @@ class _AnimatedNewsContainerState extends State<AnimatedNewsContainer> with Sing
                     ),
                     child:  Center(
                       child: TextScroll(
-                        widget.newsModel.description,
+                        widget.newsModel.content,
                         mode: TextScrollMode.endless,
                         velocity: const Velocity(pixelsPerSecond: Offset(50, 0)),
                         delayBefore: const Duration(seconds: 2),
@@ -119,7 +119,7 @@ class _AnimatedNewsContainerState extends State<AnimatedNewsContainer> with Sing
                     height: AppSize.s32.h,
                     onEnd: () {
                       if (isExpanded) {
-                        Future.delayed( Duration(seconds: widget.newsModel.timeShow), () {
+                        Future.delayed( Duration(seconds: 10), () {
                           _viewModel.startCollapseAnimation(parentWidth);
                         });
                       }

@@ -3,7 +3,7 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 
-import 'package:peakmart/features/home/domain/models/category_model.dart';
+import 'package:peakmart/features/home/domain/entity/category_model.dart';
 import 'package:peakmart/features/home/presentation/views/category_section/category_item_widget.dart';
 
 class CategorySection extends StatefulWidget {

@@ -16,7 +16,7 @@ class SendOtpResponse extends BaseResponse {
     log('on from json');
     return SendOtpResponse(
       status: json['status'] ?? "",
-      code: json['code'] ?? "",
+      code: json['status_code'] ?? 400,
       message: json['message'] ?? "",
       data: SendOtpData(
         email: json['data']['email'],

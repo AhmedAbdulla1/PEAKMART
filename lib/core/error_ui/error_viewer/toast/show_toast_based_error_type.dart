@@ -64,11 +64,12 @@ void showToastBasedErrorType(
         errorViewerOptions: errVToastOptions,
       );
     },
-    conflictError: (_) {
+    conflictError: (error) {
       ErrorViewer.showConflictError(
         context,
         errorViewerOptions: errVToastOptions,
         callback: callback,
+        message: error.message,
       );
     },
     customError: (error) {
@@ -112,13 +113,14 @@ void showToastBasedErrorType(
         context,
         errorViewerOptions: errVToastOptions,
         callback: callback,
+        message: error.requestedUrlPath,
         url: error.requestedUrlPath,
       );
     },
     responseError: (_) {
       ErrorViewer.showCustomError(
         context,
-        "An error aquire in response",
+        "An error acquire in response",
         errorViewerOptions: errVToastOptions,
       );
     },

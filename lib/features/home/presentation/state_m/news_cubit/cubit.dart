@@ -1,59 +1,52 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/features/home/domain/models/news_model.dart';
+import 'package:peakmart/app/di.dart';
+import 'package:peakmart/core/errors/app_errors.dart';
+import 'package:peakmart/core/results/result.dart';
+import 'package:peakmart/features/home/data/model/request/news_request.dart';
+import 'package:peakmart/features/home/domain/entity/news_entity.dart';
+import 'package:peakmart/features/home/domain/home_repo.dart';
 import 'package:peakmart/features/home/presentation/state_m/news_cubit/state.dart';
 
 class NewsCubit extends Cubit<NewsState> {
   NewsCubit() : super(NewsInitial());
+  final HomeRepository homeRepository = instance<HomeRepository>();
+  late NewsEntity data;
 
-  final List<NewsModel> _newsList = [];
   int _currentIndex = 0;
   Timer? _timer;
 
   void fetchNews() async {
-    try {
-      emit(NewsLoading());
-      // Simulate API call
-      await Future.delayed(const Duration(seconds: 2));
-      _newsList.addAll([
-        NewsModel(
-          timeShow: 25,
-          link: 'https://google.com',
-          description: 'Description for News Item 1 Description for News Item 1',
-        ),
-        NewsModel(
-          timeShow: 30,
-          link: 'https://example.com',
-          description: 'Description for News Item 2 Description for News Item 2',
-        ),
-        NewsModel(
-          timeShow: 20,
-          link: 'https://another.com',
-          description: 'Description for News Item 3 Description for News Item 3',
-        ),
-      ]);
-      emit(NewsLoaded(_newsList));
-      _startNewsDisplayCycle();
-    } catch (e) {
-      emit(NewsError("Failed to load news data"));
-    }
+    emit(NewsLoading());
+    Result<AppErrors, NewsEntity> result = await homeRepository.getNews(
+      NewsRequest(page: 1, limit: 10),
+    );
+
+    result.pick(onData: (data) {
+      this.data = data;
+      emit(NewsLoaded(data));
+    }, onError: (error) {
+      emit(NewsError(error));
+    });
+    _startNewsDisplayCycle();
   }
 
   void _startNewsDisplayCycle() {
-    if (_newsList.isEmpty) return;
+    if (data.news.isEmpty) return;
     _currentIndex = 0; // Reset index
     _showNextNewsWithTimer();
   }
 
   void _showNextNewsWithTimer() {
-    if (_currentIndex < _newsList.length) {
-      final news = _newsList[_currentIndex];
+    if (_currentIndex < data.news.length) {
+      final news = data.news[_currentIndex];
       emit(ShowNewNews(news));
 
       // Schedule to hide the news after `timeShow`
-      _timer = Timer(Duration(seconds: news.timeShow+5), () async {
+      _timer = Timer(const Duration(seconds: 10 + 5), () async {
         emit(HideNews());
-        await Future.delayed(const Duration(seconds: 3)); // Delay of 1 second before showing the next news
+        await Future.delayed(const Duration(
+            seconds: 3)); // Delay of 1 second before showing the next news
         _currentIndex++;
         _showNextNewsWithTimer(); // Recursive call for the next news
       });

@@ -18,11 +18,11 @@ class RegisterResponse extends BaseResponse<BaseEntity> {
     return RegisterResponse(
       status: json['status'] ?? "",
       message: json['message'] ?? "",
-       code: json['code'] ?? "",
+       code: json['status_code'] ?? 400,
       data: RegisterData(
-        email: json['data']['EMAIL'],
-        userId: json['data']['USER_ID'],
-        userName: json['data']['USER_NAME'],
+        email: json['data']['email'],
+        userId: json['data']['id'],
+        userName: json['data']['name'],
         phoneNumber: json['data']['phone'],
       ),
     );

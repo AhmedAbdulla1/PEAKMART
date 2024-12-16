@@ -1,30 +1,26 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class AppStrings {
+  static String phone = tr('mobile_number');
+  static String phoneHint = tr('mobile_number_hint');
+  static String phoneError = tr("invalid_mobile_number");
+  static String searchCountry = tr("search_country");
 
-  static  String phone = tr('mobile_number');
-  static  String phoneHint = tr('mobile_number_hint');
-  static  String phoneError = tr("invalid_mobile_number");
-  static  String searchCountry =tr("search_country");
-
-  static  String emailErrorEmpty = tr('email_empty');
-  static  String emailNotValid = tr('email_not_valid');
-  static  String passwordErrorEmpty = tr('password_empty');
-  static  String cancel = tr('cancel');
-  static  String confirm = tr('confirm');
+  static String emailErrorEmpty = tr('email_empty');
+  static String emailNotValid = tr('email_not_valid');
+  static String passwordErrorEmpty = tr('password_empty');
+  static String cancel = tr('cancel');
+  static String confirm = tr('confirm');
   static String forgotPassword = tr('forgot_password');
   static String resetPassword = tr('reset_password');
   static String forgotPasswordHint = tr('reset_password_hint');
-  static String rPSMessage = 'Send you a message to set or reset your new password';
+  static String rPSMessage =
+      'Send you a message to set or reset your new password';
   static String refresh = 'refresh';
-
-
-
-
-
+  static String otpSuccessMessage = 'OTP Verified Successfully!';
 
   ///////////////////////////////////////////////////////////////
-static String createAccount = tr('Create an account');
+  static String createAccount = tr('Create an account');
   static String alreadyHaveAnAccount = tr('Already have an account?');
   static String login = tr('Login');
   static String signUp = tr('Sign Up');
@@ -37,7 +33,7 @@ static String createAccount = tr('Create an account');
   static String register = tr(' Register ');
   static String agreeText = tr('button, you agree to the public offer');
   static String userName = tr('Username');
-  static String userNameHint = tr('Enter your username');
+  static String userNameHint = tr('Enter your name');
   static String email = tr('Email');
   static String emailHint = tr('Enter your email');
   static String password = tr('Password');
@@ -45,34 +41,21 @@ static String createAccount = tr('Create an account');
   static String confirmPassword = tr('Confirm Password');
   static String confirmPasswordHint = tr('Confirm your password');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   static const String noRouteFound = "No Route Found";
   static const String getStart = 'Get Started';
   static const String loginTitle = 'SIGN IN';
-  static const String saveAndExit ='Save And Exit';
-  static const String save  = 'Save';
-  static const String delete  = 'delete';
-  static const String teams  = 'Teams';
+  static const String saveAndExit = 'Save And Exit';
+  static const String save = 'Save';
+  static const String delete = 'delete';
+  static const String teams = 'Teams';
   static const String addNewDevice = 'Add New Device';
-      static const String loginSubTitle =
+  static const String loginSubTitle =
       'Looks like you don’t have an account. Let’s create a new account for you.';
   static const String google = 'Sign Up with Google';
   static const String apple = 'Sign Up with Apple';
   static const String haveAnAccount = "have an account?";
   static const String dontHaveAnAccount = "Don’t have an account?";
-  static const String guest  = "CONTINUE AS A GUEST";
+  static const String guest = "CONTINUE AS A GUEST";
   static const String signup = 'Create Account';
   static const String signupTitle = 'SIGN UP';
   static const String signupSubTitle =
@@ -80,43 +63,44 @@ static String createAccount = tr('Create an account');
   static const String privacy =
       'By selecting Create Account below, I agree to Terms of Service & Privacy Policy';
   static const String recoverPasswordTitle = "Recover Password";
-  static const String recoverPasswordSubTitle = 'Forgot your password? Don’t worry, enter your email to reset your current password.';
-  static const String submit ='SUBMIT';
+  static const String recoverPasswordSubTitle =
+      'Forgot your password? Don’t worry, enter your email to reset your current password.';
+  static const String submit = 'SUBMIT';
   static const String verifyCodeTitle = "Verify Code";
-  static const String verifyCodeSubTitle = 'An authentication code has been sent to your email';
-  static const String verify ='VERIFY';
-  static const String enterCode ='Enter Code ';
-  static const String resendCode ="Didn’t receive a code?";
+  static const String verifyCodeSubTitle =
+      'An authentication code has been sent to your email';
+  static const String verify = 'VERIFY';
+  static const String enterCode = 'Enter Code ';
+  static const String resendCode = "Didn’t receive a code?";
   static const String resend = 'Resend';
   static const String changePasswordTitle = 'Change Password';
-  static const String changePasswordSubTitle = "Create a new, strong password that you don’t use before" ;
+  static const String changePasswordSubTitle =
+      "Create a new, strong password that you don’t use before";
   static const String newPassword = 'New Password';
   static const String profile = 'Profile';
-  static const String bodyWeight ='Body Weight';
-  static const String height ='Height';
+  static const String bodyWeight = 'Body Weight';
+  static const String height = 'Height';
   static const String age = 'Age';
-  static const String gender= 'Gender';
-  static const String passwordError2 ="Your password could be stronger. Consider using uppercase letters and symbols.";
+  static const String gender = 'Gender';
+  static const String passwordError2 =
+      "Your password could be stronger. Consider using uppercase letters and symbols.";
   static const String bodyWeightError = 'Enter valid weight';
   static const String heightError = 'Enter valid height';
   static const String ageError = 'Enter valid age';
-  static const String updateProfile= 'Update Profile';
+  static const String updateProfile = 'Update Profile';
   static const String exercises = 'Exercises';
   static const String advanced = 'Advanced';
   static const String selectWeight = 'Select your weight';
-  static const String large ="Large";
-  static const String small ="Small";
-  static const String autoStart ="Auto Start";
-  static const String idleTime ="Idle Time";
-
-
+  static const String large = "Large";
+  static const String small = "Small";
+  static const String autoStart = "Auto Start";
+  static const String idleTime = "Idle Time";
 
   static const String skip = 'skip';
   static const String name = 'Name';
   static const String nameError1 = 'Please enter your name ';
   static const String nameError2 = 'Please enter at least 3 characters ';
   static const String confirmError = 'Password not confirm';
-
 
   static const String search = "Search or Add New Exercise";
 
@@ -148,7 +132,6 @@ static String createAccount = tr('Create an account');
   static const setting = 'Setting';
   static const services = 'Services';
   static const stores = 'Stores';
-
 
   static const String badRequestError = "Email has already been used";
   static const String cancelError = "cancelError";

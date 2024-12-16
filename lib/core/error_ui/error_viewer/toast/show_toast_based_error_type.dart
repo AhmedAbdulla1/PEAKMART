@@ -64,11 +64,12 @@ void showToastBasedErrorType(
         errorViewerOptions: errVToastOptions,
       );
     },
-    conflictError: (_) {
+    conflictError: (error) {
       ErrorViewer.showConflictError(
         context,
         errorViewerOptions: errVToastOptions,
         callback: callback,
+        message: error.message,
       );
     },
     customError: (error) {

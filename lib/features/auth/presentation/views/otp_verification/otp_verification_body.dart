@@ -26,6 +26,17 @@ String verificationCode = '';
 
 class _OtpVerificationBodyState extends State<OtpVerificationBody> {
   @override
+  void initState() {
+    BlocProvider.of<SendOtpCubit>(context).sendOtp(
+        sendOtpRequest: SendOtpRequest(
+            key: 'SM',
+            username: 'scasc',
+            email: 'fgftrxcc@gmail.com',
+            userId: '200'));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(
@@ -74,8 +85,12 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
               CustomElevatedButton(
                 textButton: AppStrings.Continue,
                 onPressed: () {
-                  BlocProvider.of<SendOtpCubit>(context)
-                      .sendOtp(sendOtpRequest: SendOtpRequest(key: '1549'));
+                  BlocProvider.of<SendOtpCubit>(context).sendOtp(
+                      sendOtpRequest: SendOtpRequest(
+                          key: 'SM',
+                          username: 'scasc',
+                          email: 'fgftrxcc@gmail.com',
+                          userId: '200'));
                 },
               ),
               const Spacer(

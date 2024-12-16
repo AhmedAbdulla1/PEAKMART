@@ -57,7 +57,7 @@ class AuthDataSource extends RemoteDataSource {
     return request<SendOtpResponse>(
         method: HttpMethod.POST,
         body: sendOtpRequest.toJson(),
-
+        headers: sendOtpRequest.toHeaders(),
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           return SendOtpResponse.fromJson(json);

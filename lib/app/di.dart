@@ -6,8 +6,10 @@ import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/network_info.dart';
 import 'package:peakmart/features/auth/data/repository_imp.dart';
 import 'package:peakmart/features/auth/domain/repository/auth_repo.dart';
-import 'package:peakmart/features/auth/presentation/state_mang/login_cubit/sign_up_cubit.dart';
+import 'package:peakmart/features/auth/presentation/state_mang/login_cubit/cubit.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view_model.dart';
+import 'package:peakmart/features/home/data/home_repo_imp.dart';
+import 'package:peakmart/features/home/domain/home_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -85,6 +87,11 @@ initLoginModule() {
   }
   if (!GetIt.I.isRegistered<AuthRepo>()) {
     instance.registerCachedFactory<AuthRepo>(()=> AuthRepositoryImp());
+  }
+}
+initHomeModule() {
+  if(!GetIt.I.isRegistered<HomeRepository>()){
+    instance.registerCachedFactory<HomeRepository>(()=>HomeRepositoryImp());
   }
 }
 //

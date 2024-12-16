@@ -1,4 +1,5 @@
-import 'package:peakmart/features/home/domain/models/news_model.dart';
+import 'package:peakmart/core/errors/app_errors.dart';
+import 'package:peakmart/features/home/domain/entity/news_entity.dart';
 
 abstract class NewsState {}
 
@@ -7,19 +8,21 @@ class NewsInitial extends NewsState {}
 class NewsLoading extends NewsState {}
 
 class NewsLoaded extends NewsState {
-  final List<NewsModel> data;
+  final NewsEntity data;
+
   NewsLoaded(this.data);
 }
 
 class NewsError extends NewsState {
-  final String message;
+  final AppErrors message;
+
   NewsError(this.message);
 }
 
 class ShowNewNews extends NewsState {
-  final NewsModel newsModel;
-  ShowNewNews(this.newsModel);
+  final NewsData newsModel;
 
+  ShowNewNews(this.newsModel);
 }
 
 class HideNews extends NewsState {}

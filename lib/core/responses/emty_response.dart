@@ -9,7 +9,7 @@ class EmptyResponse extends BaseResponse<EmptyEntity> {
     return EmptyResponse(
       message: json['message'],
       status: json['status'],
-      code: json['code'],
+      code: json['status_code'],
     );
   }
 

@@ -1,4 +1,4 @@
-part of 'sign_up_cubit.dart';
+part of 'cubit.dart';
 
 sealed class LoginState {}
 

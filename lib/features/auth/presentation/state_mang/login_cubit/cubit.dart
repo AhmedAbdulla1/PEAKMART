@@ -12,7 +12,7 @@ import 'package:peakmart/features/auth/data/model/request/login_request.dart';
 import 'package:peakmart/features/auth/domain/entity/login_entity.dart';
 import 'package:peakmart/features/auth/domain/repository/auth_repo.dart';
 
-part 'sign_up_state.dart';
+part 'state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   AuthRepo authRepo = instance<AuthRepo>();

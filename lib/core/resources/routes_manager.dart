@@ -10,6 +10,8 @@ import 'package:peakmart/features/main/main_view.dart';
 
 class Routes {
   static const String splashScreen = "/";
+
+  @deprecated
   static const String mainScreen = "/mainScreen";
   static const String signInScreen = "/signInScreen";
   static const String signUpScreen = "/signUpScreen";
@@ -21,8 +23,10 @@ class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.mainScreen:
+        initHomeModule();
         return MaterialPageRoute(builder: (_) => MainView());
       case MainView.routeName:
+        initHomeModule();
         return MaterialPageRoute(builder: (_) => MainView());
       case LogInView.routeName:
         initLoginModule();

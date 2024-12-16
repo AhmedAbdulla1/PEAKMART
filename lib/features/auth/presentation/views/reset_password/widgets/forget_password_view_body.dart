@@ -1,4 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
+import 'package:peakmart/core/error_ui/error_viewer/toast/errv_toast_options.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
@@ -18,15 +23,16 @@ class ForgetPasswordViewBody extends StatefulWidget {
 
 class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
   final TextEditingController _emailController = TextEditingController();
-  late RestPassCubit _restPassCubit;
+  late  RestPassCubit _restPassCubit ;
   late ResetPasswordViewModel _viewModel;
 
   @override
   void initState() {
+    _restPassCubit = context.read<RestPassCubit>();
+    _restPassCubit.context = context;
     _emailController
         .addListener(() => _viewModel.setEmail(_emailController.text));
     _viewModel = ResetPasswordViewModel();
-    _restPassCubit = RestPassCubit();
     super.initState();
   }
 
@@ -42,58 +48,71 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(29, 20, 29, 0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Spacer(),
-          CustomTextFormWithStream(
-            stream: _viewModel.emailValidationStream,
-            textEditingController: _emailController,
-            hintText: AppStrings.email,
-            prefixIcon: Icons.email,
-            onComplete: () {
-              _restPassCubit
-                  .resetPassword(email: _emailController.text)
-                  .then((value) => showSuccessBottomSheet(context));
-            },
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Text.rich(
-            TextSpan(children: [
-              TextSpan(
-                text: '* ',
-                style: getRegularStyle(
-                        fontSize: FontSize.s16, color: ColorManager.red)
-                    .copyWith(fontFamily: FontConstants.fontMontserratFamily),
-              ),
-              TextSpan(
-                text: AppStrings.forgotPasswordHint,
-                style: getRegularStyle(
-                        fontSize: FontSize.s14, color: ColorManager.darkGrey)
-                    .copyWith(fontFamily: FontConstants.fontMontserratFamily),
-              )
-            ]),
-          ),
-          const SizedBox(
-            height: 100,
-          ),
-          CustomElevatedButton(
-            onPressed: () {
-              _restPassCubit
-                  .resetPassword(
-                    email: _emailController.text,
-                  )
-                  .then((value) => showSuccessBottomSheet(context));
-            },
-            stream: _viewModel.isEmailValid,
-            text: AppStrings.submit,
-          ),
-          const Spacer(),
-        ],
-      ),
+      child: BlocConsumer<RestPassCubit, ResetPassState>(
+          listener: (context, state) {
+            log('state is $state');
+        if (state is ResetPassFailureState) {
+          ErrorViewer.showError(
+            errorViewerOptions: const ErrVToastOptions(),
+            context: context,
+            error: state.errors,
+            callback: state.onRetry,
+          );
+        }
+        if (state is ResetPassSuccessState) {
+          print('success');
+          showSuccessBottomSheet(context);
+        }
+      }, builder: (context, state) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Spacer(),
+            CustomTextFormWithStream(
+              stream: _viewModel.emailValidationStream,
+              textEditingController: _emailController,
+              hintText: AppStrings.email,
+              prefixIcon: Icons.email,
+              onComplete: () {
+                _restPassCubit.resetPassword(email: _emailController.text);
+              },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text.rich(
+              TextSpan(children: [
+                TextSpan(
+                  text: '* ',
+                  style: getRegularStyle(
+                          fontSize: FontSize.s16, color: ColorManager.red)
+                      .copyWith(fontFamily: FontConstants.fontMontserratFamily),
+                ),
+                TextSpan(
+                  text: AppStrings.forgotPasswordHint,
+                  style: getRegularStyle(
+                          fontSize: FontSize.s14, color: ColorManager.darkGrey)
+                      .copyWith(fontFamily: FontConstants.fontMontserratFamily),
+                )
+              ]),
+            ),
+            const SizedBox(
+              height: 100,
+            ),
+            CustomElevatedButton(
+              onPressed: () {
+                _restPassCubit.resetPassword(
+                  email: _emailController.text,
+                );
+              },
+              stream: _viewModel.isEmailValid,
+              text: AppStrings.submit,
+            ),
+            const Spacer(),
+          ],
+        );
+      }),
     );
   }
 

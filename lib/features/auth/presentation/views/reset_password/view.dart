@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
+import 'package:peakmart/features/auth/presentation/state_mang/reset_pass_cubit/cubit.dart';
 import 'package:peakmart/features/auth/presentation/views/reset_password/widgets/forget_password_view_body.dart';
 
 class ForgotPasswordView extends StatelessWidget {
@@ -15,7 +17,9 @@ class ForgotPasswordView extends StatelessWidget {
         appBar:  CustomAppBar(
           title: AppStrings.resetPassword,
         ),
-        body: const ForgetPasswordViewBody(),
+        body: BlocProvider(
+            create:(context)=> RestPassCubit(),
+            child: const ForgetPasswordViewBody()),
       ),
     );
   }

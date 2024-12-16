@@ -1,4 +1,3 @@
-
 //
 import 'package:flutter/material.dart';
 import 'package:peakmart/app/di.dart';
@@ -12,20 +11,20 @@ import 'package:peakmart/features/main/main_view.dart';
 
 class Routes {
   static const String splashScreen = "/";
-  static const String mainScreen="/mainScreen";
+  static const String mainScreen = "/mainScreen";
   static const String signInScreen = "/signInScreen";
   static const String signUpScreen = "/signUpScreen";
   static const String forgetPasswordScreen = "/forgetPasswordScreen";
   static const String otpVerification = "/otpVerification";
-
 }
 
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
-
       case Routes.mainScreen:
-        return MaterialPageRoute(builder: (_) =>  MainView());
+        return MaterialPageRoute(builder: (_) => MainView());
+      case MainView.routeName:
+        return MaterialPageRoute(builder: (_) => MainView());
       case LogInView.routeName:
         initLoginModule();
         return MaterialPageRoute(builder: (_) => const LogInView());

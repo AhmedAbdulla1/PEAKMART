@@ -114,9 +114,11 @@ class RemoteDataSource {
       responseValidator: responseValidator ?? DefaultResponseValidator(),
       baseUrl: baseUrl,
     );
+    print(response);
 
     /// convert jsonResponse to model and return it
     if (response.isLeft()) {
+      print(response);
       return Left((response as Left<AppErrors, T>).value);
     } else if (response.isRight()) {
       try {

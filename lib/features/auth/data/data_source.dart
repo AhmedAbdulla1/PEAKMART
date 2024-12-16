@@ -19,6 +19,7 @@ class AuthDataSource extends RemoteDataSource {
 
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
+          print(json);
           return LoginResponse.fromJson(json);
         },
         url: APIUrls.login

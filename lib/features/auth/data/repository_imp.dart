@@ -24,6 +24,7 @@ class AuthRepositoryImp implements AuthRepo {
       try {
         Either<AppErrors, LoginResponse> response =
             await _authDataSource.login(loginRequest);
+        print(response);
         result = response.fold((error) {
           return Result(error: error);
         }, (response) {

@@ -2,6 +2,7 @@
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:peakmart/app/app_config.dart';
+import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 
 
 import '../constants/app/app_constants.dart';
@@ -41,13 +42,15 @@ class AuthInterceptor extends Interceptor {
           handler.next(response);
           break;
         case 401:
-            // ErrorViewer.showUnauthorizedError(
-            //     getIt<NavigationService>().getNavigationKey.currentContext!,
-            //     callback: (){
-            //       Nav.to(LoginScreen.routeName);
-            //     },
-            //     retryWhenNotAuthorized: true
-            // );
+          handler.reject(
+            DioError(
+              requestOptions: response.requestOptions,
+              response: response,
+              error: {},
+            ),
+            true,
+          );
+          return;
             break;
         default:
           handler.reject(

@@ -51,12 +51,12 @@ class ErrorScreenWidget extends StatelessWidget {
   final String? backTitle;
 
   const ErrorScreenWidget({
-    Key? key,
+    super.key,
     required this.error,
     required this.callback,
     this.backTitle,
     this.disableRetryButton = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -114,13 +114,13 @@ class ErrorScreenWidget extends StatelessWidget {
           errorWidget.children.add(
             ConnectionErrorScreenWidget(
               callback: callback,
-              disableRetryButton: this.disableRetryButton,
+              disableRetryButton: disableRetryButton,
             ),
           );
           return errorWidget;
         } else {
           return ConnectionErrorScreenWidget(
-              callback: callback, disableRetryButton: this.disableRetryButton);
+              callback: callback, disableRetryButton: disableRetryButton);
         }
       },
       internalServerError: (_) {
@@ -128,12 +128,12 @@ class ErrorScreenWidget extends StatelessWidget {
           errorWidget.children.add(
             InternalServerErrorScreenWidget(
               callback: callback,
-              disableRetryButton: this.disableRetryButton,
+              disableRetryButton: disableRetryButton,
             ),
           );
         } else {
           return InternalServerErrorScreenWidget(
-              callback: callback, disableRetryButton: this.disableRetryButton);
+              callback: callback, disableRetryButton: disableRetryButton);
         }
       },
       internalServerWithDataError: (error) {
@@ -143,7 +143,7 @@ class ErrorScreenWidget extends StatelessWidget {
               errorCode: error.errorCode,
               message: error.message,
               callback: callback,
-              disableRetryButton: this.disableRetryButton,
+              disableRetryButton: disableRetryButton,
             ),
           );
         } else {
@@ -151,7 +151,7 @@ class ErrorScreenWidget extends StatelessWidget {
             errorCode: error.errorCode,
             message: error.message,
             callback: callback,
-            disableRetryButton: this.disableRetryButton,
+            disableRetryButton: disableRetryButton,
           );
         }
       },
@@ -194,14 +194,14 @@ class ErrorScreenWidget extends StatelessWidget {
             CustomErrorScreenWidget(
               message: error.message,
               callback: callback,
-              disableRetryButton: this.disableRetryButton,
+              disableRetryButton: disableRetryButton,
             ),
           );
           return errorWidget;
         } else {
           return CustomErrorScreenWidget(
             message: error.message,
-            disableRetryButton: this.disableRetryButton,
+            disableRetryButton: disableRetryButton,
           );
         }
       },
@@ -234,27 +234,27 @@ class ErrorScreenWidget extends StatelessWidget {
           errorWidget.children.add(
             NetErrorScreen(
               callback: callback,
-              disableRetryButton: this.disableRetryButton,
+              disableRetryButton: disableRetryButton,
             ),
           );
           return errorWidget;
         } else {
           return NetErrorScreen(
-              callback: callback, disableRetryButton: this.disableRetryButton);
+              callback: callback, disableRetryButton: disableRetryButton);
         }
       },
       notFoundError: (error) {
         if (errorWidget != null) {
           errorWidget.children.add(NotFoundErrorScreenWidget(
             callback: callback,
-            disableRetryButton: this.disableRetryButton,
+            disableRetryButton: disableRetryButton,
             url: error.requestedUrlPath,
           ));
           return errorWidget;
         } else {
           return NotFoundErrorScreenWidget(
             callback: callback,
-            disableRetryButton: this.disableRetryButton,
+            disableRetryButton: disableRetryButton,
             url: error.requestedUrlPath,
           );
         }
@@ -280,14 +280,14 @@ class ErrorScreenWidget extends StatelessWidget {
           errorWidget.children.add(
             TimeOutErrorScreenWidget(
               callback: callback,
-              disableRetryButton: this.disableRetryButton,
+              disableRetryButton: disableRetryButton,
             ),
           );
           return errorWidget;
         } else {
           return TimeOutErrorScreenWidget(
             callback: callback,
-            disableRetryButton: this.disableRetryButton,
+            disableRetryButton: disableRetryButton,
           );
         }
       },
@@ -321,16 +321,16 @@ class ErrorScreenWidget extends StatelessWidget {
       errorWidget.children.add(
         UnexpectedErrorScreenWidget(
           callback: callback,
-          disableRetryButton: this.disableRetryButton,
+          disableRetryButton: disableRetryButton,
         ),
       );
     } else {
       return UnexpectedErrorScreenWidget(
-          callback: callback, disableRetryButton: this.disableRetryButton);
+          callback: callback, disableRetryButton: disableRetryButton);
     }
     return UnexpectedErrorScreenWidget(
       callback: callback,
-      disableRetryButton: this.disableRetryButton,
+      disableRetryButton: disableRetryButton,
     );
   }
 }

@@ -19,37 +19,37 @@ class HomeView extends StatelessWidget {
   static const String routeName = '/home';
 
   final List<BidCardModel> bids = [
-    BidCardModel(
+    const BidCardModel(
       title: 'The Luxe Houndstooth Lounge Chair',
       image: 'assets/images/card.png',
       subTitle: 'Auction End Date: November 1, 2024',
       price: 'Now Bid: \n\$250',
     ),
-    BidCardModel(
+    const BidCardModel(
       title: 'The Luxe Houndstooth Lounge Chair',
       image: 'assets/images/card.png',
       subTitle: 'Auction End Date: November 1, 2024',
       price: 'Now Bid: \n\$300',
     ),
-    BidCardModel(
+    const BidCardModel(
       title: 'The Luxe Houndstooth Lounge Chair',
       image: 'assets/images/card.png',
       subTitle: 'Auction End Date: November 1, 2024',
       price: 'Now Bid: \n\$350',
     ),
-    BidCardModel(
+    const BidCardModel(
       title: 'The Luxe Houndstooth Lounge Chair',
       image: 'assets/images/card.png',
       subTitle: 'Auction End Date: November 1, 2024',
       price: 'Now Bid: \n\$400',
     ),
-    BidCardModel(
+    const BidCardModel(
       title: 'The Luxe Houndstooth Lounge Chair',
       image: 'assets/images/card.png',
       subTitle: 'Auction End Date: November 1, 2024',
       price: 'Now Bid: \n\$450',
     ),
-    BidCardModel(
+    const BidCardModel(
       title: 'The Luxe Houndstooth Lounge Chair',
       image: 'assets/images/card.png',
       subTitle: 'Auction End Date: November 1, 2024',

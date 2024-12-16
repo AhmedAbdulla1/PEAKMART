@@ -34,7 +34,7 @@ class RemoteDataSource {
   }) async {
     // Register the response.
     ModelsFactory()
-      ..registerModel(
+      .registerModel(
         T.toString(),
         converter,
         createModelInterceptor.toString(),
@@ -94,7 +94,7 @@ class RemoteDataSource {
   }) async {
     // Register the response.
     ModelsFactory()
-      ..registerModel(
+      .registerModel(
         T.toString(),
         converter,
         createModelInterceptor.toString(),
@@ -108,7 +108,7 @@ class RemoteDataSource {
       method: method,
       url: url,
       headers: headers,
-      queryParameters: queryParameters ?? Map<String, dynamic>(),
+      queryParameters: queryParameters ?? <String, dynamic>{},
       body: body,
       cancelToken: cancelToken,
       responseValidator: responseValidator ?? DefaultResponseValidator(),
@@ -149,7 +149,7 @@ class RemoteDataSource {
   }) async {
     // Register the response.
     ModelsFactory()
-      ..registerModel(
+      .registerModel(
         T.toString(),
         converter,
         createModelInterceptor.toString(),
@@ -161,7 +161,7 @@ class RemoteDataSource {
       method: method,
       url: url,
       headers: headers,
-      queryParameters: queryParameters ?? Map<String, dynamic>(),
+      queryParameters: queryParameters ?? <String, dynamic>{},
       body: body,
       cancelToken: cancelToken,
       responseValidator: responseValidator ?? ListResponseValidator(),

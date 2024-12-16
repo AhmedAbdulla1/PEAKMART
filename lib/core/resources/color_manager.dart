@@ -8,13 +8,13 @@ class ColorManager {
   static Color red = Colors.red;
   static Color lightPrimary = const Color(0xFfFFDC91);
   static Color lightGrey = const Color(0xff676767);
-  static const  Color white = const Color(0xffFFFFFF);
+  static const  Color white = Color(0xffFFFFFF);
   static Color black = const Color(0xff000000);
   static Color grey1 = const Color(0xff5C5C5C); // this color for labels of bottom nav bar
   static Color newsBarColor = const Color(0xffFFFBF1);
   static Color textFormBorder = const Color(0xffA8A8A9);
-  static const  Color textFormErrorBorder = const Color(0xffDA1E28);
-  static const  Color textFormIcon = const Color(0xff79767C);
+  static const  Color textFormErrorBorder = Color(0xffDA1E28);
+  static const  Color textFormIcon = Color(0xff79767C);
   static Color textFormHint = const Color(0xff676767);
   static Color textFormBackground = const Color(0xffF3F3F3);
 

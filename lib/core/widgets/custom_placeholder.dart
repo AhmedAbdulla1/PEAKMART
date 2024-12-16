@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
 class CustomPlaceHolder extends StatefulWidget {
-  CustomPlaceHolder(
-      {Key? key,
+  const CustomPlaceHolder(
+      {super.key,
       required this.name,
       this.color1,
       this.color2,
       required this.size,
       this.fontColor,
-      this.borderRadius})
-      : super(key: key);
+      this.borderRadius});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -47,18 +46,18 @@ class _CustomPlaceHolderState extends State<CustomPlaceHolder> {
   Widget build(BuildContext context) {
     var nameLetters = widget.name.split(" ");
     var firstLetter =
-        (nameLetters[0].length > 0 ? nameLetters[0][0] : "").toUpperCase();
+        (nameLetters[0].isNotEmpty ? nameLetters[0][0] : "").toUpperCase();
 
     var secondLetter = '';
     if (nameLetters.length > 1) {
       secondLetter =
-          (nameLetters[1].length > 0 ? nameLetters[1][0] : "").toUpperCase();
+          (nameLetters[1].isNotEmpty ? nameLetters[1][0] : "").toUpperCase();
     }
 
     var color1 = widget.color1;
     var color2 = widget.color2;
-    color1 = color1 == null ? colors[2 * 2] : color1;
-    color2 = color2 == null ? colors[1 + 2 * 2] : color2;
+    color1 = color1 ?? colors[2 * 2];
+    color2 = color2 ?? colors[1 + 2 * 2];
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -83,7 +82,7 @@ class _CustomPlaceHolderState extends State<CustomPlaceHolder> {
                 letterSpacing: 2,
                 fontSize: widget.size * 0.35,
                 color:
-                    widget.fontColor == null ? Colors.white : widget.fontColor,
+                    widget.fontColor ?? Colors.white,
               ),
             ),
           ),

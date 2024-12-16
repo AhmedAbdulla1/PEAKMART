@@ -13,7 +13,7 @@ class ContainerWithBorderAndShadow extends StatelessWidget {
   final bool? takesChildWidth;
 
   const ContainerWithBorderAndShadow({
-    Key? key,
+    super.key,
     this.shadowColor = Colors.grey,
     this.padding = const EdgeInsets.all(0),
     this.child,
@@ -23,7 +23,7 @@ class ContainerWithBorderAndShadow extends StatelessWidget {
     this.blurRadius = 10,
     this.width,
     this.takesChildWidth,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

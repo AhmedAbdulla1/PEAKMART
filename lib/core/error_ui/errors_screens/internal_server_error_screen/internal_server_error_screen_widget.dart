@@ -5,10 +5,10 @@ class InternalServerErrorScreenWidget extends StatefulWidget {
   final bool? disableRetryButton;
 
   const InternalServerErrorScreenWidget({
-    Key? key,
+    super.key,
     this.callback,
     this.disableRetryButton,
-  }) : super(key: key);
+  });
 
   @override
   _InternalServerErrorScreenWidgetState createState() =>
@@ -30,6 +30,7 @@ class _InternalServerErrorScreenWidgetState extends State<InternalServerErrorScr
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     return buildErrorScreen(
       context: context,

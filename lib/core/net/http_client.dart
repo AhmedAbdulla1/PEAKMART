@@ -24,14 +24,14 @@ class HttpClient extends BaseHttpClient {
   Dio get instance => _client;
 
   HttpClient() {
-    BaseOptions _options = BaseOptions(
+    BaseOptions options = BaseOptions(
       connectTimeout: const Duration(milliseconds: 100000),
       receiveTimeout: const Duration(milliseconds: 100000),
       sendTimeout: const Duration(milliseconds: 100000),
       responseType: ResponseType.json,
       baseUrl: APIUrls.baseUrl,
     );
-    _client = Dio(_options);
+    _client = Dio(options);
 
     /// for alice inspector
     // _client.interceptors
@@ -88,7 +88,7 @@ class HttpClient extends BaseHttpClient {
         }
       } catch (ex) {
         handler.reject(
-          DioError(
+          DioException(
               requestOptions: response.requestOptions,
               response: response,
               error: ex),
@@ -205,12 +205,12 @@ class HttpClient extends BaseHttpClient {
     }
 
     /// Handling errors
-    on DioError catch (e) {
+    on DioException catch (e) {
       return Left(_handleDioError(e));
     }
 
     /// Couldn't reach out the server
-    on SocketException catch (e) {
+    on SocketException {
       return const Left(SocketError());
     }
   }
@@ -279,7 +279,7 @@ class HttpClient extends BaseHttpClient {
       /// response.data["succeed"] return true if request
       /// succeed and false if not so if was true we don't need
       /// return this value to model we just need the data
-      var model;
+      List<T> model;
       responseValidator.processData(response.data);
 
       if (responseValidator.isValid) {
@@ -306,12 +306,12 @@ class HttpClient extends BaseHttpClient {
     }
 
     /// Handling errors
-    on DioError catch (e) {
+    on DioException catch (e) {
       return Left(_handleDioError(e));
     }
 
     /// Couldn't reach out the server
-    on SocketException catch (e) {
+    on SocketException {
       return const Left(SocketError());
     }
   }
@@ -385,12 +385,12 @@ class HttpClient extends BaseHttpClient {
         return const Left(UnknownError());
     }
     // Handling errors
-    on DioError catch (e) {
+    on DioException catch (e) {
       return Left(_handleDioError(e));
     }
 
     // Couldn't reach out the server
-    on SocketException catch (e) {
+    on SocketException {
       return const Left(SocketError());
     }
   }
@@ -452,7 +452,7 @@ class HttpClient extends BaseHttpClient {
     }
 
     /// Couldn't reach out the server
-    on SocketException catch (e) {}
+    on SocketException {}
   }
 
   AppErrors _handleDioError<E>(DioException error) {
@@ -475,13 +475,14 @@ class HttpClient extends BaseHttpClient {
           case 500:
             if (error.response?.data is Map) {
               if (error.response!.data?["message"] != null ||
-                  error.response!.data?["status_code"] != null)
+                  error.response!.data?["status_code"] != null) {
                 return InternalServerWithDataError(
                     int.tryParse(
                             error.response!.data?["status_code"]?.toString() ??
                                 "") ??
                         500,
                     message: error.response?.data?["message"]);
+              }
             }
             return const InternalServerError();
 

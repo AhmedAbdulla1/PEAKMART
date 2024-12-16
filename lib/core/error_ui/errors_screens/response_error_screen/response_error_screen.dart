@@ -4,8 +4,7 @@ class ResponseErrorScreen extends StatefulWidget {
   final VoidCallback? callback;
   final bool? disableRetryButton;
 
-  const ResponseErrorScreen({Key? key, this.callback, this.disableRetryButton})
-      : super(key: key);
+  const ResponseErrorScreen({super.key, this.callback, this.disableRetryButton});
 
   @override
   _ResponseErrorScreenState createState() => _ResponseErrorScreenState();

@@ -5,7 +5,7 @@ class SendOtpEntity extends BaseEntity {
   final String email;
 
 
-  SendOtpEntity(
+  const SendOtpEntity(
       { required this.email});
 
   @override

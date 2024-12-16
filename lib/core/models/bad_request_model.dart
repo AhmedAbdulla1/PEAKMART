@@ -45,12 +45,12 @@ class ValidationError extends BaseResponse{
   String toJson() => json.encode(toMap());
 
   factory ValidationError.fromMap(Map<String, dynamic> json) => ValidationError(
-    field: json["field"] == null ? null : json["field"],
+    field: json["field"],
     erros: json["erros"] == null ? null : List<String>.from(json["erros"].map((x) => x)),
   );
 
   Map<String, dynamic> toMap() => {
-    "field": field == null ? null : field,
+    "field": field,
     "erros": erros == null ? null : List<dynamic>.from(erros?.map((x) => x) ?? []),
   };
 

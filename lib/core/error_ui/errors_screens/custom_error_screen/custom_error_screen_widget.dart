@@ -6,11 +6,11 @@ class CustomErrorScreenWidget extends StatefulWidget {
   final bool? disableRetryButton;
 
   const CustomErrorScreenWidget({
-    Key? key,
+    super.key,
     required this.message,
     this.callback,
     this.disableRetryButton,
-  }) : super(key: key);
+  });
 
   @override
   _CustomErrorScreenWidgetState createState() =>

@@ -5,10 +5,10 @@ class DotWidget extends StatelessWidget {
   final Color? dotColor;
 
   const DotWidget({
-    Key? key,
+    super.key,
     this.dotSize,
     this.dotColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +30,12 @@ class JumpingDots extends StatefulWidget {
   final double? jumpHeight;
 
   const JumpingDots({
-    Key? key,
+    super.key,
     this.numberOfDots = 3,
     this.dotSize,
     this.dotColor,
     this.jumpHeight,
-  }) : super(key: key);
+  });
 
   @override
   _JumpingDotsState createState() => _JumpingDotsState();

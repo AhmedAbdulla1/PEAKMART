@@ -14,7 +14,7 @@ class NewsCubit extends Cubit<NewsState> {
     try {
       emit(NewsLoading());
       // Simulate API call
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 2));
       _newsList.addAll([
         NewsModel(
           timeShow: 25,
@@ -53,7 +53,7 @@ class NewsCubit extends Cubit<NewsState> {
       // Schedule to hide the news after `timeShow`
       _timer = Timer(Duration(seconds: news.timeShow+5), () async {
         emit(HideNews());
-        await Future.delayed(Duration(seconds: 3)); // Delay of 1 second before showing the next news
+        await Future.delayed(const Duration(seconds: 3)); // Delay of 1 second before showing the next news
         _currentIndex++;
         _showNextNewsWithTimer(); // Recursive call for the next news
       });

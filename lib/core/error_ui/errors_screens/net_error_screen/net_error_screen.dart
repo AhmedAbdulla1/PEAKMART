@@ -4,10 +4,10 @@ class NetErrorScreen extends StatefulWidget {
   final VoidCallback callback;
   final bool? disableRetryButton;
   const NetErrorScreen({
-    Key? key,
+    super.key,
     required this.callback,
     this.disableRetryButton,
-  }) : super(key: key);
+  });
 
   @override
   _NetErrorScreenState createState() => _NetErrorScreenState();

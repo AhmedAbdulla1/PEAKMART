@@ -4,8 +4,7 @@ class ConflictErrorScreen extends StatefulWidget {
   final VoidCallback? callback;
   final bool? disableRetryButton;
 
-  const ConflictErrorScreen({Key? key, this.callback, this.disableRetryButton})
-      : super(key: key);
+  const ConflictErrorScreen({super.key, this.callback, this.disableRetryButton});
 
   @override
   _ConflictErrorScreenState createState() => _ConflictErrorScreenState();

@@ -42,9 +42,9 @@ class Result<Error extends AppErrors, Data> {
   }
 
   /// forwards the error if present else forwards the data
-  factory Result.forward(Result _result, Data? data) {
-    if (_result.hasErrorOnly) {
-      return Result.error(_result.error as Error);
+  factory Result.forward(Result result, Data? data) {
+    if (result.hasErrorOnly) {
+      return Result.error(result.error as Error);
     }
 
     return Result.data(data);
@@ -64,9 +64,9 @@ class Result<Error extends AppErrors, Data> {
     if (hasErrorOnly) {
       onError.call(error!);
     } else if (hasDataOnly) {
-      onData.call(data!);
+      onData.call(data as Data);
     } else {
-      onErrorWithData?.call(data!, error!);
+      onErrorWithData?.call(data as Data, error!);
     }
   }
 }

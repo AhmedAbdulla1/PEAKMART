@@ -5,8 +5,7 @@ class AccountNotVerifiedErrorScreen extends StatefulWidget {
   final bool? disableRetryButton;
 
   const AccountNotVerifiedErrorScreen(
-      {Key? key, this.callback, this.disableRetryButton})
-      : super(key: key);
+      {super.key, this.callback, this.disableRetryButton});
 
   @override
   _AccountNotVerifiedErrorScreenState createState() =>

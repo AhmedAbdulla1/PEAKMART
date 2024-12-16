@@ -1,6 +1,8 @@
 part of '../error_widget.dart';
 
 class UnauthorizedErrorScreenWidget extends StatefulWidget {
+  const UnauthorizedErrorScreenWidget({super.key});
+
   @override
   _UnauthorizedErrorScreenWidgetState createState() =>
       _UnauthorizedErrorScreenWidgetState();

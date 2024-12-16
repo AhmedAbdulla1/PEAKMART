@@ -4,8 +4,7 @@ class CancelErrorScreen extends StatefulWidget {
   final VoidCallback? callback;
   final bool? disableRetryButton;
 
-  const CancelErrorScreen({Key? key, this.callback, this.disableRetryButton})
-      : super(key: key);
+  const CancelErrorScreen({super.key, this.callback, this.disableRetryButton});
 
   @override
   _CancelErrorScreenState createState() => _CancelErrorScreenState();

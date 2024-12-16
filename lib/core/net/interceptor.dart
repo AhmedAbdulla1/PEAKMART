@@ -16,11 +16,13 @@ class AuthInterceptor extends Interceptor {
       final os = AppConfig().os;
       final appVersion = AppConfig().appVersion;
       if (os != null) options.headers[AppConstants.HEADER_OS] = '$os';
-      if (appVersion != null)
-        options.headers[AppConstants.HEADER_APP_VERSION] = '$appVersion';
+      if (appVersion != null) {
+        options.headers[AppConstants.HEADER_APP_VERSION] = appVersion;
+      }
       if (os != null) options.headers[AppConstants.HEADER_AUTH] = '$token';
-      if (appVersion != null)
-        options.headers[AppConstants.HEADER_APP_VERSION] = '$appVersion';
+      if (appVersion != null) {
+        options.headers[AppConstants.HEADER_APP_VERSION] = appVersion;
+      }
       if (os != null) options.headers[AppConstants.HEADER_AUTH] = '$token';
       // options.headers[AppConstants.HEADER_AUTH] = '$apiKey';
       options.headers[AppConstants.HEADER_AUTH] = '$token';
@@ -43,7 +45,7 @@ class AuthInterceptor extends Interceptor {
           break;
         case 401:
           handler.reject(
-            DioError(
+            DioException(
               requestOptions: response.requestOptions,
               response: response,
               error: {},
@@ -54,7 +56,7 @@ class AuthInterceptor extends Interceptor {
             break;
         default:
           handler.reject(
-            DioError(
+            DioException(
               requestOptions: response.requestOptions,
               response: response,
               error: {},
@@ -65,7 +67,7 @@ class AuthInterceptor extends Interceptor {
       }
     } catch (ex) {
       handler.reject(
-        DioError(
+        DioException(
             requestOptions: response.requestOptions,
             response: response,
             error: ex),

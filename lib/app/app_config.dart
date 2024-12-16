@@ -33,8 +33,8 @@ class AppConfig {
   String? _appName;
   String? _appVersion;
   Map? _LastCard;
-  AppThemes _appTheme = AppThemes.LIGHT;
-  AppOptions _appOptions = AppOptions();
+  final AppThemes _appTheme = AppThemes.LIGHT;
+  final AppOptions _appOptions = AppOptions();
   bool connectEnternet = true;
 
   SystemType? get os => _os;
@@ -85,7 +85,7 @@ class AppConfig {
   /// read authToken
   /// if returns null thats means there no SP instance
   Future<String?> get authToken async {
-    final prefs = await instance<AppPreferences>();
+    final prefs = instance<AppPreferences>();
     return prefs.getFcmToken();
   }
 
@@ -95,17 +95,17 @@ class AppConfig {
 
   /// check if hasToken or not
   Future<bool> get hasToken async {
-    final prefs = await instance<AppPreferences>();
+    final prefs = instance<AppPreferences>();
     String? token = prefs.getFcmToken();
-    if (token != null) return true;
+    return true;
     return false;
   }
 
   /// check if hasFcmToken or not
   Future<bool> get hasFcmToken async {
-    final prefs = await instance<AppPreferences>();
+    final prefs = instance<AppPreferences>();
     String? token = prefs.getFcmToken();
-    if (token != null && token.isNotEmpty) return true;
+    if (token.isNotEmpty) return true;
     return false;
   }
 

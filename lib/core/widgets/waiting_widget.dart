@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class WaitingWidget extends StatelessWidget {
+  const WaitingWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const Center(
@@ -17,8 +19,7 @@ class TextWaitingWidget extends StatelessWidget {
   final Color textColor;
 
   const TextWaitingWidget(this.text,
-      {Key? key, this.pause, this.textColor = Colors.black})
-      : super(key: key);
+      {super.key, this.pause, this.textColor = Colors.black});
 
   @override
   Widget build(BuildContext context) {

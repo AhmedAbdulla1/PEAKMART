@@ -6,11 +6,11 @@ class MoreItem extends StatelessWidget {
   final VoidCallback? onPressed;
 
   const MoreItem({
-    Key? key,
+    super.key,
     required this.image,
     required this.title,
     this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

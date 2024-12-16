@@ -5,10 +5,10 @@ class LoginRequiredErrorScreen extends StatefulWidget {
   final bool? disableRetryButton;
 
   const LoginRequiredErrorScreen({
-    Key? key,
+    super.key,
     this.callback,
     this.disableRetryButton,
-  }) : super(key: key);
+  });
 
   @override
   _LoginRequiredErrorScreenState createState() =>

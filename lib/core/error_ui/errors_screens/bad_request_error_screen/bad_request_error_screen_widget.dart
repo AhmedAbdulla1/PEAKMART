@@ -3,7 +3,7 @@ part of '../error_widget.dart';
 class BadRequestErrorScreenWidget extends StatefulWidget {
   final String? message;
 
-  const BadRequestErrorScreenWidget({Key? key, this.message}) : super(key: key);
+  const BadRequestErrorScreenWidget({super.key, this.message});
 
   @override
   _BadRequestErrorScreenWidgetState createState() =>

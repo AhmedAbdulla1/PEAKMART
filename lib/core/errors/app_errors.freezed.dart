@@ -18,74 +18,74 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AppErrors {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() connectionError,
-    required TResult Function() internalServerError,
+    required TResult Function(String message) connectionError,
+    required TResult Function(String message) internalServerError,
     required TResult Function(int errorCode, String? message)
         internalServerWithDataError,
-    required TResult Function() accountNotVerifiedError,
+    required TResult Function(String message) accountNotVerifiedError,
     required TResult Function(String message) badRequestError,
     required TResult Function(String? message) cancelError,
-    required TResult Function() conflictError,
+    required TResult Function(String message) conflictError,
     required TResult Function(String message) customError,
-    required TResult Function() forbiddenError,
-    required TResult Function() formatError,
-    required TResult Function() loginRequiredError,
-    required TResult Function() netError,
+    required TResult Function(String message) forbiddenError,
+    required TResult Function(String message) formatError,
+    required TResult Function(String message) loginRequiredError,
+    required TResult Function(String message) netError,
     required TResult Function(String requestedUrlPath) notFoundError,
-    required TResult Function() responseError,
-    required TResult Function() screenNotImplementedError,
-    required TResult Function() socketError,
-    required TResult Function() timeoutError,
-    required TResult Function() unauthorizedError,
-    required TResult Function() unknownError,
+    required TResult Function(String message) responseError,
+    required TResult Function(String message) screenNotImplementedError,
+    required TResult Function(String message) socketError,
+    required TResult Function(String message) timeoutError,
+    required TResult Function(String message) unauthorizedError,
+    required TResult Function(String message) unknownError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? connectionError,
-    TResult? Function()? internalServerError,
+    TResult? Function(String message)? connectionError,
+    TResult? Function(String message)? internalServerError,
     TResult? Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult? Function()? accountNotVerifiedError,
+    TResult? Function(String message)? accountNotVerifiedError,
     TResult? Function(String message)? badRequestError,
     TResult? Function(String? message)? cancelError,
-    TResult? Function()? conflictError,
+    TResult? Function(String message)? conflictError,
     TResult? Function(String message)? customError,
-    TResult? Function()? forbiddenError,
-    TResult? Function()? formatError,
-    TResult? Function()? loginRequiredError,
-    TResult? Function()? netError,
+    TResult? Function(String message)? forbiddenError,
+    TResult? Function(String message)? formatError,
+    TResult? Function(String message)? loginRequiredError,
+    TResult? Function(String message)? netError,
     TResult? Function(String requestedUrlPath)? notFoundError,
-    TResult? Function()? responseError,
-    TResult? Function()? screenNotImplementedError,
-    TResult? Function()? socketError,
-    TResult? Function()? timeoutError,
-    TResult? Function()? unauthorizedError,
-    TResult? Function()? unknownError,
+    TResult? Function(String message)? responseError,
+    TResult? Function(String message)? screenNotImplementedError,
+    TResult? Function(String message)? socketError,
+    TResult? Function(String message)? timeoutError,
+    TResult? Function(String message)? unauthorizedError,
+    TResult? Function(String message)? unknownError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? connectionError,
-    TResult Function()? internalServerError,
+    TResult Function(String message)? connectionError,
+    TResult Function(String message)? internalServerError,
     TResult Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult Function()? accountNotVerifiedError,
+    TResult Function(String message)? accountNotVerifiedError,
     TResult Function(String message)? badRequestError,
     TResult Function(String? message)? cancelError,
-    TResult Function()? conflictError,
+    TResult Function(String message)? conflictError,
     TResult Function(String message)? customError,
-    TResult Function()? forbiddenError,
-    TResult Function()? formatError,
-    TResult Function()? loginRequiredError,
-    TResult Function()? netError,
+    TResult Function(String message)? forbiddenError,
+    TResult Function(String message)? formatError,
+    TResult Function(String message)? loginRequiredError,
+    TResult Function(String message)? netError,
     TResult Function(String requestedUrlPath)? notFoundError,
-    TResult Function()? responseError,
-    TResult Function()? screenNotImplementedError,
-    TResult Function()? socketError,
-    TResult Function()? timeoutError,
-    TResult Function()? unauthorizedError,
-    TResult Function()? unknownError,
+    TResult Function(String message)? responseError,
+    TResult Function(String message)? screenNotImplementedError,
+    TResult Function(String message)? socketError,
+    TResult Function(String message)? timeoutError,
+    TResult Function(String message)? unauthorizedError,
+    TResult Function(String message)? unknownError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -183,6 +183,9 @@ class _$AppErrorsCopyWithImpl<$Res, $Val extends AppErrors>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -190,6 +193,8 @@ abstract class _$$ConnectionErrorImplCopyWith<$Res> {
   factory _$$ConnectionErrorImplCopyWith(_$ConnectionErrorImpl value,
           $Res Function(_$ConnectionErrorImpl) then) =
       __$$ConnectionErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
 }
 
 /// @nodoc
@@ -199,108 +204,138 @@ class __$$ConnectionErrorImplCopyWithImpl<$Res>
   __$$ConnectionErrorImplCopyWithImpl(
       _$ConnectionErrorImpl _value, $Res Function(_$ConnectionErrorImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$ConnectionErrorImpl(
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$ConnectionErrorImpl implements ConnectionError {
-  const _$ConnectionErrorImpl();
+  const _$ConnectionErrorImpl({this.message = ""});
+
+  @override
+  @JsonKey()
+  final String message;
 
   @override
   String toString() {
-    return 'AppErrors.connectionError()';
+    return 'AppErrors.connectionError(message: $message)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ConnectionErrorImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$ConnectionErrorImpl &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ConnectionErrorImplCopyWith<_$ConnectionErrorImpl> get copyWith =>
+      __$$ConnectionErrorImplCopyWithImpl<_$ConnectionErrorImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() connectionError,
-    required TResult Function() internalServerError,
+    required TResult Function(String message) connectionError,
+    required TResult Function(String message) internalServerError,
     required TResult Function(int errorCode, String? message)
         internalServerWithDataError,
-    required TResult Function() accountNotVerifiedError,
+    required TResult Function(String message) accountNotVerifiedError,
     required TResult Function(String message) badRequestError,
     required TResult Function(String? message) cancelError,
-    required TResult Function() conflictError,
+    required TResult Function(String message) conflictError,
     required TResult Function(String message) customError,
-    required TResult Function() forbiddenError,
-    required TResult Function() formatError,
-    required TResult Function() loginRequiredError,
-    required TResult Function() netError,
+    required TResult Function(String message) forbiddenError,
+    required TResult Function(String message) formatError,
+    required TResult Function(String message) loginRequiredError,
+    required TResult Function(String message) netError,
     required TResult Function(String requestedUrlPath) notFoundError,
-    required TResult Function() responseError,
-    required TResult Function() screenNotImplementedError,
-    required TResult Function() socketError,
-    required TResult Function() timeoutError,
-    required TResult Function() unauthorizedError,
-    required TResult Function() unknownError,
+    required TResult Function(String message) responseError,
+    required TResult Function(String message) screenNotImplementedError,
+    required TResult Function(String message) socketError,
+    required TResult Function(String message) timeoutError,
+    required TResult Function(String message) unauthorizedError,
+    required TResult Function(String message) unknownError,
   }) {
-    return connectionError();
+    return connectionError(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? connectionError,
-    TResult? Function()? internalServerError,
+    TResult? Function(String message)? connectionError,
+    TResult? Function(String message)? internalServerError,
     TResult? Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult? Function()? accountNotVerifiedError,
+    TResult? Function(String message)? accountNotVerifiedError,
     TResult? Function(String message)? badRequestError,
     TResult? Function(String? message)? cancelError,
-    TResult? Function()? conflictError,
+    TResult? Function(String message)? conflictError,
     TResult? Function(String message)? customError,
-    TResult? Function()? forbiddenError,
-    TResult? Function()? formatError,
-    TResult? Function()? loginRequiredError,
-    TResult? Function()? netError,
+    TResult? Function(String message)? forbiddenError,
+    TResult? Function(String message)? formatError,
+    TResult? Function(String message)? loginRequiredError,
+    TResult? Function(String message)? netError,
     TResult? Function(String requestedUrlPath)? notFoundError,
-    TResult? Function()? responseError,
-    TResult? Function()? screenNotImplementedError,
-    TResult? Function()? socketError,
-    TResult? Function()? timeoutError,
-    TResult? Function()? unauthorizedError,
-    TResult? Function()? unknownError,
+    TResult? Function(String message)? responseError,
+    TResult? Function(String message)? screenNotImplementedError,
+    TResult? Function(String message)? socketError,
+    TResult? Function(String message)? timeoutError,
+    TResult? Function(String message)? unauthorizedError,
+    TResult? Function(String message)? unknownError,
   }) {
-    return connectionError?.call();
+    return connectionError?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? connectionError,
-    TResult Function()? internalServerError,
+    TResult Function(String message)? connectionError,
+    TResult Function(String message)? internalServerError,
     TResult Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult Function()? accountNotVerifiedError,
+    TResult Function(String message)? accountNotVerifiedError,
     TResult Function(String message)? badRequestError,
     TResult Function(String? message)? cancelError,
-    TResult Function()? conflictError,
+    TResult Function(String message)? conflictError,
     TResult Function(String message)? customError,
-    TResult Function()? forbiddenError,
-    TResult Function()? formatError,
-    TResult Function()? loginRequiredError,
-    TResult Function()? netError,
+    TResult Function(String message)? forbiddenError,
+    TResult Function(String message)? formatError,
+    TResult Function(String message)? loginRequiredError,
+    TResult Function(String message)? netError,
     TResult Function(String requestedUrlPath)? notFoundError,
-    TResult Function()? responseError,
-    TResult Function()? screenNotImplementedError,
-    TResult Function()? socketError,
-    TResult Function()? timeoutError,
-    TResult Function()? unauthorizedError,
-    TResult Function()? unknownError,
+    TResult Function(String message)? responseError,
+    TResult Function(String message)? screenNotImplementedError,
+    TResult Function(String message)? socketError,
+    TResult Function(String message)? timeoutError,
+    TResult Function(String message)? unauthorizedError,
+    TResult Function(String message)? unknownError,
     required TResult orElse(),
   }) {
     if (connectionError != null) {
-      return connectionError();
+      return connectionError(message);
     }
     return orElse();
   }
@@ -396,7 +431,15 @@ class _$ConnectionErrorImpl implements ConnectionError {
 }
 
 abstract class ConnectionError implements AppErrors, HttpError {
-  const factory ConnectionError() = _$ConnectionErrorImpl;
+  const factory ConnectionError({final String message}) = _$ConnectionErrorImpl;
+
+  String get message;
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ConnectionErrorImplCopyWith<_$ConnectionErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -404,6 +447,8 @@ abstract class _$$InternalServerErrorImplCopyWith<$Res> {
   factory _$$InternalServerErrorImplCopyWith(_$InternalServerErrorImpl value,
           $Res Function(_$InternalServerErrorImpl) then) =
       __$$InternalServerErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
 }
 
 /// @nodoc
@@ -413,109 +458,138 @@ class __$$InternalServerErrorImplCopyWithImpl<$Res>
   __$$InternalServerErrorImplCopyWithImpl(_$InternalServerErrorImpl _value,
       $Res Function(_$InternalServerErrorImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$InternalServerErrorImpl(
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$InternalServerErrorImpl implements InternalServerError {
-  const _$InternalServerErrorImpl();
+  const _$InternalServerErrorImpl({this.message = ""});
+
+  @override
+  @JsonKey()
+  final String message;
 
   @override
   String toString() {
-    return 'AppErrors.internalServerError()';
+    return 'AppErrors.internalServerError(message: $message)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$InternalServerErrorImpl);
+            other is _$InternalServerErrorImpl &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InternalServerErrorImplCopyWith<_$InternalServerErrorImpl> get copyWith =>
+      __$$InternalServerErrorImplCopyWithImpl<_$InternalServerErrorImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() connectionError,
-    required TResult Function() internalServerError,
+    required TResult Function(String message) connectionError,
+    required TResult Function(String message) internalServerError,
     required TResult Function(int errorCode, String? message)
         internalServerWithDataError,
-    required TResult Function() accountNotVerifiedError,
+    required TResult Function(String message) accountNotVerifiedError,
     required TResult Function(String message) badRequestError,
     required TResult Function(String? message) cancelError,
-    required TResult Function() conflictError,
+    required TResult Function(String message) conflictError,
     required TResult Function(String message) customError,
-    required TResult Function() forbiddenError,
-    required TResult Function() formatError,
-    required TResult Function() loginRequiredError,
-    required TResult Function() netError,
+    required TResult Function(String message) forbiddenError,
+    required TResult Function(String message) formatError,
+    required TResult Function(String message) loginRequiredError,
+    required TResult Function(String message) netError,
     required TResult Function(String requestedUrlPath) notFoundError,
-    required TResult Function() responseError,
-    required TResult Function() screenNotImplementedError,
-    required TResult Function() socketError,
-    required TResult Function() timeoutError,
-    required TResult Function() unauthorizedError,
-    required TResult Function() unknownError,
+    required TResult Function(String message) responseError,
+    required TResult Function(String message) screenNotImplementedError,
+    required TResult Function(String message) socketError,
+    required TResult Function(String message) timeoutError,
+    required TResult Function(String message) unauthorizedError,
+    required TResult Function(String message) unknownError,
   }) {
-    return internalServerError();
+    return internalServerError(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? connectionError,
-    TResult? Function()? internalServerError,
+    TResult? Function(String message)? connectionError,
+    TResult? Function(String message)? internalServerError,
     TResult? Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult? Function()? accountNotVerifiedError,
+    TResult? Function(String message)? accountNotVerifiedError,
     TResult? Function(String message)? badRequestError,
     TResult? Function(String? message)? cancelError,
-    TResult? Function()? conflictError,
+    TResult? Function(String message)? conflictError,
     TResult? Function(String message)? customError,
-    TResult? Function()? forbiddenError,
-    TResult? Function()? formatError,
-    TResult? Function()? loginRequiredError,
-    TResult? Function()? netError,
+    TResult? Function(String message)? forbiddenError,
+    TResult? Function(String message)? formatError,
+    TResult? Function(String message)? loginRequiredError,
+    TResult? Function(String message)? netError,
     TResult? Function(String requestedUrlPath)? notFoundError,
-    TResult? Function()? responseError,
-    TResult? Function()? screenNotImplementedError,
-    TResult? Function()? socketError,
-    TResult? Function()? timeoutError,
-    TResult? Function()? unauthorizedError,
-    TResult? Function()? unknownError,
+    TResult? Function(String message)? responseError,
+    TResult? Function(String message)? screenNotImplementedError,
+    TResult? Function(String message)? socketError,
+    TResult? Function(String message)? timeoutError,
+    TResult? Function(String message)? unauthorizedError,
+    TResult? Function(String message)? unknownError,
   }) {
-    return internalServerError?.call();
+    return internalServerError?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? connectionError,
-    TResult Function()? internalServerError,
+    TResult Function(String message)? connectionError,
+    TResult Function(String message)? internalServerError,
     TResult Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult Function()? accountNotVerifiedError,
+    TResult Function(String message)? accountNotVerifiedError,
     TResult Function(String message)? badRequestError,
     TResult Function(String? message)? cancelError,
-    TResult Function()? conflictError,
+    TResult Function(String message)? conflictError,
     TResult Function(String message)? customError,
-    TResult Function()? forbiddenError,
-    TResult Function()? formatError,
-    TResult Function()? loginRequiredError,
-    TResult Function()? netError,
+    TResult Function(String message)? forbiddenError,
+    TResult Function(String message)? formatError,
+    TResult Function(String message)? loginRequiredError,
+    TResult Function(String message)? netError,
     TResult Function(String requestedUrlPath)? notFoundError,
-    TResult Function()? responseError,
-    TResult Function()? screenNotImplementedError,
-    TResult Function()? socketError,
-    TResult Function()? timeoutError,
-    TResult Function()? unauthorizedError,
-    TResult Function()? unknownError,
+    TResult Function(String message)? responseError,
+    TResult Function(String message)? screenNotImplementedError,
+    TResult Function(String message)? socketError,
+    TResult Function(String message)? timeoutError,
+    TResult Function(String message)? unauthorizedError,
+    TResult Function(String message)? unknownError,
     required TResult orElse(),
   }) {
     if (internalServerError != null) {
-      return internalServerError();
+      return internalServerError(message);
     }
     return orElse();
   }
@@ -611,7 +685,16 @@ class _$InternalServerErrorImpl implements InternalServerError {
 }
 
 abstract class InternalServerError implements AppErrors, HttpError {
-  const factory InternalServerError() = _$InternalServerErrorImpl;
+  const factory InternalServerError({final String message}) =
+      _$InternalServerErrorImpl;
+
+  String get message;
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$InternalServerErrorImplCopyWith<_$InternalServerErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -633,6 +716,8 @@ class __$$InternalServerWithDataErrorImplCopyWithImpl<$Res>
       $Res Function(_$InternalServerWithDataErrorImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -680,7 +765,9 @@ class _$InternalServerWithDataErrorImpl implements InternalServerWithDataError {
   @override
   int get hashCode => Object.hash(runtimeType, errorCode, message);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InternalServerWithDataErrorImplCopyWith<_$InternalServerWithDataErrorImpl>
@@ -690,26 +777,26 @@ class _$InternalServerWithDataErrorImpl implements InternalServerWithDataError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() connectionError,
-    required TResult Function() internalServerError,
+    required TResult Function(String message) connectionError,
+    required TResult Function(String message) internalServerError,
     required TResult Function(int errorCode, String? message)
         internalServerWithDataError,
-    required TResult Function() accountNotVerifiedError,
+    required TResult Function(String message) accountNotVerifiedError,
     required TResult Function(String message) badRequestError,
     required TResult Function(String? message) cancelError,
-    required TResult Function() conflictError,
+    required TResult Function(String message) conflictError,
     required TResult Function(String message) customError,
-    required TResult Function() forbiddenError,
-    required TResult Function() formatError,
-    required TResult Function() loginRequiredError,
-    required TResult Function() netError,
+    required TResult Function(String message) forbiddenError,
+    required TResult Function(String message) formatError,
+    required TResult Function(String message) loginRequiredError,
+    required TResult Function(String message) netError,
     required TResult Function(String requestedUrlPath) notFoundError,
-    required TResult Function() responseError,
-    required TResult Function() screenNotImplementedError,
-    required TResult Function() socketError,
-    required TResult Function() timeoutError,
-    required TResult Function() unauthorizedError,
-    required TResult Function() unknownError,
+    required TResult Function(String message) responseError,
+    required TResult Function(String message) screenNotImplementedError,
+    required TResult Function(String message) socketError,
+    required TResult Function(String message) timeoutError,
+    required TResult Function(String message) unauthorizedError,
+    required TResult Function(String message) unknownError,
   }) {
     return internalServerWithDataError(errorCode, message);
   }
@@ -717,26 +804,26 @@ class _$InternalServerWithDataErrorImpl implements InternalServerWithDataError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? connectionError,
-    TResult? Function()? internalServerError,
+    TResult? Function(String message)? connectionError,
+    TResult? Function(String message)? internalServerError,
     TResult? Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult? Function()? accountNotVerifiedError,
+    TResult? Function(String message)? accountNotVerifiedError,
     TResult? Function(String message)? badRequestError,
     TResult? Function(String? message)? cancelError,
-    TResult? Function()? conflictError,
+    TResult? Function(String message)? conflictError,
     TResult? Function(String message)? customError,
-    TResult? Function()? forbiddenError,
-    TResult? Function()? formatError,
-    TResult? Function()? loginRequiredError,
-    TResult? Function()? netError,
+    TResult? Function(String message)? forbiddenError,
+    TResult? Function(String message)? formatError,
+    TResult? Function(String message)? loginRequiredError,
+    TResult? Function(String message)? netError,
     TResult? Function(String requestedUrlPath)? notFoundError,
-    TResult? Function()? responseError,
-    TResult? Function()? screenNotImplementedError,
-    TResult? Function()? socketError,
-    TResult? Function()? timeoutError,
-    TResult? Function()? unauthorizedError,
-    TResult? Function()? unknownError,
+    TResult? Function(String message)? responseError,
+    TResult? Function(String message)? screenNotImplementedError,
+    TResult? Function(String message)? socketError,
+    TResult? Function(String message)? timeoutError,
+    TResult? Function(String message)? unauthorizedError,
+    TResult? Function(String message)? unknownError,
   }) {
     return internalServerWithDataError?.call(errorCode, message);
   }
@@ -744,26 +831,26 @@ class _$InternalServerWithDataErrorImpl implements InternalServerWithDataError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? connectionError,
-    TResult Function()? internalServerError,
+    TResult Function(String message)? connectionError,
+    TResult Function(String message)? internalServerError,
     TResult Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult Function()? accountNotVerifiedError,
+    TResult Function(String message)? accountNotVerifiedError,
     TResult Function(String message)? badRequestError,
     TResult Function(String? message)? cancelError,
-    TResult Function()? conflictError,
+    TResult Function(String message)? conflictError,
     TResult Function(String message)? customError,
-    TResult Function()? forbiddenError,
-    TResult Function()? formatError,
-    TResult Function()? loginRequiredError,
-    TResult Function()? netError,
+    TResult Function(String message)? forbiddenError,
+    TResult Function(String message)? formatError,
+    TResult Function(String message)? loginRequiredError,
+    TResult Function(String message)? netError,
     TResult Function(String requestedUrlPath)? notFoundError,
-    TResult Function()? responseError,
-    TResult Function()? screenNotImplementedError,
-    TResult Function()? socketError,
-    TResult Function()? timeoutError,
-    TResult Function()? unauthorizedError,
-    TResult Function()? unknownError,
+    TResult Function(String message)? responseError,
+    TResult Function(String message)? screenNotImplementedError,
+    TResult Function(String message)? socketError,
+    TResult Function(String message)? timeoutError,
+    TResult Function(String message)? unauthorizedError,
+    TResult Function(String message)? unknownError,
     required TResult orElse(),
   }) {
     if (internalServerWithDataError != null) {
@@ -868,7 +955,10 @@ abstract class InternalServerWithDataError implements AppErrors, HttpError {
 
   int get errorCode;
   String? get message;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InternalServerWithDataErrorImplCopyWith<_$InternalServerWithDataErrorImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -879,6 +969,8 @@ abstract class _$$AccountNotVerifiedErrorImplCopyWith<$Res> {
           _$AccountNotVerifiedErrorImpl value,
           $Res Function(_$AccountNotVerifiedErrorImpl) then) =
       __$$AccountNotVerifiedErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
 }
 
 /// @nodoc
@@ -889,109 +981,138 @@ class __$$AccountNotVerifiedErrorImplCopyWithImpl<$Res>
       _$AccountNotVerifiedErrorImpl _value,
       $Res Function(_$AccountNotVerifiedErrorImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$AccountNotVerifiedErrorImpl(
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$AccountNotVerifiedErrorImpl implements AccountNotVerifiedError {
-  const _$AccountNotVerifiedErrorImpl();
+  const _$AccountNotVerifiedErrorImpl({this.message = ""});
+
+  @override
+  @JsonKey()
+  final String message;
 
   @override
   String toString() {
-    return 'AppErrors.accountNotVerifiedError()';
+    return 'AppErrors.accountNotVerifiedError(message: $message)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AccountNotVerifiedErrorImpl);
+            other is _$AccountNotVerifiedErrorImpl &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AccountNotVerifiedErrorImplCopyWith<_$AccountNotVerifiedErrorImpl>
+      get copyWith => __$$AccountNotVerifiedErrorImplCopyWithImpl<
+          _$AccountNotVerifiedErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() connectionError,
-    required TResult Function() internalServerError,
+    required TResult Function(String message) connectionError,
+    required TResult Function(String message) internalServerError,
     required TResult Function(int errorCode, String? message)
         internalServerWithDataError,
-    required TResult Function() accountNotVerifiedError,
+    required TResult Function(String message) accountNotVerifiedError,
     required TResult Function(String message) badRequestError,
     required TResult Function(String? message) cancelError,
-    required TResult Function() conflictError,
+    required TResult Function(String message) conflictError,
     required TResult Function(String message) customError,
-    required TResult Function() forbiddenError,
-    required TResult Function() formatError,
-    required TResult Function() loginRequiredError,
-    required TResult Function() netError,
+    required TResult Function(String message) forbiddenError,
+    required TResult Function(String message) formatError,
+    required TResult Function(String message) loginRequiredError,
+    required TResult Function(String message) netError,
     required TResult Function(String requestedUrlPath) notFoundError,
-    required TResult Function() responseError,
-    required TResult Function() screenNotImplementedError,
-    required TResult Function() socketError,
-    required TResult Function() timeoutError,
-    required TResult Function() unauthorizedError,
-    required TResult Function() unknownError,
+    required TResult Function(String message) responseError,
+    required TResult Function(String message) screenNotImplementedError,
+    required TResult Function(String message) socketError,
+    required TResult Function(String message) timeoutError,
+    required TResult Function(String message) unauthorizedError,
+    required TResult Function(String message) unknownError,
   }) {
-    return accountNotVerifiedError();
+    return accountNotVerifiedError(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? connectionError,
-    TResult? Function()? internalServerError,
+    TResult? Function(String message)? connectionError,
+    TResult? Function(String message)? internalServerError,
     TResult? Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult? Function()? accountNotVerifiedError,
+    TResult? Function(String message)? accountNotVerifiedError,
     TResult? Function(String message)? badRequestError,
     TResult? Function(String? message)? cancelError,
-    TResult? Function()? conflictError,
+    TResult? Function(String message)? conflictError,
     TResult? Function(String message)? customError,
-    TResult? Function()? forbiddenError,
-    TResult? Function()? formatError,
-    TResult? Function()? loginRequiredError,
-    TResult? Function()? netError,
+    TResult? Function(String message)? forbiddenError,
+    TResult? Function(String message)? formatError,
+    TResult? Function(String message)? loginRequiredError,
+    TResult? Function(String message)? netError,
     TResult? Function(String requestedUrlPath)? notFoundError,
-    TResult? Function()? responseError,
-    TResult? Function()? screenNotImplementedError,
-    TResult? Function()? socketError,
-    TResult? Function()? timeoutError,
-    TResult? Function()? unauthorizedError,
-    TResult? Function()? unknownError,
+    TResult? Function(String message)? responseError,
+    TResult? Function(String message)? screenNotImplementedError,
+    TResult? Function(String message)? socketError,
+    TResult? Function(String message)? timeoutError,
+    TResult? Function(String message)? unauthorizedError,
+    TResult? Function(String message)? unknownError,
   }) {
-    return accountNotVerifiedError?.call();
+    return accountNotVerifiedError?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? connectionError,
-    TResult Function()? internalServerError,
+    TResult Function(String message)? connectionError,
+    TResult Function(String message)? internalServerError,
     TResult Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult Function()? accountNotVerifiedError,
+    TResult Function(String message)? accountNotVerifiedError,
     TResult Function(String message)? badRequestError,
     TResult Function(String? message)? cancelError,
-    TResult Function()? conflictError,
+    TResult Function(String message)? conflictError,
     TResult Function(String message)? customError,
-    TResult Function()? forbiddenError,
-    TResult Function()? formatError,
-    TResult Function()? loginRequiredError,
-    TResult Function()? netError,
+    TResult Function(String message)? forbiddenError,
+    TResult Function(String message)? formatError,
+    TResult Function(String message)? loginRequiredError,
+    TResult Function(String message)? netError,
     TResult Function(String requestedUrlPath)? notFoundError,
-    TResult Function()? responseError,
-    TResult Function()? screenNotImplementedError,
-    TResult Function()? socketError,
-    TResult Function()? timeoutError,
-    TResult Function()? unauthorizedError,
-    TResult Function()? unknownError,
+    TResult Function(String message)? responseError,
+    TResult Function(String message)? screenNotImplementedError,
+    TResult Function(String message)? socketError,
+    TResult Function(String message)? timeoutError,
+    TResult Function(String message)? unauthorizedError,
+    TResult Function(String message)? unknownError,
     required TResult orElse(),
   }) {
     if (accountNotVerifiedError != null) {
-      return accountNotVerifiedError();
+      return accountNotVerifiedError(message);
     }
     return orElse();
   }
@@ -1087,7 +1208,16 @@ class _$AccountNotVerifiedErrorImpl implements AccountNotVerifiedError {
 }
 
 abstract class AccountNotVerifiedError implements AppErrors {
-  const factory AccountNotVerifiedError() = _$AccountNotVerifiedErrorImpl;
+  const factory AccountNotVerifiedError({final String message}) =
+      _$AccountNotVerifiedErrorImpl;
+
+  String get message;
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$AccountNotVerifiedErrorImplCopyWith<_$AccountNotVerifiedErrorImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1107,6 +1237,8 @@ class __$$BadRequestErrorImplCopyWithImpl<$Res>
       _$BadRequestErrorImpl _value, $Res Function(_$BadRequestErrorImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1146,7 +1278,9 @@ class _$BadRequestErrorImpl implements BadRequestError {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BadRequestErrorImplCopyWith<_$BadRequestErrorImpl> get copyWith =>
@@ -1156,26 +1290,26 @@ class _$BadRequestErrorImpl implements BadRequestError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() connectionError,
-    required TResult Function() internalServerError,
+    required TResult Function(String message) connectionError,
+    required TResult Function(String message) internalServerError,
     required TResult Function(int errorCode, String? message)
         internalServerWithDataError,
-    required TResult Function() accountNotVerifiedError,
+    required TResult Function(String message) accountNotVerifiedError,
     required TResult Function(String message) badRequestError,
     required TResult Function(String? message) cancelError,
-    required TResult Function() conflictError,
+    required TResult Function(String message) conflictError,
     required TResult Function(String message) customError,
-    required TResult Function() forbiddenError,
-    required TResult Function() formatError,
-    required TResult Function() loginRequiredError,
-    required TResult Function() netError,
+    required TResult Function(String message) forbiddenError,
+    required TResult Function(String message) formatError,
+    required TResult Function(String message) loginRequiredError,
+    required TResult Function(String message) netError,
     required TResult Function(String requestedUrlPath) notFoundError,
-    required TResult Function() responseError,
-    required TResult Function() screenNotImplementedError,
-    required TResult Function() socketError,
-    required TResult Function() timeoutError,
-    required TResult Function() unauthorizedError,
-    required TResult Function() unknownError,
+    required TResult Function(String message) responseError,
+    required TResult Function(String message) screenNotImplementedError,
+    required TResult Function(String message) socketError,
+    required TResult Function(String message) timeoutError,
+    required TResult Function(String message) unauthorizedError,
+    required TResult Function(String message) unknownError,
   }) {
     return badRequestError(message);
   }
@@ -1183,26 +1317,26 @@ class _$BadRequestErrorImpl implements BadRequestError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? connectionError,
-    TResult? Function()? internalServerError,
+    TResult? Function(String message)? connectionError,
+    TResult? Function(String message)? internalServerError,
     TResult? Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult? Function()? accountNotVerifiedError,
+    TResult? Function(String message)? accountNotVerifiedError,
     TResult? Function(String message)? badRequestError,
     TResult? Function(String? message)? cancelError,
-    TResult? Function()? conflictError,
+    TResult? Function(String message)? conflictError,
     TResult? Function(String message)? customError,
-    TResult? Function()? forbiddenError,
-    TResult? Function()? formatError,
-    TResult? Function()? loginRequiredError,
-    TResult? Function()? netError,
+    TResult? Function(String message)? forbiddenError,
+    TResult? Function(String message)? formatError,
+    TResult? Function(String message)? loginRequiredError,
+    TResult? Function(String message)? netError,
     TResult? Function(String requestedUrlPath)? notFoundError,
-    TResult? Function()? responseError,
-    TResult? Function()? screenNotImplementedError,
-    TResult? Function()? socketError,
-    TResult? Function()? timeoutError,
-    TResult? Function()? unauthorizedError,
-    TResult? Function()? unknownError,
+    TResult? Function(String message)? responseError,
+    TResult? Function(String message)? screenNotImplementedError,
+    TResult? Function(String message)? socketError,
+    TResult? Function(String message)? timeoutError,
+    TResult? Function(String message)? unauthorizedError,
+    TResult? Function(String message)? unknownError,
   }) {
     return badRequestError?.call(message);
   }
@@ -1210,26 +1344,26 @@ class _$BadRequestErrorImpl implements BadRequestError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? connectionError,
-    TResult Function()? internalServerError,
+    TResult Function(String message)? connectionError,
+    TResult Function(String message)? internalServerError,
     TResult Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult Function()? accountNotVerifiedError,
+    TResult Function(String message)? accountNotVerifiedError,
     TResult Function(String message)? badRequestError,
     TResult Function(String? message)? cancelError,
-    TResult Function()? conflictError,
+    TResult Function(String message)? conflictError,
     TResult Function(String message)? customError,
-    TResult Function()? forbiddenError,
-    TResult Function()? formatError,
-    TResult Function()? loginRequiredError,
-    TResult Function()? netError,
+    TResult Function(String message)? forbiddenError,
+    TResult Function(String message)? formatError,
+    TResult Function(String message)? loginRequiredError,
+    TResult Function(String message)? netError,
     TResult Function(String requestedUrlPath)? notFoundError,
-    TResult Function()? responseError,
-    TResult Function()? screenNotImplementedError,
-    TResult Function()? socketError,
-    TResult Function()? timeoutError,
-    TResult Function()? unauthorizedError,
-    TResult Function()? unknownError,
+    TResult Function(String message)? responseError,
+    TResult Function(String message)? screenNotImplementedError,
+    TResult Function(String message)? socketError,
+    TResult Function(String message)? timeoutError,
+    TResult Function(String message)? unauthorizedError,
+    TResult Function(String message)? unknownError,
     required TResult orElse(),
   }) {
     if (badRequestError != null) {
@@ -1332,7 +1466,10 @@ abstract class BadRequestError implements AppErrors, HttpError {
   const factory BadRequestError({final String message}) = _$BadRequestErrorImpl;
 
   String get message;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BadRequestErrorImplCopyWith<_$BadRequestErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1354,6 +1491,8 @@ class __$$CancelErrorImplCopyWithImpl<$Res>
       _$CancelErrorImpl _value, $Res Function(_$CancelErrorImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1392,7 +1531,9 @@ class _$CancelErrorImpl implements CancelError {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CancelErrorImplCopyWith<_$CancelErrorImpl> get copyWith =>
@@ -1401,26 +1542,26 @@ class _$CancelErrorImpl implements CancelError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() connectionError,
-    required TResult Function() internalServerError,
+    required TResult Function(String message) connectionError,
+    required TResult Function(String message) internalServerError,
     required TResult Function(int errorCode, String? message)
         internalServerWithDataError,
-    required TResult Function() accountNotVerifiedError,
+    required TResult Function(String message) accountNotVerifiedError,
     required TResult Function(String message) badRequestError,
     required TResult Function(String? message) cancelError,
-    required TResult Function() conflictError,
+    required TResult Function(String message) conflictError,
     required TResult Function(String message) customError,
-    required TResult Function() forbiddenError,
-    required TResult Function() formatError,
-    required TResult Function() loginRequiredError,
-    required TResult Function() netError,
+    required TResult Function(String message) forbiddenError,
+    required TResult Function(String message) formatError,
+    required TResult Function(String message) loginRequiredError,
+    required TResult Function(String message) netError,
     required TResult Function(String requestedUrlPath) notFoundError,
-    required TResult Function() responseError,
-    required TResult Function() screenNotImplementedError,
-    required TResult Function() socketError,
-    required TResult Function() timeoutError,
-    required TResult Function() unauthorizedError,
-    required TResult Function() unknownError,
+    required TResult Function(String message) responseError,
+    required TResult Function(String message) screenNotImplementedError,
+    required TResult Function(String message) socketError,
+    required TResult Function(String message) timeoutError,
+    required TResult Function(String message) unauthorizedError,
+    required TResult Function(String message) unknownError,
   }) {
     return cancelError(message);
   }
@@ -1428,26 +1569,26 @@ class _$CancelErrorImpl implements CancelError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? connectionError,
-    TResult? Function()? internalServerError,
+    TResult? Function(String message)? connectionError,
+    TResult? Function(String message)? internalServerError,
     TResult? Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult? Function()? accountNotVerifiedError,
+    TResult? Function(String message)? accountNotVerifiedError,
     TResult? Function(String message)? badRequestError,
     TResult? Function(String? message)? cancelError,
-    TResult? Function()? conflictError,
+    TResult? Function(String message)? conflictError,
     TResult? Function(String message)? customError,
-    TResult? Function()? forbiddenError,
-    TResult? Function()? formatError,
-    TResult? Function()? loginRequiredError,
-    TResult? Function()? netError,
+    TResult? Function(String message)? forbiddenError,
+    TResult? Function(String message)? formatError,
+    TResult? Function(String message)? loginRequiredError,
+    TResult? Function(String message)? netError,
     TResult? Function(String requestedUrlPath)? notFoundError,
-    TResult? Function()? responseError,
-    TResult? Function()? screenNotImplementedError,
-    TResult? Function()? socketError,
-    TResult? Function()? timeoutError,
-    TResult? Function()? unauthorizedError,
-    TResult? Function()? unknownError,
+    TResult? Function(String message)? responseError,
+    TResult? Function(String message)? screenNotImplementedError,
+    TResult? Function(String message)? socketError,
+    TResult? Function(String message)? timeoutError,
+    TResult? Function(String message)? unauthorizedError,
+    TResult? Function(String message)? unknownError,
   }) {
     return cancelError?.call(message);
   }
@@ -1455,26 +1596,26 @@ class _$CancelErrorImpl implements CancelError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? connectionError,
-    TResult Function()? internalServerError,
+    TResult Function(String message)? connectionError,
+    TResult Function(String message)? internalServerError,
     TResult Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult Function()? accountNotVerifiedError,
+    TResult Function(String message)? accountNotVerifiedError,
     TResult Function(String message)? badRequestError,
     TResult Function(String? message)? cancelError,
-    TResult Function()? conflictError,
+    TResult Function(String message)? conflictError,
     TResult Function(String message)? customError,
-    TResult Function()? forbiddenError,
-    TResult Function()? formatError,
-    TResult Function()? loginRequiredError,
-    TResult Function()? netError,
+    TResult Function(String message)? forbiddenError,
+    TResult Function(String message)? formatError,
+    TResult Function(String message)? loginRequiredError,
+    TResult Function(String message)? netError,
     TResult Function(String requestedUrlPath)? notFoundError,
-    TResult Function()? responseError,
-    TResult Function()? screenNotImplementedError,
-    TResult Function()? socketError,
-    TResult Function()? timeoutError,
-    TResult Function()? unauthorizedError,
-    TResult Function()? unknownError,
+    TResult Function(String message)? responseError,
+    TResult Function(String message)? screenNotImplementedError,
+    TResult Function(String message)? socketError,
+    TResult Function(String message)? timeoutError,
+    TResult Function(String message)? unauthorizedError,
+    TResult Function(String message)? unknownError,
     required TResult orElse(),
   }) {
     if (cancelError != null) {
@@ -1577,7 +1718,10 @@ abstract class CancelError implements AppErrors {
   const factory CancelError(final String? message) = _$CancelErrorImpl;
 
   String? get message;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CancelErrorImplCopyWith<_$CancelErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1587,6 +1731,8 @@ abstract class _$$ConflictErrorImplCopyWith<$Res> {
   factory _$$ConflictErrorImplCopyWith(
           _$ConflictErrorImpl value, $Res Function(_$ConflictErrorImpl) then) =
       __$$ConflictErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
 }
 
 /// @nodoc
@@ -1596,108 +1742,137 @@ class __$$ConflictErrorImplCopyWithImpl<$Res>
   __$$ConflictErrorImplCopyWithImpl(
       _$ConflictErrorImpl _value, $Res Function(_$ConflictErrorImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$ConflictErrorImpl(
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$ConflictErrorImpl implements ConflictError {
-  const _$ConflictErrorImpl();
+  const _$ConflictErrorImpl({this.message = ""});
+
+  @override
+  @JsonKey()
+  final String message;
 
   @override
   String toString() {
-    return 'AppErrors.conflictError()';
+    return 'AppErrors.conflictError(message: $message)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ConflictErrorImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$ConflictErrorImpl &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ConflictErrorImplCopyWith<_$ConflictErrorImpl> get copyWith =>
+      __$$ConflictErrorImplCopyWithImpl<_$ConflictErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() connectionError,
-    required TResult Function() internalServerError,
+    required TResult Function(String message) connectionError,
+    required TResult Function(String message) internalServerError,
     required TResult Function(int errorCode, String? message)
         internalServerWithDataError,
-    required TResult Function() accountNotVerifiedError,
+    required TResult Function(String message) accountNotVerifiedError,
     required TResult Function(String message) badRequestError,
     required TResult Function(String? message) cancelError,
-    required TResult Function() conflictError,
+    required TResult Function(String message) conflictError,
     required TResult Function(String message) customError,
-    required TResult Function() forbiddenError,
-    required TResult Function() formatError,
-    required TResult Function() loginRequiredError,
-    required TResult Function() netError,
+    required TResult Function(String message) forbiddenError,
+    required TResult Function(String message) formatError,
+    required TResult Function(String message) loginRequiredError,
+    required TResult Function(String message) netError,
     required TResult Function(String requestedUrlPath) notFoundError,
-    required TResult Function() responseError,
-    required TResult Function() screenNotImplementedError,
-    required TResult Function() socketError,
-    required TResult Function() timeoutError,
-    required TResult Function() unauthorizedError,
-    required TResult Function() unknownError,
+    required TResult Function(String message) responseError,
+    required TResult Function(String message) screenNotImplementedError,
+    required TResult Function(String message) socketError,
+    required TResult Function(String message) timeoutError,
+    required TResult Function(String message) unauthorizedError,
+    required TResult Function(String message) unknownError,
   }) {
-    return conflictError();
+    return conflictError(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? connectionError,
-    TResult? Function()? internalServerError,
+    TResult? Function(String message)? connectionError,
+    TResult? Function(String message)? internalServerError,
     TResult? Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult? Function()? accountNotVerifiedError,
+    TResult? Function(String message)? accountNotVerifiedError,
     TResult? Function(String message)? badRequestError,
     TResult? Function(String? message)? cancelError,
-    TResult? Function()? conflictError,
+    TResult? Function(String message)? conflictError,
     TResult? Function(String message)? customError,
-    TResult? Function()? forbiddenError,
-    TResult? Function()? formatError,
-    TResult? Function()? loginRequiredError,
-    TResult? Function()? netError,
+    TResult? Function(String message)? forbiddenError,
+    TResult? Function(String message)? formatError,
+    TResult? Function(String message)? loginRequiredError,
+    TResult? Function(String message)? netError,
     TResult? Function(String requestedUrlPath)? notFoundError,
-    TResult? Function()? responseError,
-    TResult? Function()? screenNotImplementedError,
-    TResult? Function()? socketError,
-    TResult? Function()? timeoutError,
-    TResult? Function()? unauthorizedError,
-    TResult? Function()? unknownError,
+    TResult? Function(String message)? responseError,
+    TResult? Function(String message)? screenNotImplementedError,
+    TResult? Function(String message)? socketError,
+    TResult? Function(String message)? timeoutError,
+    TResult? Function(String message)? unauthorizedError,
+    TResult? Function(String message)? unknownError,
   }) {
-    return conflictError?.call();
+    return conflictError?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? connectionError,
-    TResult Function()? internalServerError,
+    TResult Function(String message)? connectionError,
+    TResult Function(String message)? internalServerError,
     TResult Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult Function()? accountNotVerifiedError,
+    TResult Function(String message)? accountNotVerifiedError,
     TResult Function(String message)? badRequestError,
     TResult Function(String? message)? cancelError,
-    TResult Function()? conflictError,
+    TResult Function(String message)? conflictError,
     TResult Function(String message)? customError,
-    TResult Function()? forbiddenError,
-    TResult Function()? formatError,
-    TResult Function()? loginRequiredError,
-    TResult Function()? netError,
+    TResult Function(String message)? forbiddenError,
+    TResult Function(String message)? formatError,
+    TResult Function(String message)? loginRequiredError,
+    TResult Function(String message)? netError,
     TResult Function(String requestedUrlPath)? notFoundError,
-    TResult Function()? responseError,
-    TResult Function()? screenNotImplementedError,
-    TResult Function()? socketError,
-    TResult Function()? timeoutError,
-    TResult Function()? unauthorizedError,
-    TResult Function()? unknownError,
+    TResult Function(String message)? responseError,
+    TResult Function(String message)? screenNotImplementedError,
+    TResult Function(String message)? socketError,
+    TResult Function(String message)? timeoutError,
+    TResult Function(String message)? unauthorizedError,
+    TResult Function(String message)? unknownError,
     required TResult orElse(),
   }) {
     if (conflictError != null) {
-      return conflictError();
+      return conflictError(message);
     }
     return orElse();
   }
@@ -1793,7 +1968,15 @@ class _$ConflictErrorImpl implements ConflictError {
 }
 
 abstract class ConflictError implements AppErrors, HttpError {
-  const factory ConflictError() = _$ConflictErrorImpl;
+  const factory ConflictError({final String message}) = _$ConflictErrorImpl;
+
+  String get message;
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ConflictErrorImplCopyWith<_$ConflictErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1813,6 +1996,8 @@ class __$$CustomErrorImplCopyWithImpl<$Res>
       _$CustomErrorImpl _value, $Res Function(_$CustomErrorImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1852,7 +2037,9 @@ class _$CustomErrorImpl implements CustomError {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CustomErrorImplCopyWith<_$CustomErrorImpl> get copyWith =>
@@ -1861,26 +2048,26 @@ class _$CustomErrorImpl implements CustomError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() connectionError,
-    required TResult Function() internalServerError,
+    required TResult Function(String message) connectionError,
+    required TResult Function(String message) internalServerError,
     required TResult Function(int errorCode, String? message)
         internalServerWithDataError,
-    required TResult Function() accountNotVerifiedError,
+    required TResult Function(String message) accountNotVerifiedError,
     required TResult Function(String message) badRequestError,
     required TResult Function(String? message) cancelError,
-    required TResult Function() conflictError,
+    required TResult Function(String message) conflictError,
     required TResult Function(String message) customError,
-    required TResult Function() forbiddenError,
-    required TResult Function() formatError,
-    required TResult Function() loginRequiredError,
-    required TResult Function() netError,
+    required TResult Function(String message) forbiddenError,
+    required TResult Function(String message) formatError,
+    required TResult Function(String message) loginRequiredError,
+    required TResult Function(String message) netError,
     required TResult Function(String requestedUrlPath) notFoundError,
-    required TResult Function() responseError,
-    required TResult Function() screenNotImplementedError,
-    required TResult Function() socketError,
-    required TResult Function() timeoutError,
-    required TResult Function() unauthorizedError,
-    required TResult Function() unknownError,
+    required TResult Function(String message) responseError,
+    required TResult Function(String message) screenNotImplementedError,
+    required TResult Function(String message) socketError,
+    required TResult Function(String message) timeoutError,
+    required TResult Function(String message) unauthorizedError,
+    required TResult Function(String message) unknownError,
   }) {
     return customError(message);
   }
@@ -1888,26 +2075,26 @@ class _$CustomErrorImpl implements CustomError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? connectionError,
-    TResult? Function()? internalServerError,
+    TResult? Function(String message)? connectionError,
+    TResult? Function(String message)? internalServerError,
     TResult? Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult? Function()? accountNotVerifiedError,
+    TResult? Function(String message)? accountNotVerifiedError,
     TResult? Function(String message)? badRequestError,
     TResult? Function(String? message)? cancelError,
-    TResult? Function()? conflictError,
+    TResult? Function(String message)? conflictError,
     TResult? Function(String message)? customError,
-    TResult? Function()? forbiddenError,
-    TResult? Function()? formatError,
-    TResult? Function()? loginRequiredError,
-    TResult? Function()? netError,
+    TResult? Function(String message)? forbiddenError,
+    TResult? Function(String message)? formatError,
+    TResult? Function(String message)? loginRequiredError,
+    TResult? Function(String message)? netError,
     TResult? Function(String requestedUrlPath)? notFoundError,
-    TResult? Function()? responseError,
-    TResult? Function()? screenNotImplementedError,
-    TResult? Function()? socketError,
-    TResult? Function()? timeoutError,
-    TResult? Function()? unauthorizedError,
-    TResult? Function()? unknownError,
+    TResult? Function(String message)? responseError,
+    TResult? Function(String message)? screenNotImplementedError,
+    TResult? Function(String message)? socketError,
+    TResult? Function(String message)? timeoutError,
+    TResult? Function(String message)? unauthorizedError,
+    TResult? Function(String message)? unknownError,
   }) {
     return customError?.call(message);
   }
@@ -1915,26 +2102,26 @@ class _$CustomErrorImpl implements CustomError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? connectionError,
-    TResult Function()? internalServerError,
+    TResult Function(String message)? connectionError,
+    TResult Function(String message)? internalServerError,
     TResult Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult Function()? accountNotVerifiedError,
+    TResult Function(String message)? accountNotVerifiedError,
     TResult Function(String message)? badRequestError,
     TResult Function(String? message)? cancelError,
-    TResult Function()? conflictError,
+    TResult Function(String message)? conflictError,
     TResult Function(String message)? customError,
-    TResult Function()? forbiddenError,
-    TResult Function()? formatError,
-    TResult Function()? loginRequiredError,
-    TResult Function()? netError,
+    TResult Function(String message)? forbiddenError,
+    TResult Function(String message)? formatError,
+    TResult Function(String message)? loginRequiredError,
+    TResult Function(String message)? netError,
     TResult Function(String requestedUrlPath)? notFoundError,
-    TResult Function()? responseError,
-    TResult Function()? screenNotImplementedError,
-    TResult Function()? socketError,
-    TResult Function()? timeoutError,
-    TResult Function()? unauthorizedError,
-    TResult Function()? unknownError,
+    TResult Function(String message)? responseError,
+    TResult Function(String message)? screenNotImplementedError,
+    TResult Function(String message)? socketError,
+    TResult Function(String message)? timeoutError,
+    TResult Function(String message)? unauthorizedError,
+    TResult Function(String message)? unknownError,
     required TResult orElse(),
   }) {
     if (customError != null) {
@@ -2037,7 +2224,10 @@ abstract class CustomError implements AppErrors {
   const factory CustomError({final String message}) = _$CustomErrorImpl;
 
   String get message;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CustomErrorImplCopyWith<_$CustomErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2047,6 +2237,8 @@ abstract class _$$ForbiddenErrorImplCopyWith<$Res> {
   factory _$$ForbiddenErrorImplCopyWith(_$ForbiddenErrorImpl value,
           $Res Function(_$ForbiddenErrorImpl) then) =
       __$$ForbiddenErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
 }
 
 /// @nodoc
@@ -2056,108 +2248,138 @@ class __$$ForbiddenErrorImplCopyWithImpl<$Res>
   __$$ForbiddenErrorImplCopyWithImpl(
       _$ForbiddenErrorImpl _value, $Res Function(_$ForbiddenErrorImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$ForbiddenErrorImpl(
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$ForbiddenErrorImpl implements ForbiddenError {
-  const _$ForbiddenErrorImpl();
+  const _$ForbiddenErrorImpl({this.message = ""});
+
+  @override
+  @JsonKey()
+  final String message;
 
   @override
   String toString() {
-    return 'AppErrors.forbiddenError()';
+    return 'AppErrors.forbiddenError(message: $message)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ForbiddenErrorImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$ForbiddenErrorImpl &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ForbiddenErrorImplCopyWith<_$ForbiddenErrorImpl> get copyWith =>
+      __$$ForbiddenErrorImplCopyWithImpl<_$ForbiddenErrorImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() connectionError,
-    required TResult Function() internalServerError,
+    required TResult Function(String message) connectionError,
+    required TResult Function(String message) internalServerError,
     required TResult Function(int errorCode, String? message)
         internalServerWithDataError,
-    required TResult Function() accountNotVerifiedError,
+    required TResult Function(String message) accountNotVerifiedError,
     required TResult Function(String message) badRequestError,
     required TResult Function(String? message) cancelError,
-    required TResult Function() conflictError,
+    required TResult Function(String message) conflictError,
     required TResult Function(String message) customError,
-    required TResult Function() forbiddenError,
-    required TResult Function() formatError,
-    required TResult Function() loginRequiredError,
-    required TResult Function() netError,
+    required TResult Function(String message) forbiddenError,
+    required TResult Function(String message) formatError,
+    required TResult Function(String message) loginRequiredError,
+    required TResult Function(String message) netError,
     required TResult Function(String requestedUrlPath) notFoundError,
-    required TResult Function() responseError,
-    required TResult Function() screenNotImplementedError,
-    required TResult Function() socketError,
-    required TResult Function() timeoutError,
-    required TResult Function() unauthorizedError,
-    required TResult Function() unknownError,
+    required TResult Function(String message) responseError,
+    required TResult Function(String message) screenNotImplementedError,
+    required TResult Function(String message) socketError,
+    required TResult Function(String message) timeoutError,
+    required TResult Function(String message) unauthorizedError,
+    required TResult Function(String message) unknownError,
   }) {
-    return forbiddenError();
+    return forbiddenError(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? connectionError,
-    TResult? Function()? internalServerError,
+    TResult? Function(String message)? connectionError,
+    TResult? Function(String message)? internalServerError,
     TResult? Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult? Function()? accountNotVerifiedError,
+    TResult? Function(String message)? accountNotVerifiedError,
     TResult? Function(String message)? badRequestError,
     TResult? Function(String? message)? cancelError,
-    TResult? Function()? conflictError,
+    TResult? Function(String message)? conflictError,
     TResult? Function(String message)? customError,
-    TResult? Function()? forbiddenError,
-    TResult? Function()? formatError,
-    TResult? Function()? loginRequiredError,
-    TResult? Function()? netError,
+    TResult? Function(String message)? forbiddenError,
+    TResult? Function(String message)? formatError,
+    TResult? Function(String message)? loginRequiredError,
+    TResult? Function(String message)? netError,
     TResult? Function(String requestedUrlPath)? notFoundError,
-    TResult? Function()? responseError,
-    TResult? Function()? screenNotImplementedError,
-    TResult? Function()? socketError,
-    TResult? Function()? timeoutError,
-    TResult? Function()? unauthorizedError,
-    TResult? Function()? unknownError,
+    TResult? Function(String message)? responseError,
+    TResult? Function(String message)? screenNotImplementedError,
+    TResult? Function(String message)? socketError,
+    TResult? Function(String message)? timeoutError,
+    TResult? Function(String message)? unauthorizedError,
+    TResult? Function(String message)? unknownError,
   }) {
-    return forbiddenError?.call();
+    return forbiddenError?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? connectionError,
-    TResult Function()? internalServerError,
+    TResult Function(String message)? connectionError,
+    TResult Function(String message)? internalServerError,
     TResult Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult Function()? accountNotVerifiedError,
+    TResult Function(String message)? accountNotVerifiedError,
     TResult Function(String message)? badRequestError,
     TResult Function(String? message)? cancelError,
-    TResult Function()? conflictError,
+    TResult Function(String message)? conflictError,
     TResult Function(String message)? customError,
-    TResult Function()? forbiddenError,
-    TResult Function()? formatError,
-    TResult Function()? loginRequiredError,
-    TResult Function()? netError,
+    TResult Function(String message)? forbiddenError,
+    TResult Function(String message)? formatError,
+    TResult Function(String message)? loginRequiredError,
+    TResult Function(String message)? netError,
     TResult Function(String requestedUrlPath)? notFoundError,
-    TResult Function()? responseError,
-    TResult Function()? screenNotImplementedError,
-    TResult Function()? socketError,
-    TResult Function()? timeoutError,
-    TResult Function()? unauthorizedError,
-    TResult Function()? unknownError,
+    TResult Function(String message)? responseError,
+    TResult Function(String message)? screenNotImplementedError,
+    TResult Function(String message)? socketError,
+    TResult Function(String message)? timeoutError,
+    TResult Function(String message)? unauthorizedError,
+    TResult Function(String message)? unknownError,
     required TResult orElse(),
   }) {
     if (forbiddenError != null) {
-      return forbiddenError();
+      return forbiddenError(message);
     }
     return orElse();
   }
@@ -2253,7 +2475,15 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
 }
 
 abstract class ForbiddenError implements AppErrors, HttpError {
-  const factory ForbiddenError() = _$ForbiddenErrorImpl;
+  const factory ForbiddenError({final String message}) = _$ForbiddenErrorImpl;
+
+  String get message;
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ForbiddenErrorImplCopyWith<_$ForbiddenErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2261,6 +2491,8 @@ abstract class _$$FormatErrorImplCopyWith<$Res> {
   factory _$$FormatErrorImplCopyWith(
           _$FormatErrorImpl value, $Res Function(_$FormatErrorImpl) then) =
       __$$FormatErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
 }
 
 /// @nodoc
@@ -2270,108 +2502,137 @@ class __$$FormatErrorImplCopyWithImpl<$Res>
   __$$FormatErrorImplCopyWithImpl(
       _$FormatErrorImpl _value, $Res Function(_$FormatErrorImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$FormatErrorImpl(
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$FormatErrorImpl implements FormatError {
-  const _$FormatErrorImpl();
+  const _$FormatErrorImpl({this.message = ""});
+
+  @override
+  @JsonKey()
+  final String message;
 
   @override
   String toString() {
-    return 'AppErrors.formatError()';
+    return 'AppErrors.formatError(message: $message)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$FormatErrorImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$FormatErrorImpl &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FormatErrorImplCopyWith<_$FormatErrorImpl> get copyWith =>
+      __$$FormatErrorImplCopyWithImpl<_$FormatErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() connectionError,
-    required TResult Function() internalServerError,
+    required TResult Function(String message) connectionError,
+    required TResult Function(String message) internalServerError,
     required TResult Function(int errorCode, String? message)
         internalServerWithDataError,
-    required TResult Function() accountNotVerifiedError,
+    required TResult Function(String message) accountNotVerifiedError,
     required TResult Function(String message) badRequestError,
     required TResult Function(String? message) cancelError,
-    required TResult Function() conflictError,
+    required TResult Function(String message) conflictError,
     required TResult Function(String message) customError,
-    required TResult Function() forbiddenError,
-    required TResult Function() formatError,
-    required TResult Function() loginRequiredError,
-    required TResult Function() netError,
+    required TResult Function(String message) forbiddenError,
+    required TResult Function(String message) formatError,
+    required TResult Function(String message) loginRequiredError,
+    required TResult Function(String message) netError,
     required TResult Function(String requestedUrlPath) notFoundError,
-    required TResult Function() responseError,
-    required TResult Function() screenNotImplementedError,
-    required TResult Function() socketError,
-    required TResult Function() timeoutError,
-    required TResult Function() unauthorizedError,
-    required TResult Function() unknownError,
+    required TResult Function(String message) responseError,
+    required TResult Function(String message) screenNotImplementedError,
+    required TResult Function(String message) socketError,
+    required TResult Function(String message) timeoutError,
+    required TResult Function(String message) unauthorizedError,
+    required TResult Function(String message) unknownError,
   }) {
-    return formatError();
+    return formatError(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? connectionError,
-    TResult? Function()? internalServerError,
+    TResult? Function(String message)? connectionError,
+    TResult? Function(String message)? internalServerError,
     TResult? Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult? Function()? accountNotVerifiedError,
+    TResult? Function(String message)? accountNotVerifiedError,
     TResult? Function(String message)? badRequestError,
     TResult? Function(String? message)? cancelError,
-    TResult? Function()? conflictError,
+    TResult? Function(String message)? conflictError,
     TResult? Function(String message)? customError,
-    TResult? Function()? forbiddenError,
-    TResult? Function()? formatError,
-    TResult? Function()? loginRequiredError,
-    TResult? Function()? netError,
+    TResult? Function(String message)? forbiddenError,
+    TResult? Function(String message)? formatError,
+    TResult? Function(String message)? loginRequiredError,
+    TResult? Function(String message)? netError,
     TResult? Function(String requestedUrlPath)? notFoundError,
-    TResult? Function()? responseError,
-    TResult? Function()? screenNotImplementedError,
-    TResult? Function()? socketError,
-    TResult? Function()? timeoutError,
-    TResult? Function()? unauthorizedError,
-    TResult? Function()? unknownError,
+    TResult? Function(String message)? responseError,
+    TResult? Function(String message)? screenNotImplementedError,
+    TResult? Function(String message)? socketError,
+    TResult? Function(String message)? timeoutError,
+    TResult? Function(String message)? unauthorizedError,
+    TResult? Function(String message)? unknownError,
   }) {
-    return formatError?.call();
+    return formatError?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? connectionError,
-    TResult Function()? internalServerError,
+    TResult Function(String message)? connectionError,
+    TResult Function(String message)? internalServerError,
     TResult Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult Function()? accountNotVerifiedError,
+    TResult Function(String message)? accountNotVerifiedError,
     TResult Function(String message)? badRequestError,
     TResult Function(String? message)? cancelError,
-    TResult Function()? conflictError,
+    TResult Function(String message)? conflictError,
     TResult Function(String message)? customError,
-    TResult Function()? forbiddenError,
-    TResult Function()? formatError,
-    TResult Function()? loginRequiredError,
-    TResult Function()? netError,
+    TResult Function(String message)? forbiddenError,
+    TResult Function(String message)? formatError,
+    TResult Function(String message)? loginRequiredError,
+    TResult Function(String message)? netError,
     TResult Function(String requestedUrlPath)? notFoundError,
-    TResult Function()? responseError,
-    TResult Function()? screenNotImplementedError,
-    TResult Function()? socketError,
-    TResult Function()? timeoutError,
-    TResult Function()? unauthorizedError,
-    TResult Function()? unknownError,
+    TResult Function(String message)? responseError,
+    TResult Function(String message)? screenNotImplementedError,
+    TResult Function(String message)? socketError,
+    TResult Function(String message)? timeoutError,
+    TResult Function(String message)? unauthorizedError,
+    TResult Function(String message)? unknownError,
     required TResult orElse(),
   }) {
     if (formatError != null) {
-      return formatError();
+      return formatError(message);
     }
     return orElse();
   }
@@ -2467,7 +2728,15 @@ class _$FormatErrorImpl implements FormatError {
 }
 
 abstract class FormatError implements AppErrors {
-  const factory FormatError() = _$FormatErrorImpl;
+  const factory FormatError({final String message}) = _$FormatErrorImpl;
+
+  String get message;
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$FormatErrorImplCopyWith<_$FormatErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2475,6 +2744,8 @@ abstract class _$$LoginRequiredErrorImplCopyWith<$Res> {
   factory _$$LoginRequiredErrorImplCopyWith(_$LoginRequiredErrorImpl value,
           $Res Function(_$LoginRequiredErrorImpl) then) =
       __$$LoginRequiredErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
 }
 
 /// @nodoc
@@ -2484,108 +2755,138 @@ class __$$LoginRequiredErrorImplCopyWithImpl<$Res>
   __$$LoginRequiredErrorImplCopyWithImpl(_$LoginRequiredErrorImpl _value,
       $Res Function(_$LoginRequiredErrorImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$LoginRequiredErrorImpl(
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$LoginRequiredErrorImpl implements LoginRequiredError {
-  const _$LoginRequiredErrorImpl();
+  const _$LoginRequiredErrorImpl({this.message = ""});
+
+  @override
+  @JsonKey()
+  final String message;
 
   @override
   String toString() {
-    return 'AppErrors.loginRequiredError()';
+    return 'AppErrors.loginRequiredError(message: $message)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoginRequiredErrorImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$LoginRequiredErrorImpl &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoginRequiredErrorImplCopyWith<_$LoginRequiredErrorImpl> get copyWith =>
+      __$$LoginRequiredErrorImplCopyWithImpl<_$LoginRequiredErrorImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() connectionError,
-    required TResult Function() internalServerError,
+    required TResult Function(String message) connectionError,
+    required TResult Function(String message) internalServerError,
     required TResult Function(int errorCode, String? message)
         internalServerWithDataError,
-    required TResult Function() accountNotVerifiedError,
+    required TResult Function(String message) accountNotVerifiedError,
     required TResult Function(String message) badRequestError,
     required TResult Function(String? message) cancelError,
-    required TResult Function() conflictError,
+    required TResult Function(String message) conflictError,
     required TResult Function(String message) customError,
-    required TResult Function() forbiddenError,
-    required TResult Function() formatError,
-    required TResult Function() loginRequiredError,
-    required TResult Function() netError,
+    required TResult Function(String message) forbiddenError,
+    required TResult Function(String message) formatError,
+    required TResult Function(String message) loginRequiredError,
+    required TResult Function(String message) netError,
     required TResult Function(String requestedUrlPath) notFoundError,
-    required TResult Function() responseError,
-    required TResult Function() screenNotImplementedError,
-    required TResult Function() socketError,
-    required TResult Function() timeoutError,
-    required TResult Function() unauthorizedError,
-    required TResult Function() unknownError,
+    required TResult Function(String message) responseError,
+    required TResult Function(String message) screenNotImplementedError,
+    required TResult Function(String message) socketError,
+    required TResult Function(String message) timeoutError,
+    required TResult Function(String message) unauthorizedError,
+    required TResult Function(String message) unknownError,
   }) {
-    return loginRequiredError();
+    return loginRequiredError(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? connectionError,
-    TResult? Function()? internalServerError,
+    TResult? Function(String message)? connectionError,
+    TResult? Function(String message)? internalServerError,
     TResult? Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult? Function()? accountNotVerifiedError,
+    TResult? Function(String message)? accountNotVerifiedError,
     TResult? Function(String message)? badRequestError,
     TResult? Function(String? message)? cancelError,
-    TResult? Function()? conflictError,
+    TResult? Function(String message)? conflictError,
     TResult? Function(String message)? customError,
-    TResult? Function()? forbiddenError,
-    TResult? Function()? formatError,
-    TResult? Function()? loginRequiredError,
-    TResult? Function()? netError,
+    TResult? Function(String message)? forbiddenError,
+    TResult? Function(String message)? formatError,
+    TResult? Function(String message)? loginRequiredError,
+    TResult? Function(String message)? netError,
     TResult? Function(String requestedUrlPath)? notFoundError,
-    TResult? Function()? responseError,
-    TResult? Function()? screenNotImplementedError,
-    TResult? Function()? socketError,
-    TResult? Function()? timeoutError,
-    TResult? Function()? unauthorizedError,
-    TResult? Function()? unknownError,
+    TResult? Function(String message)? responseError,
+    TResult? Function(String message)? screenNotImplementedError,
+    TResult? Function(String message)? socketError,
+    TResult? Function(String message)? timeoutError,
+    TResult? Function(String message)? unauthorizedError,
+    TResult? Function(String message)? unknownError,
   }) {
-    return loginRequiredError?.call();
+    return loginRequiredError?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? connectionError,
-    TResult Function()? internalServerError,
+    TResult Function(String message)? connectionError,
+    TResult Function(String message)? internalServerError,
     TResult Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult Function()? accountNotVerifiedError,
+    TResult Function(String message)? accountNotVerifiedError,
     TResult Function(String message)? badRequestError,
     TResult Function(String? message)? cancelError,
-    TResult Function()? conflictError,
+    TResult Function(String message)? conflictError,
     TResult Function(String message)? customError,
-    TResult Function()? forbiddenError,
-    TResult Function()? formatError,
-    TResult Function()? loginRequiredError,
-    TResult Function()? netError,
+    TResult Function(String message)? forbiddenError,
+    TResult Function(String message)? formatError,
+    TResult Function(String message)? loginRequiredError,
+    TResult Function(String message)? netError,
     TResult Function(String requestedUrlPath)? notFoundError,
-    TResult Function()? responseError,
-    TResult Function()? screenNotImplementedError,
-    TResult Function()? socketError,
-    TResult Function()? timeoutError,
-    TResult Function()? unauthorizedError,
-    TResult Function()? unknownError,
+    TResult Function(String message)? responseError,
+    TResult Function(String message)? screenNotImplementedError,
+    TResult Function(String message)? socketError,
+    TResult Function(String message)? timeoutError,
+    TResult Function(String message)? unauthorizedError,
+    TResult Function(String message)? unknownError,
     required TResult orElse(),
   }) {
     if (loginRequiredError != null) {
-      return loginRequiredError();
+      return loginRequiredError(message);
     }
     return orElse();
   }
@@ -2681,7 +2982,16 @@ class _$LoginRequiredErrorImpl implements LoginRequiredError {
 }
 
 abstract class LoginRequiredError implements AppErrors {
-  const factory LoginRequiredError() = _$LoginRequiredErrorImpl;
+  const factory LoginRequiredError({final String message}) =
+      _$LoginRequiredErrorImpl;
+
+  String get message;
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LoginRequiredErrorImplCopyWith<_$LoginRequiredErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2689,6 +2999,8 @@ abstract class _$$NetErrorImplCopyWith<$Res> {
   factory _$$NetErrorImplCopyWith(
           _$NetErrorImpl value, $Res Function(_$NetErrorImpl) then) =
       __$$NetErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
 }
 
 /// @nodoc
@@ -2698,108 +3010,137 @@ class __$$NetErrorImplCopyWithImpl<$Res>
   __$$NetErrorImplCopyWithImpl(
       _$NetErrorImpl _value, $Res Function(_$NetErrorImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$NetErrorImpl(
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$NetErrorImpl implements NetError {
-  const _$NetErrorImpl();
+  const _$NetErrorImpl({this.message = ""});
+
+  @override
+  @JsonKey()
+  final String message;
 
   @override
   String toString() {
-    return 'AppErrors.netError()';
+    return 'AppErrors.netError(message: $message)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$NetErrorImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$NetErrorImpl &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$NetErrorImplCopyWith<_$NetErrorImpl> get copyWith =>
+      __$$NetErrorImplCopyWithImpl<_$NetErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() connectionError,
-    required TResult Function() internalServerError,
+    required TResult Function(String message) connectionError,
+    required TResult Function(String message) internalServerError,
     required TResult Function(int errorCode, String? message)
         internalServerWithDataError,
-    required TResult Function() accountNotVerifiedError,
+    required TResult Function(String message) accountNotVerifiedError,
     required TResult Function(String message) badRequestError,
     required TResult Function(String? message) cancelError,
-    required TResult Function() conflictError,
+    required TResult Function(String message) conflictError,
     required TResult Function(String message) customError,
-    required TResult Function() forbiddenError,
-    required TResult Function() formatError,
-    required TResult Function() loginRequiredError,
-    required TResult Function() netError,
+    required TResult Function(String message) forbiddenError,
+    required TResult Function(String message) formatError,
+    required TResult Function(String message) loginRequiredError,
+    required TResult Function(String message) netError,
     required TResult Function(String requestedUrlPath) notFoundError,
-    required TResult Function() responseError,
-    required TResult Function() screenNotImplementedError,
-    required TResult Function() socketError,
-    required TResult Function() timeoutError,
-    required TResult Function() unauthorizedError,
-    required TResult Function() unknownError,
+    required TResult Function(String message) responseError,
+    required TResult Function(String message) screenNotImplementedError,
+    required TResult Function(String message) socketError,
+    required TResult Function(String message) timeoutError,
+    required TResult Function(String message) unauthorizedError,
+    required TResult Function(String message) unknownError,
   }) {
-    return netError();
+    return netError(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? connectionError,
-    TResult? Function()? internalServerError,
+    TResult? Function(String message)? connectionError,
+    TResult? Function(String message)? internalServerError,
     TResult? Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult? Function()? accountNotVerifiedError,
+    TResult? Function(String message)? accountNotVerifiedError,
     TResult? Function(String message)? badRequestError,
     TResult? Function(String? message)? cancelError,
-    TResult? Function()? conflictError,
+    TResult? Function(String message)? conflictError,
     TResult? Function(String message)? customError,
-    TResult? Function()? forbiddenError,
-    TResult? Function()? formatError,
-    TResult? Function()? loginRequiredError,
-    TResult? Function()? netError,
+    TResult? Function(String message)? forbiddenError,
+    TResult? Function(String message)? formatError,
+    TResult? Function(String message)? loginRequiredError,
+    TResult? Function(String message)? netError,
     TResult? Function(String requestedUrlPath)? notFoundError,
-    TResult? Function()? responseError,
-    TResult? Function()? screenNotImplementedError,
-    TResult? Function()? socketError,
-    TResult? Function()? timeoutError,
-    TResult? Function()? unauthorizedError,
-    TResult? Function()? unknownError,
+    TResult? Function(String message)? responseError,
+    TResult? Function(String message)? screenNotImplementedError,
+    TResult? Function(String message)? socketError,
+    TResult? Function(String message)? timeoutError,
+    TResult? Function(String message)? unauthorizedError,
+    TResult? Function(String message)? unknownError,
   }) {
-    return netError?.call();
+    return netError?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? connectionError,
-    TResult Function()? internalServerError,
+    TResult Function(String message)? connectionError,
+    TResult Function(String message)? internalServerError,
     TResult Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult Function()? accountNotVerifiedError,
+    TResult Function(String message)? accountNotVerifiedError,
     TResult Function(String message)? badRequestError,
     TResult Function(String? message)? cancelError,
-    TResult Function()? conflictError,
+    TResult Function(String message)? conflictError,
     TResult Function(String message)? customError,
-    TResult Function()? forbiddenError,
-    TResult Function()? formatError,
-    TResult Function()? loginRequiredError,
-    TResult Function()? netError,
+    TResult Function(String message)? forbiddenError,
+    TResult Function(String message)? formatError,
+    TResult Function(String message)? loginRequiredError,
+    TResult Function(String message)? netError,
     TResult Function(String requestedUrlPath)? notFoundError,
-    TResult Function()? responseError,
-    TResult Function()? screenNotImplementedError,
-    TResult Function()? socketError,
-    TResult Function()? timeoutError,
-    TResult Function()? unauthorizedError,
-    TResult Function()? unknownError,
+    TResult Function(String message)? responseError,
+    TResult Function(String message)? screenNotImplementedError,
+    TResult Function(String message)? socketError,
+    TResult Function(String message)? timeoutError,
+    TResult Function(String message)? unauthorizedError,
+    TResult Function(String message)? unknownError,
     required TResult orElse(),
   }) {
     if (netError != null) {
-      return netError();
+      return netError(message);
     }
     return orElse();
   }
@@ -2895,7 +3236,15 @@ class _$NetErrorImpl implements NetError {
 }
 
 abstract class NetError implements AppErrors, HttpError {
-  const factory NetError() = _$NetErrorImpl;
+  const factory NetError({final String message}) = _$NetErrorImpl;
+
+  String get message;
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$NetErrorImplCopyWith<_$NetErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2915,6 +3264,8 @@ class __$$NotFoundErrorImplCopyWithImpl<$Res>
       _$NotFoundErrorImpl _value, $Res Function(_$NotFoundErrorImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2954,7 +3305,9 @@ class _$NotFoundErrorImpl implements NotFoundError {
   @override
   int get hashCode => Object.hash(runtimeType, requestedUrlPath);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NotFoundErrorImplCopyWith<_$NotFoundErrorImpl> get copyWith =>
@@ -2963,26 +3316,26 @@ class _$NotFoundErrorImpl implements NotFoundError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() connectionError,
-    required TResult Function() internalServerError,
+    required TResult Function(String message) connectionError,
+    required TResult Function(String message) internalServerError,
     required TResult Function(int errorCode, String? message)
         internalServerWithDataError,
-    required TResult Function() accountNotVerifiedError,
+    required TResult Function(String message) accountNotVerifiedError,
     required TResult Function(String message) badRequestError,
     required TResult Function(String? message) cancelError,
-    required TResult Function() conflictError,
+    required TResult Function(String message) conflictError,
     required TResult Function(String message) customError,
-    required TResult Function() forbiddenError,
-    required TResult Function() formatError,
-    required TResult Function() loginRequiredError,
-    required TResult Function() netError,
+    required TResult Function(String message) forbiddenError,
+    required TResult Function(String message) formatError,
+    required TResult Function(String message) loginRequiredError,
+    required TResult Function(String message) netError,
     required TResult Function(String requestedUrlPath) notFoundError,
-    required TResult Function() responseError,
-    required TResult Function() screenNotImplementedError,
-    required TResult Function() socketError,
-    required TResult Function() timeoutError,
-    required TResult Function() unauthorizedError,
-    required TResult Function() unknownError,
+    required TResult Function(String message) responseError,
+    required TResult Function(String message) screenNotImplementedError,
+    required TResult Function(String message) socketError,
+    required TResult Function(String message) timeoutError,
+    required TResult Function(String message) unauthorizedError,
+    required TResult Function(String message) unknownError,
   }) {
     return notFoundError(requestedUrlPath);
   }
@@ -2990,26 +3343,26 @@ class _$NotFoundErrorImpl implements NotFoundError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? connectionError,
-    TResult? Function()? internalServerError,
+    TResult? Function(String message)? connectionError,
+    TResult? Function(String message)? internalServerError,
     TResult? Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult? Function()? accountNotVerifiedError,
+    TResult? Function(String message)? accountNotVerifiedError,
     TResult? Function(String message)? badRequestError,
     TResult? Function(String? message)? cancelError,
-    TResult? Function()? conflictError,
+    TResult? Function(String message)? conflictError,
     TResult? Function(String message)? customError,
-    TResult? Function()? forbiddenError,
-    TResult? Function()? formatError,
-    TResult? Function()? loginRequiredError,
-    TResult? Function()? netError,
+    TResult? Function(String message)? forbiddenError,
+    TResult? Function(String message)? formatError,
+    TResult? Function(String message)? loginRequiredError,
+    TResult? Function(String message)? netError,
     TResult? Function(String requestedUrlPath)? notFoundError,
-    TResult? Function()? responseError,
-    TResult? Function()? screenNotImplementedError,
-    TResult? Function()? socketError,
-    TResult? Function()? timeoutError,
-    TResult? Function()? unauthorizedError,
-    TResult? Function()? unknownError,
+    TResult? Function(String message)? responseError,
+    TResult? Function(String message)? screenNotImplementedError,
+    TResult? Function(String message)? socketError,
+    TResult? Function(String message)? timeoutError,
+    TResult? Function(String message)? unauthorizedError,
+    TResult? Function(String message)? unknownError,
   }) {
     return notFoundError?.call(requestedUrlPath);
   }
@@ -3017,26 +3370,26 @@ class _$NotFoundErrorImpl implements NotFoundError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? connectionError,
-    TResult Function()? internalServerError,
+    TResult Function(String message)? connectionError,
+    TResult Function(String message)? internalServerError,
     TResult Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult Function()? accountNotVerifiedError,
+    TResult Function(String message)? accountNotVerifiedError,
     TResult Function(String message)? badRequestError,
     TResult Function(String? message)? cancelError,
-    TResult Function()? conflictError,
+    TResult Function(String message)? conflictError,
     TResult Function(String message)? customError,
-    TResult Function()? forbiddenError,
-    TResult Function()? formatError,
-    TResult Function()? loginRequiredError,
-    TResult Function()? netError,
+    TResult Function(String message)? forbiddenError,
+    TResult Function(String message)? formatError,
+    TResult Function(String message)? loginRequiredError,
+    TResult Function(String message)? netError,
     TResult Function(String requestedUrlPath)? notFoundError,
-    TResult Function()? responseError,
-    TResult Function()? screenNotImplementedError,
-    TResult Function()? socketError,
-    TResult Function()? timeoutError,
-    TResult Function()? unauthorizedError,
-    TResult Function()? unknownError,
+    TResult Function(String message)? responseError,
+    TResult Function(String message)? screenNotImplementedError,
+    TResult Function(String message)? socketError,
+    TResult Function(String message)? timeoutError,
+    TResult Function(String message)? unauthorizedError,
+    TResult Function(String message)? unknownError,
     required TResult orElse(),
   }) {
     if (notFoundError != null) {
@@ -3140,7 +3493,10 @@ abstract class NotFoundError implements AppErrors, HttpError {
       _$NotFoundErrorImpl;
 
   String get requestedUrlPath;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NotFoundErrorImplCopyWith<_$NotFoundErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3150,6 +3506,8 @@ abstract class _$$ResponseErrorImplCopyWith<$Res> {
   factory _$$ResponseErrorImplCopyWith(
           _$ResponseErrorImpl value, $Res Function(_$ResponseErrorImpl) then) =
       __$$ResponseErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
 }
 
 /// @nodoc
@@ -3159,108 +3517,137 @@ class __$$ResponseErrorImplCopyWithImpl<$Res>
   __$$ResponseErrorImplCopyWithImpl(
       _$ResponseErrorImpl _value, $Res Function(_$ResponseErrorImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$ResponseErrorImpl(
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$ResponseErrorImpl implements ResponseError {
-  const _$ResponseErrorImpl();
+  const _$ResponseErrorImpl({this.message = ""});
+
+  @override
+  @JsonKey()
+  final String message;
 
   @override
   String toString() {
-    return 'AppErrors.responseError()';
+    return 'AppErrors.responseError(message: $message)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ResponseErrorImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$ResponseErrorImpl &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ResponseErrorImplCopyWith<_$ResponseErrorImpl> get copyWith =>
+      __$$ResponseErrorImplCopyWithImpl<_$ResponseErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() connectionError,
-    required TResult Function() internalServerError,
+    required TResult Function(String message) connectionError,
+    required TResult Function(String message) internalServerError,
     required TResult Function(int errorCode, String? message)
         internalServerWithDataError,
-    required TResult Function() accountNotVerifiedError,
+    required TResult Function(String message) accountNotVerifiedError,
     required TResult Function(String message) badRequestError,
     required TResult Function(String? message) cancelError,
-    required TResult Function() conflictError,
+    required TResult Function(String message) conflictError,
     required TResult Function(String message) customError,
-    required TResult Function() forbiddenError,
-    required TResult Function() formatError,
-    required TResult Function() loginRequiredError,
-    required TResult Function() netError,
+    required TResult Function(String message) forbiddenError,
+    required TResult Function(String message) formatError,
+    required TResult Function(String message) loginRequiredError,
+    required TResult Function(String message) netError,
     required TResult Function(String requestedUrlPath) notFoundError,
-    required TResult Function() responseError,
-    required TResult Function() screenNotImplementedError,
-    required TResult Function() socketError,
-    required TResult Function() timeoutError,
-    required TResult Function() unauthorizedError,
-    required TResult Function() unknownError,
+    required TResult Function(String message) responseError,
+    required TResult Function(String message) screenNotImplementedError,
+    required TResult Function(String message) socketError,
+    required TResult Function(String message) timeoutError,
+    required TResult Function(String message) unauthorizedError,
+    required TResult Function(String message) unknownError,
   }) {
-    return responseError();
+    return responseError(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? connectionError,
-    TResult? Function()? internalServerError,
+    TResult? Function(String message)? connectionError,
+    TResult? Function(String message)? internalServerError,
     TResult? Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult? Function()? accountNotVerifiedError,
+    TResult? Function(String message)? accountNotVerifiedError,
     TResult? Function(String message)? badRequestError,
     TResult? Function(String? message)? cancelError,
-    TResult? Function()? conflictError,
+    TResult? Function(String message)? conflictError,
     TResult? Function(String message)? customError,
-    TResult? Function()? forbiddenError,
-    TResult? Function()? formatError,
-    TResult? Function()? loginRequiredError,
-    TResult? Function()? netError,
+    TResult? Function(String message)? forbiddenError,
+    TResult? Function(String message)? formatError,
+    TResult? Function(String message)? loginRequiredError,
+    TResult? Function(String message)? netError,
     TResult? Function(String requestedUrlPath)? notFoundError,
-    TResult? Function()? responseError,
-    TResult? Function()? screenNotImplementedError,
-    TResult? Function()? socketError,
-    TResult? Function()? timeoutError,
-    TResult? Function()? unauthorizedError,
-    TResult? Function()? unknownError,
+    TResult? Function(String message)? responseError,
+    TResult? Function(String message)? screenNotImplementedError,
+    TResult? Function(String message)? socketError,
+    TResult? Function(String message)? timeoutError,
+    TResult? Function(String message)? unauthorizedError,
+    TResult? Function(String message)? unknownError,
   }) {
-    return responseError?.call();
+    return responseError?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? connectionError,
-    TResult Function()? internalServerError,
+    TResult Function(String message)? connectionError,
+    TResult Function(String message)? internalServerError,
     TResult Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult Function()? accountNotVerifiedError,
+    TResult Function(String message)? accountNotVerifiedError,
     TResult Function(String message)? badRequestError,
     TResult Function(String? message)? cancelError,
-    TResult Function()? conflictError,
+    TResult Function(String message)? conflictError,
     TResult Function(String message)? customError,
-    TResult Function()? forbiddenError,
-    TResult Function()? formatError,
-    TResult Function()? loginRequiredError,
-    TResult Function()? netError,
+    TResult Function(String message)? forbiddenError,
+    TResult Function(String message)? formatError,
+    TResult Function(String message)? loginRequiredError,
+    TResult Function(String message)? netError,
     TResult Function(String requestedUrlPath)? notFoundError,
-    TResult Function()? responseError,
-    TResult Function()? screenNotImplementedError,
-    TResult Function()? socketError,
-    TResult Function()? timeoutError,
-    TResult Function()? unauthorizedError,
-    TResult Function()? unknownError,
+    TResult Function(String message)? responseError,
+    TResult Function(String message)? screenNotImplementedError,
+    TResult Function(String message)? socketError,
+    TResult Function(String message)? timeoutError,
+    TResult Function(String message)? unauthorizedError,
+    TResult Function(String message)? unknownError,
     required TResult orElse(),
   }) {
     if (responseError != null) {
-      return responseError();
+      return responseError(message);
     }
     return orElse();
   }
@@ -3356,7 +3743,15 @@ class _$ResponseErrorImpl implements ResponseError {
 }
 
 abstract class ResponseError implements AppErrors, HttpError {
-  const factory ResponseError() = _$ResponseErrorImpl;
+  const factory ResponseError({final String message}) = _$ResponseErrorImpl;
+
+  String get message;
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ResponseErrorImplCopyWith<_$ResponseErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -3365,6 +3760,8 @@ abstract class _$$ScreenNotImplementedErrorImplCopyWith<$Res> {
           _$ScreenNotImplementedErrorImpl value,
           $Res Function(_$ScreenNotImplementedErrorImpl) then) =
       __$$ScreenNotImplementedErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
 }
 
 /// @nodoc
@@ -3375,109 +3772,138 @@ class __$$ScreenNotImplementedErrorImplCopyWithImpl<$Res>
       _$ScreenNotImplementedErrorImpl _value,
       $Res Function(_$ScreenNotImplementedErrorImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$ScreenNotImplementedErrorImpl(
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$ScreenNotImplementedErrorImpl implements ScreenNotImplementedError {
-  const _$ScreenNotImplementedErrorImpl();
+  const _$ScreenNotImplementedErrorImpl({this.message = ""});
+
+  @override
+  @JsonKey()
+  final String message;
 
   @override
   String toString() {
-    return 'AppErrors.screenNotImplementedError()';
+    return 'AppErrors.screenNotImplementedError(message: $message)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ScreenNotImplementedErrorImpl);
+            other is _$ScreenNotImplementedErrorImpl &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ScreenNotImplementedErrorImplCopyWith<_$ScreenNotImplementedErrorImpl>
+      get copyWith => __$$ScreenNotImplementedErrorImplCopyWithImpl<
+          _$ScreenNotImplementedErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() connectionError,
-    required TResult Function() internalServerError,
+    required TResult Function(String message) connectionError,
+    required TResult Function(String message) internalServerError,
     required TResult Function(int errorCode, String? message)
         internalServerWithDataError,
-    required TResult Function() accountNotVerifiedError,
+    required TResult Function(String message) accountNotVerifiedError,
     required TResult Function(String message) badRequestError,
     required TResult Function(String? message) cancelError,
-    required TResult Function() conflictError,
+    required TResult Function(String message) conflictError,
     required TResult Function(String message) customError,
-    required TResult Function() forbiddenError,
-    required TResult Function() formatError,
-    required TResult Function() loginRequiredError,
-    required TResult Function() netError,
+    required TResult Function(String message) forbiddenError,
+    required TResult Function(String message) formatError,
+    required TResult Function(String message) loginRequiredError,
+    required TResult Function(String message) netError,
     required TResult Function(String requestedUrlPath) notFoundError,
-    required TResult Function() responseError,
-    required TResult Function() screenNotImplementedError,
-    required TResult Function() socketError,
-    required TResult Function() timeoutError,
-    required TResult Function() unauthorizedError,
-    required TResult Function() unknownError,
+    required TResult Function(String message) responseError,
+    required TResult Function(String message) screenNotImplementedError,
+    required TResult Function(String message) socketError,
+    required TResult Function(String message) timeoutError,
+    required TResult Function(String message) unauthorizedError,
+    required TResult Function(String message) unknownError,
   }) {
-    return screenNotImplementedError();
+    return screenNotImplementedError(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? connectionError,
-    TResult? Function()? internalServerError,
+    TResult? Function(String message)? connectionError,
+    TResult? Function(String message)? internalServerError,
     TResult? Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult? Function()? accountNotVerifiedError,
+    TResult? Function(String message)? accountNotVerifiedError,
     TResult? Function(String message)? badRequestError,
     TResult? Function(String? message)? cancelError,
-    TResult? Function()? conflictError,
+    TResult? Function(String message)? conflictError,
     TResult? Function(String message)? customError,
-    TResult? Function()? forbiddenError,
-    TResult? Function()? formatError,
-    TResult? Function()? loginRequiredError,
-    TResult? Function()? netError,
+    TResult? Function(String message)? forbiddenError,
+    TResult? Function(String message)? formatError,
+    TResult? Function(String message)? loginRequiredError,
+    TResult? Function(String message)? netError,
     TResult? Function(String requestedUrlPath)? notFoundError,
-    TResult? Function()? responseError,
-    TResult? Function()? screenNotImplementedError,
-    TResult? Function()? socketError,
-    TResult? Function()? timeoutError,
-    TResult? Function()? unauthorizedError,
-    TResult? Function()? unknownError,
+    TResult? Function(String message)? responseError,
+    TResult? Function(String message)? screenNotImplementedError,
+    TResult? Function(String message)? socketError,
+    TResult? Function(String message)? timeoutError,
+    TResult? Function(String message)? unauthorizedError,
+    TResult? Function(String message)? unknownError,
   }) {
-    return screenNotImplementedError?.call();
+    return screenNotImplementedError?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? connectionError,
-    TResult Function()? internalServerError,
+    TResult Function(String message)? connectionError,
+    TResult Function(String message)? internalServerError,
     TResult Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult Function()? accountNotVerifiedError,
+    TResult Function(String message)? accountNotVerifiedError,
     TResult Function(String message)? badRequestError,
     TResult Function(String? message)? cancelError,
-    TResult Function()? conflictError,
+    TResult Function(String message)? conflictError,
     TResult Function(String message)? customError,
-    TResult Function()? forbiddenError,
-    TResult Function()? formatError,
-    TResult Function()? loginRequiredError,
-    TResult Function()? netError,
+    TResult Function(String message)? forbiddenError,
+    TResult Function(String message)? formatError,
+    TResult Function(String message)? loginRequiredError,
+    TResult Function(String message)? netError,
     TResult Function(String requestedUrlPath)? notFoundError,
-    TResult Function()? responseError,
-    TResult Function()? screenNotImplementedError,
-    TResult Function()? socketError,
-    TResult Function()? timeoutError,
-    TResult Function()? unauthorizedError,
-    TResult Function()? unknownError,
+    TResult Function(String message)? responseError,
+    TResult Function(String message)? screenNotImplementedError,
+    TResult Function(String message)? socketError,
+    TResult Function(String message)? timeoutError,
+    TResult Function(String message)? unauthorizedError,
+    TResult Function(String message)? unknownError,
     required TResult orElse(),
   }) {
     if (screenNotImplementedError != null) {
-      return screenNotImplementedError();
+      return screenNotImplementedError(message);
     }
     return orElse();
   }
@@ -3573,7 +3999,16 @@ class _$ScreenNotImplementedErrorImpl implements ScreenNotImplementedError {
 }
 
 abstract class ScreenNotImplementedError implements AppErrors {
-  const factory ScreenNotImplementedError() = _$ScreenNotImplementedErrorImpl;
+  const factory ScreenNotImplementedError({final String message}) =
+      _$ScreenNotImplementedErrorImpl;
+
+  String get message;
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ScreenNotImplementedErrorImplCopyWith<_$ScreenNotImplementedErrorImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -3581,6 +4016,8 @@ abstract class _$$SocketErrorImplCopyWith<$Res> {
   factory _$$SocketErrorImplCopyWith(
           _$SocketErrorImpl value, $Res Function(_$SocketErrorImpl) then) =
       __$$SocketErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
 }
 
 /// @nodoc
@@ -3590,108 +4027,137 @@ class __$$SocketErrorImplCopyWithImpl<$Res>
   __$$SocketErrorImplCopyWithImpl(
       _$SocketErrorImpl _value, $Res Function(_$SocketErrorImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$SocketErrorImpl(
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$SocketErrorImpl implements SocketError {
-  const _$SocketErrorImpl();
+  const _$SocketErrorImpl({this.message = ""});
+
+  @override
+  @JsonKey()
+  final String message;
 
   @override
   String toString() {
-    return 'AppErrors.socketError()';
+    return 'AppErrors.socketError(message: $message)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SocketErrorImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$SocketErrorImpl &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SocketErrorImplCopyWith<_$SocketErrorImpl> get copyWith =>
+      __$$SocketErrorImplCopyWithImpl<_$SocketErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() connectionError,
-    required TResult Function() internalServerError,
+    required TResult Function(String message) connectionError,
+    required TResult Function(String message) internalServerError,
     required TResult Function(int errorCode, String? message)
         internalServerWithDataError,
-    required TResult Function() accountNotVerifiedError,
+    required TResult Function(String message) accountNotVerifiedError,
     required TResult Function(String message) badRequestError,
     required TResult Function(String? message) cancelError,
-    required TResult Function() conflictError,
+    required TResult Function(String message) conflictError,
     required TResult Function(String message) customError,
-    required TResult Function() forbiddenError,
-    required TResult Function() formatError,
-    required TResult Function() loginRequiredError,
-    required TResult Function() netError,
+    required TResult Function(String message) forbiddenError,
+    required TResult Function(String message) formatError,
+    required TResult Function(String message) loginRequiredError,
+    required TResult Function(String message) netError,
     required TResult Function(String requestedUrlPath) notFoundError,
-    required TResult Function() responseError,
-    required TResult Function() screenNotImplementedError,
-    required TResult Function() socketError,
-    required TResult Function() timeoutError,
-    required TResult Function() unauthorizedError,
-    required TResult Function() unknownError,
+    required TResult Function(String message) responseError,
+    required TResult Function(String message) screenNotImplementedError,
+    required TResult Function(String message) socketError,
+    required TResult Function(String message) timeoutError,
+    required TResult Function(String message) unauthorizedError,
+    required TResult Function(String message) unknownError,
   }) {
-    return socketError();
+    return socketError(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? connectionError,
-    TResult? Function()? internalServerError,
+    TResult? Function(String message)? connectionError,
+    TResult? Function(String message)? internalServerError,
     TResult? Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult? Function()? accountNotVerifiedError,
+    TResult? Function(String message)? accountNotVerifiedError,
     TResult? Function(String message)? badRequestError,
     TResult? Function(String? message)? cancelError,
-    TResult? Function()? conflictError,
+    TResult? Function(String message)? conflictError,
     TResult? Function(String message)? customError,
-    TResult? Function()? forbiddenError,
-    TResult? Function()? formatError,
-    TResult? Function()? loginRequiredError,
-    TResult? Function()? netError,
+    TResult? Function(String message)? forbiddenError,
+    TResult? Function(String message)? formatError,
+    TResult? Function(String message)? loginRequiredError,
+    TResult? Function(String message)? netError,
     TResult? Function(String requestedUrlPath)? notFoundError,
-    TResult? Function()? responseError,
-    TResult? Function()? screenNotImplementedError,
-    TResult? Function()? socketError,
-    TResult? Function()? timeoutError,
-    TResult? Function()? unauthorizedError,
-    TResult? Function()? unknownError,
+    TResult? Function(String message)? responseError,
+    TResult? Function(String message)? screenNotImplementedError,
+    TResult? Function(String message)? socketError,
+    TResult? Function(String message)? timeoutError,
+    TResult? Function(String message)? unauthorizedError,
+    TResult? Function(String message)? unknownError,
   }) {
-    return socketError?.call();
+    return socketError?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? connectionError,
-    TResult Function()? internalServerError,
+    TResult Function(String message)? connectionError,
+    TResult Function(String message)? internalServerError,
     TResult Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult Function()? accountNotVerifiedError,
+    TResult Function(String message)? accountNotVerifiedError,
     TResult Function(String message)? badRequestError,
     TResult Function(String? message)? cancelError,
-    TResult Function()? conflictError,
+    TResult Function(String message)? conflictError,
     TResult Function(String message)? customError,
-    TResult Function()? forbiddenError,
-    TResult Function()? formatError,
-    TResult Function()? loginRequiredError,
-    TResult Function()? netError,
+    TResult Function(String message)? forbiddenError,
+    TResult Function(String message)? formatError,
+    TResult Function(String message)? loginRequiredError,
+    TResult Function(String message)? netError,
     TResult Function(String requestedUrlPath)? notFoundError,
-    TResult Function()? responseError,
-    TResult Function()? screenNotImplementedError,
-    TResult Function()? socketError,
-    TResult Function()? timeoutError,
-    TResult Function()? unauthorizedError,
-    TResult Function()? unknownError,
+    TResult Function(String message)? responseError,
+    TResult Function(String message)? screenNotImplementedError,
+    TResult Function(String message)? socketError,
+    TResult Function(String message)? timeoutError,
+    TResult Function(String message)? unauthorizedError,
+    TResult Function(String message)? unknownError,
     required TResult orElse(),
   }) {
     if (socketError != null) {
-      return socketError();
+      return socketError(message);
     }
     return orElse();
   }
@@ -3787,7 +4253,15 @@ class _$SocketErrorImpl implements SocketError {
 }
 
 abstract class SocketError implements AppErrors, HttpError {
-  const factory SocketError() = _$SocketErrorImpl;
+  const factory SocketError({final String message}) = _$SocketErrorImpl;
+
+  String get message;
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SocketErrorImplCopyWith<_$SocketErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -3795,6 +4269,8 @@ abstract class _$$TimeoutErrorImplCopyWith<$Res> {
   factory _$$TimeoutErrorImplCopyWith(
           _$TimeoutErrorImpl value, $Res Function(_$TimeoutErrorImpl) then) =
       __$$TimeoutErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
 }
 
 /// @nodoc
@@ -3804,108 +4280,137 @@ class __$$TimeoutErrorImplCopyWithImpl<$Res>
   __$$TimeoutErrorImplCopyWithImpl(
       _$TimeoutErrorImpl _value, $Res Function(_$TimeoutErrorImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$TimeoutErrorImpl(
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$TimeoutErrorImpl implements TimeoutError {
-  const _$TimeoutErrorImpl();
+  const _$TimeoutErrorImpl({this.message = ""});
+
+  @override
+  @JsonKey()
+  final String message;
 
   @override
   String toString() {
-    return 'AppErrors.timeoutError()';
+    return 'AppErrors.timeoutError(message: $message)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$TimeoutErrorImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$TimeoutErrorImpl &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TimeoutErrorImplCopyWith<_$TimeoutErrorImpl> get copyWith =>
+      __$$TimeoutErrorImplCopyWithImpl<_$TimeoutErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() connectionError,
-    required TResult Function() internalServerError,
+    required TResult Function(String message) connectionError,
+    required TResult Function(String message) internalServerError,
     required TResult Function(int errorCode, String? message)
         internalServerWithDataError,
-    required TResult Function() accountNotVerifiedError,
+    required TResult Function(String message) accountNotVerifiedError,
     required TResult Function(String message) badRequestError,
     required TResult Function(String? message) cancelError,
-    required TResult Function() conflictError,
+    required TResult Function(String message) conflictError,
     required TResult Function(String message) customError,
-    required TResult Function() forbiddenError,
-    required TResult Function() formatError,
-    required TResult Function() loginRequiredError,
-    required TResult Function() netError,
+    required TResult Function(String message) forbiddenError,
+    required TResult Function(String message) formatError,
+    required TResult Function(String message) loginRequiredError,
+    required TResult Function(String message) netError,
     required TResult Function(String requestedUrlPath) notFoundError,
-    required TResult Function() responseError,
-    required TResult Function() screenNotImplementedError,
-    required TResult Function() socketError,
-    required TResult Function() timeoutError,
-    required TResult Function() unauthorizedError,
-    required TResult Function() unknownError,
+    required TResult Function(String message) responseError,
+    required TResult Function(String message) screenNotImplementedError,
+    required TResult Function(String message) socketError,
+    required TResult Function(String message) timeoutError,
+    required TResult Function(String message) unauthorizedError,
+    required TResult Function(String message) unknownError,
   }) {
-    return timeoutError();
+    return timeoutError(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? connectionError,
-    TResult? Function()? internalServerError,
+    TResult? Function(String message)? connectionError,
+    TResult? Function(String message)? internalServerError,
     TResult? Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult? Function()? accountNotVerifiedError,
+    TResult? Function(String message)? accountNotVerifiedError,
     TResult? Function(String message)? badRequestError,
     TResult? Function(String? message)? cancelError,
-    TResult? Function()? conflictError,
+    TResult? Function(String message)? conflictError,
     TResult? Function(String message)? customError,
-    TResult? Function()? forbiddenError,
-    TResult? Function()? formatError,
-    TResult? Function()? loginRequiredError,
-    TResult? Function()? netError,
+    TResult? Function(String message)? forbiddenError,
+    TResult? Function(String message)? formatError,
+    TResult? Function(String message)? loginRequiredError,
+    TResult? Function(String message)? netError,
     TResult? Function(String requestedUrlPath)? notFoundError,
-    TResult? Function()? responseError,
-    TResult? Function()? screenNotImplementedError,
-    TResult? Function()? socketError,
-    TResult? Function()? timeoutError,
-    TResult? Function()? unauthorizedError,
-    TResult? Function()? unknownError,
+    TResult? Function(String message)? responseError,
+    TResult? Function(String message)? screenNotImplementedError,
+    TResult? Function(String message)? socketError,
+    TResult? Function(String message)? timeoutError,
+    TResult? Function(String message)? unauthorizedError,
+    TResult? Function(String message)? unknownError,
   }) {
-    return timeoutError?.call();
+    return timeoutError?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? connectionError,
-    TResult Function()? internalServerError,
+    TResult Function(String message)? connectionError,
+    TResult Function(String message)? internalServerError,
     TResult Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult Function()? accountNotVerifiedError,
+    TResult Function(String message)? accountNotVerifiedError,
     TResult Function(String message)? badRequestError,
     TResult Function(String? message)? cancelError,
-    TResult Function()? conflictError,
+    TResult Function(String message)? conflictError,
     TResult Function(String message)? customError,
-    TResult Function()? forbiddenError,
-    TResult Function()? formatError,
-    TResult Function()? loginRequiredError,
-    TResult Function()? netError,
+    TResult Function(String message)? forbiddenError,
+    TResult Function(String message)? formatError,
+    TResult Function(String message)? loginRequiredError,
+    TResult Function(String message)? netError,
     TResult Function(String requestedUrlPath)? notFoundError,
-    TResult Function()? responseError,
-    TResult Function()? screenNotImplementedError,
-    TResult Function()? socketError,
-    TResult Function()? timeoutError,
-    TResult Function()? unauthorizedError,
-    TResult Function()? unknownError,
+    TResult Function(String message)? responseError,
+    TResult Function(String message)? screenNotImplementedError,
+    TResult Function(String message)? socketError,
+    TResult Function(String message)? timeoutError,
+    TResult Function(String message)? unauthorizedError,
+    TResult Function(String message)? unknownError,
     required TResult orElse(),
   }) {
     if (timeoutError != null) {
-      return timeoutError();
+      return timeoutError(message);
     }
     return orElse();
   }
@@ -4001,7 +4506,15 @@ class _$TimeoutErrorImpl implements TimeoutError {
 }
 
 abstract class TimeoutError implements AppErrors, HttpError {
-  const factory TimeoutError() = _$TimeoutErrorImpl;
+  const factory TimeoutError({final String message}) = _$TimeoutErrorImpl;
+
+  String get message;
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$TimeoutErrorImplCopyWith<_$TimeoutErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -4009,6 +4522,8 @@ abstract class _$$UnauthorizedErrorImplCopyWith<$Res> {
   factory _$$UnauthorizedErrorImplCopyWith(_$UnauthorizedErrorImpl value,
           $Res Function(_$UnauthorizedErrorImpl) then) =
       __$$UnauthorizedErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
 }
 
 /// @nodoc
@@ -4018,108 +4533,138 @@ class __$$UnauthorizedErrorImplCopyWithImpl<$Res>
   __$$UnauthorizedErrorImplCopyWithImpl(_$UnauthorizedErrorImpl _value,
       $Res Function(_$UnauthorizedErrorImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$UnauthorizedErrorImpl(
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$UnauthorizedErrorImpl implements UnauthorizedError {
-  const _$UnauthorizedErrorImpl();
+  const _$UnauthorizedErrorImpl({this.message = ""});
+
+  @override
+  @JsonKey()
+  final String message;
 
   @override
   String toString() {
-    return 'AppErrors.unauthorizedError()';
+    return 'AppErrors.unauthorizedError(message: $message)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$UnauthorizedErrorImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$UnauthorizedErrorImpl &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UnauthorizedErrorImplCopyWith<_$UnauthorizedErrorImpl> get copyWith =>
+      __$$UnauthorizedErrorImplCopyWithImpl<_$UnauthorizedErrorImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() connectionError,
-    required TResult Function() internalServerError,
+    required TResult Function(String message) connectionError,
+    required TResult Function(String message) internalServerError,
     required TResult Function(int errorCode, String? message)
         internalServerWithDataError,
-    required TResult Function() accountNotVerifiedError,
+    required TResult Function(String message) accountNotVerifiedError,
     required TResult Function(String message) badRequestError,
     required TResult Function(String? message) cancelError,
-    required TResult Function() conflictError,
+    required TResult Function(String message) conflictError,
     required TResult Function(String message) customError,
-    required TResult Function() forbiddenError,
-    required TResult Function() formatError,
-    required TResult Function() loginRequiredError,
-    required TResult Function() netError,
+    required TResult Function(String message) forbiddenError,
+    required TResult Function(String message) formatError,
+    required TResult Function(String message) loginRequiredError,
+    required TResult Function(String message) netError,
     required TResult Function(String requestedUrlPath) notFoundError,
-    required TResult Function() responseError,
-    required TResult Function() screenNotImplementedError,
-    required TResult Function() socketError,
-    required TResult Function() timeoutError,
-    required TResult Function() unauthorizedError,
-    required TResult Function() unknownError,
+    required TResult Function(String message) responseError,
+    required TResult Function(String message) screenNotImplementedError,
+    required TResult Function(String message) socketError,
+    required TResult Function(String message) timeoutError,
+    required TResult Function(String message) unauthorizedError,
+    required TResult Function(String message) unknownError,
   }) {
-    return unauthorizedError();
+    return unauthorizedError(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? connectionError,
-    TResult? Function()? internalServerError,
+    TResult? Function(String message)? connectionError,
+    TResult? Function(String message)? internalServerError,
     TResult? Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult? Function()? accountNotVerifiedError,
+    TResult? Function(String message)? accountNotVerifiedError,
     TResult? Function(String message)? badRequestError,
     TResult? Function(String? message)? cancelError,
-    TResult? Function()? conflictError,
+    TResult? Function(String message)? conflictError,
     TResult? Function(String message)? customError,
-    TResult? Function()? forbiddenError,
-    TResult? Function()? formatError,
-    TResult? Function()? loginRequiredError,
-    TResult? Function()? netError,
+    TResult? Function(String message)? forbiddenError,
+    TResult? Function(String message)? formatError,
+    TResult? Function(String message)? loginRequiredError,
+    TResult? Function(String message)? netError,
     TResult? Function(String requestedUrlPath)? notFoundError,
-    TResult? Function()? responseError,
-    TResult? Function()? screenNotImplementedError,
-    TResult? Function()? socketError,
-    TResult? Function()? timeoutError,
-    TResult? Function()? unauthorizedError,
-    TResult? Function()? unknownError,
+    TResult? Function(String message)? responseError,
+    TResult? Function(String message)? screenNotImplementedError,
+    TResult? Function(String message)? socketError,
+    TResult? Function(String message)? timeoutError,
+    TResult? Function(String message)? unauthorizedError,
+    TResult? Function(String message)? unknownError,
   }) {
-    return unauthorizedError?.call();
+    return unauthorizedError?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? connectionError,
-    TResult Function()? internalServerError,
+    TResult Function(String message)? connectionError,
+    TResult Function(String message)? internalServerError,
     TResult Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult Function()? accountNotVerifiedError,
+    TResult Function(String message)? accountNotVerifiedError,
     TResult Function(String message)? badRequestError,
     TResult Function(String? message)? cancelError,
-    TResult Function()? conflictError,
+    TResult Function(String message)? conflictError,
     TResult Function(String message)? customError,
-    TResult Function()? forbiddenError,
-    TResult Function()? formatError,
-    TResult Function()? loginRequiredError,
-    TResult Function()? netError,
+    TResult Function(String message)? forbiddenError,
+    TResult Function(String message)? formatError,
+    TResult Function(String message)? loginRequiredError,
+    TResult Function(String message)? netError,
     TResult Function(String requestedUrlPath)? notFoundError,
-    TResult Function()? responseError,
-    TResult Function()? screenNotImplementedError,
-    TResult Function()? socketError,
-    TResult Function()? timeoutError,
-    TResult Function()? unauthorizedError,
-    TResult Function()? unknownError,
+    TResult Function(String message)? responseError,
+    TResult Function(String message)? screenNotImplementedError,
+    TResult Function(String message)? socketError,
+    TResult Function(String message)? timeoutError,
+    TResult Function(String message)? unauthorizedError,
+    TResult Function(String message)? unknownError,
     required TResult orElse(),
   }) {
     if (unauthorizedError != null) {
-      return unauthorizedError();
+      return unauthorizedError(message);
     }
     return orElse();
   }
@@ -4215,7 +4760,16 @@ class _$UnauthorizedErrorImpl implements UnauthorizedError {
 }
 
 abstract class UnauthorizedError implements AppErrors, HttpError {
-  const factory UnauthorizedError() = _$UnauthorizedErrorImpl;
+  const factory UnauthorizedError({final String message}) =
+      _$UnauthorizedErrorImpl;
+
+  String get message;
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UnauthorizedErrorImplCopyWith<_$UnauthorizedErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -4223,6 +4777,8 @@ abstract class _$$UnknownErrorImplCopyWith<$Res> {
   factory _$$UnknownErrorImplCopyWith(
           _$UnknownErrorImpl value, $Res Function(_$UnknownErrorImpl) then) =
       __$$UnknownErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
 }
 
 /// @nodoc
@@ -4232,108 +4788,137 @@ class __$$UnknownErrorImplCopyWithImpl<$Res>
   __$$UnknownErrorImplCopyWithImpl(
       _$UnknownErrorImpl _value, $Res Function(_$UnknownErrorImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$UnknownErrorImpl(
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$UnknownErrorImpl implements UnknownError {
-  const _$UnknownErrorImpl();
+  const _$UnknownErrorImpl({this.message = ""});
+
+  @override
+  @JsonKey()
+  final String message;
 
   @override
   String toString() {
-    return 'AppErrors.unknownError()';
+    return 'AppErrors.unknownError(message: $message)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$UnknownErrorImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$UnknownErrorImpl &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UnknownErrorImplCopyWith<_$UnknownErrorImpl> get copyWith =>
+      __$$UnknownErrorImplCopyWithImpl<_$UnknownErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() connectionError,
-    required TResult Function() internalServerError,
+    required TResult Function(String message) connectionError,
+    required TResult Function(String message) internalServerError,
     required TResult Function(int errorCode, String? message)
         internalServerWithDataError,
-    required TResult Function() accountNotVerifiedError,
+    required TResult Function(String message) accountNotVerifiedError,
     required TResult Function(String message) badRequestError,
     required TResult Function(String? message) cancelError,
-    required TResult Function() conflictError,
+    required TResult Function(String message) conflictError,
     required TResult Function(String message) customError,
-    required TResult Function() forbiddenError,
-    required TResult Function() formatError,
-    required TResult Function() loginRequiredError,
-    required TResult Function() netError,
+    required TResult Function(String message) forbiddenError,
+    required TResult Function(String message) formatError,
+    required TResult Function(String message) loginRequiredError,
+    required TResult Function(String message) netError,
     required TResult Function(String requestedUrlPath) notFoundError,
-    required TResult Function() responseError,
-    required TResult Function() screenNotImplementedError,
-    required TResult Function() socketError,
-    required TResult Function() timeoutError,
-    required TResult Function() unauthorizedError,
-    required TResult Function() unknownError,
+    required TResult Function(String message) responseError,
+    required TResult Function(String message) screenNotImplementedError,
+    required TResult Function(String message) socketError,
+    required TResult Function(String message) timeoutError,
+    required TResult Function(String message) unauthorizedError,
+    required TResult Function(String message) unknownError,
   }) {
-    return unknownError();
+    return unknownError(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? connectionError,
-    TResult? Function()? internalServerError,
+    TResult? Function(String message)? connectionError,
+    TResult? Function(String message)? internalServerError,
     TResult? Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult? Function()? accountNotVerifiedError,
+    TResult? Function(String message)? accountNotVerifiedError,
     TResult? Function(String message)? badRequestError,
     TResult? Function(String? message)? cancelError,
-    TResult? Function()? conflictError,
+    TResult? Function(String message)? conflictError,
     TResult? Function(String message)? customError,
-    TResult? Function()? forbiddenError,
-    TResult? Function()? formatError,
-    TResult? Function()? loginRequiredError,
-    TResult? Function()? netError,
+    TResult? Function(String message)? forbiddenError,
+    TResult? Function(String message)? formatError,
+    TResult? Function(String message)? loginRequiredError,
+    TResult? Function(String message)? netError,
     TResult? Function(String requestedUrlPath)? notFoundError,
-    TResult? Function()? responseError,
-    TResult? Function()? screenNotImplementedError,
-    TResult? Function()? socketError,
-    TResult? Function()? timeoutError,
-    TResult? Function()? unauthorizedError,
-    TResult? Function()? unknownError,
+    TResult? Function(String message)? responseError,
+    TResult? Function(String message)? screenNotImplementedError,
+    TResult? Function(String message)? socketError,
+    TResult? Function(String message)? timeoutError,
+    TResult? Function(String message)? unauthorizedError,
+    TResult? Function(String message)? unknownError,
   }) {
-    return unknownError?.call();
+    return unknownError?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? connectionError,
-    TResult Function()? internalServerError,
+    TResult Function(String message)? connectionError,
+    TResult Function(String message)? internalServerError,
     TResult Function(int errorCode, String? message)?
         internalServerWithDataError,
-    TResult Function()? accountNotVerifiedError,
+    TResult Function(String message)? accountNotVerifiedError,
     TResult Function(String message)? badRequestError,
     TResult Function(String? message)? cancelError,
-    TResult Function()? conflictError,
+    TResult Function(String message)? conflictError,
     TResult Function(String message)? customError,
-    TResult Function()? forbiddenError,
-    TResult Function()? formatError,
-    TResult Function()? loginRequiredError,
-    TResult Function()? netError,
+    TResult Function(String message)? forbiddenError,
+    TResult Function(String message)? formatError,
+    TResult Function(String message)? loginRequiredError,
+    TResult Function(String message)? netError,
     TResult Function(String requestedUrlPath)? notFoundError,
-    TResult Function()? responseError,
-    TResult Function()? screenNotImplementedError,
-    TResult Function()? socketError,
-    TResult Function()? timeoutError,
-    TResult Function()? unauthorizedError,
-    TResult Function()? unknownError,
+    TResult Function(String message)? responseError,
+    TResult Function(String message)? screenNotImplementedError,
+    TResult Function(String message)? socketError,
+    TResult Function(String message)? timeoutError,
+    TResult Function(String message)? unauthorizedError,
+    TResult Function(String message)? unknownError,
     required TResult orElse(),
   }) {
     if (unknownError != null) {
-      return unknownError();
+      return unknownError(message);
     }
     return orElse();
   }
@@ -4429,5 +5014,13 @@ class _$UnknownErrorImpl implements UnknownError {
 }
 
 abstract class UnknownError implements AppErrors, HttpError {
-  const factory UnknownError() = _$UnknownErrorImpl;
+  const factory UnknownError({final String message}) = _$UnknownErrorImpl;
+
+  String get message;
+
+  /// Create a copy of AppErrors
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UnknownErrorImplCopyWith<_$UnknownErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

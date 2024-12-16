@@ -12,7 +12,10 @@ void main()async {
   await initAppModule();
   await EasyLocalization.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
-
+  // FlutterError.onError = (FlutterErrorDetails details) {
+  //   FlutterError.dumpErrorToConsole(details);
+  //   runApp(ErrorWidgetClass(details));
+  // };
   runApp(EasyLocalization(
     supportedLocales: const  [englishLocale,arabicLocale],
     path: assetPathLocalizations,

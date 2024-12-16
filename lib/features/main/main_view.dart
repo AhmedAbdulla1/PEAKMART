@@ -8,6 +8,7 @@ import 'package:peakmart/features/main/widget/custom_nav_bar.dart';
 
 class MainView extends StatelessWidget {
   MainView({super.key});
+  static const String routeName = '/main_view';
 
   final MainViewModel _viewModel = MainViewModel();
 

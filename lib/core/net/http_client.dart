@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
@@ -137,13 +138,16 @@ class HttpClient extends BaseHttpClient {
           );
           break;
         case HttpMethod.POST:
+          print("body $body");
           response = await _client.post(
             url,
-            data: isFormData && body != null ? FormData.fromMap(body) : body,
+            data: isFormData && body != null ? FormData.fromMap(body) :json.encode(body),
             queryParameters: queryParameters,
             options: Options(headers: headers),
             cancelToken: cancelToken,
           );
+
+          print("response $response");
           break;
         case HttpMethod.PUT:
           response = await _client.put(
@@ -459,15 +463,15 @@ class HttpClient extends BaseHttpClient {
         switch (error.response!.statusCode) {
           case 400:
             print(error.response!.statusCode);
-            return const BadRequestError();
+            return  BadRequestError(message: error.response!.data["message"]);
           case 401:
-            return const UnauthorizedError();
+            return  UnauthorizedError(message: error.response!.data["message"]);
           case 403:
-            return const ForbiddenError();
+            return  ForbiddenError(message: error.response!.data["message"]);
           case 404:
-            return NotFoundError(error.requestOptions.path);
+            return NotFoundError(error.response!.data["message"]);
           case 409:
-            return const ConflictError();
+            return  ConflictError(message: error.response!.data["message"]);
           case 500:
             if (error.response?.data is Map) {
               if (error.response!.data?["message"] != null ||
@@ -483,7 +487,7 @@ class HttpClient extends BaseHttpClient {
 
           //   return ErrorMessageModel<E>.fromMap(error.response!.data);
           default:
-            return const UnknownError();
+            return  UnknownError(message: error.response!.data["message"]);
         }
       }
       return const UnknownError();

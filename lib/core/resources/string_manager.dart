@@ -16,6 +16,13 @@ class AppStrings {
   static String resetPassword = tr('reset_password');
   static String forgotPasswordHint = tr('reset_password_hint');
   static String rPSMessage = 'Send you a message to set or reset your new password';
+  static String refresh = 'refresh';
+
+
+
+
+
+
   ///////////////////////////////////////////////////////////////
 static String createAccount = tr('Create an account');
   static String alreadyHaveAnAccount = tr('Already have an account?');

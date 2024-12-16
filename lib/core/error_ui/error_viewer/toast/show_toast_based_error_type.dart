@@ -143,10 +143,11 @@ void showToastBasedErrorType(
         callback: callback,
       );
     },
-    unauthorizedError: (_) {
+    unauthorizedError: (error) {
       ErrorViewer.showUnauthorizedError(
         context,
         errorViewerOptions: errVToastOptions,
+        message: error.message,
         callback: callback,
         retryWhenNotAuthorized: retryWhenNotAuthorized,
       );

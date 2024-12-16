@@ -51,7 +51,7 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
             stream: _viewModel.emailValidationStream,
             textEditingController: _emailController,
             hintText: AppStrings.email,
-            prefixIcon: const Icon(Icons.email),
+            prefixIcon: Icons.email,
             onComplete: () {
               _restPassCubit
                   .resetPassword(email: _emailController.text)

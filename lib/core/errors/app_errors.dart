@@ -6,10 +6,10 @@ part 'app_errors.freezed.dart';
 @freezed
 class AppErrors with _$AppErrors {
   @Implements<HttpError>()
-  const factory AppErrors.connectionError() = ConnectionError;
+  const factory AppErrors.connectionError({@Default("") String message}) = ConnectionError;
 
   @Implements<HttpError>()
-  const factory AppErrors.internalServerError() = InternalServerError;
+  const factory AppErrors.internalServerError({@Default("") String message}) = InternalServerError;
 
   @Implements<HttpError>()
   const factory AppErrors.internalServerWithDataError(
@@ -17,7 +17,7 @@ class AppErrors with _$AppErrors {
     String? message,
   }) = InternalServerWithDataError;
 
-  const factory AppErrors.accountNotVerifiedError() = AccountNotVerifiedError;
+  const factory AppErrors.accountNotVerifiedError({@Default("") String message}) = AccountNotVerifiedError;
 
   /// BadRequestError extends HttpError
   @Implements<HttpError>()
@@ -29,7 +29,7 @@ class AppErrors with _$AppErrors {
 
   /// ConflictError extends HttpError
   @Implements<HttpError>()
-  const factory AppErrors.conflictError() = ConflictError;
+  const factory AppErrors.conflictError({@Default("") String message}) = ConflictError;
 
   /// CustomError extends BaseError
   const factory AppErrors.customError({@Default("") String message}) =
@@ -37,17 +37,17 @@ class AppErrors with _$AppErrors {
 
   /// ForbiddenError extends HttpError
   @Implements<HttpError>()
-  const factory AppErrors.forbiddenError() = ForbiddenError;
+  const factory AppErrors.forbiddenError({@ Default("") String message}) = ForbiddenError;
 
   /// FormatError extends BaseError
-  const factory AppErrors.formatError() = FormatError;
+  const factory AppErrors.formatError({@Default("") String message}) = FormatError;
 
   /// LoginRequiredError extends BaseError
-  const factory AppErrors.loginRequiredError() = LoginRequiredError;
+  const factory AppErrors.loginRequiredError({@Default("") String message}) = LoginRequiredError;
 
   /// NetError extends ConnectionError
   @Implements<HttpError>()
-  const factory AppErrors.netError() = NetError;
+  const factory AppErrors.netError({@Default("") String message}) = NetError;
 
   /// NotFoundError extends HttpError
   @Implements<HttpError>()
@@ -56,25 +56,25 @@ class AppErrors with _$AppErrors {
 
   /// ResponseError extends HttpError
   @Implements<HttpError>()
-  const factory AppErrors.responseError() = ResponseError;
+  const factory AppErrors.responseError({@Default("") String message}) = ResponseError;
 
   /// ScreenNotImplementedError extends BaseError
-  const factory AppErrors.screenNotImplementedError() =
+  const factory AppErrors.screenNotImplementedError({@Default("") String message}) =
       ScreenNotImplementedError;
 
   /// SocketError extends ConnectionError
   @Implements<HttpError>()
-  const factory AppErrors.socketError() = SocketError;
+  const factory AppErrors.socketError({@Default("") String message}) = SocketError;
 
   /// TimeoutError extends ConnectionError
   @Implements<HttpError>()
-  const factory AppErrors.timeoutError() = TimeoutError;
+  const factory AppErrors.timeoutError({@Default("") String message}) = TimeoutError;
 
   /// UnauthorizedError extends HttpError
   @Implements<HttpError>()
-  const factory AppErrors.unauthorizedError() = UnauthorizedError;
+  const factory AppErrors.unauthorizedError({@Default("") String message}) = UnauthorizedError;
 
   /// UnknownError extends ConnectionError
   @Implements<HttpError>()
-  const factory AppErrors.unknownError() = UnknownError;
+  const factory AppErrors.unknownError({@Default("") String message}) = UnknownError;
 }

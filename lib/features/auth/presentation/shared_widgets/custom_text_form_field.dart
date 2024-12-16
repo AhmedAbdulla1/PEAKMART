@@ -29,13 +29,15 @@ class CustomTextFormField extends StatelessWidget {
         fontSize: FontSize.s16,
       ),
       keyboardType: inputType,
+      autovalidateMode:
+          AutovalidateMode.onUserInteraction, 
       validator: (value) {
         if (hintText == 'Enter your email') {
           if (value == null || value.isEmpty) {
             return 'This field is required.';
           }
           String pattern =
-              r'^[a-zA-Z][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$'; // تعديل التعبير المنتظم للتحقق من أن البريد يبدأ بحرف
+              r'^[a-zA-Z][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$';
           RegExp regex = RegExp(pattern);
           if (value.isEmpty) {
             return 'Please enter an email address';
@@ -62,16 +64,4 @@ class CustomTextFormField extends StatelessWidget {
       ),
     );
   }
-}
-
-String validateEmail(String value) {
-  String pattern =
-      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$'; // تعبير منتظم للتحقق من صحة البريد الإلكتروني
-  RegExp regex = RegExp(pattern);
-  if (value.isEmpty) {
-    return 'Please enter an email address';
-  } else if (!regex.hasMatch(value)) {
-    return 'Please enter a valid email address';
-  }
-  return value;
 }

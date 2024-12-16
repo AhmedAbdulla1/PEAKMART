@@ -32,16 +32,10 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
     }
 
     // Check if the password meets the required conditions
-    if (value.length < 8 &&
-        !RegExp(r'[A-Z]').hasMatch(value) &&
-        !RegExp(r'[a-z]').hasMatch(value) &&
-        !RegExp(r'[0-9]').hasMatch(value) &&
-        !RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
-      return '''Password must be at least 8 characters long.\n
-      Password must contain at least one uppercase letter.\n
-      Password must contain at least one lowercase letter.\n
-      Password must contain at least one number.\n''';
+    if (value.length < 8) {
+      return 'Password must be at least 8 characters long.';
     }
+
     if (!RegExp(r'[A-Z]').hasMatch(value)) {
       return 'Password must contain at least one uppercase letter.';
     }
@@ -55,7 +49,7 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
       return 'Password must contain at least one special character.';
     }
 
-    return null; // Return null if all conditions are met
+    return null;
   }
 
   @override
@@ -64,6 +58,7 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
       mainAxisSize: MainAxisSize.min,
       children: [
         TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           controller: widget.controller,
           style: getRegularStyle(
             color: ColorManager.primary,
@@ -71,7 +66,7 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
           ),
           obscureText: isPressed ? false : true,
           validator: (value) =>
-              validatePassword(value!), // Call the validation function
+              validatePassword(value!), 
           decoration: InputDecoration(
             hintText: widget.hintText,
             labelText: widget.labelText,

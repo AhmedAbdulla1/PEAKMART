@@ -48,6 +48,15 @@ void showCustomMessageDialog({
                   color: Theme.of(context).primaryColor,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
+                  onPressed: onButtonPressed == null
+                      ? () {
+                          // Navigator.of(myContext).pop();
+                          // Nav.pop(myContext);
+                        }
+                      : () {
+                          onButtonPressed(myContext);
+                        },
+                  textColor: Theme.of(myContext).primaryColor,
                   child: Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
@@ -59,15 +68,6 @@ void showCustomMessageDialog({
                       ),
                     ),
                   ),
-                  onPressed: onButtonPressed == null
-                      ? () {
-                          // Navigator.of(myContext).pop();
-                          // Nav.pop(myContext);
-                        }
-                      : () {
-                          onButtonPressed(myContext);
-                        },
-                  textColor: Theme.of(myContext).primaryColor,
                 ),
             ],
           ),
@@ -140,6 +140,13 @@ void showCustomDialogWithIconDialog({
                     color: Theme.of(context).primaryColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
+                    onPressed: onButtonPressed == null
+                        ? () {
+                            // Navigator.of(context).pop();
+                            Navigator.pop(context);
+                          }
+                        : () => onButtonPressed(context),
+                    textColor: Theme.of(context).primaryColor,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 12, vertical: 4),
@@ -151,13 +158,6 @@ void showCustomDialogWithIconDialog({
                         ),
                       ),
                     ),
-                    onPressed: onButtonPressed == null
-                        ? () {
-                            // Navigator.of(context).pop();
-                            Navigator.pop(context);
-                          }
-                        : () => onButtonPressed(context),
-                    textColor: Theme.of(context).primaryColor,
                   ),
               ],
             ),
@@ -207,7 +207,7 @@ void showCustomConfirmCancelDialog({
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Container(
+                SizedBox(
                   height: ScreenUtil().setHeight(280),
                   child: Center(
                     child: SingleChildScrollView(
@@ -230,17 +230,6 @@ void showCustomConfirmCancelDialog({
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 4),
-                        child: Text(
-                          cancelText ?? AppStrings.cancel,
-                          style: TextStyle(
-                            fontSize: ScreenUtil().setSp(32),
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                      ),
                       onPressed: onCancel != null
                           ? () => onCancel(context)
                           : () {
@@ -252,11 +241,29 @@ void showCustomConfirmCancelDialog({
                           color: Theme.of(context).primaryColor,
                         ),
                       ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 4),
+                        child: Text(
+                          cancelText ?? AppStrings.cancel,
+                          style: TextStyle(
+                            fontSize: ScreenUtil().setSp(32),
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      ),
                     ),
                     MaterialButton(
                       color: Theme.of(context).primaryColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
+                      onPressed: onConfirm != null
+                          ? () => onConfirm(context)
+                          : () {
+                              Navigator.of(context).pop();
+                              // Nav.pop(context);
+                            },
+                      textColor: Theme.of(context).primaryColor,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 12, vertical: 4),
@@ -268,13 +275,6 @@ void showCustomConfirmCancelDialog({
                           ),
                         ),
                       ),
-                      onPressed: onConfirm != null
-                          ? () => onConfirm(context)
-                          : () {
-                              Navigator.of(context).pop();
-                              // Nav.pop(context);
-                            },
-                      textColor: Theme.of(context).primaryColor,
                     ),
                   ],
                 ),
@@ -300,8 +300,8 @@ showCustomDialogWithTextField(
     TextInputAction? textInputAction,
     Color? helperTextColor,
     TextInputType? keyboardType}) {
-  final _textKey = new GlobalKey<FormFieldState<String>>();
-  final _textController = TextEditingController();
+  final textKey = GlobalKey<FormFieldState<String>>();
+  final textController = TextEditingController();
   showDialog(
       context: context,
       builder: (BuildContext bc) {
@@ -312,7 +312,7 @@ showCustomDialogWithTextField(
             ),
           ),
           //scrollable: true,
-          child: Container(
+          child: SizedBox(
             width: ScreenUtil().screenWidth,
             child: Padding(
               padding:
@@ -335,7 +335,7 @@ showCustomDialogWithTextField(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          labelText == null ? "" : labelText,
+                          labelText ?? "",
                           style: TextStyle(
                             color: Theme.of(context).primaryColor,
                             fontSize: ScreenUtil().setSp(32),
@@ -357,6 +357,15 @@ showCustomDialogWithTextField(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            // Nav.pop(context);
+                          },
+                          style: TextButton.styleFrom(
+                            textStyle: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 4),
@@ -368,20 +377,21 @@ showCustomDialogWithTextField(
                               ),
                             ),
                           ),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            // Nav.pop(context);
-                          },
-                          style: TextButton.styleFrom(
-                            textStyle: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          ),
                         ),
                         MaterialButton(
                           color: Theme.of(context).primaryColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15)),
+                          onPressed: () {
+                            if (textKey.currentState!.validate()) {
+                              if (onConfirm != null) {
+                                onConfirm(textController.text);
+                              }
+                              Navigator.of(context).pop();
+                              // Nav.pop(context);
+                            }
+                          },
+                          textColor: Theme.of(context).primaryColor,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 4),
@@ -393,15 +403,6 @@ showCustomDialogWithTextField(
                               ),
                             ),
                           ),
-                          onPressed: () {
-                            if (_textKey.currentState!.validate()) {
-                              if (onConfirm != null)
-                                onConfirm(_textController.text);
-                              Navigator.of(context).pop();
-                              // Nav.pop(context);
-                            }
-                          },
-                          textColor: Theme.of(context).primaryColor,
                         ),
                       ],
                     ),

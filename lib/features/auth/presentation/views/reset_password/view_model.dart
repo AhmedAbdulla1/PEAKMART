@@ -8,6 +8,7 @@ class ResetPasswordViewModel extends ResetPasswordViewModelInputs with ResetPass
   @override
 
   Stream<String?> get emailValidationStream => _emailIsValid.stream.map((email) => _emailValidation(email));
+  @override
   Stream<bool> get isEmailValid => _emailIsValid.stream.map((email) => _emailValidation(email) == null);
   @override
   void setEmail( String email) {

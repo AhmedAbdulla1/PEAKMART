@@ -513,7 +513,7 @@ class AppConstants {
   static const MENU_LOGOUT = "assets/png/menu/logout.png";
 
   /// Mock Json API Token
-  static late int shipping = -1;
+  static int shipping = -1;
 
 
   ///Sport Api Key and secret
@@ -568,20 +568,23 @@ class AppConstants {
   String sortFunction(bool? price, bool? rate, bool? date) {
     String sort = "";
     if (price != null) {
-      if (price)
-        sort += Price + " " + DESC;
-      else
-        sort += Price + " " + ASC;
+      if (price) {
+        sort += "$Price $DESC";
+      } else {
+        sort += "$Price $ASC";
+      }
     } else if (rate != null) {
-      if (rate)
-        sort += Rate + " " + DESC;
-      else
-        sort += Rate + " " + ASC;
+      if (rate) {
+        sort += "$Rate $DESC";
+      } else {
+        sort += "$Rate $ASC";
+      }
     } else if (date != null) {
-      if (date)
-        sort += CreationTime + " " + DESC;
-      else
-        sort += CreationTime + " " + ASC;
+      if (date) {
+        sort += "$CreationTime $DESC";
+      } else {
+        sort += "$CreationTime $ASC";
+      }
     } else
       sort = "";
     return sort;

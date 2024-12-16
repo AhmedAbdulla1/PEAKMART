@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:fluttertoast/fluttertoast.dart' as ftoast;
-import 'package:peakmart/core/resources/font_manager.dart';
 
 class Toast {
   static void show(

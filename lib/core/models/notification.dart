@@ -19,8 +19,9 @@ class Notifications {
   Notifications.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     notificationName = json['notificationName'];
-    if(json['type'] != null)
-    type = NotificationType.values[json['type']];
+    if(json['type'] != null) {
+      type = NotificationType.values[json['type']];
+    }
     message = json['message'];
     dateTime = json['dateTime'];
     relatedId = json['relatedId'];

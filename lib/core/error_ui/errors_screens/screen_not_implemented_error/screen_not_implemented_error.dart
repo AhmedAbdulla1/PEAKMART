@@ -5,8 +5,7 @@ class ScreenNotImplementedError extends StatefulWidget {
   final bool? disableRetryButton;
 
   const ScreenNotImplementedError(
-      {Key? key, this.callback, this.disableRetryButton})
-      : super(key: key);
+      {super.key, this.callback, this.disableRetryButton});
 
   @override
   _ScreenNotImplementedErrorState createState() =>

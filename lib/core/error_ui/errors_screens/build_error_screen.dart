@@ -25,7 +25,7 @@ Widget buildErrorScreen({
       if (imageUrl != null && imageUrl != "") image = Image.asset(imageUrl);
       break;
     case ErrorWidgetOptions.LOTTIE:
-      if (errorAnimation != null)
+      if (errorAnimation != null) {
         image = SizedBox(
           height: ScreenUtil().setHeight(500),
           width: ScreenUtil().setWidth(500),
@@ -50,6 +50,7 @@ Widget buildErrorScreen({
             ),
           ),
         );
+      }
       break;
     case ErrorWidgetOptions.NONE:
       image = const SizedBox.shrink();
@@ -57,7 +58,7 @@ Widget buildErrorScreen({
   }
 
   return Center(
-    child: Container(
+    child: SizedBox(
       height: ScreenUtil().setHeight(1000),
       width: ScreenUtil().setWidth(800),
       // width: ScreenUtil().setHeight(630),
@@ -69,7 +70,7 @@ Widget buildErrorScreen({
             SizedBox(
               height: ScreenUtil().setHeight(100),
             ),
-            Container(
+            SizedBox(
               width: ScreenUtil().setWidth(450),
               child: image,
             ),
@@ -78,7 +79,7 @@ Widget buildErrorScreen({
             ),
             Text(title ?? ""),
             if (content != null)
-              Container(
+              SizedBox(
                 width: ScreenUtil().setWidth(800),
                 height: ScreenUtil().setHeight(200),
                 child: SingleChildScrollView(

@@ -4,13 +4,14 @@ import 'package:peakmart/core/requests/base_request.dart';
 
 class SendOtpRequest extends BaseRequest {
   final String key;
-  final String email, username, userId;
+  final String email, username;
 
-  SendOtpRequest(
-      {required this.key,
-      required this.email,
-      required this.username,
-      required this.userId});
+  SendOtpRequest({
+    required this.key,
+    required this.email,
+    required this.username,
+    // required this.userId,
+  });
 
   @override
   void printRequest() {
@@ -20,7 +21,7 @@ class SendOtpRequest extends BaseRequest {
   Map<String, String> toHeaders() {
     return {
       'Content-Type': 'application/json',
-      'Cookie': 'EMAIL=$email; USER_ID=$userId; USER_NAME=$username'
+      'Cookie': 'EMAIL=$email; USER_NAME=$username'
     };
   }
 

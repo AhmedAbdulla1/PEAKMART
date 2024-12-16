@@ -5,7 +5,7 @@ class LoginEntity extends BaseEntity {
   final String userName;
   final String userId;
 
-  LoginEntity(
+  const LoginEntity(
       {required this.email, required this.userName, required this.userId});
 
   @override

@@ -5,8 +5,7 @@ class TimeOutErrorScreenWidget extends StatefulWidget {
   final bool? disableRetryButton;
 
   const TimeOutErrorScreenWidget(
-      {Key? key, required this.callback, this.disableRetryButton})
-      : super(key: key);
+      {super.key, required this.callback, this.disableRetryButton});
 
   @override
   _TimeOutErrorScreenWidgetState createState() =>

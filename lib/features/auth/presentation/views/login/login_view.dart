@@ -2,22 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/app/di.dart';
-import 'package:peakmart/core/error_ui/dialogs/show_dialog.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/error_ui/error_viewer/toast/errv_toast_options.dart';
-import 'package:peakmart/core/shared_widgets/buttons.dart';
-import 'package:peakmart/core/shared_widgets/text_fields.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
-import 'package:peakmart/core/widgets/waiting_widget.dart';
+import 'package:peakmart/core/shared_widgets/buttons.dart';
+import 'package:peakmart/core/shared_widgets/text_fields.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/account_creation_or_login_prompt.dart';
 import 'package:peakmart/features/auth/presentation/state_mang/login_cubit/cubit.dart';
-import 'package:peakmart/features/auth/presentation/views/reset_password/view.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view_model.dart';
 import 'package:peakmart/features/auth/presentation/views/login/widgets/other_login_ways.dart';
+import 'package:peakmart/features/auth/presentation/views/reset_password/view.dart';
 import 'package:peakmart/features/main/main_view.dart';
 
 class LogInView extends StatefulWidget {
@@ -96,15 +94,14 @@ class _LogInViewState extends State<LogInView> {
         child: BlocConsumer<LoginCubit, LoginState>(listener: (context, state) {
           if (state is SignUpFailureState) {
             ErrorViewer.showError(
-                errorViewerOptions:  ErrVToastOptions(
-                  backGroundColor: ColorManager.textFormErrorBorder,
-                  textColor: ColorManager.white
-                ),
+                errorViewerOptions: const ErrVToastOptions(
+                    backGroundColor: ColorManager.textFormErrorBorder,
+                    textColor: ColorManager.white),
                 context: context,
                 error: state.errors,
                 callback: () {});
           }
-          if(state is SignUpSuccessState){
+          if (state is SignUpSuccessState) {
             Navigator.pushReplacementNamed(context, MainView.routeName);
           }
         }, builder: (context, state) {

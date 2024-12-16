@@ -195,7 +195,7 @@ ThemeData getApplicationTheme() {
         borderRadius: BorderRadius.circular(
           AppSize.s12,
         ),
-        borderSide: BorderSide(
+        borderSide: const BorderSide(
           color: ColorManager.textFormErrorBorder,
           width: AppSize.s1_5,
         ),

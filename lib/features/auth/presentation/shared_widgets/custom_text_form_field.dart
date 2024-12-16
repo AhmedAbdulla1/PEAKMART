@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
+import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -29,10 +30,9 @@ class CustomTextFormField extends StatelessWidget {
         fontSize: FontSize.s16,
       ),
       keyboardType: inputType,
-      autovalidateMode:
-          AutovalidateMode.onUserInteraction, 
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
-        if (hintText == 'Enter your email') {
+        if (hintText == AppStrings.emailHint) {
           if (value == null || value.isEmpty) {
             return 'This field is required.';
           }
@@ -43,6 +43,17 @@ class CustomTextFormField extends StatelessWidget {
             return 'Please enter an email address';
           } else if (!regex.hasMatch(value)) {
             return 'Please enter a valid email address';
+          }
+        }
+        if (hintText ==AppStrings.userNameHint) {
+          if (value == null || value.isEmpty) {
+            return 'This field is required.';
+          }
+
+          String pattern = r'^[a-zA-Z\s]+$';
+          RegExp regex = RegExp(pattern);
+          if (!regex.hasMatch(value)) {
+            return 'Please enter a valid name (letters and spaces only)';
           }
         }
         if (value == null || value.isEmpty) {

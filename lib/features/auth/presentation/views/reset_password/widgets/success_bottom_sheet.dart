@@ -6,12 +6,16 @@ import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/shared_widgets/buttons.dart';
 import 'package:peakmart/features/auth/presentation/state_mang/reset_pass_cubit/cubit.dart';
+import 'package:peakmart/features/auth/presentation/state_mang/otp_verfication_cubit/otp_verfication_cubit.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
 import 'package:timer_button/timer_button.dart';
 
 class SuccessBottomSheet extends StatelessWidget {
-  const SuccessBottomSheet({super.key ,required this.restPassCubit});
-  final RestPassCubit restPassCubit;
+  const SuccessBottomSheet(
+      {super.key, this.restPassCubit, this.otpVerfictionCubit, required this.textMessage});
+  final RestPassCubit? restPassCubit;
+  final OtpVerfictionCubit? otpVerfictionCubit;
+  final String textMessage;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,10 +33,11 @@ class SuccessBottomSheet extends StatelessWidget {
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
-           Text(
-            AppStrings.rPSMessage,
+          Text(
+            '${textMessage}',
             textAlign: TextAlign.center,
-            style: getRegularStyle(fontSize: FontSize.s14, color: ColorManager.grey1),
+            style: getRegularStyle(
+                fontSize: FontSize.s14, color: ColorManager.grey1),
           ),
           const SizedBox(height: 20),
 
@@ -41,12 +46,12 @@ class SuccessBottomSheet extends StatelessWidget {
             label: AppStrings.resend,
             timeOutInSeconds: 30,
             onPressed: () {
-              restPassCubit.resend();
+              restPassCubit!.resend();
             },
             disabledColor: Colors.white,
             color: Colors.white,
             disabledTextStyle: getMediumStyle(
-                fontSize: FontSize.s16, color: ColorManager.grey1) ,
+                fontSize: FontSize.s16, color: ColorManager.grey1),
             activeTextStyle: getMediumStyle(
                 fontSize: FontSize.s16, color: ColorManager.primary),
             buttonType: ButtonType.textButton,

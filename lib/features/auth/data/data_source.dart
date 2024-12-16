@@ -69,6 +69,7 @@ class AuthDataSource extends RemoteDataSource {
     return request<EmptyResponse>(
         method: HttpMethod.POST,
         body: verfiyOtpRequest.toJson(),
+        headers: verfiyOtpRequest.toHeaders(),
 
         responseValidator: DefaultResponseValidator(),
         converter: (json) {

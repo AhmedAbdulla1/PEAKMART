@@ -23,7 +23,7 @@ class ModelsFactory {
   /// "CREATE_MODEL_INTERCEPTOR": CreateModelInterceptor
   /// }
   ///
-  Map<String, dynamic> _modelsMap = {};
+  final Map<String, dynamic> _modelsMap = {};
 
   /// Register the model in the map.
   void registerModel(

@@ -9,12 +9,12 @@ class MainNotificationModel {
 
   factory MainNotificationModel.fromMap(Map<String, dynamic> json) =>
       MainNotificationModel(
-        type: json["type"] == null ? null : json["type"],
-        payload: json["payload"] == null ? null : json["payload"],
+        type: json["type"],
+        payload: json["payload"],
       );
 
   Map<String, dynamic> toMap() => {
         "type": type,
-        "payload": payload == null ? null : payload,
+        "payload": payload,
       };
 }

@@ -5,10 +5,10 @@ class ConnectionErrorScreenWidget extends StatefulWidget {
   final bool? disableRetryButton;
 
   const ConnectionErrorScreenWidget({
-    Key? key,
+    super.key,
     required this.callback,
     this.disableRetryButton,
-  }) : super(key: key);
+  });
 
   @override
   _ConnectionErrorScreenWidgetState createState() =>

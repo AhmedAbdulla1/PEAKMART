@@ -18,6 +18,7 @@ void acceptUserData(dynamic country) {
   password = passwordController.text;
   log('Password is: ${password.toString()}');
   confirmPass = confirmPassController.text;
+
 }
 
 void passNotTheSame(BuildContext context) {

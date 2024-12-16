@@ -3,9 +3,9 @@ part of '../error_widget.dart';
 class ForbiddenErrorScreenWidget extends StatefulWidget {
    
   const ForbiddenErrorScreenWidget({
-    Key? key,
+    super.key,
 
-  }) : super(key: key);
+  });
 
   @override
   _ForbiddenErrorScreenWidgetState createState() =>

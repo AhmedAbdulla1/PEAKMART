@@ -12,4 +12,7 @@ final class RegisterFailureState extends RegisterState {
   RegisterFailureState({required this.errors, required this.onRetry});
 }
 
-final class RegisterSuccessState extends RegisterState {}
+final class RegisterSuccessState extends RegisterState {
+  final RegisterEntity registerEntity;
+  RegisterSuccessState({required this.registerEntity});
+}

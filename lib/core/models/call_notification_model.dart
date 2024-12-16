@@ -15,11 +15,11 @@ class CallNotificationModel {
 
   factory CallNotificationModel.fromMap(Map<String, dynamic> json) =>
       CallNotificationModel(
-        withVideo: json["with_video"] == null ? false : json["with_video"],
-        token: json["token"] == null ? false : json["token"],
-        channel: json["channel"] == null ? false : json["channel"],
-        name: json["name"] == null ? false : json["name"],
-        isGroup: json["isGroup"] == null ? false : json["isGroup"],
+        withVideo: json["with_video"] ?? false,
+        token: json["token"] ?? false,
+        channel: json["channel"] ?? false,
+        name: json["name"] ?? false,
+        isGroup: json["isGroup"] ?? false,
       );
 
   Map<String, dynamic> toMap() {

@@ -4,8 +4,7 @@ class UnknownErrorScreen extends StatefulWidget {
   final VoidCallback? callback;
   final bool? disableRetryButton;
 
-  const UnknownErrorScreen({Key? key, this.callback, this.disableRetryButton})
-      : super(key: key);
+  const UnknownErrorScreen({super.key, this.callback, this.disableRetryButton});
 
   @override
   _UnknownErrorScreenState createState() => _UnknownErrorScreenState();

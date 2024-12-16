@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
+import 'package:peakmart/features/auth/domain/entity/register_entity.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
 import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification.dart';
 import 'package:peakmart/features/auth/presentation/views/reset_password/view.dart';
@@ -31,15 +32,20 @@ class RouteGenerator {
       case LogInView.routeName:
         initLoginModule();
         return MaterialPageRoute(builder: (_) => const LogInView());
+      case OtpVerification.routeName:
+        // final registerEntity = settings.arguments as RegisterEntity;
+        return MaterialPageRoute(
+            builder: (_) => const OtpVerification(
+                
+                ));
+
       case Routes.signUpScreen:
         return MaterialPageRoute(builder: (_) => const SignUpView());
       case ForgotPasswordView.routeName:
         return MaterialPageRoute(builder: (_) => const ForgotPasswordView());
-      case Routes.otpVerification:
-        return MaterialPageRoute(builder: (_) => const OtpVerification());
+
       default:
         return unDefinedRoute();
-
     }
   }
 

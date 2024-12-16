@@ -28,7 +28,7 @@ class _AnimatedNewsContainerState extends State<AnimatedNewsContainer> with Sing
     super.initState();
     _viewModel = AnimationViewModel();
     // Start the initial animation
-    Future.delayed(Duration(milliseconds: 100)).then((_) {
+    Future.delayed(const Duration(milliseconds: 100)).then((_) {
       _viewModel.startInAnimation(widget.windowSize.width - 16);
     });
   }

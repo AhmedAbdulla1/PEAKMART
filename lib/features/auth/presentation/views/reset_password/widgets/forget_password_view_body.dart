@@ -23,7 +23,7 @@ class ForgetPasswordViewBody extends StatefulWidget {
 
 class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
   final TextEditingController _emailController = TextEditingController();
-  late  RestPassCubit _restPassCubit ;
+  late RestPassCubit _restPassCubit;
   late ResetPasswordViewModel _viewModel;
 
   @override
@@ -50,7 +50,7 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
       padding: const EdgeInsets.fromLTRB(29, 20, 29, 0),
       child: BlocConsumer<RestPassCubit, ResetPassState>(
           listener: (context, state) {
-            log('state is $state');
+        log('state is $state');
         if (state is ResetPassFailureState) {
           ErrorViewer.showError(
             errorViewerOptions: const ErrVToastOptions(),
@@ -127,6 +127,7 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
       builder: (BuildContext context) {
         return SuccessBottomSheet(
           restPassCubit: _restPassCubit,
+          textMessage: AppStrings.rPSMessage,
         );
       },
     );

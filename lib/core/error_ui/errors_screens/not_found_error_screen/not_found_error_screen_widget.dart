@@ -6,11 +6,11 @@ class NotFoundErrorScreenWidget extends StatefulWidget {
   final String url;
 
   const NotFoundErrorScreenWidget({
-    Key? key,
+    super.key,
     required this.callback,
     this.disableRetryButton,
     required this.url,
-  }) : super(key: key);
+  });
 
   @override
   _NotFoundErrorScreenWidgetState createState() =>

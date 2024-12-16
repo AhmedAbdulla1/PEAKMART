@@ -5,10 +5,10 @@ class FormatErrorScreen extends StatefulWidget {
   final bool? disableRetryButton;
 
   const FormatErrorScreen({
-    Key? key,
+    super.key,
      this.callback,
     this.disableRetryButton,
-  }) : super(key: key);
+  });
 
   @override
   _FormatErrorScreenState createState() =>

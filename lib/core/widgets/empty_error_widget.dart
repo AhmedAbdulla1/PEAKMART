@@ -8,14 +8,14 @@ class EmptyErrorScreenWidget extends StatefulWidget {
   final VoidCallback? callback;
   final buttonText;
   final Color? textColor;
-  EmptyErrorScreenWidget({
-    Key? key,
+  const EmptyErrorScreenWidget({
+    super.key,
     required this.message,
     this.callback,
     this.image,
     this.buttonText,
     this.textColor,
-  }) : super(key: key);
+  });
 
   @override
   _EmptyErrorScreenWidgetState createState() => _EmptyErrorScreenWidgetState();

@@ -6,7 +6,7 @@ class RegisterEntity extends BaseEntity {
   final String userId;
   final String phoneNumber;
 
-  RegisterEntity(
+  const RegisterEntity(
       { required this.phoneNumber ,required this.email, required this.userName, required this.userId});
 
   @override

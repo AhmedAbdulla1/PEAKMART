@@ -429,7 +429,7 @@ class ErrorViewer {
     if (errorViewerOptions is ErrVToastOptions ||
         errorViewerOptions is ErrVToastOptions ||
         errorViewerOptions is ErrVDialogOptions) {
-      ErrVDialogOptions? errVDialogOptions = null;
+      ErrVDialogOptions? errVDialogOptions;
 
       if (errorViewerOptions is ErrVDialogOptions) {
         errVDialogOptions = errorViewerOptions;

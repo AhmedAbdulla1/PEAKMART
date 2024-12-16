@@ -7,12 +7,12 @@ class InternalServerWithDataErrorScreen extends StatefulWidget {
   final int errorCode;
 
   const InternalServerWithDataErrorScreen({
-    Key? key,
+    super.key,
     this.message,
     this.callback,
     this.disableRetryButton,
     required this.errorCode,
-  }) : super(key: key);
+  });
 
   @override
   _InternalServerWithDataErrorScreenState createState() =>

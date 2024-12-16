@@ -22,6 +22,7 @@ class SignUpBuildWidgets extends StatefulWidget {
 }
 
 late String userName, email, phoneNumber, password, confirmPass;
+
 final TextEditingController usernameController = TextEditingController();
 final TextEditingController emailController = TextEditingController();
 final TextEditingController phoneController = TextEditingController();

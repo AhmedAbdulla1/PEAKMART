@@ -19,13 +19,13 @@ class OtherLoginWays extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             OtherLoginMethodsShape(
+             const OtherLoginMethodsShape(
               icon: IconsAssets.googleIcon,
             ),
              Platform.isIOS ?
-             OtherLoginMethodsShape(
+             const OtherLoginMethodsShape(
               icon: IconsAssets.appleIcon,
-            ):SizedBox(),
+            ):const SizedBox(),
             // OtherLoginMethodsShape(
             //   icon: IconsAssets.facebookIcon,
             // ),

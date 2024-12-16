@@ -14,13 +14,13 @@ class BaseErrorWidget extends StatefulWidget {
   final Widget? button;
 
   const BaseErrorWidget({
-    Key? key,
+    super.key,
     this.onTap,
     this.title,
     this.subtitle,
     this.icon,
     this.button,
-  }) : super(key: key);
+  });
 
   @override
   State<BaseErrorWidget> createState() => _BaseErrorWidgetState();
@@ -73,7 +73,7 @@ class _BaseErrorWidgetState extends State<BaseErrorWidget> {
 class NoDataWidget extends StatelessWidget {
   final String? message;
   final NoData? noData;
-  const NoDataWidget({Key? key, this.message, this.noData}) : super(key: key);
+  const NoDataWidget({super.key, this.message, this.noData});
   @override
   Widget build(BuildContext context) {
     return BaseErrorWidget(

@@ -119,7 +119,7 @@ class _AnimatedNewsContainerState extends State<AnimatedNewsContainer> with Sing
                     height: AppSize.s32.h,
                     onEnd: () {
                       if (isExpanded) {
-                        Future.delayed( Duration(seconds: 10), () {
+                        Future.delayed( const Duration(seconds: 10), () {
                           _viewModel.startCollapseAnimation(parentWidth);
                         });
                       }

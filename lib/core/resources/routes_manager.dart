@@ -2,45 +2,44 @@
 import 'package:flutter/material.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
-import 'package:peakmart/features/auth/domain/entity/register_entity.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
 import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification.dart';
 import 'package:peakmart/features/auth/presentation/views/reset_password/view.dart';
 import 'package:peakmart/features/auth/presentation/views/sign_up/sign_up_view.dart';
 import 'package:peakmart/features/main/main_view.dart';
+import 'package:peakmart/features/onboarding/presentation/views/onboarding_view.dart';
 
 class Routes {
   static const String splashScreen = "/";
-
-  @deprecated
-  static const String mainScreen = "/mainScreen";
-  static const String signInScreen = "/signInScreen";
-  static const String signUpScreen = "/signUpScreen";
-  static const String forgetPasswordScreen = "/forgetPasswordScreen";
-  static const String otpVerification = "/otpVerification";
 }
 
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
-      case Routes.mainScreen:
-        initHomeModule();
-        return MaterialPageRoute(builder: (_) => MainView());
+      case OnboardingView.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const OnboardingView(),
+        );
       case MainView.routeName:
         initHomeModule();
-        return MaterialPageRoute(builder: (_) => MainView());
+        return MaterialPageRoute(
+          builder: (_) => MainView(),
+        );
       case LogInView.routeName:
         initLoginModule();
-        return MaterialPageRoute(builder: (_) => const LogInView());
+        return MaterialPageRoute(
+          builder: (_) => const LogInView(),
+        );
+      case SignUpView.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const SignUpView(),
+        );
       case OtpVerification.routeName:
         // final registerEntity = settings.arguments as RegisterEntity;
         return MaterialPageRoute(
-            builder: (_) => const OtpVerification(
-                
-                ));
+          builder: (_) => const OtpVerification(),
+        );
 
-      case Routes.signUpScreen:
-        return MaterialPageRoute(builder: (_) => const SignUpView());
       case ForgotPasswordView.routeName:
         return MaterialPageRoute(builder: (_) => const ForgotPasswordView());
 

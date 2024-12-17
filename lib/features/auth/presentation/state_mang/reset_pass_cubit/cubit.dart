@@ -21,7 +21,7 @@ class RestPassCubit extends Cubit<ResetPassState> {
     emit(ResetPassLoadingState());
     ShowDialog().showElasticDialog(
       context: context,
-      builder: (context) => WaitingWidget(),
+      builder: (context) => const WaitingWidget(),
       barrierDismissible: false,
     );
     Result<AppErrors, EmptyEntity> result =

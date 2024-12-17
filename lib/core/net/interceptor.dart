@@ -2,7 +2,6 @@
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:peakmart/app/app_config.dart';
-import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 
 
 import '../constants/app/app_constants.dart';

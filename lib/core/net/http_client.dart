@@ -5,9 +5,6 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:injectable/injectable.dart';
-import 'package:intl/intl.dart';
-import 'package:peakmart/app/app_config.dart';
-import 'package:peakmart/core/constants/app/app_constants.dart';
 import 'package:peakmart/core/constants/enums/http_method.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/models/base_model.dart';
@@ -452,7 +449,6 @@ class HttpClient extends BaseHttpClient {
     }
 
     /// Couldn't reach out the server
-    on SocketException {}
   }
 
   AppErrors _handleDioError<E>(DioException error) {

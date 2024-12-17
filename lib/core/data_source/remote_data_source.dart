@@ -11,7 +11,6 @@ import 'package:peakmart/core/net/models_factory.dart';
 import 'package:peakmart/core/net/response_validators/default_response_validator.dart';
 import 'package:peakmart/core/net/response_validators/list_response_validator.dart';
 import 'package:peakmart/core/net/response_validators/response_validator.dart';
-import 'package:peakmart/features/auth/data/model/response/login_response.dart';
 
 class RemoteDataSource {
   Future<Either<AppErrors, T>> requestUploadFile<T extends BaseResponse>({

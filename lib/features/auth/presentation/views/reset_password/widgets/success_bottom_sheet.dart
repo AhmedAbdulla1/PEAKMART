@@ -34,7 +34,7 @@ class SuccessBottomSheet extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            '${textMessage}',
+            textMessage,
             textAlign: TextAlign.center,
             style: getRegularStyle(
                 fontSize: FontSize.s14, color: ColorManager.grey1),

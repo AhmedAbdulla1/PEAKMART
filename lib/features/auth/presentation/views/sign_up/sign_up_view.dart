@@ -7,6 +7,7 @@ import 'package:peakmart/features/auth/presentation/views/sign_up/widgets/sign_u
 class SignUpView extends StatelessWidget {
   const SignUpView({super.key});
 
+static const String routeName = '/sign_up_view';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

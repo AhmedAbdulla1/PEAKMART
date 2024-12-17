@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -9,7 +8,6 @@ import 'package:peakmart/core/constants/enums/app_theme_enum.dart';
 import 'package:peakmart/core/constants/enums/system_type.dart';
 import 'package:peakmart/app/di.dart';
 
-import '../../main.dart';
 
 /// This class it contain multiple core functions
 /// for get device info

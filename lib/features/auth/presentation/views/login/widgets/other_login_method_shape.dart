@@ -3,6 +3,7 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
+import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 
@@ -34,17 +35,15 @@ class OtherLoginMethodsShape extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SvgPicture.asset(icon,
-
+                  SvgPicture.asset(
+                    icon,
                   ),
-                  const SizedBox(width: AppSize.s18,),
-                  Text(
-                    'Google',
-                    style: getRegularStyle(
-                        fontSize: FontSize.s16,
-                      color: ColorManager.grey1
-                    )
+                  const SizedBox(
+                    width: AppSize.s18,
                   ),
+                  Text(AppStrings.google,
+                      style: getRegularStyle(
+                          fontSize: FontSize.s16, color: ColorManager.grey1)),
                 ],
               ),
             ),

@@ -293,10 +293,10 @@ class ErrorScreenWidget extends StatelessWidget {
       },
       unauthorizedError: (_) {
         if (errorWidget != null) {
-          errorWidget.children.add(UnauthorizedErrorScreenWidget());
+          errorWidget.children.add(const UnauthorizedErrorScreenWidget());
           return errorWidget;
         } else {
-          return UnauthorizedErrorScreenWidget();
+          return const UnauthorizedErrorScreenWidget();
         }
       },
       unknownError: (_) {

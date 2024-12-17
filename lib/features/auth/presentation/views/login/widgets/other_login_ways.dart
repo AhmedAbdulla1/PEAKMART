@@ -26,9 +26,7 @@ class OtherLoginWays extends StatelessWidget {
              const OtherLoginMethodsShape(
               icon: IconsAssets.appleIcon,
             ):const SizedBox(),
-            // OtherLoginMethodsShape(
-            //   icon: IconsAssets.facebookIcon,
-            // ),
+
           ],
         )
       ],

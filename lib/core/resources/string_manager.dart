@@ -40,6 +40,7 @@ class AppStrings {
   static String passwordHint = tr('Enter your password');
   static String confirmPassword = tr('Confirm Password');
   static String confirmPasswordHint = tr('Confirm your password');
+  static String google = tr('Google');
 
   static const String noRouteFound = "No Route Found";
   static const String getStart = 'Get Started';
@@ -51,7 +52,7 @@ class AppStrings {
   static const String addNewDevice = 'Add New Device';
   static const String loginSubTitle =
       'Looks like you don’t have an account. Let’s create a new account for you.';
-  static const String google = 'Sign Up with Google';
+  static const String signUpWithgoogle = 'Sign Up with Google';
   static const String apple = 'Sign Up with Apple';
   static const String haveAnAccount = "have an account?";
   static const String dontHaveAnAccount = "Don’t have an account?";

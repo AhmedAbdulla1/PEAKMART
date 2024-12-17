@@ -13,13 +13,17 @@ class IconsAssets{
   static const String facebookIcon = '$iconsPath/facebook.svg';
   static const String appleIcon = '$iconsPath/apple.svg';
   static const String googleIcon = '$iconsPath/google.svg';
+  
 
   }
 
 class ImageAssets{
   static const  String landingBg="$imagePath/landing_bg.png";
   static const String success="$imagePath/success.png";
-
+static const String onBoardingPageOne="$imagePath/onBoarding1.png";
+static const String onBoardingPageTwo="$imagePath/onBoarding2.png";
+static const String onBoardingPageThree="$imagePath/onBoarding3.png";
+static const String onBoardingPageFour="$imagePath/onBoarding4.png";
 
 
   static const  String apple ='$imagePath/apple.svg';

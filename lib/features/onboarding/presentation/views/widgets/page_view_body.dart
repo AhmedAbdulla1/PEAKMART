@@ -8,6 +8,7 @@ import '../../../data/page_view_content.dart';
 import 'onboarding_title_and_descr_sectiont.dart';
 import 'page_change_point.dart';
 
+// ignore: must_be_immutable
 class PageViewBody extends StatefulWidget {
   PageViewBody({super.key, required this.index});
   int index;
@@ -43,8 +44,8 @@ class _PageViewBodyState extends State<PageViewBody> {
             NextTextButton(onPressed: () {
               setState(() {
                 widget.index == 3
-                  ? Navigator.pushNamed(context, LogInView.routeName)
-                  : widget.index += 1;
+                    ? Navigator.pushNamed(context, LogInView.routeName)
+                    : widget.index += 1;
               });
             }),
           ],

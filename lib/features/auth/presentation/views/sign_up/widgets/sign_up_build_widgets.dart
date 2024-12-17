@@ -71,11 +71,11 @@ class _SignUpBuildWidgetsState extends State<SignUpBuildWidgets> {
           Text(
             AppStrings.createAccount,
             style: getSemiBoldStyle(
-                    fontSize: FontSize.s32, color: ColorManager.black)
+                    fontSize: FontSize.s28, color: ColorManager.primary)
                 .copyWith(fontFamily: FontConstants.fontMontserratFamily),
           ),
           SizedBox(
-            height: 51.h,
+            height: 34.h,
           ),
           SignUpUserAcceptData(
             usernameController: usernameController,

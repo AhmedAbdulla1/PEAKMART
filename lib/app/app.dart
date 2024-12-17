@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/core/resources/routes_manager.dart';
 import 'package:peakmart/core/resources/theme_manager.dart';
-import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
 import 'package:peakmart/app/di.dart' as di;
+import 'package:peakmart/features/onboarding/presentation/views/onboarding_view.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();
@@ -24,7 +24,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void didChangeDependencies() {
     _appPreferences.getLocale().then((value) {
-      print(value);
       context.setLocale(value);
     });
     super.didChangeDependencies();
@@ -43,7 +42,7 @@ class _MyAppState extends State<MyApp> {
         localizationsDelegates: context.localizationDelegates,
         theme: getApplicationTheme(),
         title: 'Petmart',
-        initialRoute: LogInView.routeName,
+        initialRoute: OnboardingView.routeName,
         onGenerateRoute: RouteGenerator.getRoute,
       ),
     );

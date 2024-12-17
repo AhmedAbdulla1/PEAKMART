@@ -20,6 +20,7 @@ import 'package:peakmart/features/auth/presentation/views/otp_verification/custo
 import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_resend_timer_row.dart';
 import 'package:peakmart/features/auth/presentation/views/reset_password/widgets/success_bottom_sheet.dart';
 import 'package:peakmart/features/auth/presentation/views/sign_up/widgets/sign_up_build_widgets.dart';
+import 'package:peakmart/features/main/main_view.dart';
 
 class OtpVerificationBody extends StatefulWidget {
   const OtpVerificationBody({
@@ -54,9 +55,16 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
       child: BlocConsumer<OtpVerfictionCubit, OtpVerficationState>(
         listener: (context, state) {
           if (state is OtpVerficationSuccessState) {
-            state.isVerified ?log('Success state in verify otp'):log('Success state in send otp');
-            
-            state.isVerified ? showSuccessBottomSheet(context) : null;
+            if (state.isVerified) {
+              log('Success state in verify otp');
+              state.isVerified ? showSuccessBottomSheet(context) : null;
+
+              state.isVerified
+                  ? Future.delayed(const Duration(seconds: 3), () {
+                      Navigator.pushNamed(context, MainView.routeName);
+                    })
+                  : null;
+            }
           } else if (state is OtpVerficationFailureState) {
             log('Failure state');
             Navigator.pop(context);

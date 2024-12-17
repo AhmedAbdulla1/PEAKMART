@@ -1,5 +1,4 @@
 
-import 'package:peakmart/core/resources/assets_manager.dart';
 
 import 'models/onboarding_model.dart';
 

@@ -8,6 +8,7 @@ import 'package:peakmart/core/shared_widgets/buttons.dart';
 import 'package:peakmart/features/auth/presentation/state_mang/otp_verfication_cubit/otp_verfication_cubit.dart';
 import 'package:peakmart/features/auth/presentation/state_mang/reset_pass_cubit/cubit.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
+import 'package:peakmart/features/main/main_view.dart';
 import 'package:timer_button/timer_button.dart';
 
 class SuccessBottomSheet extends StatelessWidget {
@@ -65,13 +66,21 @@ class SuccessBottomSheet extends StatelessWidget {
           const SizedBox(height: 20),
 
           // Login button
-          CustomElevatedButtonWithoutStream(
-            onPressed: () {
-              Navigator.pushReplacementNamed(
-                  context, LogInView.routeName); // Close the bottom sheet
-            },
-            text: AppStrings.login,
-          ),
+          otpVerfictionCubit != null
+              ? CustomElevatedButtonWithoutStream(
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(
+                        context, MainView.routeName); // Close the bottom sheet
+                  },
+                  text: AppStrings.Continue,
+                )
+              : CustomElevatedButtonWithoutStream(
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(
+                        context, LogInView.routeName); // Close the bottom sheet
+                  },
+                  text: AppStrings.login,
+                ),
         ],
       ),
     );

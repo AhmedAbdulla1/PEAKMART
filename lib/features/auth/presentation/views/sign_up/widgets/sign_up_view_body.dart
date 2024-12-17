@@ -36,7 +36,6 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 builder: (context) => const WaitingWidget(),
                 barrierDismissible: false,
               );
-            
             }
             if (state is RegisterSuccessState) {
               log('success state');
@@ -56,7 +55,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
               ErrorViewer.showError(
                   errorViewerOptions: ErrVToastOptions(
                     textColor: ColorManager.white,
-                    backGroundColor: ColorManager.primary,
+                    backGroundColor: ColorManager.darkGrey,
                   ),
                   context: context,
                   error: state.errors,

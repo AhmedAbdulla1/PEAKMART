@@ -2,10 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/app/app_prefs.dart';
+import 'package:peakmart/app/di.dart' as di;
 import 'package:peakmart/core/resources/routes_manager.dart';
 import 'package:peakmart/core/resources/theme_manager.dart';
-import 'package:peakmart/app/di.dart' as di;
-import 'package:peakmart/features/onboarding/presentation/views/onboarding_view.dart';
+import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();
@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
         localizationsDelegates: context.localizationDelegates,
         theme: getApplicationTheme(),
         title: 'Petmart',
-        initialRoute: OnboardingView.routeName,
+        initialRoute: LogInView.routeName,
         onGenerateRoute: RouteGenerator.getRoute,
       ),
     );

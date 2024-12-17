@@ -54,7 +54,8 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
       child: BlocConsumer<OtpVerfictionCubit, OtpVerficationState>(
         listener: (context, state) {
           if (state is OtpVerficationSuccessState) {
-            log('Success state in verify otp');
+            state.isVerified ?log('Success state in verify otp'):log('Success state in send otp');
+            
             state.isVerified ? showSuccessBottomSheet(context) : null;
           } else if (state is OtpVerficationFailureState) {
             log('Failure state');
@@ -62,7 +63,7 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
             ErrorViewer.showError(
                 errorViewerOptions: ErrVToastOptions(
                   textColor: ColorManager.white,
-                  backGroundColor: ColorManager.primary,
+                  backGroundColor: ColorManager.lightGrey,
                 ),
                 context: context,
                 error: state.errors,

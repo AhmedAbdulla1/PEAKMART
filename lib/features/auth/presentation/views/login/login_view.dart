@@ -21,7 +21,7 @@ import 'package:peakmart/features/main/main_view.dart';
 class LogInView extends StatefulWidget {
   const LogInView({super.key, this.fromScreen});
 
-  static const String routeName = '/login';
+  static const String routeName = '/';
   final String? fromScreen;
 
   @override

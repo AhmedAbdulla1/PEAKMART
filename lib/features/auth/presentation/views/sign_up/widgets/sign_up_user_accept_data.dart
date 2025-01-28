@@ -31,7 +31,7 @@ class SignUpUserAcceptData extends StatefulWidget {
 class _SignUpUserAcceptDataState extends State<SignUpUserAcceptData> {
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return  Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         CustomTextFormField(
@@ -67,6 +67,24 @@ class _SignUpUserAcceptDataState extends State<SignUpUserAcceptData> {
           hintText: AppStrings.confirmPasswordHint,
           controller: widget.confirmPassController,
         ),
+        //  CustomFormW(
+        //   numberOfFields: 3,
+        //   requiredFieldIndices: [1, 2],
+        //   labelText: ['Name', 'Email', 'Phone'],
+        //   onSubmit: () {
+        //     print('Form submitted');
+        //   },
+        //   //for email validation , password length validation and phone number validation
+        //   keyboardType: [
+        //           TextInputType.text,
+        //           TextInputType.emailAddress,
+        //           TextInputType.phone,
+        //           TextInputType.visiblePassword,
+        //           TextInputType.visiblePassword,
+        //           TextInputType.text,
+        //           TextInputType.text,
+        //         ],
+        // ),
       ],
     );
   }

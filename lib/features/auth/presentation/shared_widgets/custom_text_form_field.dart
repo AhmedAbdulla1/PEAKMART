@@ -34,30 +34,30 @@ class CustomTextFormField extends StatelessWidget {
       validator: (value) {
         if (hintText == AppStrings.emailHint) {
           if (value == null || value.isEmpty) {
-            return 'This field is required.';
+            return AppStrings.fieldRequired;
           }
           String pattern =
               r'^[a-zA-Z][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$';
           RegExp regex = RegExp(pattern);
           if (value.isEmpty) {
-            return 'Please enter an email address';
+            return AppStrings.enterEmail;
           } else if (!regex.hasMatch(value)) {
-            return 'Please enter a valid email address';
+            return AppStrings.emailError;
           }
         }
-        if (hintText ==AppStrings.userNameHint) {
+        if (hintText == AppStrings.userNameHint) {
           if (value == null || value.isEmpty) {
-            return 'This field is required.';
+            return AppStrings.fieldRequired;
           }
 
           String pattern = r'^[a-zA-Z\s]+$';
           RegExp regex = RegExp(pattern);
           if (!regex.hasMatch(value)) {
-            return 'Please enter a valid name (letters and spaces only)';
+            return AppStrings.nameError;
           }
         }
         if (value == null || value.isEmpty) {
-          return 'This field is required.';
+          return AppStrings.fieldRequired;
         }
         return null;
       },

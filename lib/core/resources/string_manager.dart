@@ -14,11 +14,20 @@ class AppStrings {
   static String forgotPassword = tr('forgot_password');
   static String resetPassword = tr('reset_password');
   static String forgotPasswordHint = tr('reset_password_hint');
+static String enterEmail=  'Please enter an email address';
   static String rPSMessage =
       'Send you a message to set or reset your new password';
   static String refresh = 'refresh';
   static String otpSuccessMessage = 'OTP Verified Successfully!';
   static String otpErrorMessage = 'OTP Verification Failed!';
+static String passwordAtLeast8Char='Password must be at least 8 characters long.';
+static String passwordAtLeast1Uppercase='Password must contain at least one uppercase letter.';
+static String passwordAtLeast1Lowercase='Password must contain at least one lowercase letter.';
+static String passwordAtLeast1Number='Password must contain at least one number.';
+static String passwordAtLeast1SpecialChar='Password must contain at least one special character.';
+static String emailError=  'Please enter a valid email address';
+  static String fieldRequired =  'This field is required.';
+  static String nameError='Please enter a valid name (letters and spaces only)';
   static String soldFor = 'Sold for: ';
   static String soldOut = 'Sold out';
   static String bid = 'Bid';

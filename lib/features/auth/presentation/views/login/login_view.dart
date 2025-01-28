@@ -151,9 +151,9 @@ class _LogInViewState extends State<LogInView> {
               const SizedBox(height: AppSize.s35),
               const OtherLoginWays(),
               const SizedBox(height: AppSize.s20),
-              const AccountCreationOrLoginPrompt(
-                text: 'Create An Account',
-                textButton: 'Sign Up',
+              AccountCreationOrLoginPrompt(
+                text: AppStrings.createAccount,
+                textButton: AppStrings.signUp,
               )
             ],
           );

@@ -62,6 +62,7 @@ dependencies:
   fluttertoast: ^8.2.8
   timer_button: ^2.1.1
   firebase_core: ^3.8.1
+  carousel_slider: ^5.0.0
 #  package_info: ^2.0.2
 
 dev_dependencies:

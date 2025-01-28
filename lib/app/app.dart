@@ -5,7 +5,8 @@ import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart' as di;
 import 'package:peakmart/core/resources/routes_manager.dart';
 import 'package:peakmart/core/resources/theme_manager.dart';
-import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
+import 'package:peakmart/features/home/presentation/views/home_view.dart';
+import 'package:peakmart/features/main/main_view.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();
@@ -42,7 +43,7 @@ class _MyAppState extends State<MyApp> {
         localizationsDelegates: context.localizationDelegates,
         theme: getApplicationTheme(),
         title: 'Petmart',
-        initialRoute: LogInView.routeName,
+        initialRoute: MainView.routeName,
         onGenerateRoute: RouteGenerator.getRoute,
       ),
     );

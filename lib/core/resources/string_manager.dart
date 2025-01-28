@@ -18,6 +18,17 @@ class AppStrings {
       'Send you a message to set or reset your new password';
   static String refresh = 'refresh';
   static String otpSuccessMessage = 'OTP Verified Successfully!';
+  static String otpErrorMessage = 'OTP Verification Failed!';
+  static String soldFor = 'Sold for: ';
+  static String soldOut = 'Sold out';
+  static String bid = 'Bid';
+  static String nowBid = 'Now Bid:';
+  static String enrollNow = 'Enroll Now';
+
+  static String trendingBids = 'Trending Bids';
+  static String futureBids = 'Future Bids';
+  static String bidsWorkNow = 'Bids Work Now';
+  static String endedBids = 'Ended Bids';
 
   ///////////////////////////////////////////////////////////////
   static String createAccount = tr('Create an account');

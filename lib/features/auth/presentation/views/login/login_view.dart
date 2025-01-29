@@ -102,7 +102,7 @@ class _LogInViewState extends State<LogInView> {
                 callback: () {});
           }
           if (state is SignUpSuccessState) {
-            Navigator.pushReplacementNamed(context, MainView.routeName);
+            Navigator.pushNamed(context, MainView.routeName);
           }
         }, builder: (context, state) {
           return Column(

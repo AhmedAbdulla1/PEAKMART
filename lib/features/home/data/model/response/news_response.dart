@@ -14,13 +14,14 @@ class NewsResponse extends BaseResponse<NewsEntity> {
       required super.code});
 
   factory NewsResponse.fromJson(Map<String, dynamic> json) {
+
     return NewsResponse(
       data: List<NewsDataResponse>.from(
           json["data"].map((newsData) => NewsDataResponse.fromJson(newsData))),
       paginationResponse: PaginationResponse.fromJson(json["pagination"]),
       message: json["message"],
       status: json["status"],
-      code: json["code"],
+      code: 200,
     );
   }
 
@@ -48,10 +49,10 @@ class NewsDataResponse {
 
   factory NewsDataResponse.fromJson(Map<String, dynamic> json) {
     return NewsDataResponse(
-      active: json["active"],
-      content: json["content"],
-      id: json["id"],
-      link: json["link"],
+      active: json["ACTIVE"],
+      content: json["CONTENT"],
+      id: json["NEWS_ID"],
+      link: json["LINK"],
     );
   }
 

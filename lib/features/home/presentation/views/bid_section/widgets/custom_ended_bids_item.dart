@@ -25,6 +25,7 @@ class CustomEndedBidsItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               Expanded(
                 child: Container(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -35,20 +36,23 @@ class CustomEndedBidsItem extends StatelessWidget {
                     ),
                   ),
                   child: Stack(
-                    children:[ Image.asset(
+                    children:[
+
+                      Image.asset(
                       endedBidsCardModel.image,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
+                      Positioned(
+                        top: 30,
+                        left: 0,
+                        child: Image.asset(
+                          'assets/images/ended_badg.png',
+                          width: 100,
+                          fit: BoxFit.contain,
 
-                    Positioned(
-                      top: 0,
-                      right: 0,
-                      child: Image.asset(
-                        'assets/images/like.svg',
-                        color: ColorManager.white,
+                        ),
                       ),
-                    )
                     ]),
                 ),
               ),

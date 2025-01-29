@@ -1,3 +1,4 @@
+
 import 'package:dartz/dartz.dart';
 import 'package:peakmart/core/constants/enums/http_method.dart';
 import 'package:peakmart/core/data_source/remote_data_source.dart';
@@ -15,6 +16,8 @@ class HomeDataSource extends RemoteDataSource {
         queryParameters: newsRequest.toJson(),
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
+          print('on converter');
+          print(json);
           return NewsResponse.fromJson(json);
         },
         url: APIUrls.getNews);

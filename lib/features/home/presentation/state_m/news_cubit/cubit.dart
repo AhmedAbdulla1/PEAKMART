@@ -23,12 +23,15 @@ class NewsCubit extends Cubit<NewsState> {
     );
 
     result.pick(onData: (data) {
+      print('data $data');
       this.data = data;
       emit(NewsLoaded(data));
+      _startNewsDisplayCycle();
     }, onError: (error) {
+      print('error $error');
       emit(NewsError(error));
     });
-    _startNewsDisplayCycle();
+
   }
 
   void _startNewsDisplayCycle() {

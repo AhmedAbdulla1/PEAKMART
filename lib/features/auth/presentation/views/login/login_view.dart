@@ -102,7 +102,7 @@ class _LogInViewState extends State<LogInView> {
                 callback: () {});
           }
           if (state is SignUpSuccessState) {
-            Navigator.pushNamed(context, MainView.routeName);
+            Navigator.pushReplacementNamed(context, MainView.routeName);
           }
         }, builder: (context, state) {
           return Column(
@@ -151,9 +151,9 @@ class _LogInViewState extends State<LogInView> {
               const SizedBox(height: AppSize.s35),
               const OtherLoginWays(),
               const SizedBox(height: AppSize.s20),
-              const AccountCreationOrLoginPrompt(
-                text: 'Create An Account',
-                textButton: 'Sign Up',
+              AccountCreationOrLoginPrompt(
+                text: AppStrings.createAccount,
+                textButton: AppStrings.signUp,
               )
             ],
           );

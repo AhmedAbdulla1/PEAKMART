@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg;
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
@@ -124,9 +125,9 @@ class _AnimatedNewsContainerState extends State<AnimatedNewsContainer> with Sing
                         });
                       }
                     },
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: svg.Svg('assets/images/news_badge.svg'),
+                        image: Svg('assets/images/news_badge.svg'),
                         fit: BoxFit.fill,
                       ),
                     ),

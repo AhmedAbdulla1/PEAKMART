@@ -53,9 +53,9 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             if (state is RegisterFailureState) {
               log('error state');
               ErrorViewer.showError(
-                  errorViewerOptions: ErrVToastOptions(
+                  errorViewerOptions:const  ErrVToastOptions(
                     textColor: ColorManager.white,
-                    backGroundColor: ColorManager.darkGrey,
+                    backGroundColor: ColorManager.textFormErrorBorder,
                   ),
                   context: context,
                   error: state.errors,

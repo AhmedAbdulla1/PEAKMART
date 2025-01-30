@@ -6,6 +6,9 @@ import 'package:peakmart/app/di.dart' as di;
 import 'package:peakmart/core/resources/routes_manager.dart';
 import 'package:peakmart/core/resources/theme_manager.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
+import 'package:peakmart/features/auth/presentation/views/sign_up/sign_up_view.dart';
+import 'package:peakmart/features/home/presentation/views/home_view.dart';
+import 'package:peakmart/features/main/main_view.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();

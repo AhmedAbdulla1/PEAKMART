@@ -61,7 +61,7 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
 
               state.isVerified
                   ? Future.delayed(const Duration(seconds: 3), () {
-                      Navigator.pushNamed(context, MainView.routeName);
+                      Navigator.pushReplacementNamed(context, MainView.routeName);
                     })
                   : null;
             }

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/features/products/presentation/views/privacy_and_policy_view.dart';
 
 class ApplyView extends StatelessWidget {
   const ApplyView({super.key});
@@ -17,15 +18,13 @@ class ApplyView extends StatelessWidget {
       width: double.infinity,
       decoration: const BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('assets/images/apply.png'),
-            fit: BoxFit.cover),
+            image: AssetImage('assets/images/apply.png'), fit: BoxFit.cover),
       ),
       child: Column(
         children: [
           Text('Unlock Maximum Value',
               style: getBoldStyle(
-                  fontSize: FontSize.s16,
-                  color: ColorManager.lightPrimary)),
+                  fontSize: FontSize.s16, color: ColorManager.lightPrimary)),
           Text(
             'Showcase your item and watch the bids drive up the price.Your chance to secure the highest profit is here!',
             style: getRegularStyle(
@@ -35,7 +34,9 @@ class ApplyView extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, PrivacyAndPolicyView.routeName);
+            },
             child: const Text('Apply Now'),
           ),
         ],

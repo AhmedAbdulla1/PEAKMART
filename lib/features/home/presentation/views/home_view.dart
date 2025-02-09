@@ -103,7 +103,7 @@ class HomeView extends StatelessWidget {
           TitledBidSection(
             title: AppStrings.trendingBids,
             bids: bids,
-            endedBids: [],
+            endedBids: const [],
           ),
           const SizedBox(
             height: AppSize.s12,
@@ -111,7 +111,7 @@ class HomeView extends StatelessWidget {
           TitledBidSection(
             title: AppStrings.futureBids,
             bids: bids,
-            endedBids: [],
+            endedBids: const [],
           ),
           const SizedBox(
             height: AppSize.s12,
@@ -126,7 +126,7 @@ class HomeView extends StatelessWidget {
           ),
           TitledBidSection(
             title: AppStrings.bidsWorkNow,
-            endedBids: [],
+            endedBids: const [],
             bids: bids,
           ),
           const SizedBox(
@@ -135,7 +135,7 @@ class HomeView extends StatelessWidget {
           TitledBidSection(
             title: AppStrings.endedBids,
             endedBids: endedBids,
-            bids: [],
+            bids: const [],
             isEnded: true,
           ),
           const SizedBox(
@@ -154,7 +154,6 @@ class HomeView extends StatelessWidget {
           create: (_) => NewsCubit()..fetchNews(),
           child: BlocBuilder<NewsCubit, NewsState>(
             builder: (context, state) {
-              print(state);
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [

@@ -7,8 +7,11 @@ import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_v
 import 'package:peakmart/features/auth/presentation/views/reset_password/view.dart';
 import 'package:peakmart/features/auth/presentation/views/sign_up/sign_up_view.dart';
 import 'package:peakmart/features/auth/presentation/views/signup_for_bid/view.dart';
+import 'package:peakmart/features/bid_owner/presentation/views/bid_owner_view.dart';
 import 'package:peakmart/features/main/main_view.dart';
 import 'package:peakmart/features/onboarding/presentation/views/onboarding_view.dart';
+import 'package:peakmart/features/products/presentation/views/auction_rules_view.dart';
+import 'package:peakmart/features/products/presentation/views/privacy_and_policy_view.dart';
 
 class Routes {
   static const String splashScreen = "/";
@@ -45,6 +48,13 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const ForgotPasswordView());
       case SignUpForBidView.routeName:
         return MaterialPageRoute(builder: (_) => const SignUpForBidView());
+
+      case BidOwnerView.routeName:
+        return MaterialPageRoute(builder: (_) => const BidOwnerView());
+      case PrivacyAndPolicyView.routeName:
+        return MaterialPageRoute(builder: (_) => const PrivacyAndPolicyView());
+      case AuctionRulesView.routeName:
+        return MaterialPageRoute(builder: (_) => const AuctionRulesView());
       default:
         return unDefinedRoute();
     }

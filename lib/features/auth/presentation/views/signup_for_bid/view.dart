@@ -21,6 +21,7 @@ class SignUpForBidView extends StatefulWidget {
 
 class _SignUpForBidViewState extends State<SignUpForBidView> {
   late SignUpForBidCubit _signUpForBidCubit;
+
   @override
   void initState() {
     _signUpForBidCubit = SignUpForBidCubit();
@@ -32,6 +33,7 @@ class _SignUpForBidViewState extends State<SignUpForBidView> {
     const MainInfo(),
     AdditionalDetails(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -39,58 +41,63 @@ class _SignUpForBidViewState extends State<SignUpForBidView> {
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.only(
-              left: AppPadding.p20, right: AppPadding.p20, top: 100,bottom: AppPadding.p65),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Sign up for bids",
-                style: getBoldStyle(
-                    fontSize: AppSize.s32, color: ColorManager.black),
-              ),
-              const Spacer(),
-              BlocConsumer<SignUpForBidCubit, SignUpState>(
-                listener: (context, state) {
-                  if (state is SignUpFailure) {
-                    // Show error message
-                  }
-                  if (state is SignUpSuccess) {
-                    // Navigate to the next screen
-                  }
-                  if(state is SignUpDetailsLoading){
-                    index = 1;
-                  }
-
-                },
-                builder: (context, state) {
-                  return screens[index];
-                },
-
-              ),
-              const Spacer(),
-              CustomElevatedButtonWithoutStream(
-                onPressed: () {
-                  _signUpForBidCubit.moveToDetails();
-                  // final user = User(
-                  //   username: _usernameController.text,
-                  //   email: _emailController.text,
-                  //   phoneNumber: _phoneController.text,
-                  //   password: _passwordController.text,
-                  //   country: _countryController.text,
-                  //   gov: _govController.text,
-                  //   city: _cityController.text,
-                  //   inland: _inlandController.text,
-                  // );
-                  // context.read<SignUpForBidCubit>().add(SignUpSubmitted(user));
-                },
-                text: 'Continue',
-              ),
-            ],
+              left: AppPadding.p20,
+              right: AppPadding.p20,
+              top: 100,
+              bottom: AppPadding.p65),
+          child: BlocConsumer(
+            listener: (context, state) {
+              if (state is SignUpFailure) {
+                index=0 ;
+                // Show error message
+              }
+              if (state is SignUpSuccess) {
+                // Navigate to the next screen
+              }
+              if (state is SignUpDetailsLoading) {
+                index = 1;
+              }
+            },
+            builder: (context, state) => Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Sign up for bids",
+                  style: getBoldStyle(
+                      fontSize: AppSize.s32, color: ColorManager.black),
+                ),
+                const Spacer(),
+                screens[index],
+                const Spacer(),
+                Visibility(
+                  visible: index == 1,
+                  child: CustomElevatedButtonWithoutStream(
+                      onPressed: () {
+                          _signUpForBidCubit.back();
+                      }, text: "Back"),
+                ),
+                CustomElevatedButtonWithoutStream(
+                  onPressed: () {
+                    _signUpForBidCubit.moveToDetails();
+                    // final user = User(
+                    //   username: _usernameController.text,
+                    //   email: _emailController.text,
+                    //   phoneNumber: _phoneController.text,
+                    //   password: _passwordController.text,
+                    //   country: _countryController.text,
+                    //   gov: _govController.text,
+                    //   city: _cityController.text,
+                    //   inland: _inlandController.text,
+                    // );
+                    // context.read<SignUpForBidCubit>().add(SignUpSubmitted(user));
+                  },
+                  text: 'Continue',
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
-
-

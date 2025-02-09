@@ -17,15 +17,21 @@ class SignUpForBidCubit extends Cubit<SignUpState> {
   SignUpForBidCubit() : super(SignUpInitial());
   late BuildContext context;
 
-  void moveToDetails(){
+  void moveToDetails() {
     emit(SignUpDetailsLoading());
-}
+  }
+  void back(){
+    emit(SignUpDetailsSuccess());
+  }
 
   Future<void> login({required String email, required String password}) async {
     emit(SignUpDetailsLoading());
-    ShowDialog().showElasticDialog(context: context, builder: (context) => const WaitingWidget(), barrierDismissible: true);
+    ShowDialog().showElasticDialog(
+        context: context,
+        builder: (context) => const WaitingWidget(),
+        barrierDismissible: true);
     Result<AppErrors, LoginEntity> result =
-    await authRepo.login(LoginRequest(email: email, password: password));
+        await authRepo.login(LoginRequest(email: email, password: password));
     result.pick(onData: (data) {
       Navigator.pop(context);
       emit(SignUpDetailsSuccess());

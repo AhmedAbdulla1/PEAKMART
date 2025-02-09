@@ -6,6 +6,7 @@ import 'package:peakmart/features/auth/presentation/views/login/login_view.dart'
 import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification.dart';
 import 'package:peakmart/features/auth/presentation/views/reset_password/view.dart';
 import 'package:peakmart/features/auth/presentation/views/sign_up/sign_up_view.dart';
+import 'package:peakmart/features/auth/presentation/views/signup_for_bid/view.dart';
 import 'package:peakmart/features/main/main_view.dart';
 import 'package:peakmart/features/onboarding/presentation/views/onboarding_view.dart';
 
@@ -42,7 +43,8 @@ class RouteGenerator {
 
       case ForgotPasswordView.routeName:
         return MaterialPageRoute(builder: (_) => const ForgotPasswordView());
-
+      case SignUpForBidView.routeName:
+        return MaterialPageRoute(builder: (_) => const SignUpForBidView());
       default:
         return unDefinedRoute();
     }

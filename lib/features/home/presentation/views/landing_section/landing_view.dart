@@ -5,6 +5,7 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
+import 'package:peakmart/features/auth/presentation/views/signup_for_bid/view.dart';
 
 class LandingView extends StatelessWidget {
   const LandingView({super.key});
@@ -47,7 +48,9 @@ class LandingView extends StatelessWidget {
             ),
             SizedBox(height: AppSize.s40.h),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, SignUpForBidView.routeName);
+              },
               child: Text(
                 buttonText,
                 style: getBoldStyle(

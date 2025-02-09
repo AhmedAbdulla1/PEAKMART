@@ -45,7 +45,7 @@ class _MyAppState extends State<MyApp> {
         localizationsDelegates: context.localizationDelegates,
         theme: getApplicationTheme(),
         title: 'Petmart',
-        initialRoute: LogInView.routeName,
+        initialRoute: MainView.routeName,
         onGenerateRoute: RouteGenerator.getRoute,
       ),
     );

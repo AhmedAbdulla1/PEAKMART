@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/bids_slider.dart';
+import 'package:peakmart/features/home/presentation/views/bid_section/widgets/bids_slider.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';

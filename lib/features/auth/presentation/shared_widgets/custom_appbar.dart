@@ -12,8 +12,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const  EdgeInsets.symmetric(horizontal: AppPadding.p22,vertical: AppPadding.p10),
+      padding: const EdgeInsets.symmetric(
+          horizontal: AppPadding.p22, vertical: AppPadding.p10),
       child: AppBar(
+        shadowColor: ColorManager.white,
+        foregroundColor: ColorManager.white,
+        surfaceTintColor: ColorManager.white,
         backgroundColor: ColorManager.white,
         elevation: 0,
         leading: Center(
@@ -32,8 +36,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         title: Text(
           title,
-          style:
-              getSemiBoldStyle(fontSize: FontSize.s18, color: ColorManager.black),
+          style: getSemiBoldStyle(
+              fontSize: FontSize.s18, color: ColorManager.black),
         ),
         centerTitle: true,
       ),

@@ -65,7 +65,7 @@ class CustomElevatedButtonWithoutStream extends StatelessWidget {
       this.width = double.infinity,
       this.height = AppSize.s55});
 
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final String text;
   final double width, height;
 

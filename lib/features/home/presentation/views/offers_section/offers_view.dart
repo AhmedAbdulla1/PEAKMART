@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
+import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/features/bid_owner/presentation/views/bid_owner_view.dart';
 
 class OfferSView extends StatelessWidget {
   const OfferSView({
@@ -16,7 +20,8 @@ class OfferSView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints:  BoxConstraints(maxHeight: 300.h,minWidth: double.infinity,minHeight: 170.h),
+      constraints: BoxConstraints(
+          maxHeight: 300.h, minWidth: double.infinity, minHeight: 170.h),
       child: Stack(
         children: [
           SizedBox(
@@ -38,10 +43,14 @@ class OfferSView extends StatelessWidget {
             left: 20.w,
             child: Center(
               child: ElevatedButton(
-                onPressed: () {},
-                child:  Text(
-                  'Enroll Now',
-                  style: getBoldStyle(color: ColorManager.white, fontSize: FontSize.s16),
+                onPressed: () {
+                  Navigator.pushNamed(context, BidOwnerView.routeName);
+                  log("messageooooooooo");
+                },
+                child: Text(
+                  AppStrings.enrollNow,
+                  style: getBoldStyle(
+                      color: ColorManager.white, fontSize: FontSize.s16),
                 ),
               ),
             ),

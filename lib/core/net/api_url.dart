@@ -14,6 +14,6 @@ class APIUrls {
 
   // home api
   static const getNews = "${baseUrl}InPageApi/news-api.php";
-
+  static const getContent = "${baseUrl}InPageApi/pageContent-api.php";
 
 }

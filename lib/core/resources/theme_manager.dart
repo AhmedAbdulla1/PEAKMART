@@ -46,10 +46,27 @@ ThemeData getApplicationTheme() {
     ),
     // button theme
     buttonTheme: ButtonThemeData(
-      shape: const StadiumBorder(),
+      shape: StadiumBorder(
+          side: BorderSide(
+              color: ColorManager.primary,
+              width: AppSize.s1_5,
+              style: BorderStyle.solid)),
       disabledColor: ColorManager.grey1,
       buttonColor: ColorManager.primary,
       splashColor: ColorManager.white,
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        side: BorderSide(
+          color: ColorManager.primary,
+          width: 5,
+          style: BorderStyle.solid,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSize.s15),
+        )
+      ),
+
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       selectedIconTheme: IconThemeData(
@@ -85,9 +102,8 @@ ThemeData getApplicationTheme() {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         textStyle:
-        getRegularStyle(
-            fontSize: FontSize.s14, color: ColorManager.primary)
-            .copyWith(
+            getRegularStyle(fontSize: FontSize.s14, color: ColorManager.primary)
+                .copyWith(
           fontFamily: 'Montserrat',
         ),
       ),
@@ -182,7 +198,6 @@ ThemeData getApplicationTheme() {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(
           AppSize.s12,
-
         ),
         borderSide: BorderSide(
           color: ColorManager.primary,

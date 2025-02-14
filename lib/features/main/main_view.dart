@@ -5,6 +5,7 @@ import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/features/home/presentation/views/home_view.dart';
 import 'package:peakmart/features/main/main_view_model.dart';
 import 'package:peakmart/features/main/widget/custom_nav_bar.dart';
+import 'package:peakmart/features/products/presentation/views/products_view.dart';
 
 class MainView extends StatelessWidget {
   MainView({super.key});
@@ -25,20 +26,13 @@ class MainView extends StatelessWidget {
 
   Widget _buildBodyScreens(index) => [
         HomeView(),
-        Text('Products',
-            style: getBoldStyle(color: ColorManager.primary, fontSize: 20)),
+        ProductsView(),
         Text('Notification',
             style: getBoldStyle(color: ColorManager.primary, fontSize: 20)),
         Text('Profile',
             style: getBoldStyle(color: ColorManager.primary, fontSize: 20)),
       ][index];
 
-  Widget _buildAppBarTitle(int index) => [
-    const Text('Bids'),
-    const Text('Products'),
-    const Text('Notification'),
-    const Text('Profile'),
-  ][index];
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +42,6 @@ class MainView extends StatelessWidget {
         int currentIndex = snapshot.data ?? 0;
         return SafeArea(
           child: Scaffold(
-            appBar:currentIndex == 0? null : AppBar(
-              title: _buildAppBarTitle(currentIndex),
-            ),
             body: Center(
               child: _buildBodyScreens(snapshot.data ?? 0),
             ),

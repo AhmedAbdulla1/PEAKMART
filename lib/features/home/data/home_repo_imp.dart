@@ -6,23 +6,45 @@ import 'package:peakmart/app/network_info.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/results/result.dart';
 import 'package:peakmart/features/home/data/model/request/news_request.dart';
+import 'package:peakmart/features/home/data/model/response/content_response.dart';
 import 'package:peakmart/features/home/data/model/response/news_response.dart';
 import 'package:peakmart/features/home/data/remote_data_source.dart';
+import 'package:peakmart/features/home/domain/entity/content_entity.dart';
 import 'package:peakmart/features/home/domain/entity/news_entity.dart';
 import 'package:peakmart/features/home/domain/home_repo.dart';
 
 class HomeRepositoryImp extends HomeRepository {
-
   final HomeDataSource _remoteDataSource = HomeDataSource();
   final NetWorkInfo _networkInfo = instance<NetWorkInfo>();
 
   @override
-  Future<Result<AppErrors, NewsEntity>>  getNews(NewsRequest newsRequest ) async {
+  Future<Result<AppErrors, NewsEntity>> getNews(NewsRequest newsRequest) async {
     Result<AppErrors, NewsEntity> result;
     if (await _networkInfo.isConnected) {
       try {
         Either<AppErrors, NewsResponse> response =
-        await _remoteDataSource.getNews(newsRequest);
+            await _remoteDataSource.getNews(newsRequest);
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          return Result(data: response.toEntity());
+        });
+      } catch (error) {
+        result = Result(error: const AppErrors.responseError());
+      }
+    } else {
+      result = Result(error: const AppErrors.connectionError());
+    }
+    return result;
+  }
+
+  @override
+  Future<Result<AppErrors, ContentEntity>> getContent() async {
+    Result<AppErrors, ContentEntity> result;
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors, ContentResponse> response =
+            await _remoteDataSource.getContent();
         result = response.fold((error) {
           return Result(error: error);
         }, (response) {

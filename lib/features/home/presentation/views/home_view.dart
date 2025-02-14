@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
+import 'package:peakmart/features/home/presentation/state_m/content_cubit/cubit.dart';
 import 'package:peakmart/features/home/presentation/state_m/news_cubit/cubit.dart';
 import 'package:peakmart/features/home/presentation/state_m/news_cubit/state.dart';
 import 'package:peakmart/features/home/presentation/views/apply_section/apply_view.dart';
@@ -92,67 +93,70 @@ class HomeView extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        ListView(children: [
-          const SizedBox(
-            height: AppSize.s40,
-          ),
-          const LandingView(),
-          const ServicesSection(),
-          TitledBidSection(
-            title: AppStrings.trendingBids,
-            bids: bids,
-            endedBids: const [],
-          ),
-          const SizedBox(
-            height: AppSize.s12,
-          ),
-          TitledBidSection(
-            title: AppStrings.futureBids,
-            bids: bids,
-            endedBids: const [],
-          ),
-          const SizedBox(
-            height: AppSize.s12,
-          ),
-          const OfferSView(),
-          const SizedBox(
-            height: AppSize.s12,
-          ),
-          CategorySection(),
-          const SizedBox(
-            height: AppSize.s12,
-          ),
-          TitledBidSection(
-            title: AppStrings.bidsWorkNow,
-            endedBids: const [],
-            bids: bids,
-          ),
-          const SizedBox(
-            height: AppSize.s12,
-          ),
-          TitledBidSection(
-            title: AppStrings.endedBids,
-            endedBids: endedBids,
-            bids: const [],
-            isEnded: true,
-          ),
-          const SizedBox(
-            height: AppSize.s12,
-          ),
-          const ApplyView(),
-          const SizedBox(
-            height: AppSize.s12,
-          ),
-          const PartnersView(),
-          const SizedBox(
-            height: AppSize.s12,
-          ),
-        ]),
-        BlocProvider(
-          create: (_) => NewsCubit()..fetchNews(),
-          child: BlocBuilder<NewsCubit, NewsState>(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => ContentCubit()..getContent()),
+        BlocProvider(create: (context) => NewsCubit()..fetchNews()),
+      ],
+      child: Stack(
+        children: [
+          ListView(children: [
+            const SizedBox(
+              height: AppSize.s40,
+            ),
+            LandingView(),
+            const ServicesSection(),
+            TitledBidSection(
+              title: AppStrings.trendingBids,
+              bids: bids,
+              endedBids: const [],
+            ),
+            const SizedBox(
+              height: AppSize.s12,
+            ),
+            TitledBidSection(
+              title: AppStrings.futureBids,
+              bids: bids,
+              endedBids: const [],
+            ),
+            const SizedBox(
+              height: AppSize.s12,
+            ),
+             OfferSView(),
+            const SizedBox(
+              height: AppSize.s12,
+            ),
+            CategorySection(),
+            const SizedBox(
+              height: AppSize.s12,
+            ),
+            TitledBidSection(
+              title: AppStrings.bidsWorkNow,
+              endedBids: const [],
+              bids: bids,
+            ),
+            const SizedBox(
+              height: AppSize.s12,
+            ),
+            TitledBidSection(
+              title: AppStrings.endedBids,
+              endedBids: endedBids,
+              bids: const [],
+              isEnded: true,
+            ),
+            const SizedBox(
+              height: AppSize.s12,
+            ),
+             ApplyView(),
+            const SizedBox(
+              height: AppSize.s12,
+            ),
+             PartnersView(),
+            const SizedBox(
+              height: AppSize.s12,
+            ),
+          ]),
+          BlocBuilder<NewsCubit, NewsState>(
             builder: (context, state) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -175,8 +179,8 @@ class HomeView extends StatelessWidget {
               );
             },
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

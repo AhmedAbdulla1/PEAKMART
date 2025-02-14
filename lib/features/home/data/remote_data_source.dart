@@ -1,3 +1,4 @@
+import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:peakmart/core/constants/enums/http_method.dart';
@@ -6,6 +7,7 @@ import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/net/api_url.dart';
 import 'package:peakmart/core/net/response_validators/default_response_validator.dart';
 import 'package:peakmart/features/home/data/model/request/news_request.dart';
+import 'package:peakmart/features/home/data/model/response/ended_bids_response.dart';
 import 'package:peakmart/features/home/data/model/response/news_response.dart';
 
 class HomeDataSource extends RemoteDataSource {
@@ -16,10 +18,21 @@ class HomeDataSource extends RemoteDataSource {
         queryParameters: newsRequest.toJson(),
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
-          print('on converter');
-          print(json);
+          log('on converter');
+          log(json);
           return NewsResponse.fromJson(json);
         },
         url: APIUrls.getNews);
+  }
+
+  Future<Either<AppErrors, EndedBidsResponse>> getEndedBids() async {
+    return request<EndedBidsResponse>(
+        method: HttpMethod.GET,
+        responseValidator: DefaultResponseValidator(),
+        converter: (json) {
+          log("message done in ended bids request");
+          return EndedBidsResponse.fromJson(json);
+        },
+        url: APIUrls.getEndedBids);
   }
 }

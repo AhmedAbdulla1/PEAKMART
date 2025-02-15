@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:peakmart/features/home/presentation/state_m/content_cubit/cubit.dart';
 import 'package:peakmart/features/home/presentation/state_m/news_cubit/cubit.dart';
 import 'package:peakmart/features/home/presentation/state_m/news_cubit/state.dart';
 import 'package:peakmart/features/home/presentation/views/home_view_body.dart';
@@ -89,12 +90,15 @@ class _HomeViewState extends State<HomeView> {
   // ];
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        const HomeViewBody(),
-        BlocProvider(
-          create: (_) => NewsCubit()..fetchNews(),
-          child: BlocBuilder<NewsCubit, NewsState>(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => ContentCubit()..getContent()),
+        BlocProvider(create: (context) => NewsCubit()..fetchNews()),
+      ],
+      child: Stack(
+        children: [
+          const HomeViewBody(),
+          BlocBuilder<NewsCubit, NewsState>(
             builder: (context, state) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -117,8 +121,8 @@ class _HomeViewState extends State<HomeView> {
               );
             },
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

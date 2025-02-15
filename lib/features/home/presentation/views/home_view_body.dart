@@ -7,6 +7,7 @@ import 'package:peakmart/features/home/presentation/state_m/ended_bids_cubit/end
 import 'package:peakmart/features/home/presentation/views/apply_section/apply_view.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/titled_bid_section.dart';
 import 'package:peakmart/features/home/presentation/views/landing_section/landing_view.dart';
+import 'package:peakmart/features/home/presentation/views/offers_section/offers_view.dart';
 import 'package:peakmart/features/home/presentation/views/partners_section/partners_view.dart';
 import 'package:peakmart/features/home/presentation/views/services_section/services_section.dart';
 
@@ -25,7 +26,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
     return ListView(
       children: [
         const SizedBox(height: AppSize.s40),
-        const LandingView(),
+         LandingView(),
         const ServicesSection(),
         const SizedBox(height: AppSize.s12),
         BlocProvider(
@@ -55,7 +56,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
         //   ),
         // ),
 
-        // const SizedBox(height: AppSize.s12),
+        const SizedBox(height: AppSize.s12),
 
         // BlocProvider(
         //   create: (context) => FutureBidsCubit(),
@@ -65,11 +66,11 @@ class _HomeViewBodyState extends State<HomeViewBody> {
         //     endedBids: [],
         //   ),
         // ),
-
+OfferSView(),
         const SizedBox(height: AppSize.s12),
-        const ApplyView(),
+         ApplyView(),
         const SizedBox(height: AppSize.s12),
-        const PartnersView(),
+         PartnersView(),
         const SizedBox(height: AppSize.s12),
       ],
     );

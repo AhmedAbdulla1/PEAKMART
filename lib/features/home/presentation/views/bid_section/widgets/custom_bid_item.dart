@@ -3,18 +3,17 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/features/home/presentation/views/bid_section/bid_card_model.dart';
+import 'package:peakmart/features/home/domain/entity/bid_work_now_entity.dart';
 
 import '../../../../../../core/resources/values_manager.dart';
 
 class CustomBidItem extends StatelessWidget {
   const CustomBidItem({
     super.key,
-    required this.bidCardModel,
-    
+    required this.bidWorkNowItem,
   });
-  final BidCardModel bidCardModel;
- 
+  final BidWorkNowData bidWorkNowItem;
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -40,7 +39,7 @@ class CustomBidItem extends StatelessWidget {
                   ),
                 ),
                 child: Image.asset(
-                  bidCardModel.image,
+                  bidWorkNowItem.itemImage ?? "assets/images/card.png",
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
@@ -60,11 +59,15 @@ class CustomBidItem extends StatelessWidget {
                   left: AppPadding.p8, right: AppPadding.p19),
               child: Column(
                 children: [
-                  Text(
-                    bidCardModel.title,
-                    maxLines: 2,
-                    style: getSemiBoldStyle(
-                        color: ColorManager.black, fontSize: FontSize.s16),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      bidWorkNowItem.itemName,
+                      maxLines: 2,
+                      textAlign: TextAlign.start,
+                      style: getSemiBoldStyle(
+                          color: ColorManager.black, fontSize: FontSize.s16),
+                    ),
                   ),
                   const SizedBox(
                     height: AppSize.s10,
@@ -72,7 +75,9 @@ class CustomBidItem extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      bidCardModel.subTitle,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      bidWorkNowItem.description,
                       style: getMediumStyle(
                               color: ColorManager.grey1, fontSize: FontSize.s12)
                           .copyWith(fontFamily: FontConstants.fontCabinFamily),
@@ -85,13 +90,13 @@ class CustomBidItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "${AppStrings.nowBid}\n${bidCardModel.price}",
+                        "${AppStrings.nowBid}\n${"\$300"}",
                         style: getSemiBoldStyle(
                             fontSize: FontSize.s12, color: ColorManager.black),
                       ),
                       ElevatedButton(
                         onPressed: () {},
-                        child: Text(AppStrings.enrollNow),
+                        child: const Text(AppStrings.enrollNow),
                       ),
                     ],
                   ),

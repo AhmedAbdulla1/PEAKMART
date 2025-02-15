@@ -10,10 +10,12 @@ import 'package:peakmart/core/net/api_url.dart';
 import 'package:peakmart/core/net/response_validators/default_response_validator.dart';
 import 'package:peakmart/core/results/result.dart';
 import 'package:peakmart/features/home/data/model/request/news_request.dart';
+import 'package:peakmart/features/home/data/model/response/content_response.dart';
 import 'package:peakmart/features/home/data/model/response/bid_work_now_response.dart';
 import 'package:peakmart/features/home/data/model/response/ended_bids_response.dart';
 import 'package:peakmart/features/home/data/model/response/news_response.dart';
 import 'package:peakmart/features/home/data/remote_data_source.dart';
+import 'package:peakmart/features/home/domain/entity/content_entity.dart';
 import 'package:peakmart/features/home/domain/entity/bid_work_now_entity.dart';
 import 'package:peakmart/features/home/domain/entity/ended_bids_entity.dart';
 import 'package:peakmart/features/home/domain/entity/news_entity.dart';
@@ -24,11 +26,13 @@ class HomeRepositoryImp extends HomeRepository {
   final NetWorkInfo _networkInfo = instance<NetWorkInfo>();
 
   @override
+  Future<Result<AppErrors, NewsEntity>> getNews(NewsRequest newsRequest) async {
   Future<Result<AppErrors, NewsEntity>> getNews(NewsRequest newsResponse) async {
     Result<AppErrors, NewsEntity> result;
     if (await _networkInfo.isConnected) {
       try {
         Either<AppErrors, NewsResponse> response =
+            await _remoteDataSource.getNews(newsRequest);
             await _remoteDataSource.getNews(newsResponse);
         result = response.fold((error) {
           return Result(error: error);
@@ -84,4 +88,27 @@ class HomeRepositoryImp extends HomeRepository {
     }
     return result;
   }
+
+  @override
+  Future<Result<AppErrors, ContentEntity>> getContent() async {
+    Result<AppErrors, ContentEntity> result;
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors, ContentResponse> response =
+            await _remoteDataSource.getContent();
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          return Result(data: response.toEntity());
+        });
+      } catch (error) {
+        result = Result(error: const AppErrors.responseError());
+      }
+    } else {
+      result = Result(error: const AppErrors.connectionError());
+    }
+    return result;
+  }
+}
+
 }

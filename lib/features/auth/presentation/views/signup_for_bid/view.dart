@@ -21,9 +21,10 @@ class SignUpForBidView extends StatefulWidget {
 
 class _SignUpForBidViewState extends State<SignUpForBidView> {
   late SignUpForBidCubit _signUpForBidCubit;
+
   @override
   void initState() {
-    _signUpForBidCubit = SignUpForBidCubit();
+    _signUpForBidCubit = context.read<SignUpForBidCubit>();
     super.initState();
   }
 
@@ -32,15 +33,30 @@ class _SignUpForBidViewState extends State<SignUpForBidView> {
     const MainInfo(),
     AdditionalDetails(),
   ];
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => _signUpForBidCubit,
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.only(
-              left: AppPadding.p20, right: AppPadding.p20, top: 100,bottom: AppPadding.p65),
-          child: Column(
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.only(
+            left: AppPadding.p20,
+            right: AppPadding.p20,
+            top: 100,
+            bottom: AppPadding.p65),
+        child: BlocConsumer(
+          listener: (context, state) {
+            if (state is SignUpFailure) {
+              index=0 ;
+              // Show error message
+            }
+            if (state is SignUpSuccess) {
+              // Navigate to the next screen
+            }
+            if (state is SignUpDetailsLoading) {
+              index = 1;
+            }
+          },
+          builder: (context, state) => Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
@@ -49,25 +65,15 @@ class _SignUpForBidViewState extends State<SignUpForBidView> {
                     fontSize: AppSize.s32, color: ColorManager.black),
               ),
               const Spacer(),
-              BlocConsumer<SignUpForBidCubit, SignUpState>(
-                listener: (context, state) {
-                  if (state is SignUpFailure) {
-                    // Show error message
-                  }
-                  if (state is SignUpSuccess) {
-                    // Navigate to the next screen
-                  }
-                  if(state is SignUpDetailsLoading){
-                    index = 1;
-                  }
-
-                },
-                builder: (context, state) {
-                  return screens[index];
-                },
-
-              ),
+              screens[index],
               const Spacer(),
+              Visibility(
+                visible: index == 1,
+                child: CustomElevatedButtonWithoutStream(
+                    onPressed: () {
+                        _signUpForBidCubit.back();
+                    }, text: "Back"),
+              ),
               CustomElevatedButtonWithoutStream(
                 onPressed: () {
                   _signUpForBidCubit.moveToDetails();
@@ -92,5 +98,3 @@ class _SignUpForBidViewState extends State<SignUpForBidView> {
     );
   }
 }
-
-

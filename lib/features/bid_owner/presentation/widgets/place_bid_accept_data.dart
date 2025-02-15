@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
+import 'package:peakmart/features/bid_owner/presentation/widgets/custom_date_field.dart';
 
 class PlaceBidAcceptData extends StatelessWidget {
   const PlaceBidAcceptData({
@@ -75,21 +76,13 @@ class PlaceBidAcceptData extends StatelessWidget {
         SizedBox(
           height: 23.h,
         ),
-        CustomTextFormField(
-            labelText: AppStrings.startDate,
-            hintText: AppStrings.startDate,
-            isUsedWithBidOwner: true,
-            inputType: TextInputType.datetime,
-            controller: startDateController),
+        CustomDateField(
+            controller: startDateController, labelText: AppStrings.startDate,),
         SizedBox(
           height: 23.h,
-        ),
-        CustomTextFormField(
-            labelText: AppStrings.arrivalDate,
-            hintText: AppStrings.arrivalDate,
-            isUsedWithBidOwner: true,
-            inputType: TextInputType.datetime,
-            controller: arrivalDateController),
+        ),CustomDateField(
+            controller: arrivalDateController, labelText: AppStrings.arrivalDate),
+        
         SizedBox(
           height: 23.h,
         ),

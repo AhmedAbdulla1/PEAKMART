@@ -1,20 +1,21 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/features/home/presentation/views/bid_section/bid_card_model.dart';
-import 'package:peakmart/features/home/presentation/views/bid_section/ended_bids_card_model.dart';
-import 'package:peakmart/features/home/presentation/views/bid_section/widgets/custom_bid_item.dart';
-import 'package:peakmart/features/home/presentation/views/bid_section/widgets/custom_ended_bid_item.dart';
+import 'package:peakmart/core/widgets/waiting_widget.dart';
+import 'package:peakmart/features/home/domain/entity/bid_work_now_entity.dart';
+import 'package:peakmart/features/home/domain/entity/ended_bids_entity.dart';
+import 'package:peakmart/features/home/presentation/views/bid_section/widgets/bid_item_stack.dart';
 
 class BidsSlider extends StatefulWidget {
-  const BidsSlider(
-      {super.key,
-      required this.bidCardModel,
-      this.isEnded = false,
-      required this.endedBidsCardModel});
-  final List<BidCardModel> bidCardModel;
-  final List<EndedBidsCardModel> endedBidsCardModel;
+  const BidsSlider({
+    super.key,
+    required this.bidsWorkNow,
+    this.isEnded = false,
+    required this.endedBids,
+  });
+
+  final List<BidWorkNowData> bidsWorkNow;
+  final List<EndedBidsData> endedBids;
   final bool isEnded;
 
   @override
@@ -26,6 +27,9 @@ class _BidsSliderState extends State<BidsSlider> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isEmpty =
+        widget.isEnded ? widget.endedBids.isEmpty : widget.bidsWorkNow.isEmpty;
+
     return CarouselSlider.builder(
       options: CarouselOptions(
         height: widget.isEnded ? 340.h : 370.h,
@@ -47,37 +51,23 @@ class _BidsSliderState extends State<BidsSlider> {
         },
         scrollDirection: Axis.horizontal,
       ),
-      itemCount: widget.isEnded
-          ? widget.endedBidsCardModel.length
-          : widget.bidCardModel.length,
+      itemCount: isEmpty
+          ? 1
+          : (widget.isEnded
+              ? widget.endedBids.length
+              : widget.bidsWorkNow.length),
       itemBuilder: (BuildContext context, int index, int pageViewIndex) {
+        if (isEmpty) {
+          return const Center(child: WaitingWidget());
+        }
+
         final isCurrent = index == _currentPage;
 
-        return Stack(
-          children: [
-            widget.isEnded
-                ? CustomEndedBidItem(
-                    endedBidsCardModel: widget.endedBidsCardModel[index],
-                  )
-                : CustomBidItem(
-                    bidCardModel: widget.bidCardModel[index],
-                  ),
-            AnimatedOpacity(
-              opacity: isCurrent ? 0.0 : 0.9,
-              duration: const Duration(milliseconds: 400),
-              curve: Curves.easeInOut,
-              child: Container(
-                width: double.infinity,
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                decoration: BoxDecoration(
-                  color: ColorManager.black.withOpacity(0.3),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(23),
-                  ),
-                ),
-              ),
-            ),
-          ],
+        return BidItemStack(
+          isEnded: widget.isEnded,
+          isCurrent: isCurrent,
+          bidWorkNowItem: widget.isEnded ? null : widget.bidsWorkNow[index],
+          endedBidItem: widget.isEnded ? widget.endedBids[index] : null,
         );
       },
     );

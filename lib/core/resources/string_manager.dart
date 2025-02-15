@@ -40,6 +40,7 @@ class AppStrings {
   static const String nowBid = 'Now Bid:';
   static const String enrollNow = 'Enroll Now';
   static const String placeBid = 'Place a bid';
+  static const String addProductPhoto = 'Add your product photo';
 
   static const String trendingBids = 'Trending Bids';
   static const String futureBids = 'Future Bids';

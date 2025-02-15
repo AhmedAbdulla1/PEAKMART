@@ -26,13 +26,13 @@ class HomeRepositoryImp extends HomeRepository {
   final NetWorkInfo _networkInfo = instance<NetWorkInfo>();
 
   @override
-  Future<Result<AppErrors, NewsEntity>> getNews(NewsRequest newsRequest) async {
+
   Future<Result<AppErrors, NewsEntity>> getNews(NewsRequest newsResponse) async {
     Result<AppErrors, NewsEntity> result;
     if (await _networkInfo.isConnected) {
       try {
         Either<AppErrors, NewsResponse> response =
-            await _remoteDataSource.getNews(newsRequest);
+            
             await _remoteDataSource.getNews(newsResponse);
         result = response.fold((error) {
           return Result(error: error);
@@ -111,4 +111,3 @@ class HomeRepositoryImp extends HomeRepository {
   }
 }
 
-}

@@ -33,8 +33,7 @@ class HomeDataSource extends RemoteDataSource {
         queryParameters: {'page': 1, 'limit': 12},
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
-          print('on converter');
-          print(json);
+
           return ContentResponse.fromJson(json);
         },
         url: APIUrls.getContent);

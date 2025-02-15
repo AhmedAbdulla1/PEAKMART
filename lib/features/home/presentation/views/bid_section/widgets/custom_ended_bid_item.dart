@@ -6,17 +6,16 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/features/home/presentation/views/bid_section/bid_card_model.dart';
-import 'package:peakmart/features/home/presentation/views/bid_section/ended_bids_card_model.dart';
+import 'package:peakmart/features/home/domain/entity/ended_bids_entity.dart';
 
 import '../../../../../../core/resources/values_manager.dart';
 
 class CustomEndedBidItem extends StatelessWidget {
   const CustomEndedBidItem({
     super.key,
-    required this.endedBidsCardModel,
+    required this.endedBidItem,
   });
-  final EndedBidsCardModel endedBidsCardModel;
+  final EndedBidsData endedBidItem;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -44,7 +43,7 @@ class CustomEndedBidItem extends StatelessWidget {
                 ),
                 child: Stack(children: [
                   Image.asset(
-                    endedBidsCardModel.image,
+                    endedBidItem.itemImage ?? "assets/images/card.png",
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
@@ -68,12 +67,16 @@ class CustomEndedBidItem extends StatelessWidget {
                   left: AppPadding.p8, right: AppPadding.p19),
               child: Column(
                 children: [
-                  Text(
-                    endedBidsCardModel.title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: getSemiBoldStyle(
-                        color: ColorManager.black, fontSize: FontSize.s16),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      endedBidItem.itemName,
+                      textAlign: TextAlign.start,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: getSemiBoldStyle(
+                          color: ColorManager.black, fontSize: FontSize.s16),
+                    ),
                   ),
                   const SizedBox(
                     height: AppSize.s4,
@@ -102,7 +105,7 @@ class CustomEndedBidItem extends StatelessWidget {
                                 fontFamily: FontConstants.fontCabinFamily),
                       ),
                       TextSpan(
-                        text: endedBidsCardModel.price,
+                        text: "\$250",
                         style: getBoldStyle(
                                 color: ColorManager.black,
                                 fontSize: FontSize.s22)

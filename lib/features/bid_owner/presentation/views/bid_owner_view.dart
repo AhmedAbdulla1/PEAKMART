@@ -1,11 +1,19 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:peakmart/core/resources/assets_manager.dart';
+import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
+import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/shared_widgets/buttons.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
 import 'package:peakmart/features/bid_owner/presentation/widgets/place_bid_accept_data.dart';
+import 'package:peakmart/features/bid_owner/presentation/widgets/upload_image_widget.dart';
 
 class BidOwnerView extends StatefulWidget {
   const BidOwnerView({super.key});
@@ -17,6 +25,7 @@ class BidOwnerView extends StatefulWidget {
 
 class _BidOwnerViewState extends State<BidOwnerView> {
   bool isButtonActive = false;
+  late String image;
   final TextEditingController productNameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController startingPriceController = TextEditingController();
@@ -81,6 +90,12 @@ class _BidOwnerViewState extends State<BidOwnerView> {
               key: key,
               child: ListView(
                 children: [
+                  // SizedBox(height: 23.h),
+                  UploadImageWidget(image: (pathOfImage) {
+                    setState(() {
+                      image = pathOfImage;
+                    });
+                  }),
                   SizedBox(height: 23.h),
                   PlaceBidAcceptData(
                     productNameController: productNameController,
@@ -93,13 +108,14 @@ class _BidOwnerViewState extends State<BidOwnerView> {
                     periodOfBidsController: periodOfBidsController,
                   ),
                   SizedBox(height: 23.h),
+
                   CustomElevatedButtonWithoutStream(
                     onPressed: !isButtonActive
                         ? null
                         : () {
                             if (key.currentState!.validate()) {
                               key.currentState!.save();
-                              log("Product name: ${productNameController.text}, description: ${descriptionController.text}, starting price: ${startingPriceController.text}");
+                              log("Image photo: $image, Product name: ${productNameController.text}, description: ${descriptionController.text}, starting price: ${startingPriceController.text}, Expected price: ${expectedPriceController.text}, location: ${locationController.text}, start date: ${startDateController.text}, arrival date: ${arrivalDateController.text}, period of bids: ${periodOfBidsController.text}");
                             }
                           },
                     text: AppStrings.placeBid,
@@ -107,6 +123,62 @@ class _BidOwnerViewState extends State<BidOwnerView> {
                 ],
               ),
             )),
+      ),
+    );
+  }
+}
+
+class ImageUploadWidget extends StatefulWidget {
+  const ImageUploadWidget({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _ImageUploadWidgetState createState() => _ImageUploadWidgetState();
+}
+
+class _ImageUploadWidgetState extends State<ImageUploadWidget> {
+  File? _image;
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> _pickImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _pickImage,
+      child: Container(
+        width: double.infinity,
+        height: 120.h,
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(10.r),
+          border: Border.all(color: Colors.grey),
+        ),
+        child: _image == null
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(IconsAssets.pickerIcon),
+                  SizedBox(height: 10.h),
+                  Text(AppStrings.addProductPhoto,
+                      style: getMediumStyle(
+                        color: ColorManager.grey1,
+                        fontSize: FontSize.s14,
+                      )),
+                ],
+              )
+            : ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.file(_image!,
+                    fit: BoxFit.cover, width: double.infinity, height: 200),
+              ),
       ),
     );
   }

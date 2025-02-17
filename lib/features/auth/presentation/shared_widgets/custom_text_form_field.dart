@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:peakmart/core/models/bad_request_model.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
@@ -14,6 +15,8 @@ class CustomTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final bool? isShowDescription;
   final bool? isUsedWithBidOwner;
+  final String? Function(String?)? validator;
+
   const CustomTextFormField({
     super.key,
     required this.labelText,
@@ -23,6 +26,7 @@ class CustomTextFormField extends StatelessWidget {
     required this.controller,
     this.isShowDescription,
     this.isUsedWithBidOwner,
+    this.validator,
   });
 
   @override
@@ -37,6 +41,9 @@ class CustomTextFormField extends StatelessWidget {
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
+        if (validator != null) {
+          return validator!(value);
+        }
         if (hintText == AppStrings.emailHint) {
           if (value == null || value.isEmpty) {
             return AppStrings.fieldRequired;

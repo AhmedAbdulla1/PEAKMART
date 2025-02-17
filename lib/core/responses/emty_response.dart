@@ -7,9 +7,9 @@ class EmptyResponse extends BaseResponse<EmptyEntity> {
 
   factory EmptyResponse.fromJson(Map<String, dynamic> json) {
     return EmptyResponse(
-      message: json['message'],
-      status: json['status'],
-      code: json['status_code'],
+      message: json['message']??'',
+      status: json['status']??'',
+      code: json['status_code']??0,
     );
   }
 

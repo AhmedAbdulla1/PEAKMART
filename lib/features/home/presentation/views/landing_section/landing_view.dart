@@ -64,25 +64,19 @@ class LandingView extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: 240,
-
                       child: Text(
                         _contentData!.content,
                         softWrap: true,
                         style: getBoldStyle(
-                            fontSize: FontSize.s17, color: ColorManager.primary),
+                            fontSize: FontSize.s17,
+                            color: ColorManager.primary),
                       ),
                     ),
-
                     SizedBox(height: AppSize.s40.h),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => BlocProvider(
-                                      create: (context) => SignUpForBidCubit(),
-                                      child: SignUpForBidView(),
-                                    )));
+                        Navigator.pushNamed(
+                            context, SignUpForBidView.routeName);
                       },
                       child: Text(
                         buttonText,

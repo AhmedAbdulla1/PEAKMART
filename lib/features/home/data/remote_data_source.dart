@@ -7,9 +7,10 @@ import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/net/api_url.dart';
 import 'package:peakmart/core/net/response_validators/default_response_validator.dart';
 import 'package:peakmart/features/home/data/model/request/news_request.dart';
-import 'package:peakmart/features/home/data/model/response/content_response.dart';
 import 'package:peakmart/features/home/data/model/response/bid_work_now_response.dart';
+import 'package:peakmart/features/home/data/model/response/content_response.dart';
 import 'package:peakmart/features/home/data/model/response/ended_bids_response.dart';
+import 'package:peakmart/features/home/data/model/response/future_bids_response.dart';
 import 'package:peakmart/features/home/data/model/response/news_response.dart';
 
 class HomeDataSource extends RemoteDataSource {
@@ -33,11 +34,11 @@ class HomeDataSource extends RemoteDataSource {
         queryParameters: {'page': 1, 'limit': 12},
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
-
           return ContentResponse.fromJson(json);
         },
         url: APIUrls.getContent);
   }
+
   Future<Either<AppErrors, BidWorkNowResponse>> getBidWorkNow() async {
     return request<BidWorkNowResponse>(
         method: HttpMethod.GET,
@@ -59,5 +60,16 @@ class HomeDataSource extends RemoteDataSource {
           return EndedBidsResponse.fromJson(json);
         },
         url: APIUrls.getEndedBids);
+  }
+
+  Future<Either<AppErrors, FutureBidsResponse>> getFutureBids() async {
+    return request<FutureBidsResponse>(
+        method: HttpMethod.GET,
+        responseValidator: DefaultResponseValidator(),
+        converter: (json) {
+          log("message done in Future bids request");
+          return FutureBidsResponse.fromJson(json);
+        },
+        url: APIUrls.getFutureBids);
   }
 }

@@ -14,12 +14,16 @@ final class BidsFailureState extends BidsState {
 
 final class BidsSuccessState extends BidsState {
   final BidWorkNowEntity? bidWorkNowEntity;
+  final FutureBidsEntity? futureBidsEntity;
   final EndedBidsEntity? endedBidsEntity;
   final List<BidWorkNowData>? bidWorkNowData;
+  final List<FutureBidsData>? futureBidsData;
   final List<EndedBidsData>? endedBidsData;
 
   BidsSuccessState(
-      {this.bidWorkNowData,
+      {this.futureBidsEntity,
+      this.futureBidsData,
+      this.bidWorkNowData,
       this.endedBidsData,
       this.bidWorkNowEntity,
       this.endedBidsEntity});

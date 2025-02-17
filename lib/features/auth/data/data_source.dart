@@ -9,6 +9,7 @@ import 'package:peakmart/features/auth/data/model/request/login_request.dart';
 import 'package:peakmart/features/auth/data/model/request/register_request.dart';
 import 'package:peakmart/features/auth/data/model/request/rest_password_request.dart';
 import 'package:peakmart/features/auth/data/model/request/send_otp_request.dart';
+import 'package:peakmart/features/auth/data/model/request/signup_for_bid_request.dart';
 import 'package:peakmart/features/auth/data/model/request/verfiy_otp_request.dart';
 import 'package:peakmart/features/auth/data/model/response/login_response.dart';
 import 'package:peakmart/features/auth/data/model/response/register_response.dart';
@@ -76,6 +77,18 @@ class AuthDataSource extends RemoteDataSource {
           return EmptyResponse.fromJson(json);
         },
         url: APIUrls.verfiyOtp
+    );
+  }
+
+  Future<Either<AppErrors, EmptyResponse>> registerAsSeller({required RegisterAsSellerRequest registerRequest})  async {
+    return request<EmptyResponse>(
+        method: HttpMethod.POST,
+        body: registerRequest.toJson(),
+        responseValidator: DefaultResponseValidator(),
+        converter: (json) {
+          return EmptyResponse.fromJson(json);
+        },
+        url: APIUrls.registerAsSeller
     );
   }
 }

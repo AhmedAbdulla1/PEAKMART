@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
+import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/shared_widgets/buttons.dart';
+import 'package:peakmart/features/auth/data/model/request/signup_for_bid_request.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
+import 'package:peakmart/features/auth/presentation/state_mang/signup_for_bid/cubit.dart';
 
 import 'widgets/dropdown_menu.dart';
 
@@ -15,74 +20,138 @@ class MainInfo extends StatefulWidget {
 
 class _MainInfoState extends State<MainInfo> {
   final TextEditingController _usernameController = TextEditingController();
-
   final TextEditingController _addressController = TextEditingController();
-
   final TextEditingController _phoneController = TextEditingController();
-
   final TextEditingController _passwordController = TextEditingController();
-
   final TextEditingController _countryController = TextEditingController();
-
   final TextEditingController _govController = TextEditingController();
-
   final TextEditingController _cityController = TextEditingController();
-
   final TextEditingController _inlandController = TextEditingController();
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   String? _selectedCountry;
-  final List<String> countries = ['Egypt', 'Saudi Arabia',];
+  bool isButtonActive = false;
+  final List<String> countries = ['Egypt', 'Saudi Arabia'];
+
+  @override
+  void initState() {
+    super.initState();
+    _usernameController.addListener(_checkFormValidation);
+    _addressController.addListener(_checkFormValidation);
+    _govController.addListener(_checkFormValidation);
+    _cityController.addListener(_checkFormValidation);
+  }
+
+  void _checkFormValidation() {
+    bool allFieldsFilled = _usernameController.text.isNotEmpty &&
+        _addressController.text.isNotEmpty &&
+        _govController.text.isNotEmpty &&
+        _cityController.text.isNotEmpty;
+
+    if (isButtonActive != allFieldsFilled) {
+      setState(() {
+        isButtonActive = allFieldsFilled;
+      });
+    }
+  }
+
+  String? _validateRequired(String? value, String fieldName) {
+    if (value == null || value.isEmpty) {
+      return '$fieldName is required';
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        CustomTextFormField(
-          controller: _usernameController,
-          labelText: "Display Name",
-          hintText: "Enter your display name",
-          iconData: Icons.person_2_outlined,
-          inputType: TextInputType.name,
-        ),
-        20.vGap,
-        CustomDropdownMenu(
-          onChanged: (selectedItem){},
-          items: ['Egypt', 'Saudi Arabia',],
-          label: "Country",
-          icon: Icon(Icons.add_card_outlined),
-        ),
-        20.vGap,
-        CustomTextFormField(
-          controller: _govController,
-          labelText: "Gov",
-          hintText: "Enter Gov",
-          iconData: Icons.account_balance_outlined,
-          inputType: TextInputType.text,
-        ),
-        20.vGap,
-        CustomTextFormField(
-          controller: _cityController,
-          labelText: "City",
-          hintText: "Enter Your City",
-          iconData: Icons.location_city_outlined,
-          inputType: TextInputType.text,
-        ),
-        20.vGap,
-        CustomTextFormField(
-          controller: _addressController,
-          labelText: "Address",
-          hintText: "Enter Your Address",
-          iconData: Icons.edit_location_alt,
-          inputType: TextInputType.streetAddress,
-        ),
-        20.vGap,
-        CustomDropdownMenu(
-          onChanged: (selectedItem){},
-          items: ['Egypt', 'Saudi Arabia',],
-          label: "Inland",
-          icon: Icon(Icons.radar),
-        ),
-      ],
+    return Form(
+      key: _formKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      // Show validation immediately
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CustomTextFormField(
+            controller: _usernameController,
+            labelText: "Display Name",
+            hintText: "Enter your display name",
+            iconData: Icons.person_2_outlined,
+            inputType: TextInputType.name,
+            validator: (value) => _validateRequired(value, "Display Name"),
+          ),
+          20.vGap,
+          CustomDropdownMenu(
+            onChanged: (selectedItem) {
+              setState(() {
+                _selectedCountry = selectedItem;
+              });
+            },
+            items: countries,
+            label: "Country",
+            icon: const Icon(Icons.add_card_outlined),
+            validator: (value) => _validateRequired(value, "Country"),
+          ),
+          20.vGap,
+          CustomTextFormField(
+            controller: _govController,
+            labelText: "Gov",
+            hintText: "Enter Gov",
+            iconData: Icons.account_balance_outlined,
+            inputType: TextInputType.text,
+            validator: (value) => _validateRequired(value, "Gov"),
+          ),
+          20.vGap,
+          CustomTextFormField(
+            controller: _cityController,
+            labelText: "City",
+            hintText: "Enter Your City",
+            iconData: Icons.location_city_outlined,
+            inputType: TextInputType.text,
+            validator: (value) => _validateRequired(value, "City"),
+          ),
+          20.vGap,
+          CustomTextFormField(
+            controller: _addressController,
+            labelText: "Address",
+            hintText: "Enter Your Address",
+            iconData: Icons.edit_location_alt,
+            inputType: TextInputType.streetAddress,
+            validator: (value) => _validateRequired(value, "Address"),
+          ),
+          20.vGap,
+          CustomDropdownMenu(
+            onChanged: (selectedItem) {
+              // Handle inland selection
+            },
+            items: const ['Inland', 'OutLand'],
+            label: "Inland",
+            icon: const Icon(Icons.radar),
+            validator: (value) => _validateRequired(value, "Inland"),
+          ),
+          20.vGap,
+          CustomElevatedButtonWithoutStream(
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                context.read<SignUpForBidCubit>().register(
+                    registerRequest: RegisterAsSellerRequest(
+                        displayName: _usernameController.text,
+                        governmentName: _govController.text,
+                        cityName: _cityController.text,
+                        address: _addressController.text,
+                        country: _selectedCountry!));
+              } else {
+                ErrorViewer.showError(
+                    context: context,
+                    error:
+                        const CustomError(message: 'Enter All Required Fields'),
+                    callback: () {});
+              }
+            },
+            text: 'Continue',
+          ),
+        ],
+      ),
     );
   }
 }

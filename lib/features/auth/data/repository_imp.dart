@@ -10,6 +10,7 @@ import 'package:peakmart/features/auth/data/model/request/login_request.dart';
 import 'package:peakmart/features/auth/data/model/request/register_request.dart';
 import 'package:peakmart/features/auth/data/model/request/rest_password_request.dart';
 import 'package:peakmart/features/auth/data/model/request/send_otp_request.dart';
+import 'package:peakmart/features/auth/data/model/request/signup_for_bid_request.dart';
 import 'package:peakmart/features/auth/data/model/request/verfiy_otp_request.dart';
 import 'package:peakmart/features/auth/data/model/response/login_response.dart';
 import 'package:peakmart/features/auth/data/model/response/register_response.dart';
@@ -118,6 +119,27 @@ class AuthRepositoryImp implements AuthRepo {
       try {
         Either<AppErrors, EmptyResponse> response =
             await _authDataSource.verfiyOtp(verfiyOtpRequest);
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          return Result(data: response.toEntity());
+        });
+      } catch (error) {
+        result = Result(error: const AppErrors.responseError());
+      }
+    } else {
+      result = Result(error: const AppErrors.connectionError());
+    }
+    return result;
+  }
+
+  @override
+  Future<Result<AppErrors, EmptyEntity>> registerAsSeller({required RegisterAsSellerRequest registerRequest})async {
+    Result<AppErrors, EmptyEntity> result;
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors, EmptyResponse> response =
+            await _authDataSource.registerAsSeller(registerRequest: registerRequest);
         result = response.fold((error) {
           return Result(error: error);
         }, (response) {

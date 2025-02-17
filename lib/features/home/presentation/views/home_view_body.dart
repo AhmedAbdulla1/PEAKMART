@@ -66,7 +66,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
         //     endedBids: [],
         //   ),
         // ),
-OfferSView(),
+        OfferSView(),
         const SizedBox(height: AppSize.s12),
          ApplyView(),
         const SizedBox(height: AppSize.s12),

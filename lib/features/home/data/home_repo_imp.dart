@@ -9,11 +9,13 @@ import 'package:peakmart/features/home/data/model/request/news_request.dart';
 import 'package:peakmart/features/home/data/model/response/bid_work_now_response.dart';
 import 'package:peakmart/features/home/data/model/response/content_response.dart';
 import 'package:peakmart/features/home/data/model/response/ended_bids_response.dart';
+import 'package:peakmart/features/home/data/model/response/future_bids_response.dart';
 import 'package:peakmart/features/home/data/model/response/news_response.dart';
 import 'package:peakmart/features/home/data/remote_data_source.dart';
 import 'package:peakmart/features/home/domain/entity/bid_work_now_entity.dart';
 import 'package:peakmart/features/home/domain/entity/content_entity.dart';
 import 'package:peakmart/features/home/domain/entity/ended_bids_entity.dart';
+import 'package:peakmart/features/home/domain/entity/future_bids_entity.dart';
 import 'package:peakmart/features/home/domain/entity/news_entity.dart';
 import 'package:peakmart/features/home/domain/home_repo.dart';
 
@@ -92,6 +94,27 @@ class HomeRepositoryImp extends HomeRepository {
       try {
         Either<AppErrors, ContentResponse> response =
             await _remoteDataSource.getContent();
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          return Result(data: response.toEntity());
+        });
+      } catch (error) {
+        result = Result(error: const AppErrors.responseError());
+      }
+    } else {
+      result = Result(error: const AppErrors.connectionError());
+    }
+    return result;
+  }
+
+  @override
+  Future<Result<AppErrors, FutureBidsEntity>> getFutureBids() async {
+    Result<AppErrors, FutureBidsEntity> result;
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors, FutureBidsResponse> response =
+            await _remoteDataSource.getFutureBids();
         result = response.fold((error) {
           return Result(error: error);
         }, (response) {

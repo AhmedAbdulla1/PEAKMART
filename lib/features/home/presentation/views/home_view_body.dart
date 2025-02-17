@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
+import 'package:peakmart/core/shared_widgets/buttons.dart';
+import 'package:peakmart/features/bid_owner/presentation/views/bid_owner_view.dart';
 import 'package:peakmart/features/home/presentation/state_m/bid_work_now_cubit/bid_work_now_cubit.dart';
 import 'package:peakmart/features/home/presentation/state_m/ended_bids_cubit/ended_bids_cubit.dart';
 import 'package:peakmart/features/home/presentation/views/apply_section/apply_view.dart';
@@ -26,7 +28,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
     return ListView(
       children: [
         const SizedBox(height: AppSize.s40),
-         LandingView(),
+        LandingView(),
         const ServicesSection(),
         const SizedBox(height: AppSize.s12),
         BlocProvider(
@@ -66,12 +68,18 @@ class _HomeViewBodyState extends State<HomeViewBody> {
         //     endedBids: [],
         //   ),
         // ),
-OfferSView(),
+        OfferSView(),
         const SizedBox(height: AppSize.s12),
-         ApplyView(),
+        ApplyView(),
         const SizedBox(height: AppSize.s12),
-         PartnersView(),
+        PartnersView(),
         const SizedBox(height: AppSize.s12),
+        CustomElevatedButtonWithoutStream(
+            onPressed: () {
+              Navigator.pushNamed(context, BidOwnerView.routeName);
+            },
+            text: "Nav to Bid owner"),
+         const SizedBox(height: AppSize.s12),
       ],
     );
   }

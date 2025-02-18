@@ -3,15 +3,16 @@ import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/core/shared_widgets/buttons.dart';
 import 'package:peakmart/features/bid_owner/presentation/views/bid_owner_view.dart';
-import 'package:peakmart/features/home/presentation/state_m/home_cubits/bid_work_now_cubit.dart';
-import 'package:peakmart/features/home/presentation/state_m/home_cubits/ended_bids_cubit.dart';
-import 'package:peakmart/features/home/presentation/state_m/home_cubits/future_bids_cubit.dart';
 import 'package:peakmart/features/home/presentation/views/apply_section/apply_view.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/titled_bid_section.dart';
 import 'package:peakmart/features/home/presentation/views/landing_section/landing_view.dart';
 import 'package:peakmart/features/home/presentation/views/offers_section/offers_view.dart';
 import 'package:peakmart/features/home/presentation/views/partners_section/partners_view.dart';
 import 'package:peakmart/features/home/presentation/views/services_section/services_section.dart';
+
+import '../state_m/home_cubits/bid_work_now_cubit.dart';
+import '../state_m/home_cubits/ended_bids_cubit.dart';
+import '../state_m/home_cubits/future_bids_cubit.dart';
 
 class HomeViewBody extends StatefulWidget {
   const HomeViewBody({
@@ -31,7 +32,14 @@ class _HomeViewBodyState extends State<HomeViewBody> {
           const SizedBox(height: AppSize.s40),
           LandingView(),
           const ServicesSection(),
+          // const SizedBox(height: AppSize.s12),
+
+          // const TitledBidSection<TrendingBidsCubit>(
+          //   title: AppStrings.trendingBids,
+          //   isTrending: true,
+          // ),
           const SizedBox(height: AppSize.s12),
+
           const TitledBidSection<FutureBidsCubit>(
             title: AppStrings.futureBids,
             isFuture: true,
@@ -45,28 +53,8 @@ class _HomeViewBodyState extends State<HomeViewBody> {
             title: AppStrings.endedBids,
             isEnded: true,
           ),
-      
-          // const SizedBox(height: AppSize.s12),
-      
-          // BlocProvider(
-          //   create: (context) => TrendingBidsCubit(),
-          //   child: TitledBidSection(
-          //     title: AppStrings.trendingBids,
-          //     bids: bids,
-          //     endedBids: [],
-          //   ),
-          // ),
-      
+
           const SizedBox(height: AppSize.s12),
-      
-          // BlocProvider(
-          //   create: (context) => FutureBidsCubit(),
-          //   child: TitledBidSection(
-          //     title: AppStrings.futureBids,
-          //     bids: bidWorkNow,
-          //     endedBids: [],
-          //   ),
-          // ),
           OfferSView(),
           const SizedBox(height: AppSize.s12),
           ApplyView(),

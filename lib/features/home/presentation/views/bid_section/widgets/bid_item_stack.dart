@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/features/home/domain/entity/bid_work_now_entity.dart';
 import 'package:peakmart/features/home/domain/entity/future_bids_entity.dart';
+import 'package:peakmart/features/home/domain/entity/trending_bids_entity.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/widgets/custom_bid_item.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/widgets/custom_ended_bid_item.dart';
 
@@ -13,17 +14,18 @@ class BidItemStack extends StatelessWidget {
     required this.isEnded,
     required this.isFuture,
     required this.isCurrent,
+    required this.isTrending,
     this.bidWorkNowItem,
     this.endedBidItem,
-    this.futureBidItem, // Added FutureBidItem
+    this.futureBidItem, this.trendingItem, 
   });
 
-  final bool isEnded;
-  final bool isFuture;
-  final bool isCurrent;
+  final bool isEnded, isFuture, isCurrent, isTrending;
+
   final BidWorkNowData? bidWorkNowItem;
   final EndedBidsData? endedBidItem;
   final FutureBidsData? futureBidItem;
+  final TrendingBidsData? trendingItem;
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +35,13 @@ class BidItemStack extends StatelessWidget {
             ? CustomEndedBidItem(endedBidItem: endedBidItem!)
             : isFuture
                 ? CustomBidItem(bidItem: futureBidItem)
-                : CustomBidItem(
-                    bidItem: bidWorkNowItem,
-                  ),
+                : isTrending
+                    ? CustomBidItem(
+                        bidItem: trendingItem,
+                      )
+                    : CustomBidItem(
+                        bidItem: bidWorkNowItem,
+                      ),
         AnimatedOpacity(
           opacity: isCurrent ? 0.0 : 0.9,
           duration: const Duration(milliseconds: 400),

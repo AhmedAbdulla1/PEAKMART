@@ -5,6 +5,7 @@ import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/home/domain/entity/bid_work_now_entity.dart';
 import 'package:peakmart/features/home/domain/entity/ended_bids_entity.dart';
 import 'package:peakmart/features/home/domain/entity/future_bids_entity.dart'; // Import FutureBidsEntity
+import 'package:peakmart/features/home/domain/entity/trending_bids_entity.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/widgets/bid_item_stack.dart';
 
 class BidsSlider extends StatefulWidget {
@@ -13,13 +14,17 @@ class BidsSlider extends StatefulWidget {
     required this.bidsWorkNow,
     required this.endedBids,
     required this.futureBids,
-    this.isEnded = false, required this.isFuture,
+    this.isEnded = false,
+    this.isFuture = false,
+    this.isTrending = false,
+    required this.trendingBids,
   });
 
   final List<BidWorkNowData> bidsWorkNow;
   final List<EndedBidsData> endedBids;
   final List<FutureBidsData> futureBids;
-  final bool isEnded,isFuture;
+  final List<TrendingBidsData> trendingBids;
+  final bool isEnded, isFuture, isTrending;
 
   @override
   State<BidsSlider> createState() => _BidsSliderState();
@@ -30,14 +35,15 @@ class _BidsSliderState extends State<BidsSlider> {
 
   @override
   Widget build(BuildContext context) {
-    // final bool isEmpty =
-    //     widget.isEnded ? widget.endedBids.isEmpty : widget.bidsWorkNow.isEmpty;
-
     final allBids = widget.isEnded
         ? widget.endedBids
         : widget.bidsWorkNow.isNotEmpty
             ? widget.bidsWorkNow
-            : widget.futureBids;
+            : widget.futureBids.isNotEmpty
+                ? widget.futureBids
+                : widget.trendingBids;
+    debugPrint(
+        "BidsSlider received ${widget.trendingBids.length} trending bids");
 
     return CarouselSlider.builder(
       options: CarouselOptions(
@@ -49,7 +55,7 @@ class _BidsSliderState extends State<BidsSlider> {
         reverse: false,
         autoPlay: true,
         autoPlayInterval: const Duration(seconds: 3),
-        autoPlayAnimationDuration: const Duration(milliseconds: 80000),
+        autoPlayAnimationDuration: const Duration(milliseconds: 1000),
         autoPlayCurve: Curves.fastOutSlowIn,
         enlargeCenterPage: true,
         enlargeFactor: 0.3,
@@ -72,12 +78,14 @@ class _BidsSliderState extends State<BidsSlider> {
         return BidItemStack(
           isEnded: widget.isEnded,
           isFuture: widget.isFuture,
+          isTrending: widget.isTrending,
           isCurrent: isCurrent,
-          bidWorkNowItem:( widget.isEnded || widget.isFuture)
-              ? null
-              :  widget.bidsWorkNow[index],
-          futureBidItem:
-              widget.isFuture ? widget.futureBids[index] : null,
+          bidWorkNowItem:
+              (widget.isEnded || widget.isFuture || widget.isTrending)
+                  ? null
+                  : widget.bidsWorkNow[index],
+          trendingItem: widget.isTrending ? widget.trendingBids[index] : null,
+          futureBidItem: widget.isFuture ? widget.futureBids[index] : null,
           endedBidItem: widget.isEnded ? widget.endedBids[index] : null,
         );
       },

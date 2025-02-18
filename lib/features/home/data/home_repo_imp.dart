@@ -11,12 +11,14 @@ import 'package:peakmart/features/home/data/model/response/content_response.dart
 import 'package:peakmart/features/home/data/model/response/ended_bids_response.dart';
 import 'package:peakmart/features/home/data/model/response/future_bids_response.dart';
 import 'package:peakmart/features/home/data/model/response/news_response.dart';
+import 'package:peakmart/features/home/data/model/response/trending_bids_response.dart';
 import 'package:peakmart/features/home/data/remote_data_source.dart';
 import 'package:peakmart/features/home/domain/entity/bid_work_now_entity.dart';
 import 'package:peakmart/features/home/domain/entity/content_entity.dart';
 import 'package:peakmart/features/home/domain/entity/ended_bids_entity.dart';
 import 'package:peakmart/features/home/domain/entity/future_bids_entity.dart';
 import 'package:peakmart/features/home/domain/entity/news_entity.dart';
+import 'package:peakmart/features/home/domain/entity/trending_bids_entity.dart';
 import 'package:peakmart/features/home/domain/home_repo.dart';
 
 class HomeRepositoryImp extends HomeRepository {
@@ -34,7 +36,7 @@ class HomeRepositoryImp extends HomeRepository {
         result = response.fold((error) {
           return Result(error: error);
         }, (response) {
-          return Result(data: response.toEntity());
+          return Result(data: response.toEntity() );
         });
       } catch (error) {
         result = Result(error: const AppErrors.responseError());
@@ -119,6 +121,27 @@ class HomeRepositoryImp extends HomeRepository {
           return Result(error: error);
         }, (response) {
           return Result(data: response.toEntity());
+        });
+      } catch (error) {
+        result = Result(error: const AppErrors.responseError());
+      }
+    } else {
+      result = Result(error: const AppErrors.connectionError());
+    }
+    return result;
+  }
+
+  @override
+  Future<Result<AppErrors, TrendingBidsEntity>> getTrendingBids() async {
+    Result<AppErrors, TrendingBidsEntity> result;
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors, TrendingBidsResponse> response =
+            await _remoteDataSource.getTrendingBids();
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          return Result(data: response.toEntity() as TrendingBidsEntity?);
         });
       } catch (error) {
         result = Result(error: const AppErrors.responseError());

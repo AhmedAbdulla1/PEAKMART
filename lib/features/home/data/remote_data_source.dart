@@ -12,6 +12,7 @@ import 'package:peakmart/features/home/data/model/response/content_response.dart
 import 'package:peakmart/features/home/data/model/response/ended_bids_response.dart';
 import 'package:peakmart/features/home/data/model/response/future_bids_response.dart';
 import 'package:peakmart/features/home/data/model/response/news_response.dart';
+import 'package:peakmart/features/home/data/model/response/trending_bids_response.dart';
 
 class HomeDataSource extends RemoteDataSource {
   Future<Either<AppErrors, NewsResponse>> getNews(
@@ -71,5 +72,16 @@ class HomeDataSource extends RemoteDataSource {
           return FutureBidsResponse.fromJson(json);
         },
         url: APIUrls.getFutureBids);
+  }
+
+  Future<Either<AppErrors, TrendingBidsResponse>> getTrendingBids() async {
+    return request<TrendingBidsResponse>(
+        method: HttpMethod.GET,
+        responseValidator: DefaultResponseValidator(),
+        converter: (json) {
+          log("message done in Trending bids request");
+          return TrendingBidsResponse.fromJson(json);
+        },
+        url: APIUrls.getEndedBids); //* edit here
   }
 }

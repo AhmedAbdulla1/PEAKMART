@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/core/shared_widgets/buttons.dart';
 import 'package:peakmart/features/bid_owner/presentation/views/bid_owner_view.dart';
-import 'package:peakmart/features/home/presentation/state_m/bid_work_now_cubit/bid_work_now_cubit.dart';
-import 'package:peakmart/features/home/presentation/state_m/ended_bids_cubit/ended_bids_cubit.dart';
+import 'package:peakmart/features/home/presentation/state_m/home_cubits/bid_work_now_cubit.dart';
+import 'package:peakmart/features/home/presentation/state_m/home_cubits/ended_bids_cubit.dart';
+import 'package:peakmart/features/home/presentation/state_m/home_cubits/future_bids_cubit.dart';
 import 'package:peakmart/features/home/presentation/views/apply_section/apply_view.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/titled_bid_section.dart';
 import 'package:peakmart/features/home/presentation/views/landing_section/landing_view.dart';
@@ -25,62 +25,62 @@ class HomeViewBody extends StatefulWidget {
 class _HomeViewBodyState extends State<HomeViewBody> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        const SizedBox(height: AppSize.s40),
-        LandingView(),
-        const ServicesSection(),
-        const SizedBox(height: AppSize.s12),
-        BlocProvider(
-          create: (context) => BidWorkNowCubit()..getBidWorkNow(),
-          child: const TitledBidSection<BidWorkNowCubit>(
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const SizedBox(height: AppSize.s40),
+          LandingView(),
+          const ServicesSection(),
+          const SizedBox(height: AppSize.s12),
+          const TitledBidSection<FutureBidsCubit>(
+            title: AppStrings.futureBids,
+            isFuture: true,
+          ),
+          const SizedBox(height: AppSize.s12),
+          const TitledBidSection<BidWorkNowCubit>(
             title: AppStrings.bidsWorkNow,
           ),
-        ),
-
-        const SizedBox(height: AppSize.s12),
-        BlocProvider(
-          create: (context) => EndedBidsCubit()..getEndedBids(),
-          child: const TitledBidSection<EndedBidsCubit>(
+          const SizedBox(height: AppSize.s12),
+          const TitledBidSection<EndedBidsCubit>(
             title: AppStrings.endedBids,
             isEnded: true,
           ),
-        ),
-
-        // const SizedBox(height: AppSize.s12),
-
-        // BlocProvider(
-        //   create: (context) => TrendingBidsCubit(),
-        //   child: TitledBidSection(
-        //     title: AppStrings.trendingBids,
-        //     bids: bids,
-        //     endedBids: [],
-        //   ),
-        // ),
-
-        const SizedBox(height: AppSize.s12),
-
-        // BlocProvider(
-        //   create: (context) => FutureBidsCubit(),
-        //   child: TitledBidSection(
-        //     title: AppStrings.futureBids,
-        //     bids: bidWorkNow,
-        //     endedBids: [],
-        //   ),
-        // ),
-        OfferSView(),
-        const SizedBox(height: AppSize.s12),
-        ApplyView(),
-        const SizedBox(height: AppSize.s12),
-        PartnersView(),
-        const SizedBox(height: AppSize.s12),
-        CustomElevatedButtonWithoutStream(
-            onPressed: () {
-              Navigator.pushNamed(context, BidOwnerView.routeName);
-            },
-            text: "Nav to Bid owner"),
-         const SizedBox(height: AppSize.s12),
-      ],
+      
+          // const SizedBox(height: AppSize.s12),
+      
+          // BlocProvider(
+          //   create: (context) => TrendingBidsCubit(),
+          //   child: TitledBidSection(
+          //     title: AppStrings.trendingBids,
+          //     bids: bids,
+          //     endedBids: [],
+          //   ),
+          // ),
+      
+          const SizedBox(height: AppSize.s12),
+      
+          // BlocProvider(
+          //   create: (context) => FutureBidsCubit(),
+          //   child: TitledBidSection(
+          //     title: AppStrings.futureBids,
+          //     bids: bidWorkNow,
+          //     endedBids: [],
+          //   ),
+          // ),
+          OfferSView(),
+          const SizedBox(height: AppSize.s12),
+          ApplyView(),
+          const SizedBox(height: AppSize.s12),
+          PartnersView(),
+          const SizedBox(height: AppSize.s12),
+          CustomElevatedButtonWithoutStream(
+              onPressed: () {
+                Navigator.pushNamed(context, BidOwnerView.routeName);
+              },
+              text: "Nav to Bid owner"),
+          const SizedBox(height: AppSize.s12),
+        ],
+      ),
     );
   }
 }

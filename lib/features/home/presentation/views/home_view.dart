@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/features/home/presentation/state_m/content_cubit/cubit.dart';
+import 'package:peakmart/features/home/presentation/state_m/home_cubits/bid_work_now_cubit.dart';
+import 'package:peakmart/features/home/presentation/state_m/home_cubits/ended_bids_cubit.dart';
+import 'package:peakmart/features/home/presentation/state_m/home_cubits/future_bids_cubit.dart';
 import 'package:peakmart/features/home/presentation/state_m/news_cubit/cubit.dart';
 import 'package:peakmart/features/home/presentation/state_m/news_cubit/state.dart';
 import 'package:peakmart/features/home/presentation/views/home_view_body.dart';
@@ -94,10 +97,13 @@ class _HomeViewState extends State<HomeView> {
       providers: [
         BlocProvider(create: (context) => ContentCubit()..getContent()),
         BlocProvider(create: (context) => NewsCubit()..fetchNews()),
+                BlocProvider(create: (context) => FutureBidsCubit()..getFutureBids()),
+        BlocProvider(create: (context) => BidWorkNowCubit()..getBidWorkNow()),
+        BlocProvider(create: (context) => EndedBidsCubit()..getEndedBids()),
       ],
       child: Stack(
         children: [
-          const HomeViewBody(),
+          const   HomeViewBody(),
           BlocBuilder<NewsCubit, NewsState>(
             builder: (context, state) {
               return Column(

@@ -4,19 +4,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/home/domain/entity/bid_work_now_entity.dart';
 import 'package:peakmart/features/home/domain/entity/ended_bids_entity.dart';
+import 'package:peakmart/features/home/domain/entity/future_bids_entity.dart'; // Import FutureBidsEntity
 import 'package:peakmart/features/home/presentation/views/bid_section/widgets/bid_item_stack.dart';
 
 class BidsSlider extends StatefulWidget {
   const BidsSlider({
     super.key,
     required this.bidsWorkNow,
-    this.isEnded = false,
     required this.endedBids,
+    required this.futureBids,
+    this.isEnded = false, required this.isFuture,
   });
 
   final List<BidWorkNowData> bidsWorkNow;
   final List<EndedBidsData> endedBids;
-  final bool isEnded;
+  final List<FutureBidsData> futureBids;
+  final bool isEnded,isFuture;
 
   @override
   State<BidsSlider> createState() => _BidsSliderState();
@@ -27,8 +30,14 @@ class _BidsSliderState extends State<BidsSlider> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isEmpty =
-        widget.isEnded ? widget.endedBids.isEmpty : widget.bidsWorkNow.isEmpty;
+    // final bool isEmpty =
+    //     widget.isEnded ? widget.endedBids.isEmpty : widget.bidsWorkNow.isEmpty;
+
+    final allBids = widget.isEnded
+        ? widget.endedBids
+        : widget.bidsWorkNow.isNotEmpty
+            ? widget.bidsWorkNow
+            : widget.futureBids;
 
     return CarouselSlider.builder(
       options: CarouselOptions(
@@ -40,7 +49,7 @@ class _BidsSliderState extends State<BidsSlider> {
         reverse: false,
         autoPlay: true,
         autoPlayInterval: const Duration(seconds: 3),
-        autoPlayAnimationDuration: const Duration(milliseconds: 800),
+        autoPlayAnimationDuration: const Duration(milliseconds: 80000),
         autoPlayCurve: Curves.fastOutSlowIn,
         enlargeCenterPage: true,
         enlargeFactor: 0.3,
@@ -51,13 +60,10 @@ class _BidsSliderState extends State<BidsSlider> {
         },
         scrollDirection: Axis.horizontal,
       ),
-      itemCount: isEmpty
-          ? 1
-          : (widget.isEnded
-              ? widget.endedBids.length
-              : widget.bidsWorkNow.length),
+      itemCount:
+          allBids.isEmpty ? 1 : allBids.length, // Checking for non-empty data
       itemBuilder: (BuildContext context, int index, int pageViewIndex) {
-        if (isEmpty) {
+        if (allBids.isEmpty) {
           return const Center(child: WaitingWidget());
         }
 
@@ -65,8 +71,13 @@ class _BidsSliderState extends State<BidsSlider> {
 
         return BidItemStack(
           isEnded: widget.isEnded,
+          isFuture: widget.isFuture,
           isCurrent: isCurrent,
-          bidWorkNowItem: widget.isEnded ? null : widget.bidsWorkNow[index],
+          bidWorkNowItem:( widget.isEnded || widget.isFuture)
+              ? null
+              :  widget.bidsWorkNow[index],
+          futureBidItem:
+              widget.isFuture ? widget.futureBids[index] : null,
           endedBidItem: widget.isEnded ? widget.endedBids[index] : null,
         );
       },

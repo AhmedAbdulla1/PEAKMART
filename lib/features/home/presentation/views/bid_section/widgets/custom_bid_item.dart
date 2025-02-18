@@ -3,16 +3,16 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/features/home/domain/entity/bid_work_now_entity.dart';
 
 import '../../../../../../core/resources/values_manager.dart';
 
 class CustomBidItem extends StatelessWidget {
   const CustomBidItem({
     super.key,
-    required this.bidWorkNowItem,
+    required this.bidItem,
   });
-  final BidWorkNowData bidWorkNowItem;
+
+  final dynamic bidItem;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class CustomBidItem extends StatelessWidget {
                   ),
                 ),
                 child: Image.asset(
-                  bidWorkNowItem.itemImage ?? "assets/images/card.png",
+                  bidItem.itemImage ?? "assets/images/card.png",
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
@@ -62,7 +62,7 @@ class CustomBidItem extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      bidWorkNowItem.itemName,
+                      bidItem.itemName,
                       maxLines: 2,
                       textAlign: TextAlign.start,
                       style: getSemiBoldStyle(
@@ -77,7 +77,7 @@ class CustomBidItem extends StatelessWidget {
                     child: Text(
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      bidWorkNowItem.description,
+                      bidItem.description,
                       style: getMediumStyle(
                               color: ColorManager.grey1, fontSize: FontSize.s12)
                           .copyWith(fontFamily: FontConstants.fontCabinFamily),

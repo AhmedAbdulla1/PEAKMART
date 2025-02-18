@@ -1,4 +1,5 @@
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
@@ -21,8 +22,12 @@ class TrendingBidsCubit extends Cubit<BidsState> {
 
     result.pick(onData: (data) {
       trendingBidsData = data.data;
+      debugPrint("🔥 Trending Bids from API: ${trendingBidsData}");
+      debugPrint("🔥 Trending Bids from API: ${trendingBidsData.length}");
       emit(TrendingBidsSuccessState(trendingBidsData: trendingBidsData));
     }, onError: (error) {
+          debugPrint("❌ Error fetching trending bids: $error");
+
       emit(BidsFailureState(errors: error, onRetry: getTrendingBids));
     });
   }

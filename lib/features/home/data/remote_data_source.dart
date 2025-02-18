@@ -82,6 +82,6 @@ class HomeDataSource extends RemoteDataSource {
           log("message done in Trending bids request");
           return TrendingBidsResponse.fromJson(json);
         },
-        url: APIUrls.getEndedBids); //* edit here
+        url: APIUrls.getTrendingBids); 
   }
 }

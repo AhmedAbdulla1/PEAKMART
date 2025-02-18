@@ -17,6 +17,7 @@ class APIUrls {
   static const getBidWorkNow = "${baseUrl}products/fetch.php?key=1";
   static const getFutureBids = "${baseUrl}products/fetch.php?key=4";
   static const getEndedBids = "${baseUrl}products/fetch.php?key=3";
+  static const getTrendingBids = "${baseUrl}products/fetch.php?key=3";
   // static const getAllProducts = "${baseUrl}products/fetch.php?key=4";
 
   static const getContent = "${baseUrl}InPageApi/pageContent-api.php";

@@ -8,7 +8,6 @@ import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/features/home/domain/entity/bid_work_now_entity.dart';
 import 'package:peakmart/features/home/domain/entity/ended_bids_entity.dart';
 import 'package:peakmart/features/home/domain/entity/future_bids_entity.dart';
-import 'package:peakmart/features/home/domain/entity/trending_bids_entity.dart';
 import 'package:peakmart/features/home/presentation/state_m/home_cubits/states.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/widgets/bids_slider.dart';
 
@@ -26,35 +25,34 @@ class TitledBidSection<C extends Cubit<BidsState>> extends StatelessWidget {
   static List<BidWorkNowData> loadedBidWorkNow = [];
   static List<EndedBidsData> loadedEndedBids = [];
   static List<FutureBidsData> loadedFutureBids = [];
-  static List<TrendingBidsData> loadedTrendingBids = [];
+  static List<FutureBidsData> loadedTrendingBids = [];
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<C, BidsState>(
       builder: (context, state) {
         if (state is BidWorkNowSuccessState) {
           loadedBidWorkNow = state.bidWorkNowData;
-
         }
         if (state is EndedBidsSuccessState) {
           loadedEndedBids = state.endedBidsData;
-;
+          ;
         }
         if (state is FutureBidsSuccessState) {
           loadedFutureBids = state.futureBidsData;
-
+          loadedTrendingBids = state.futureBidsData;
         }
         if (state is TrendingBidsSuccessState) {
-          loadedTrendingBids = state.trendingBidsData;
+          // loadedTrendingBids = state.trendingBidsData;
 
         }
-        // debugPrint(
-        //     "📢 Passing Trending Bids to BidsSlider: ${loadedTrendingBids.length}");
-        // debugPrint(
-        //     "📢 Passing Future Bids to BidsSlider: ${loadedFutureBids.length}");
-        // debugPrint(
-        //     "📢 Passing Work Now Bids to BidsSlider: ${loadedBidWorkNow.length}");
-        // debugPrint(
-        //     "📢 Passing Ended Bids to BidsSlider: ${loadedEndedBids.length}");
+        debugPrint(
+            "📢 Passing Trending Bids to BidsSlider: ${loadedTrendingBids.length}");
+        debugPrint(
+            "📢 Passing Future Bids to BidsSlider: ${loadedFutureBids.length}");
+        debugPrint(
+            "📢 Passing Work Now Bids to BidsSlider: ${loadedBidWorkNow.length}");
+        debugPrint(
+            "📢 Passing Ended Bids to BidsSlider: ${loadedEndedBids.length}");
 
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -32,30 +32,27 @@ class _HomeViewBodyState extends State<HomeViewBody> {
           const SizedBox(height: AppSize.s40),
           LandingView(),
           const ServicesSection(),
-          // const SizedBox(height: AppSize.s12),
-
-          // const TitledBidSection<TrendingBidsCubit>(
-          //   title: AppStrings.trendingBids,
-          //   isTrending: true,
-          // ),
           const SizedBox(height: AppSize.s12),
-
+          const TitledBidSection<FutureBidsCubit>(
+            title: AppStrings.trendingBids,
+            isTrending: true,
+          ),
+          const SizedBox(height: AppSize.s12),
           const TitledBidSection<FutureBidsCubit>(
             title: AppStrings.futureBids,
             isFuture: true,
           ),
           const SizedBox(height: AppSize.s12),
-          // const TitledBidSection<BidWorkNowCubit>(
-          //   title: AppStrings.bidsWorkNow,
-          // ),
+          OfferSView(),
+          const SizedBox(height: AppSize.s12),
+          const TitledBidSection<BidWorkNowCubit>(
+            title: AppStrings.bidsWorkNow,
+          ),
           const SizedBox(height: AppSize.s12),
           const TitledBidSection<EndedBidsCubit>(
             title: AppStrings.endedBids,
             isEnded: true,
           ),
-
-          const SizedBox(height: AppSize.s12),
-          OfferSView(),
           const SizedBox(height: AppSize.s12),
           ApplyView(),
           const SizedBox(height: AppSize.s12),

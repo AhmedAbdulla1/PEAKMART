@@ -41,10 +41,10 @@ class TitledBidSection<C extends Cubit<BidsState>> extends StatelessWidget {
           loadedFutureBids = state.futureBidsData;
           loadedTrendingBids = state.futureBidsData;
         }
-        // if (state is TrendingBidsSuccessState) {
-        //   loadedTrendingBids = state.trendingBidsData;
+        if (state is TrendingBidsSuccessState) {
+          // loadedTrendingBids = state.trendingBidsData;
 
-        // }
+        }
         debugPrint(
             "📢 Passing Trending Bids to BidsSlider: ${loadedTrendingBids.length}");
         debugPrint(

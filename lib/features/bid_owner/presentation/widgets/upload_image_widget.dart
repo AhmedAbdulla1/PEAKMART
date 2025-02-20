@@ -13,6 +13,7 @@ import 'package:peakmart/core/resources/style_manager.dart';
 
 class UploadImageWidget extends StatefulWidget {
   const UploadImageWidget({super.key, required this.image});
+
   final Function(String pathOfImage) image;
 
   @override
@@ -31,8 +32,7 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
         _image = File(pickedFile.path);
       });
     }
-  widget.image(_image.toString());
-    
+    widget.image(_image.toString());
   }
 
   @override

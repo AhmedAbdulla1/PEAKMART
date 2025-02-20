@@ -47,14 +47,14 @@ class TitledBidSection<C extends Cubit<BidsState>> extends StatelessWidget {
           loadedTrendingBids = state.trendingBidsData;
 
         }
-        debugPrint(
-            "📢 Passing Trending Bids to BidsSlider: ${loadedTrendingBids.length}");
-        debugPrint(
-            "📢 Passing Future Bids to BidsSlider: ${loadedFutureBids.length}");
-        debugPrint(
-            "📢 Passing Work Now Bids to BidsSlider: ${loadedBidWorkNow.length}");
-        debugPrint(
-            "📢 Passing Ended Bids to BidsSlider: ${loadedEndedBids.length}");
+        // debugPrint(
+        //     "📢 Passing Trending Bids to BidsSlider: ${loadedTrendingBids.length}");
+        // debugPrint(
+        //     "📢 Passing Future Bids to BidsSlider: ${loadedFutureBids.length}");
+        // debugPrint(
+        //     "📢 Passing Work Now Bids to BidsSlider: ${loadedBidWorkNow.length}");
+        // debugPrint(
+        //     "📢 Passing Ended Bids to BidsSlider: ${loadedEndedBids.length}");
 
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,

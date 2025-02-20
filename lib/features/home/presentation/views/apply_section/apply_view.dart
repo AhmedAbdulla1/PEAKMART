@@ -20,8 +20,10 @@ class ApplyView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ContentCubit, ContentState>(builder: (context, state) {
       if (state is ContentError) {
-        return ErrorViewer.showError(
-            error: state.errors, context: context, callback: () {});
+        return SizedBox();
+          //
+          // ErrorViewer.showError(
+          //   error: state.errors, context: context, callback: () {});
       }
       if (state is ContentLoaded) {
         _contentData = state.contentEntity.data

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/error_ui/error_viewer/toast/errv_toast_options.dart';
@@ -21,7 +22,7 @@ import 'package:peakmart/features/main/main_view.dart';
 class LogInView extends StatefulWidget {
   const LogInView({super.key, this.fromScreen});
 
-  static const String routeName = '/';
+  static const String routeName = 'LoginView';
   final String? fromScreen;
 
   @override
@@ -32,9 +33,7 @@ class _LogInViewState extends State<LogInView> {
   final LoginViewModel _loginViewModel = instance<LoginViewModel>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final LoginCubit _loginCubit = instance<LoginCubit>();
-
-  // final AppPreferences _appPreferences = instance<AppPreferences>();
+  final LoginCubit _loginCubit   = instance<LoginCubit>();
   _bind() {
     _loginCubit.context = context;
     _emailController.addListener(
@@ -43,22 +42,6 @@ class _LogInViewState extends State<LogInView> {
     _passwordController.addListener(
       () => _loginViewModel.setPassword(_passwordController.text),
     );
-    _loginViewModel.isUserLoginSuccessfullyStreamController.stream
-        .listen((isLogin) {
-      if (isLogin) {
-        SchedulerBinding.instance.addPostFrameCallback((_) {
-          // Navigator.of(context).pushNamed(
-          //   OTPView.routeName,
-          //   arguments: SendOtpInput(
-          //     countryCode: _loginViewModel.loginRequest.countryCode,
-          //     phone: _loginViewModel.loginRequest.phoneNum,
-          //     fromScreen: widget.fromScreen,
-          //     fromLogin: true,
-          //   ),
-          // );
-        });
-      }
-    });
   }
 
   @override
@@ -92,6 +75,7 @@ class _LogInViewState extends State<LogInView> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
         child: BlocConsumer<LoginCubit, LoginState>(listener: (context, state) {
+          print(state);
           if (state is SignUpFailureState) {
             ErrorViewer.showError(
                 errorViewerOptions: const ErrVToastOptions(

@@ -10,17 +10,14 @@ class ItemService extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 251,
+      width: 270,
       height: 170,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 15.0),
         child: Card(
-          // shape: RoundedRectangleBorder(
-          //   borderRadius: BorderRadius.circular(20), // زوايا دائرية
-          // ),
-          elevation: 10, // تأثير ظل خفيف
+          elevation: 10,
           child: Padding(
-            padding: const EdgeInsets.all(12.0), // مسافات داخل الكارد
+            padding: const EdgeInsets.all(12.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -36,30 +33,31 @@ class ItemService extends StatelessWidget {
                           fontSize: FontSize.s16,
                           color: Colors.black,
                         ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(
-                          height: 4),
+                      const SizedBox(height: 4),
                       Text(
                         itemServiceModel.description,
                         style: getMediumStyle(
                           fontSize: FontSize.s10,
                           color: Colors.black,
                         ),
-                        maxLines:4,
-                        overflow:
-                            TextOverflow.ellipsis, // تقصير النص إذا كان طويلاً
+                        maxLines: 4,
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(width: 8), // مسافة بين النص والصورة
+                const SizedBox(width: 8),
                 Expanded(
                   flex: 2,
                   child: Image.asset(
                     itemServiceModel.image,
-                    height: 200, // ضبط أبعاد الصورة
-                    fit: BoxFit.contain, // لتناسب الصورة داخل الإطار
-                    alignment: Alignment.center, // محاذاة الصورة إلى الأعلى
+                    height: 200,
+                    fit: BoxFit.contain,
+                    alignment: Alignment.center,
                   ),
                 ),
               ],

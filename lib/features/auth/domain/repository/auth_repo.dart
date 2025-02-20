@@ -1,4 +1,3 @@
-import 'package:peakmart/core/entities/base_entity.dart';
 import 'package:peakmart/core/entities/empty_entity.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/results/result.dart';

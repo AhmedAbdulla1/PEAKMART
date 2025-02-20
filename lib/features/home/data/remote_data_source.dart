@@ -49,7 +49,7 @@ class HomeDataSource extends RemoteDataSource {
           log("json is $json");
           return BidWorkNowResponse.fromJson(json);
         },
-        url: APIUrls.getBidWorkNow);
+        url: APIUrls.getEndedBids);
   }
 
   Future<Either<AppErrors, EndedBidsResponse>> getEndedBids() async {
@@ -82,6 +82,6 @@ class HomeDataSource extends RemoteDataSource {
           log("message done in Trending bids request");
           return TrendingBidsResponse.fromJson(json);
         },
-        url: APIUrls.getTrendingBids); 
+        url: APIUrls.getFutureBids);
   }
 }

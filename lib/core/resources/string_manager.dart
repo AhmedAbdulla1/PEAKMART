@@ -41,6 +41,7 @@ class AppStrings {
   static const String enrollNow = 'Enroll Now';
   static const String placeBid = 'Place a bid';
   static const String addProductPhoto = 'Add your product photo';
+  static const String topBidders = "Top Bidders";
 
   static const String trendingBids = 'Trending Bids';
   static const String futureBids = 'Future Bids';
@@ -56,7 +57,7 @@ class AppStrings {
   static const String periodOfBids = 'Period of bids';
   static const String privacyPolicy = 'Privacy and Policy ';
   static const String auctionRules = 'Auction Rules and Guidelines:';
-static const String auctionRulesDescription = """
+  static const String auctionRulesDescription = """
 1. Eligibility to Bid
 All users must be registered and verified on the website to place a bid.
 Users must be at least 18 years old to participate in auctions.

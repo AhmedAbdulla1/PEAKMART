@@ -12,6 +12,7 @@ class IconsAssets {
   static const String appleIcon = '$iconsPath/apple.svg';
   static const String googleIcon = '$iconsPath/google.svg';
   static const String pickerIcon = '$iconsPath/picker_icon.svg';
+
 }
 
 class ImageAssets {
@@ -21,10 +22,13 @@ class ImageAssets {
   static const String onBoardingPageTwo = "$imagePath/onBoarding2.png";
   static const String onBoardingPageThree = "$imagePath/onBoarding3.png";
   static const String onBoardingPageFour = "$imagePath/onBoarding4.png";
-  static const String endedBadge = "assets/images/ended_badge.svg";
-  static const String person1 = "assets/images/man1.jpg";
-  static const String person2 = "assets/images/man2.webp";
-  static const String person3 = "assets/images/man3.png";
+  static const String endedBadge = "$imagePath/ended_badge.svg";
+  static const String person1 = "$imagePath/man1.jpg";
+  static const String person2 = "$imagePath/man2.webp";
+  static const String person3 = "$imagePath/man3.png";
+  static const String creditCard = "$imagePath/Credit_Card.png";
+  static const String courtHmer = "$imagePath/court_hmer.png";
+  static const String security = "$imagePath/security.png";
 
   static const String apple = '$imagePath/apple.svg';
   static const String personal = '$imagePath/person.png';

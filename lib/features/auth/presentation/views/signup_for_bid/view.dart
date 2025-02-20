@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/app/app.dart';
+import 'package:peakmart/core/error_ui/dialogs/show_dialog.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
@@ -52,20 +53,25 @@ class _SignUpForBidViewState extends State<SignUpForBidView> {
           child: BlocConsumer<SignUpForBidCubit, SignUpState>(
               listener: (context, state) {
             if (state is SignUpFailure) {
-              ErrorViewer.showError(context: context, error: state.error, callback: () {});
+              ErrorViewer.showError(
+                  context: context, error: state.error, callback: () {});
             }
             if (state is SignUpSuccess) {
-              // Navigate to the next screen
+              index = 1;
             }
-            if (state is SignUpDetailsSuccess) {}
+            if (state is SignUpDetailsSuccess) {
 
-          }, builder: (context, state) {
-            if (state is SignUpLoading) {
-              return const WaitingWidget();
             }
+            if (state is SignUpLoading) {
+              ShowDialog().showElasticDialog(
+                  context: context,
+                  builder: (context) => const WaitingWidget(),
+                  barrierDismissible: false);
+            }
+          }, builder: (context, state) {
             return ListView(
               children: [
-                screens[1],
+                screens[index],
               ],
             );
           }),

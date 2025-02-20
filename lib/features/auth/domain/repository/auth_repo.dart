@@ -4,6 +4,7 @@ import 'package:peakmart/core/results/result.dart';
 import 'package:peakmart/features/auth/data/model/request/login_request.dart';
 import 'package:peakmart/features/auth/data/model/request/register_request.dart';
 import 'package:peakmart/features/auth/data/model/request/rest_password_request.dart';
+import 'package:peakmart/features/auth/data/model/request/seller_info_request.dart';
 import 'package:peakmart/features/auth/data/model/request/send_otp_request.dart';
 import 'package:peakmart/features/auth/data/model/request/signup_for_bid_request.dart';
 import 'package:peakmart/features/auth/data/model/request/verfiy_otp_request.dart';
@@ -28,4 +29,8 @@ abstract class AuthRepo {
 
   Future<Result<AppErrors, EmptyEntity>> registerAsSeller(
       {required RegisterAsSellerRequest registerRequest});
+
+
+  Future<Result<AppErrors, EmptyEntity>> sellerInfo(
+      {required SellerInfoRequest sellerInfoRequest});
 }

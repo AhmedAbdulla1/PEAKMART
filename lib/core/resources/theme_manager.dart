@@ -59,7 +59,7 @@ ThemeData getApplicationTheme() {
       style: OutlinedButton.styleFrom(
         side: BorderSide(
           color: ColorManager.primary,
-          width: 5,
+          width: 2,
           style: BorderStyle.solid,
         ),
         shape: RoundedRectangleBorder(

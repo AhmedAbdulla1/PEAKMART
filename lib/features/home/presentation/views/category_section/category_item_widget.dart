@@ -4,6 +4,7 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
+import 'package:peakmart/features/home/domain/entity/category_entity.dart';
 import 'package:peakmart/features/home/domain/entity/category_model.dart';
 
 class CategoryItemWidget extends StatelessWidget {
@@ -13,7 +14,7 @@ class CategoryItemWidget extends StatelessWidget {
       required this.onTap,
       this.isSelected = false});
 
-  final CategoryModel category;
+  final CategoryEntity category;
   final VoidCallback onTap;
   final bool isSelected;
 
@@ -39,7 +40,7 @@ class CategoryItemWidget extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  category.title,
+                  category.catName,
                   style: getMediumStyle(
                     fontSize: FontSize.s16,
                     color: ColorManager.grey1,
@@ -47,7 +48,7 @@ class CategoryItemWidget extends StatelessWidget {
                 ),
                 const SizedBox(width: AppSize.s8),
                 SvgPicture.network(
-                  category.imageUrl,
+                  "https://www.svgrepo.com/download/125/car.svg",
                   width: 40,
                   height: 40,
                   color: ColorManager.grey1,

@@ -93,7 +93,8 @@ class ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
+      // splashColor: ColorManager.white,
       onTap: () {
         Navigator.pushNamed(context, ProductDetails.routeName,
             arguments: product);

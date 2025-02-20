@@ -5,6 +5,7 @@ import 'package:peakmart/core/shared_widgets/buttons.dart';
 import 'package:peakmart/features/bid_owner/presentation/views/bid_owner_view.dart';
 import 'package:peakmart/features/home/presentation/views/apply_section/apply_view.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/titled_bid_section.dart';
+import 'package:peakmart/features/home/presentation/views/category_section/catrgory_view.dart';
 import 'package:peakmart/features/home/presentation/views/landing_section/landing_view.dart';
 import 'package:peakmart/features/home/presentation/views/offers_section/offers_view.dart';
 import 'package:peakmart/features/home/presentation/views/partners_section/partners_view.dart';
@@ -44,6 +45,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
           ),
           const SizedBox(height: AppSize.s12),
           OfferSView(),
+          CategorySection(),
           const SizedBox(height: AppSize.s12),
           const TitledBidSection<BidWorkNowCubit>(
             title: AppStrings.bidsWorkNow,

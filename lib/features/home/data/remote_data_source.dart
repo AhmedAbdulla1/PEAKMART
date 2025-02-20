@@ -8,11 +8,13 @@ import 'package:peakmart/core/net/api_url.dart';
 import 'package:peakmart/core/net/response_validators/default_response_validator.dart';
 import 'package:peakmart/features/home/data/model/request/news_request.dart';
 import 'package:peakmart/features/home/data/model/response/bid_work_now_response.dart';
+import 'package:peakmart/features/home/data/model/response/category_response.dart';
 import 'package:peakmart/features/home/data/model/response/content_response.dart';
 import 'package:peakmart/features/home/data/model/response/ended_bids_response.dart';
 import 'package:peakmart/features/home/data/model/response/future_bids_response.dart';
 import 'package:peakmart/features/home/data/model/response/news_response.dart';
 import 'package:peakmart/features/home/data/model/response/trending_bids_response.dart';
+import 'package:peakmart/features/home/domain/entity/category_entity.dart';
 
 class HomeDataSource extends RemoteDataSource {
   Future<Either<AppErrors, NewsResponse>> getNews(
@@ -83,5 +85,16 @@ class HomeDataSource extends RemoteDataSource {
           return TrendingBidsResponse.fromJson(json);
         },
         url: APIUrls.getFutureBids);
+  }
+
+  Future<Either<AppErrors, CategoriesResponse>> getCategories() async {
+    return request<CategoriesResponse>(
+        method: HttpMethod.GET,
+        responseValidator: DefaultResponseValidator(),
+        converter: (json) {
+          log("message done in Trending bids request");
+          return CategoriesResponse.fromJson(json);
+        },
+        url: APIUrls.getCategories);
   }
 }

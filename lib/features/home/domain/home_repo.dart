@@ -8,6 +8,8 @@ import 'package:peakmart/features/home/domain/entity/future_bids_entity.dart';
 import 'package:peakmart/features/home/domain/entity/news_entity.dart';
 import 'package:peakmart/features/home/domain/entity/trending_bids_entity.dart';
 
+import 'entity/category_entity.dart';
+
 abstract class HomeRepository {
   Future<Result<AppErrors, NewsEntity>> getNews(NewsRequest newsResponse);
   Future<Result<AppErrors, EndedBidsEntity>> getEndedBids();
@@ -16,4 +18,5 @@ abstract class HomeRepository {
   Future<Result<AppErrors, TrendingBidsEntity>> getTrendingBids();
 
   Future<Result<AppErrors, ContentEntity>> getContent();
+  Future<Result<AppErrors,CategoriesEntity>> getCategory();
 }

@@ -7,6 +7,7 @@ import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/results/result.dart';
 import 'package:peakmart/features/home/data/model/request/news_request.dart';
 import 'package:peakmart/features/home/data/model/response/bid_work_now_response.dart';
+import 'package:peakmart/features/home/data/model/response/category_response.dart';
 import 'package:peakmart/features/home/data/model/response/content_response.dart';
 import 'package:peakmart/features/home/data/model/response/ended_bids_response.dart';
 import 'package:peakmart/features/home/data/model/response/future_bids_response.dart';
@@ -14,6 +15,7 @@ import 'package:peakmart/features/home/data/model/response/news_response.dart';
 import 'package:peakmart/features/home/data/model/response/trending_bids_response.dart';
 import 'package:peakmart/features/home/data/remote_data_source.dart';
 import 'package:peakmart/features/home/domain/entity/bid_work_now_entity.dart';
+import 'package:peakmart/features/home/domain/entity/category_entity.dart';
 import 'package:peakmart/features/home/domain/entity/content_entity.dart';
 import 'package:peakmart/features/home/domain/entity/ended_bids_entity.dart';
 import 'package:peakmart/features/home/domain/entity/future_bids_entity.dart';
@@ -31,13 +33,13 @@ class HomeRepositoryImp extends HomeRepository {
     Result<AppErrors, NewsEntity> result;
     if (await _networkInfo.isConnected) {
       // try {
-        Either<AppErrors, NewsResponse> response =
-            await _remoteDataSource.getNews(newsResponse);
-        result = response.fold((error) {
-          return Result(error: error);
-        }, (response) {
-          return Result(data: response.toEntity() );
-        });
+      Either<AppErrors, NewsResponse> response =
+          await _remoteDataSource.getNews(newsResponse);
+      result = response.fold((error) {
+        return Result(error: error);
+      }, (response) {
+        return Result(data: response.toEntity());
+      });
       // } catch (error) {
       //   result = Result(error: const AppErrors.responseError());
       // }
@@ -142,6 +144,27 @@ class HomeRepositoryImp extends HomeRepository {
           return Result(error: error);
         }, (response) {
           return Result(data: response.toEntity() as TrendingBidsEntity?);
+        });
+      } catch (error) {
+        result = Result(error: const AppErrors.responseError());
+      }
+    } else {
+      result = Result(error: const AppErrors.connectionError());
+    }
+    return result;
+  }
+
+  @override
+  Future<Result<AppErrors, CategoriesEntity>> getCategory() async {
+    Result<AppErrors, CategoriesEntity> result;
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors, CategoriesResponse> response =
+            await _remoteDataSource.getCategories();
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          return Result(data: response.toEntity());
         });
       } catch (error) {
         result = Result(error: const AppErrors.responseError());

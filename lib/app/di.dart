@@ -88,6 +88,9 @@ initLoginModule() {
   }
 }
 initHomeModule() {
+  if (!GetIt.I.isRegistered<AuthRepo>()) {
+    instance.registerCachedFactory<AuthRepo>(()=> AuthRepositoryImp());
+  }
   if(!GetIt.I.isRegistered<HomeRepository>()){
     instance.registerCachedFactory<HomeRepository>(()=>HomeRepositoryImp());
   }

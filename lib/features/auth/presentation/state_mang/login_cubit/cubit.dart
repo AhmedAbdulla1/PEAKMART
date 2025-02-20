@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/error_ui/dialogs/show_dialog.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
@@ -13,7 +14,7 @@ part 'state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   AuthRepo authRepo = instance<AuthRepo>();
-
+  AppPreferences appPreferences = instance<AppPreferences>();
   LoginCubit() : super(SignUpInitialState());
   late BuildContext context;
 
@@ -25,6 +26,8 @@ class LoginCubit extends Cubit<LoginState> {
     result.pick(onData: (data) {
       Navigator.pop(context);
       emit(SignUpSuccessState());
+      appPreferences.setPressKeyLoginScreen();
+      appPreferences.setUserId(data.userId);
     }, onError: (error) {
       Navigator.pop(context);
       emit(SignUpFailureState(errors: error, onRetry: () {}));

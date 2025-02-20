@@ -44,8 +44,8 @@ class _MyAppState extends State<MyApp> {
         supportedLocales: context.supportedLocales,
         localizationsDelegates: context.localizationDelegates,
         theme: getApplicationTheme(),
-        title: 'Petmart',
-        initialRoute: MainView.routeName,
+        title: 'Peakmart',
+        initialRoute:Routes.root,
         onGenerateRoute: RouteGenerator.getRoute,
       ),
     );

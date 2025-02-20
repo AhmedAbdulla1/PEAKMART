@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/results/result.dart';
@@ -12,15 +13,16 @@ import 'package:peakmart/features/auth/domain/repository/auth_repo.dart';
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  AuthRepo authRepo = instance<AuthRepo>();
+  final AuthRepo authRepo = instance<AuthRepo>();
+  final AppPreferences _appPreferences = instance<AppPreferences>();
 
   RegisterCubit() : super(RegisterInitialState());
   late BuildContext context;
+
   Future<void> register({required RegisterRequest registerRequest}) async {
     emit(
       RegisterLoadingState(),
     );
-
 
     Result<AppErrors, RegisterEntity> result = await authRepo.register(
       RegisterRequest(
@@ -44,6 +46,7 @@ class RegisterCubit extends Cubit<RegisterState> {
                 userName: data.userName,
                 userId: data.userId)),
       );
+      _appPreferences.setUserId(data.userId);
     }, onError: (error) {
       log(
         error.toString(),

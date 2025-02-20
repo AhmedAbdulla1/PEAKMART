@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:peakmart/app/app_prefs.dart';
+import 'package:peakmart/app/di.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
-import 'package:peakmart/features/onboarding/presentation/views/widgets/next_text_button.dart';
+import 'package:peakmart/features/onboarding/presentation/views/widgets/text_button.dart';
 import 'package:peakmart/features/onboarding/presentation/views/widgets/skip_text_button.dart';
 
 import '../../../data/page_view_content.dart';
@@ -11,6 +13,7 @@ import 'page_change_point.dart';
 // ignore: must_be_immutable
 class PageViewBody extends StatefulWidget {
   PageViewBody({super.key, required this.index});
+
   int index;
 
   @override
@@ -18,13 +21,23 @@ class PageViewBody extends StatefulWidget {
 }
 
 class _PageViewBodyState extends State<PageViewBody> {
+  final AppPreferences _appPreferences = instance<AppPreferences>();
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(height: 25.h),
-        const Align(alignment: Alignment.centerRight, child: SkipTextButton()),
+        Align(
+          alignment: Alignment.centerRight,
+          child: SkipTextButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, LogInView.routeName);
+              _appPreferences.setPressKeyOnBoardingScreen();
+            },
+          ),
+        ),
         const Spacer(),
         Image.asset(
           onboardingList[widget.index].image,
@@ -41,13 +54,17 @@ class _PageViewBodyState extends State<PageViewBody> {
               width: MediaQuery.of(context).size.width * .1,
             ),
             PageChangePoints(currentIndex: widget.index),
-            NextTextButton(onPressed: () {
+           widget.index != 3 ?  NextTextButton(onPressed: () {
               setState(() {
-                widget.index == 3
-                    ? Navigator.pushNamed(context, LogInView.routeName)
-                    : widget.index += 1;
+                widget.index += 1;
               });
-            }),
+            }):
+            GetStart(
+              onPressed: () {
+                _appPreferences.setPressKeyOnBoardingScreen();
+                Navigator.pushReplacementNamed(context, LogInView.routeName);
+              },
+            ),
           ],
         ),
         SizedBox(height: 40.h),

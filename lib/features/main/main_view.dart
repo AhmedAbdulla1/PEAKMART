@@ -6,9 +6,11 @@ import 'package:peakmart/features/home/presentation/views/home_view.dart';
 import 'package:peakmart/features/main/main_view_model.dart';
 import 'package:peakmart/features/main/widget/custom_nav_bar.dart';
 import 'package:peakmart/features/products/presentation/views/products_view.dart';
+import 'package:peakmart/features/profile/presentation/profile_view.dart';
 
 class MainView extends StatelessWidget {
   MainView({super.key});
+
   static const String routeName = '/main_view';
 
   final MainViewModel _viewModel = MainViewModel();
@@ -29,31 +31,28 @@ class MainView extends StatelessWidget {
         ProductsView(),
         Text('Notification',
             style: getBoldStyle(color: ColorManager.primary, fontSize: 20)),
-        Text('Profile',
-            style: getBoldStyle(color: ColorManager.primary, fontSize: 20)),
+        ProfileView(),
       ][index];
-
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<int>(
-      stream: _viewModel.currentIndexOutput,
-      builder: (context, snapshot) {
-        int currentIndex = snapshot.data ?? 0;
-        return SafeArea(
-          child: Scaffold(
-            body: Center(
-              child: _buildBodyScreens(snapshot.data ?? 0),
+        stream: _viewModel.currentIndexOutput,
+        builder: (context, snapshot) {
+          int currentIndex = snapshot.data ?? 0;
+          return SafeArea(
+            child: Scaffold(
+              body: Center(
+                child: _buildBodyScreens(snapshot.data ?? 0),
+              ),
+              bottomNavigationBar: CustomNavigationBar(
+                items: _navBarItems,
+                initialIndex: currentIndex,
+                onTap: _onNavItemTapped,
+                indicatorHeight: 6,
+              ),
             ),
-            bottomNavigationBar: CustomNavigationBar(
-              items: _navBarItems,
-              initialIndex: currentIndex,
-              onTap: _onNavItemTapped,
-              indicatorHeight: 6,
-            ),
-          ),
-        );
-      }
-    );
+          );
+        });
   }
 }

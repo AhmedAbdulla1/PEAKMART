@@ -43,6 +43,7 @@ class _SignUpForBidViewState extends State<SignUpForBidView> {
       create: (context) => _signUpForBidCubit,
       child: Scaffold(
         // backgroundColor: Color(0xFFE545E5),
+        appBar: CustomAppBar(title: "Sign Up For Bid"),
         body: Padding(
           padding: const EdgeInsets.only(
               left: AppPadding.p20,
@@ -62,13 +63,9 @@ class _SignUpForBidViewState extends State<SignUpForBidView> {
             if (state is SignUpLoading) {
               return const WaitingWidget();
             }
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            return ListView(
               children: [
-                const CustomAppBar(title: "Sign Up For Bid"),
-                const Spacer(),
-                screens[index],
-                const Spacer(),
+                screens[1],
               ],
             );
           }),

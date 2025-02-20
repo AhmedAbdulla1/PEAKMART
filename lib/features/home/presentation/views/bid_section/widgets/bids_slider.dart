@@ -42,8 +42,8 @@ class _BidsSliderState extends State<BidsSlider> {
             : widget.futureBids.isNotEmpty
                 ? widget.futureBids
                 : widget.trendingBids;
-    debugPrint(
-        "BidsSlider received ${widget.trendingBids.length} trending bids");
+    // debugPrint(
+    //     "BidsSlider received ${widget.trendingBids.length} trending bids");
 
     return CarouselSlider.builder(
       options: CarouselOptions(

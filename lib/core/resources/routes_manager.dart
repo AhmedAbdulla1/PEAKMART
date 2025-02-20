@@ -1,5 +1,6 @@
 //
 import 'package:flutter/material.dart';
+import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
@@ -15,13 +16,25 @@ import 'package:peakmart/features/products/presentation/views/privacy_and_policy
 import 'package:peakmart/features/products/presentation/views/product_details.dart';
 import 'package:peakmart/features/products/presentation/views/products_view.dart';
 
+final AppPreferences _appPreferences = instance<AppPreferences>();
+
 class Routes {
-  static const String splashScreen = "/";
+  static const String root = "/";
 }
 
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.root:
+        if (!_appPreferences.isPressKeyOnBoardingScreen()) {
+          return MaterialPageRoute(builder: (_) => const OnboardingView());
+        } else if (_appPreferences.isPressKeyLoginScreen()) {
+          initHomeModule();
+          return MaterialPageRoute(builder: (_) => MainView());
+        } else {
+          initLoginModule();
+          return MaterialPageRoute(builder: (_) => const LogInView());
+        }
       case OnboardingView.routeName:
         return MaterialPageRoute(
           builder: (_) => const OnboardingView(),

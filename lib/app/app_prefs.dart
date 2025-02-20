@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/language_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 const String prefsKeyLang = "PrefsKeyLang";
 const String pressKeyOnBoardingScreen = 'PressKeyOnBoardingScreen';
 const String pressKeyLoginScreen = 'PressKeyLoginScreen';
 const String locationKey = 'locationKey';
-const String userIdKey= 'userIdKey';
+const String userIdKey = 'userIdKey';
 const String pushNotificationKey = 'pushNotificationKey';
 const arabicLocale = Locale('ar', 'SA');
 const englishLocale = Locale('en', 'US');
@@ -54,55 +53,59 @@ class AppPreferences {
     _sharedPreferences.setBool(pressKeyOnBoardingScreen, true);
   }
 
-  Future<bool> isPressKeyOnBoardingScreen() async {
+  bool isPressKeyOnBoardingScreen() {
     return _sharedPreferences.getBool(pressKeyOnBoardingScreen) ?? false;
   }
+
   //login
   Future<void> setPressKeyLoginScreen() async {
     _sharedPreferences.setBool(pressKeyLoginScreen, true);
   }
 
-  Future<void > setLocationEnabled( bool value) async {
+  Future<void> setLocationEnabled(bool value) async {
     _sharedPreferences.setBool(locationKey, value);
   }
 
-  bool getLocationEnabled()  {
+  bool getLocationEnabled() {
     return _sharedPreferences.getBool(locationKey) ?? false;
   }
 
-  Future<void > setFcmToken( String value) async {
+  Future<void> setFcmToken(String value) async {
     _sharedPreferences.setString(pushNotificationKey, value);
   }
 
-  String getFcmToken()  {
-    return _sharedPreferences.getString(pushNotificationKey)??  '';
+  String getFcmToken() {
+    return _sharedPreferences.getString(pushNotificationKey) ?? '';
   }
 
-  Future<void> setUserId( String value) async {
+  Future<void> setUserId(String value) async {
     _sharedPreferences.setString(userIdKey, value);
   }
 
-  String getUserId()  {
+  String getUserId() {
     return _sharedPreferences.getString(userIdKey) ?? '';
   }
 
-  Future<void > setNotificationEnabled( bool value) async {
+  Future<void> setNotificationEnabled(bool value) async {
     _sharedPreferences.setBool(pushNotificationKey, value);
   }
 
-  bool getNotificationEnabled()  {
-     return _sharedPreferences.getBool(pushNotificationKey) ?? false;
+  bool getNotificationEnabled() {
+    return _sharedPreferences.getBool(pushNotificationKey) ?? false;
   }
 
-
-  bool isPressKeyLoginScreen()  {
+  bool isPressKeyLoginScreen() {
     return _sharedPreferences.getBool(pressKeyLoginScreen) ?? false;
   }
 
   // logout
-  Future<void> logout() {
-    _sharedPreferences.remove(pressKeyOnBoardingScreen);
-    _sharedPreferences.remove(userIdKey);
-    return _sharedPreferences.remove(pressKeyLoginScreen);
+  Future<void> logout() async {
+    // await _sharedPreferences.remove(pressKeyOnBoardingScreen);
+    await _sharedPreferences.remove(userIdKey);
+    await _sharedPreferences.remove(pressKeyLoginScreen);
+  }
+
+  Future<void> remove(String key) async {
+    _sharedPreferences.remove(key);
   }
 }

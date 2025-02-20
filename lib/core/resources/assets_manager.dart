@@ -22,6 +22,9 @@ class ImageAssets {
   static const String onBoardingPageThree = "$imagePath/onBoarding3.png";
   static const String onBoardingPageFour = "$imagePath/onBoarding4.png";
   static const String endedBadge = "assets/images/ended_badge.svg";
+  static const String person1 = "assets/images/man1.jpg";
+  static const String person2 = "assets/images/man2.webp";
+  static const String person3 = "assets/images/man3.png";
 
   static const String apple = '$imagePath/apple.svg';
   static const String personal = '$imagePath/person.png';

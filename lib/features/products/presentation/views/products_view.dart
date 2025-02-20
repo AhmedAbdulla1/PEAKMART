@@ -6,7 +6,6 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/shared_widgets/buttons.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/products/presentation/state_m/product_cubit/cubit.dart';
 import 'package:peakmart/features/products/presentation/state_m/product_cubit/state.dart';
@@ -95,11 +94,12 @@ class ItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        Navigator.pushNamed(context, ProductDetails.routeName, arguments: product);
+      onTap: () {
+        Navigator.pushNamed(context, ProductDetails.routeName,
+            arguments: product);
       },
       child: Card(
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(children: [
@@ -137,7 +137,8 @@ class ItemWidget extends StatelessWidget {
                     visible: !product.isEnded,
                     child: Text('\$${product.price}',
                         style: getBoldStyle(
-                            fontSize: FontSize.s16, color: ColorManager.primary)),
+                            fontSize: FontSize.s16,
+                            color: ColorManager.primary)),
                   ),
                   product.isEnded
                       ? Row(

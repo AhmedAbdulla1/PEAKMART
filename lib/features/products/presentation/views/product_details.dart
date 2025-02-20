@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/features/products/presentation/views/products_view.dart';
-import 'package:peakmart/features/products/presentation/views/reordable_list.dart';
+import 'package:peakmart/features/products/presentation/widgets/top_bidders.dart';
 
 import '../../../../core/resources/style_manager.dart';
 
@@ -74,15 +74,16 @@ class ProductDetails extends StatelessWidget {
                     'Auction End Date: ${product.endDate}',
                     maxLines: 1,
                   ),
-
                   Text('Now Bid:\$${product.price}',
                       style: getBoldStyle(
                           fontSize: FontSize.s16, color: ColorManager.black)),
                   Text('*${product.peopleRolledIn} people rolled in',
                       style: getBoldStyle(
                           fontSize: FontSize.s16, color: ColorManager.primary)),
-                  ReorderableListWithApi(),
+                  // ReorderableListWithApi(),
+                  SizedBox(height: 16.h),
 
+                  const TopBidders()
                 ],
               ),
             ),

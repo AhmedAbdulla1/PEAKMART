@@ -8,9 +8,11 @@ import 'package:peakmart/core/shared_widgets/buttons.dart';
 import 'package:peakmart/features/auth/data/model/request/signup_for_bid_request.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
 import 'package:peakmart/features/auth/presentation/state_mang/signup_for_bid/cubit.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'widgets/dropdown_menu.dart';
-
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 class MainInfo extends StatefulWidget {
   const MainInfo({super.key});
 
@@ -72,6 +74,7 @@ class _MainInfoState extends State<MainInfo> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          100.h.vGap,
           CustomTextFormField(
             controller: _usernameController,
             labelText: "Display Name",
@@ -132,26 +135,55 @@ class _MainInfoState extends State<MainInfo> {
           20.vGap,
           CustomElevatedButtonWithoutStream(
             onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                context.read<SignUpForBidCubit>().register(
-                    registerRequest: RegisterAsSellerRequest(
-                        displayName: _usernameController.text,
-                        governmentName: _govController.text,
-                        cityName: _cityController.text,
-                        address: _addressController.text,
-                        country: _selectedCountry!));
-              } else {
-                ErrorViewer.showError(
-                    context: context,
-                    error:
-                        const CustomError(message: 'Enter All Required Fields'),
-                    callback: () {});
-              }
+              CookieService.getCookies();
+              // if (_formKey.currentState!.validate()) {
+              //   context.read<SignUpForBidCubit>().register(
+              //       registerRequest: RegisterAsSellerRequest(
+              //           displayName: _usernameController.text,
+              //           governmentName: _govController.text,
+              //           cityName: _cityController.text,
+              //           address: _addressController.text,
+              //           country: _selectedCountry!));
+              // } else {
+              //   ErrorViewer.showError(
+              //       context: context,
+              //       error:
+              //           const CustomError(message: 'Enter All Required Fields'),
+              //       callback: () {});
+              // }
             },
             text: 'Continue',
           ),
         ],
       ),
     );
+  }
+}
+
+
+class CookieService {
+  // Base URL of the API
+  static const String _baseUrl = 'https://hk.herova.net';
+
+  // Function to fetch cookies
+  static Future<dynamic> getCookies() async {
+    final url = Uri.parse('$_baseUrl/login_API/cookies.php');
+
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        // Parse the JSON response
+        final cookies = jsonDecode(response.body);
+        print('cookies $cookies');
+        return cookies;
+      } else {
+        // Handle non-200 status codes
+        throw Exception('Failed to load cookies: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Handle any errors
+      throw Exception('Error fetching cookies: $e');
+    }
   }
 }

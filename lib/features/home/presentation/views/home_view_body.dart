@@ -45,9 +45,9 @@ class _HomeViewBodyState extends State<HomeViewBody> {
             isFuture: true,
           ),
           const SizedBox(height: AppSize.s12),
-          const TitledBidSection<BidWorkNowCubit>(
-            title: AppStrings.bidsWorkNow,
-          ),
+          // const TitledBidSection<BidWorkNowCubit>(
+          //   title: AppStrings.bidsWorkNow,
+          // ),
           const SizedBox(height: AppSize.s12),
           const TitledBidSection<EndedBidsCubit>(
             title: AppStrings.endedBids,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:peakmart/core/resources/assets_manager.dart';
@@ -20,6 +21,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         surfaceTintColor: ColorManager.white,
         backgroundColor: ColorManager.white,
         elevation: 0,
+        forceMaterialTransparency: true,
         leading: Center(
           child: IconButton(
             onPressed: () {

@@ -21,5 +21,6 @@ class APIUrls {
   // static const getAllProducts = "${baseUrl}products/fetch.php?key=4";
 
   static const getContent = "${baseUrl}InPageApi/pageContent-api.php";
-
+ // Add Product
+  static const addProduct = "${baseUrl}products/new_Product.php";
 }

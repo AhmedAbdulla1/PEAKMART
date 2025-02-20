@@ -7,10 +7,16 @@ import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/features/products/data/models/top_bidder_model.dart';
 import 'package:peakmart/features/products/presentation/widgets/top_bidders_item.dart';
 
-class TopBidders extends StatelessWidget {
+class TopBidders extends StatefulWidget {
   const TopBidders({super.key});
 
-  static List<TopBidderModel> getTopBidders = [
+  @override
+  State<TopBidders> createState() => _TopBiddersState();
+}
+
+class _TopBiddersState extends State<TopBidders> {
+  // List of top bidders
+  List<TopBidderModel> topBidders = [
     TopBidderModel(
         name: "Ahmed Gad",
         photo: ImageAssets.person1,
@@ -28,6 +34,24 @@ class TopBidders extends StatelessWidget {
         number: "3"),
   ];
 
+  // Function to reorder items
+  void _onReorder(int oldIndex, int newIndex) {
+    setState(() {
+      if (newIndex > oldIndex) {
+        newIndex -= 1;
+      }
+      final item = topBidders.removeAt(oldIndex);
+      topBidders.insert(newIndex, item);
+    });
+  }
+
+  // Function to reorder items randomly
+  void _reorderRandomly() {
+    setState(() {
+      topBidders.shuffle();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -43,15 +67,21 @@ class TopBidders extends StatelessWidget {
                       fontSize: FontSize.s20, color: ColorManager.primary)),
             ),
             const SizedBox(height: 10),
+            // ReorderableListView
             SizedBox(
-               height: getTopBidders.length * 70,
-              child: ListView.builder(
-                itemCount: getTopBidders.length,
+              height: topBidders.length * 70, // Adjust height dynamically
+              child: ReorderableListView.builder(
+                onReorder: _onReorder,
+                itemCount: topBidders.length,
                 itemBuilder: (context, index) {
-                  return TopBidderItem(topBidderModel: getTopBidders[index]);
+                  final bidder = topBidders[index];
+                  return TopBidderItem(
+                    key: ValueKey(bidder), // Unique key for each item
+                    topBidderModel: bidder,
+                  );
                 },
               ),
-            )
+            ),
           ],
         ),
       ),

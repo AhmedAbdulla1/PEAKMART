@@ -8,10 +8,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:peakmart/core/resources/assets_manager.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/shared_widgets/buttons.dart';
+import 'package:peakmart/core/shared_widgets/image_picker.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
 import 'package:peakmart/features/bid_owner/data/models/request/add_product_request.dart';
 import 'package:peakmart/features/bid_owner/presentation/state_mang/add_product_cubit/add_product_cubit.dart';
@@ -20,6 +22,7 @@ import 'package:peakmart/features/bid_owner/presentation/widgets/upload_image_wi
 
 class BidOwnerView extends StatefulWidget {
   const BidOwnerView({super.key});
+
   static const routeName = "/bid_owner";
 
   @override
@@ -85,87 +88,98 @@ class _BidOwnerViewState extends State<BidOwnerView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        appBar: const CustomAppBar(title: AppStrings.placeBid),
-        body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 29.sp, vertical: 32.sp),
-            child: Form(
-              key: key,
-              child: ListView(
-                children: [
-                  // SizedBox(height: 23.h),
-                  UploadImageWidget(image: (pathOfImage) {
-                    setState(() {
-                      image = pathOfImage;
-                    });
-                  }),
-                  SizedBox(height: 23.h),
-                  PlaceBidAcceptData(
-                    productNameController: productNameController,
-                    descriptionController: descriptionController,
-                    startingPriceController: startingPriceController,
-                    expectedPriceController: expectedPriceController,
-                    locationController: locationController,
-                    startDateController: startDateController,
-                    arrivalDateController: arrivalDateController,
-                    periodOfBidsController: periodOfBidsController,
-                  ),
-                  SizedBox(height: 23.h),
+      child: BlocProvider(
+        create: (context) => AddProductCubit(),
+        child: Scaffold(
+          appBar: const CustomAppBar(title: AppStrings.placeBid),
+          body: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 29.sp, vertical: 32.sp),
+              child: Form(
+                key: key,
+                child: ListView(
+                  children: [
+                    // SizedBox(height: 23.h),
+                    ImagePickerWidget(
+                      title: AppStrings.addProductPhoto,
+                      onImageSelected: (i) {
+                        image = i?.path ?? "";
+                      },
 
-                  BlocConsumer<AddProductCubit, AddProductState>(
-                    listener: (context, state) {
-                      if (state is AddProductLoadingState) {
-                        log("Loading state in add product view");
-                      }
-                      if (state is AddProductSuccessState) {
-                        log("Success state in add product view");
-                        dynamic response = state.addProductEntity;
-                        log("Response in add product view: $response");
-                      }
-                      if (state is AddProductFailureState) {
-                        log("Failure state in add product view");
-                        dynamic error = state.errors;
-                        log("Error in add product view: $error");
-                      }
-                    },
-                    builder: (context, state) {
-                      return CustomElevatedButtonWithoutStream(
-                        onPressed: !isButtonActive
-                            ? null
-                            : () {
-                                if (key.currentState!.validate()) {
-                                  key.currentState!.save();
-                                  final addProductRequest = AddProductRequest(
-                                    photo: image,
-                                    name: productNameController.text,
-                                    description: descriptionController.text,
-                                    startingPrice: double.tryParse(
-                                            startingPriceController.text) ??
-                                        0,
-                                    expectedPrice: double.tryParse(
-                                            expectedPriceController.text) ??
-                                        0,
-                                    location: locationController.text,
-                                    startDate: startDateController.text,
-                                    deliveryDate: arrivalDateController.text,
-                                    periodOfBid: int.tryParse(
-                                            periodOfBidsController.text) ??
-                                        0,
-                                    categoryId: 1,
-                                  );
-                                  log("AddProductRequest: $addProductRequest");
-                                  log("Image photo: $image, Product name: ${productNameController.text}, description: ${descriptionController.text}, starting price: ${startingPriceController.text}, Expected price: ${expectedPriceController.text}, location: ${locationController.text}, start date: ${startDateController.text}, arrival date: ${arrivalDateController.text}, period of bids: ${periodOfBidsController.text}");
-                                  // context.read<AddProductCubit>().addProduct(
-                                  //     addProductRequest: addProductRequest);
-                                }
-                              },
-                        text: AppStrings.placeBid,
-                      );
-                    },
-                  ),
-                ],
-              ),
-            )),
+                    ),
+                   /* UploadImageWidget(image: (pathOfImage) {
+                      setState(() {
+                        image = pathOfImage;
+                      });
+                    }),*/
+                    SizedBox(height: 23.h),
+                    PlaceBidAcceptData(
+                      productNameController: productNameController,
+                      descriptionController: descriptionController,
+                      startingPriceController: startingPriceController,
+                      expectedPriceController: expectedPriceController,
+                      locationController: locationController,
+                      startDateController: startDateController,
+                      arrivalDateController: arrivalDateController,
+                      periodOfBidsController: periodOfBidsController,
+                    ),
+                    // SizedBox(height: 23.h),
+                    23.vGap,
+                    BlocConsumer<AddProductCubit, AddProductState>(
+                      listener: (context, state) {
+                        if (state is AddProductLoadingState) {
+                          log("Loading state in add product view");
+                        }
+                        if (state is AddProductSuccessState) {
+                          log("Success state in add product view");
+                          dynamic response = state.addProductEntity;
+                          log("Response in add product view: $response");
+                        }
+                        if (state is AddProductFailureState) {
+                          log("Failure state in add product view");
+                          dynamic error = state.errors;
+                          log("Error in add product view: $error");
+                        }
+                      },
+                      builder: (context, state) {
+                        context.read<AddProductCubit>().context = context;
+                        return CustomElevatedButtonWithoutStream(
+                          onPressed: !isButtonActive
+                              ? null
+                              : () {
+                                  if (key.currentState!.validate()) {
+                                    key.currentState!.save();
+                                    final addProductRequest = AddProductRequest(
+                                      photo: image,
+                                      name: productNameController.text,
+                                      description: descriptionController.text,
+                                      startingPrice: double.tryParse(
+                                              startingPriceController.text) ??
+                                          0,
+                                      expectedPrice: double.tryParse(
+                                              expectedPriceController.text) ??
+                                          0,
+                                      location: locationController.text,
+                                      startDate: startDateController.text,
+                                      deliveryDate: arrivalDateController.text,
+                                      periodOfBid: int.tryParse(
+                                              periodOfBidsController.text) ??
+                                          0,
+                                      categoryId: 1,
+                                    );
+                                    log("AddProductRequest: $addProductRequest");
+                                    log("Image photo: $image, Product name: ${productNameController.text}, description: ${descriptionController.text}, starting price: ${startingPriceController.text}, Expected price: ${expectedPriceController.text}, location: ${locationController.text}, start date: ${startDateController.text}, arrival date: ${arrivalDateController.text}, period of bids: ${periodOfBidsController.text}");
+                                    context.read<AddProductCubit>().addProduct(
+                                        addProductRequest: addProductRequest);
+                                  }
+                                },
+                          text: AppStrings.placeBid,
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              )),
+        ),
       ),
     );
   }
@@ -359,7 +373,7 @@ class _BidOwnerViewState extends State<BidOwnerView> {
                         periodOfBidsController: periodOfBidsController,
                       ),
                       SizedBox(height: 23.h),
-      
+
                       CustomElevatedButtonWithoutStream(
                         onPressed: !isButtonActive
                             ? null

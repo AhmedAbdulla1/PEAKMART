@@ -65,6 +65,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const SignUpForBidView());
 
       case BidOwnerView.routeName:
+        initBidOwnerModule  ();
         return MaterialPageRoute(builder: (_) => const BidOwnerView());
       case PrivacyAndPolicyView.routeName:
         return MaterialPageRoute(builder: (_) => const PrivacyAndPolicyView());

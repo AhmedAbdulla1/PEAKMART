@@ -22,8 +22,8 @@ class HomeDataSource extends RemoteDataSource {
         queryParameters: newsRequest.toJson(),
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
-          log('on converter');
-          log(json);
+          print('getNews at convert');
+          print(json);
           return NewsResponse.fromJson(json);
         },
         url: APIUrls.getNews);

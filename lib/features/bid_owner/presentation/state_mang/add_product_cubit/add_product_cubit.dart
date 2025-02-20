@@ -3,8 +3,10 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/app/di.dart';
+import 'package:peakmart/core/error_ui/dialogs/show_dialog.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/results/result.dart';
+import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/bid_owner/data/models/request/add_product_request.dart';
 import 'package:peakmart/features/bid_owner/domain/entity/add_product_entity.dart';
 import 'package:peakmart/features/bid_owner/domain/repository/owner_repo.dart';
@@ -18,6 +20,8 @@ class AddProductCubit extends Cubit<AddProductState> {
   late BuildContext context;
   Future<void> addProduct(
       {required AddProductRequest addProductRequest}) async {
+    ShowDialog().showElasticDialog(context: context, builder: (context) => const WaitingWidget(), barrierDismissible: false);
+
     emit(
       AddProductLoadingState(),
     );

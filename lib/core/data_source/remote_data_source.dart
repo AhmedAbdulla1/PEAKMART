@@ -11,6 +11,7 @@ import 'package:peakmart/core/net/models_factory.dart';
 import 'package:peakmart/core/net/response_validators/default_response_validator.dart';
 import 'package:peakmart/core/net/response_validators/list_response_validator.dart';
 import 'package:peakmart/core/net/response_validators/response_validator.dart';
+import 'package:peakmart/features/home/data/model/response/news_response.dart';
 
 class RemoteDataSource {
   Future<Either<AppErrors, T>> requestUploadFile<T extends BaseResponse>({
@@ -32,13 +33,12 @@ class RemoteDataSource {
         const DefaultCreateModelInterceptor(),
   }) async {
     // Register the response.
-    ModelsFactory()
-      .registerModel(
-        T.toString(),
-        converter,
-        createModelInterceptor.toString(),
-        createModelInterceptor,
-      );
+    ModelsFactory().registerModel(
+      T.toString(),
+      converter,
+      createModelInterceptor.toString(),
+      createModelInterceptor,
+    );
     // late final httpClient;
     // if (httpClientType == HttpClientType.MAIN) httpClient = getIt<HttpClient>();
     // else if(httpClientType == HttpClientType.SPOTIFY) httpClient = getIt<SpotifyHttpClient>();
@@ -92,13 +92,12 @@ class RemoteDataSource {
         const DefaultCreateModelInterceptor(),
   }) async {
     // Register the response.
-    ModelsFactory()
-      .registerModel(
-        T.toString(),
-        converter,
-        createModelInterceptor.toString(),
-        createModelInterceptor,
-      );
+    ModelsFactory().registerModel(
+      T.toString(),
+      converter,
+      createModelInterceptor.toString(),
+      createModelInterceptor,
+    );
 
     print('url for request $url');
 
@@ -113,7 +112,9 @@ class RemoteDataSource {
       responseValidator: responseValidator ?? DefaultResponseValidator(),
       baseUrl: baseUrl,
     );
-    print(response);
+    if(T is NewsResponse) print("news response");
+    if (T is NewsResponse) print(response);
+    if(T is NewsResponse) print(response.isLeft());
 
     /// convert jsonResponse to model and return it
     if (response.isLeft()) {
@@ -125,7 +126,10 @@ class RemoteDataSource {
         return Right(resValue);
       } catch (e) {
         return const Left(
-            CustomError(message: "Catch error in remote data source"));
+          CustomError(
+            message: "Catch error in remote data source",
+          ),
+        );
       }
     } else {
       return const Left(UnknownError());
@@ -147,13 +151,12 @@ class RemoteDataSource {
         const DefaultCreateModelInterceptor(),
   }) async {
     // Register the response.
-    ModelsFactory()
-      .registerModel(
-        T.toString(),
-        converter,
-        createModelInterceptor.toString(),
-        createModelInterceptor,
-      );
+    ModelsFactory().registerModel(
+      T.toString(),
+      converter,
+      createModelInterceptor.toString(),
+      createModelInterceptor,
+    );
 
     /// Send the request.
     final response = await HttpClient().sendListRequest<T>(

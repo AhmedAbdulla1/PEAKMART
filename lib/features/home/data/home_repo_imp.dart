@@ -30,7 +30,7 @@ class HomeRepositoryImp extends HomeRepository {
       NewsRequest newsResponse) async {
     Result<AppErrors, NewsEntity> result;
     if (await _networkInfo.isConnected) {
-      try {
+      // try {
         Either<AppErrors, NewsResponse> response =
             await _remoteDataSource.getNews(newsResponse);
         result = response.fold((error) {
@@ -38,9 +38,9 @@ class HomeRepositoryImp extends HomeRepository {
         }, (response) {
           return Result(data: response.toEntity() );
         });
-      } catch (error) {
-        result = Result(error: const AppErrors.responseError());
-      }
+      // } catch (error) {
+      //   result = Result(error: const AppErrors.responseError());
+      // }
     } else {
       result = Result(error: const AppErrors.connectionError());
     }

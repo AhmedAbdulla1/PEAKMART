@@ -135,22 +135,22 @@ class _MainInfoState extends State<MainInfo> {
           20.vGap,
           CustomElevatedButtonWithoutStream(
             onPressed: () {
-              CookieService.getCookies();
-              // if (_formKey.currentState!.validate()) {
-              //   context.read<SignUpForBidCubit>().register(
-              //       registerRequest: RegisterAsSellerRequest(
-              //           displayName: _usernameController.text,
-              //           governmentName: _govController.text,
-              //           cityName: _cityController.text,
-              //           address: _addressController.text,
-              //           country: _selectedCountry!));
-              // } else {
-              //   ErrorViewer.showError(
-              //       context: context,
-              //       error:
-              //           const CustomError(message: 'Enter All Required Fields'),
-              //       callback: () {});
-              // }
+              // CookieService.getCookies();
+              if (_formKey.currentState!.validate()) {
+                context.read<SignUpForBidCubit>().register(
+                    registerRequest: RegisterAsSellerRequest(
+                        displayName: _usernameController.text,
+                        governmentName: _govController.text,
+                        cityName: _cityController.text,
+                        address: _addressController.text,
+                        country: _selectedCountry!));
+              } else {
+                ErrorViewer.showError(
+                    context: context,
+                    error:
+                        const CustomError(message: 'Enter All Required Fields'),
+                    callback: () {});
+              }
             },
             text: 'Continue',
           ),

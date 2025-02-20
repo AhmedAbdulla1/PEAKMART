@@ -29,6 +29,7 @@ class _SignUpForBidViewState extends State<SignUpForBidView> {
   @override
   void initState() {
     _signUpForBidCubit = SignUpForBidCubit();
+    _signUpForBidCubit.context= context;
     super.initState();
   }
 

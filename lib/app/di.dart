@@ -6,6 +6,8 @@ import 'package:peakmart/features/auth/data/repository_imp.dart';
 import 'package:peakmart/features/auth/domain/repository/auth_repo.dart';
 import 'package:peakmart/features/auth/presentation/state_mang/login_cubit/cubit.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view_model.dart';
+import 'package:peakmart/features/bid_owner/data/owner_repo_imp.dart';
+import 'package:peakmart/features/bid_owner/domain/repository/owner_repo.dart';
 import 'package:peakmart/features/home/data/home_repo_imp.dart';
 import 'package:peakmart/features/home/domain/home_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -93,6 +95,11 @@ initHomeModule() {
   }
   if(!GetIt.I.isRegistered<HomeRepository>()){
     instance.registerCachedFactory<HomeRepository>(()=>HomeRepositoryImp());
+  }
+}
+initBidOwnerModule() {
+  if (!GetIt.I.isRegistered<OwnerRepo>()) {
+    instance.registerCachedFactory<OwnerRepo>(()=> OwnerRepoImp());
   }
 }
 //

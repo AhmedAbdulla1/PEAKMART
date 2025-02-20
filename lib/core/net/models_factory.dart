@@ -45,11 +45,15 @@ class ModelsFactory {
   /// Generate the desired T model.
   T createModel<T extends BaseResponse>(json) {
     log('in create model $T');
-    log(json.toString());
     final modelName = T.toString();
     final modelInfo = _modelsMap[modelName];
+    print('after model info');
     final fromJson = modelInfo[FROM_JSON];
+    print('after from json info');
+
     final createModelInterceptor = modelInfo[CREATE_MODEL_INTERCEPTOR];
+    print('after create model interceptor info');
+
     final model = createModelInterceptor.getModel(fromJson, json);
     return model;
   }

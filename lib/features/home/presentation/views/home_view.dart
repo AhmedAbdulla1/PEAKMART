@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/features/home/presentation/state_m/content_cubit/cubit.dart';
@@ -109,6 +111,7 @@ class _HomeViewState extends State<HomeView> {
           const HomeViewBody(),
           BlocBuilder<NewsCubit, NewsState>(
             builder: (context, state) {
+              log("news state: $state");
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [

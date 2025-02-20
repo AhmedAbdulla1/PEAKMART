@@ -5,7 +5,6 @@ import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/home/domain/entity/bid_work_now_entity.dart';
 import 'package:peakmart/features/home/domain/entity/ended_bids_entity.dart';
 import 'package:peakmart/features/home/domain/entity/future_bids_entity.dart'; // Import FutureBidsEntity
-import 'package:peakmart/features/home/domain/entity/trending_bids_entity.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/widgets/bid_item_stack.dart';
 
 class BidsSlider extends StatefulWidget {
@@ -23,7 +22,7 @@ class BidsSlider extends StatefulWidget {
   final List<BidWorkNowData> bidsWorkNow;
   final List<EndedBidsData> endedBids;
   final List<FutureBidsData> futureBids;
-  final List<TrendingBidsData> trendingBids;
+  final List<FutureBidsData> trendingBids;
   final bool isEnded, isFuture, isTrending;
 
   @override

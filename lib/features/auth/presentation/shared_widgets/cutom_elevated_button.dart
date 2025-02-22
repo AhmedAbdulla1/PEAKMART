@@ -7,7 +7,8 @@ import 'package:peakmart/core/resources/style_manager.dart';
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
     super.key,
-    required this.textButton, this.onPressed,
+    required this.textButton,
+    this.onPressed,
   });
   final String textButton;
   final void Function()? onPressed;
@@ -25,7 +26,8 @@ class CustomElevatedButton extends StatelessWidget {
       ),
       child: Text(
         textButton,
-        style: getBoldStyle(fontSize: FontSize.s20, color: ColorManager.white),
+        style:
+            getBoldStyle(fontSize: FontSize.s20, color: ColorManager.primary),
       ),
     );
   }

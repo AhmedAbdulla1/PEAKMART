@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/core/models/bad_request_model.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
+import 'package:peakmart/features/auth/presentation/shared_widgets/validators.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String labelText;
@@ -45,28 +45,10 @@ class CustomTextFormField extends StatelessWidget {
           return validator!(value);
         }
         if (hintText == AppStrings.emailHint) {
-          if (value == null || value.isEmpty) {
-            return AppStrings.fieldRequired;
-          }
-          String pattern =
-              r'^[a-zA-Z][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$';
-          RegExp regex = RegExp(pattern);
-          if (value.isEmpty) {
-            return AppStrings.enterEmail;
-          } else if (!regex.hasMatch(value)) {
-            return AppStrings.emailError;
-          }
+          return Validator.validateEmail(value!);
         }
         if (hintText == AppStrings.userNameHint) {
-          if (value == null || value.isEmpty) {
-            return AppStrings.fieldRequired;
-          }
-
-          String pattern = r'^[a-zA-Z\s]+$';
-          RegExp regex = RegExp(pattern);
-          if (!regex.hasMatch(value)) {
-            return AppStrings.nameError;
-          }
+          return Validator.validateUserName(value!);
         }
         if (value == null || value.isEmpty) {
           return AppStrings.fieldRequired;
@@ -74,9 +56,7 @@ class CustomTextFormField extends StatelessWidget {
         return null;
       },
       decoration: InputDecoration(
-        floatingLabelBehavior: isUsedWithBidOwner == true
-            ? FloatingLabelBehavior.never
-            : FloatingLabelBehavior.always,
+        floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: labelText,
         hintText: hintText,
         contentPadding: isShowDescription == true
@@ -92,8 +72,8 @@ class CustomTextFormField extends StatelessWidget {
                 ),
               )
             : null,
-        alignLabelWithHint: true,
-      ),
+        
+      )
     );
   }
 }

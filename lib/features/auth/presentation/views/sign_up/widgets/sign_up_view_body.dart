@@ -39,13 +39,12 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             }
             if (state is RegisterSuccessState) {
               log('success state');
-              // showCustomSnackBar(context, 'Successfully registered');
               log(
                 'Successful with an email is: ${email.toString()}, password is: ${password.toString()}, user name is: ${userName.toString()}, phone number is: ${phoneNumber.toString()}',
               );
               RegisterEntity registerEntity = state.registerEntity;
               log('Register entity is: ${registerEntity.toString()}');
-              Navigator.pushNamed(
+              Navigator.pushReplacementNamed(
                 context,
                 OtpVerification.routeName,
               );
@@ -53,7 +52,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             if (state is RegisterFailureState) {
               log('error state');
               ErrorViewer.showError(
-                  errorViewerOptions:const  ErrVToastOptions(
+                  errorViewerOptions: const ErrVToastOptions(
                     textColor: ColorManager.white,
                     backGroundColor: ColorManager.textFormErrorBorder,
                   ),

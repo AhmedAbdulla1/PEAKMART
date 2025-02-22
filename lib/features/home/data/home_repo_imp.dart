@@ -32,17 +32,17 @@ class HomeRepositoryImp extends HomeRepository {
       NewsRequest newsResponse) async {
     Result<AppErrors, NewsEntity> result;
     if (await _networkInfo.isConnected) {
-      // try {
-      Either<AppErrors, NewsResponse> response =
-          await _remoteDataSource.getNews(newsResponse);
-      result = response.fold((error) {
-        return Result(error: error);
-      }, (response) {
-        return Result(data: response.toEntity());
-      });
-      // } catch (error) {
-      //   result = Result(error: const AppErrors.responseError());
-      // }
+      try {
+        Either<AppErrors, NewsResponse> response =
+            await _remoteDataSource.getNews(newsResponse);
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          return Result(data: response.toEntity());
+        });
+      } catch (error) {
+        result = Result(error: const AppErrors.responseError());
+      }
     } else {
       result = Result(error: const AppErrors.connectionError());
     }

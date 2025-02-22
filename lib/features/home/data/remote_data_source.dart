@@ -14,7 +14,6 @@ import 'package:peakmart/features/home/data/model/response/ended_bids_response.d
 import 'package:peakmart/features/home/data/model/response/future_bids_response.dart';
 import 'package:peakmart/features/home/data/model/response/news_response.dart';
 import 'package:peakmart/features/home/data/model/response/trending_bids_response.dart';
-import 'package:peakmart/features/home/domain/entity/category_entity.dart';
 
 class HomeDataSource extends RemoteDataSource {
   Future<Either<AppErrors, NewsResponse>> getNews(
@@ -24,8 +23,6 @@ class HomeDataSource extends RemoteDataSource {
         queryParameters: newsRequest.toJson(),
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
-          print('getNews at convert');
-          print(json);
           return NewsResponse.fromJson(json);
         },
         url: APIUrls.getNews);

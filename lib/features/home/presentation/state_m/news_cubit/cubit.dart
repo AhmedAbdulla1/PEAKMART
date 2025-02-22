@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
@@ -23,12 +24,12 @@ class NewsCubit extends Cubit<NewsState> {
     );
 
     result.pick(onData: (data) {
-      print('data $data');
+      log('data of news in cubit $data');
       this.data = data;
       emit(NewsLoaded(data));
       _startNewsDisplayCycle();
     }, onError: (error) {
-      print('error $error');
+      log('error of news in cubit $error');
       emit(NewsError(error));
     });
   }

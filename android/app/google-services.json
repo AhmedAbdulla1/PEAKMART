@@ -12,7 +12,20 @@
           "package_name": "com.example.peakmart"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "501474854854-tphkl9kgmsuujdqh8oq4j3vsipaebbvs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.peakmart",
+            "certificate_hash": "e1d94b000798ed99ce4d98b737c7f3c30d4dc56f"
+          }
+        },
+        {
+          "client_id": "501474854854-ah2e8klcmdigcjb87oatcv3og1fusk8h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBfPcy6_tcUh05Rrg9eLtmU0XMaOGhEKEo"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "501474854854-ah2e8klcmdigcjb87oatcv3og1fusk8h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "501474854854-f1btg0nvurtlh01qdfbpi66phhvuhbl5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.peakmart"
+              }
+            }
+          ]
         }
       }
     }

@@ -4,6 +4,7 @@ import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/error_ui/error_viewer/toast/errv_toast_options.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
@@ -12,6 +13,7 @@ import 'package:peakmart/core/shared_widgets/buttons.dart';
 import 'package:peakmart/core/shared_widgets/text_fields.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/account_creation_or_login_prompt.dart';
 import 'package:peakmart/features/auth/presentation/state_mang/login_cubit/cubit.dart';
+import 'package:peakmart/features/auth/presentation/state_mang/social_sign_in_cubit/social_sign_in_cubit.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view_model.dart';
 import 'package:peakmart/features/auth/presentation/views/login/widgets/other_login_ways.dart';
 import 'package:peakmart/features/auth/presentation/views/reset_password/view.dart';
@@ -89,26 +91,26 @@ class _LogInViewState extends State<LogInView> {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: AppSize.s130),
+              130.vGap,
               Text(
-                'Welcome Back!',
+                AppStrings.welcomeBack,
                 style: getSemiBoldStyle(
                         fontSize: FontSize.s32, color: ColorManager.black)
                     .copyWith(fontFamily: FontConstants.fontMontserratFamily),
               ),
-              const SizedBox(height: AppSize.s40),
+              40.vGap,
               CustomTextFormWithStream(
                 stream: _loginViewModel.outEmailValidation,
                 prefixIcon: Icons.person,
                 textEditingController: _emailController,
                 hintText: AppStrings.email,
               ),
-              const SizedBox(height: AppSize.s25),
+              25.vGap,
               PasswordTextFieldWithStream(
                 stream: _loginViewModel.outPasswordValidation,
                 textEditingController: _passwordController,
               ),
-              const SizedBox(height: AppSize.s14),
+              8.vGap,
               Align(
                 alignment: AlignmentDirectional.centerEnd,
                 child: CustomTextButton(
@@ -118,7 +120,7 @@ class _LogInViewState extends State<LogInView> {
                   title: AppStrings.forgotPassword,
                 ),
               ),
-              const SizedBox(height: AppSize.s8),
+              8.vGap,
               CustomElevatedButton(
                 stream: _loginViewModel.outAreInputsValid,
                 text: AppStrings.login,
@@ -129,14 +131,17 @@ class _LogInViewState extends State<LogInView> {
                   );
                 },
               ),
-              const SizedBox(height: AppSize.s35),
-              const OtherLoginWays(),
-              const SizedBox(height: AppSize.s20),
+              35.vGap,
+              BlocProvider(
+                create: (context) => SignInWithSocialCubit(),
+                child: const OtherLoginWays(),
+              ),
+              20.vGap,
               AccountCreationOrLoginPrompt(
                 text: AppStrings.createAccount,
                 textButton: AppStrings.signUp,
               ),
-              const SizedBox(height: AppSize.s20),
+              20.vGap,
             ],
           );
         }),

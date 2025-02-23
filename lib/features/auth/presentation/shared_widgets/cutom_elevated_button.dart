@@ -26,8 +26,10 @@ class CustomElevatedButton extends StatelessWidget {
       ),
       child: Text(
         textButton,
-        style:
-            getBoldStyle(fontSize: FontSize.s20, color: ColorManager.primary),
+        style: getBoldStyle(
+            fontSize: FontSize.s20,
+            color:
+                onPressed == null ? ColorManager.primary : ColorManager.white),
       ),
     );
   }

@@ -119,13 +119,15 @@ class CustomTextFormWithStream extends StatelessWidget {
         cursorRadius: const Radius.circular(20),
         cursorColor: ColorManager.primary,
         // maxLines: 20,
+         style: getRegularStyle(
+            color: ColorManager.primary,
+            fontSize: FontSize.s16,
+          ),
         minLines: minLines,
         maxLines: maxLines,
         enabled: enabled,
         onTap: onTap,
-        style: TextStyle(
-          color: ColorManager.grey1,
-        ),
+  
         // expands: true,
         keyboardType: textInputType,
         controller: textEditingController,
@@ -167,7 +169,6 @@ class _PasswordTextFieldWithStreamState
     extends State<PasswordTextFieldWithStream> {
   bool obscureText = true;
   void onIconPressed() {
-    print(obscureText);
     setState(() {
       obscureText = !obscureText;
     });
@@ -179,8 +180,11 @@ class _PasswordTextFieldWithStreamState
       stream: widget.stream,
       builder: (context, snapshot) => TextFormField(
         cursorRadius: const Radius.circular(10),
+         style: getRegularStyle(
+            color: ColorManager.primary,
+            fontSize: FontSize.s16,
+          ),
         cursorColor: ColorManager.primary,
-        style: TextStyle(color: ColorManager.grey1),
         keyboardType: TextInputType.visiblePassword,
         controller: widget.textEditingController,
         decoration: InputDecoration(
@@ -192,8 +196,8 @@ class _PasswordTextFieldWithStreamState
             onTap: onIconPressed,
             child: Icon(
               obscureText
-                  ? Icons.visibility_outlined
-                  : Icons.visibility_off_outlined,
+                  ? Icons.visibility
+                  : Icons.visibility_off,
               color: ColorManager.grey1,
             ),
           ),
@@ -201,7 +205,6 @@ class _PasswordTextFieldWithStreamState
           errorText: snapshot.data,
         ),
         obscureText: obscureText,
-        obscuringCharacter: "*",
       ),
     );
   }

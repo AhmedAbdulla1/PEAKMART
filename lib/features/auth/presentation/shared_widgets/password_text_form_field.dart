@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
+import 'package:peakmart/features/auth/presentation/shared_widgets/validators.dart';
 
 class PasswordTextFormField extends StatefulWidget {
   const PasswordTextFormField({
@@ -21,37 +21,8 @@ class PasswordTextFormField extends StatefulWidget {
   State<PasswordTextFormField> createState() => _PasswordTextFormFieldState();
 }
 
-
 class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
-  bool isValidPassword = false; // Track password validity
-bool isPressed = false;
-
-  // Function to validate password
-  String? validatePassword(String value) {
-    if (value.isEmpty) {
-      return AppStrings.fieldRequired;
-    }
-
-    // Check if the password meets the required conditions
-    if (value.length < 8) {
-      return AppStrings.passwordAtLeast8Char;
-    }
-
-    if (!RegExp(r'[A-Z]').hasMatch(value)) {
-      return AppStrings.passwordAtLeast1Uppercase;
-    }
-    if (!RegExp(r'[a-z]').hasMatch(value)) {
-      return AppStrings.passwordAtLeast1Lowercase;
-    }
-    if (!RegExp(r'[0-9]').hasMatch(value)) {
-      return AppStrings.passwordAtLeast1Number;
-    }
-    if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
-      return AppStrings.passwordAtLeast1SpecialChar;
-    }
-
-    return null;
-  }
+  bool isPressed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +37,9 @@ bool isPressed = false;
             fontSize: FontSize.s16,
           ),
           obscureText: isPressed ? false : true,
-          validator: (value) => validatePassword(value!),
+          validator: (value) {
+            return Validator.validatePassword(value!);
+          },
           decoration: InputDecoration(
             hintText: widget.hintText,
             labelText: widget.labelText,
@@ -89,8 +62,9 @@ bool isPressed = false;
                         Icons.visibility_off,
                       ),
                 onPressed: () {
-                  
-                  setState(() {isPressed = !isPressed;});
+                  setState(() {
+                    isPressed = !isPressed;
+                  });
                 },
                 iconSize: 28.sp,
               ),

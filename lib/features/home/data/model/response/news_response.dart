@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:peakmart/core/models/base_model.dart';
 import 'package:peakmart/core/responses/pagination_response.dart';
 import 'package:peakmart/features/home/domain/entity/news_entity.dart';
@@ -16,17 +13,12 @@ class NewsResponse extends BaseResponse<NewsEntity> {
       required super.status,
       required super.code});
 
-  factory NewsResponse.fromJson(String js) {
-    print("json: $js");
-    Map<String,dynamic> json = jsonDecode(js);
+  factory NewsResponse.fromJson(Map<String, dynamic> json) {
     return NewsResponse(
       data: List<NewsDataResponse>.from(
-          json["data"].map((newsData) {
-            log("newsData: $newsData");
-            // log(newsData.toString());
-            return  NewsDataResponse.fromJson(newsData);})),
-      paginationResponse: PaginationResponse(totalPages: 12, currentPage: 12, limitPerPage: 12, totalRecords: 14),
-      // paginationResponse: PaginationResponse.fromJson(json["pagination"]),
+          json["data"].map((newsData) => NewsDataResponse.fromJson(newsData))),
+      paginationResponse: PaginationResponse(
+          totalPages: 12, currentPage: 12, limitPerPage: 12, totalRecords: 14),
       message: json["message"],
       status: json["status"],
       code: 200,

@@ -9,7 +9,7 @@ import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/account_creation_or_login_prompt.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/cutom_elevated_button.dart';
 import 'package:peakmart/features/auth/presentation/views/login/widgets/other_login_ways.dart';
-import 'package:peakmart/features/auth/presentation/views/sign_up/sign_up_model.dart';
+import 'package:peakmart/features/auth/presentation/views/sign_up/sign_up_functions.dart';
 import 'package:peakmart/features/auth/presentation/views/sign_up/widgets/register_agreement_text.dart';
 import 'package:peakmart/features/auth/presentation/views/sign_up/widgets/sign_up_user_accept_data.dart';
 
@@ -71,7 +71,7 @@ class _SignUpBuildWidgetsState extends State<SignUpBuildWidgets> {
           Text(
             AppStrings.createAccount,
             style: getSemiBoldStyle(
-                    fontSize: FontSize.s28, color: ColorManager.primary)
+                    fontSize: FontSize.s28, color: ColorManager.black)
                 .copyWith(fontFamily: FontConstants.fontMontserratFamily),
           ),
           SizedBox(
@@ -96,11 +96,11 @@ class _SignUpBuildWidgetsState extends State<SignUpBuildWidgets> {
             height: 15.h,
           ),
           CustomElevatedButton(
-            textButton: AppStrings.createAccount,
+            textButton: AppStrings.signUp,
             onPressed: !isButtonActive
                 ? null
                 : () async {
-                    acceptUserData(countryCode); // تمرير رمز الدولة هنا
+                    acceptUserData(countryCode);
                     if (formKey.currentState!.validate()) {
                       if (confirmPass == password) {
                         await userRegister(context);

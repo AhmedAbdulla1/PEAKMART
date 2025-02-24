@@ -1,16 +1,18 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:peakmart/app/app_prefs.dart';
+import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
+
 import 'package:peakmart/core/resources/extentions.dart';
-import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/shared_widgets/buttons.dart';
 import 'package:peakmart/features/auth/data/model/request/signup_for_bid_request.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
-import 'package:peakmart/features/auth/presentation/state_mang/signup_for_bid/cubit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:peakmart/features/auth/presentation/state_mang/signup_for_bid/cubit.dart';
 import 'widgets/dropdown_menu.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 class MainInfo extends StatefulWidget {
@@ -128,15 +130,15 @@ class _MainInfoState extends State<MainInfo> {
               // Handle inland selection
             },
             items: const ['Inland', 'OutLand'],
-            label: "Inland",
+            label: "",
             icon: const Icon(Icons.radar),
             validator: (value) => _validateRequired(value, "Inland"),
           ),
           20.vGap,
           CustomElevatedButtonWithoutStream(
             onPressed: () {
-              // CookieService.getCookies();
               if (_formKey.currentState!.validate()) {
+
                 context.read<SignUpForBidCubit>().register(
                     registerRequest: RegisterAsSellerRequest(
                         displayName: _usernameController.text,
@@ -164,18 +166,20 @@ class _MainInfoState extends State<MainInfo> {
 class CookieService {
   // Base URL of the API
   static const String _baseUrl = 'https://hk.herova.net';
-
   // Function to fetch cookies
   static Future<dynamic> getCookies() async {
     final url = Uri.parse('$_baseUrl/login_API/cookies.php');
-
+    final  AppPreferences appPreferences =instance<AppPreferences>();
     try {
-      final response = await http.get(url);
+      String cookieString = appPreferences.getCookies().join(';');
+      print('cookie string $cookieString');
+      // Make the HTTP GET request
+      final response = await http.get(url, headers: {"cookie": cookieString});
 
       if (response.statusCode == 200) {
         // Parse the JSON response
         final cookies = jsonDecode(response.body);
-        print('cookies $cookies');
+        print('cookies ${response.body}');
         return cookies;
       } else {
         // Handle non-200 status codes

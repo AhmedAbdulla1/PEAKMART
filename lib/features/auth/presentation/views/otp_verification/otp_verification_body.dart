@@ -52,9 +52,9 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(
           AppPadding.p29, AppPadding.p20, AppPadding.p29, 0),
-      child: BlocConsumer<OtpVerfictionCubit, OtpVerficationState>(
+      child: BlocConsumer<OtpVerfictionCubit, OtpVerificationState>(
         listener: (context, state) {
-          if (state is OtpVerficationSuccessState) {
+          if (state is OtpVerificationSuccessState) {
             if (state.isVerified) {
               log('Success state in verify otp');
               state.isVerified ? showSuccessBottomSheet(context) : null;
@@ -65,7 +65,7 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
                     })
                   : null;
             }
-          } else if (state is OtpVerficationFailureState) {
+          } else if (state is OtpVerificationFailureState) {
             log('Failure state');
             Navigator.pop(context);
             ErrorViewer.showError(
@@ -76,7 +76,7 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
                 context: context,
                 error: state.errors,
                 callback: state.onRetry);
-          } else if (state is OtpVerficationLoadingState) {
+          } else if (state is OtpVerificationLoadingState) {
             log('Loading state');
             ShowDialog().showElasticDialog(
               context: context,

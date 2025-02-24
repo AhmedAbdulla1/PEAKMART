@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/app/app.dart';
 import 'package:peakmart/core/error_ui/dialogs/show_dialog.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
-import 'package:peakmart/core/shared_widgets/buttons.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
 import 'package:peakmart/features/auth/presentation/state_mang/signup_for_bid/cubit.dart';
+import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification.dart';
 import 'package:peakmart/features/auth/presentation/views/signup_for_bid/additional_details.dart';
 import 'package:peakmart/features/auth/presentation/views/signup_for_bid/main_info.dart';
 
@@ -29,14 +25,14 @@ class _SignUpForBidViewState extends State<SignUpForBidView> {
   @override
   void initState() {
     _signUpForBidCubit = SignUpForBidCubit();
-    _signUpForBidCubit.context= context;
+    _signUpForBidCubit.context = context;
     super.initState();
   }
 
   int index = 0;
   List<Widget> screens = [
     const MainInfo(),
-    AdditionalDetails(),
+    const AdditionalDetails(),
   ];
 
   @override
@@ -45,23 +41,33 @@ class _SignUpForBidViewState extends State<SignUpForBidView> {
       create: (context) => _signUpForBidCubit,
       child: Scaffold(
         // backgroundColor: Color(0xFFE545E5),
-        appBar: CustomAppBar(title: "Sign Up For Bid"),
+        appBar: const CustomAppBar(title: "Sign Up For Bid"),
         body: Padding(
           padding: const EdgeInsets.only(
               left: AppPadding.p20,
-              right: AppPadding.p20,
-              bottom: AppPadding.p65),
+              right: AppPadding.p20,),
           child: BlocConsumer<SignUpForBidCubit, SignUpState>(
               listener: (context, state) {
             if (state is SignUpFailure) {
               ErrorViewer.showError(
                   context: context, error: state.error, callback: () {});
             }
+            if (state is SignUpDetailsFailure) {
+              ErrorViewer.showError(
+                  context: context, error: state.error, callback: () {});
+            }
             if (state is SignUpSuccess) {
               index = 1;
             }
+            if (state is SignUpDetailsLoading || state is SignUpLoading) {
+              ShowDialog().showElasticDialog(
+                  context: context,
+                  builder: (context) => const WaitingWidget(),
+                  barrierDismissible: true);
+            }
             if (state is SignUpDetailsSuccess) {
-
+              Navigator.pushNamed(context, OtpVerification.routeName,
+                  arguments: VerificationType.watsApp);
             }
             if (state is SignUpLoading) {
               ShowDialog().showElasticDialog(

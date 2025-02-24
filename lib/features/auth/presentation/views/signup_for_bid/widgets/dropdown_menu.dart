@@ -18,7 +18,7 @@ class CustomDropdownMenu extends StatelessWidget {
       },
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: validator ,
-      value: _selectedCountry,
+      value: _selectedCountry??items[0],
       decoration: InputDecoration(labelText: label,
         hintText: label,
         prefixIcon: icon,

@@ -27,6 +27,11 @@ abstract class AuthRepo {
   Future<Result<AppErrors, EmptyEntity>> verfiyOtp(
       VerfiyOtpRequest verfiyOtpRequest);
 
+  Future<Result<AppErrors, EmptyEntity>> sendWatsAppOtp();
+
+  Future<Result<AppErrors, EmptyEntity>> verfiyWatsAppOtp(
+      VerfiyOtpRequest verfiyOtpRequest);
+
   Future<Result<AppErrors, EmptyEntity>> registerAsSeller(
       {required RegisterAsSellerRequest registerRequest});
 

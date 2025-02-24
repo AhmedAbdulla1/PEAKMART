@@ -1,6 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:peakmart/app/app_prefs.dart';
+import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
@@ -9,7 +12,10 @@ import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/shared_widgets/buttons.dart';
 import 'package:peakmart/core/shared_widgets/image_picker.dart';
+import 'package:peakmart/features/auth/data/model/request/seller_info_request.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
+import 'package:peakmart/features/auth/presentation/state_mang/login_cubit/cubit.dart';
+import 'package:peakmart/features/auth/presentation/state_mang/signup_for_bid/cubit.dart';
 import 'package:peakmart/features/auth/presentation/views/signup_for_bid/widgets/dropdown_menu.dart';
 
 import 'package:flutter/material.dart';
@@ -38,85 +44,6 @@ class _AdditionalDetailsState extends State<AdditionalDetails> {
   bool _isIdImageSelected = false;
   bool _isIbanImageSelected = false;
 
-  Future<void> _submitForm() async {
-    if (_formKey.currentState!.validate() &&
-        _idImage != null &&
-        _ibanImage != null) {
-      final url =
-          Uri.parse('https://hk.herova.net/bids/bid_owner_rig_info.php');
-
-      var request = http.MultipartRequest('POST', url);
-
-      // Add text fields
-      request.fields['full_name'] = _fullNameController.text;
-      request.fields['id_number'] = _ssnController.text;
-      request.fields['iban'] = _ibanController.text;
-
-      // Add image files
-      request.files
-          .add(await http.MultipartFile.fromPath('id_img', _idImage!.path));
-      request.files
-          .add(await http.MultipartFile.fromPath('iban_img', _ibanImage!.path));
-
-      try {
-        final response = await request.send();
-        if (response.statusCode == 200) {
-          // Success
-          showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (context) => AlertDialog(
-              title: Text(
-                'Time for checking up!',
-                style: getBoldStyle(
-                  fontSize: FontSize.s25,
-                  color: ColorManager.primary,
-                ),
-              ),
-              content: Text(
-                'we are checking up your application for safety sir, we holding your auction account and soon we email you and you can bid for all products you want.',
-                style: getMediumStyle(
-                  fontSize: FontSize.s20,
-                  color: ColorManager.black,
-                ),
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(
-                      context,
-                      MainView.routeName,
-                    );
-                  },
-                  child: Text(
-                    'OK',
-                    style: getBoldStyle(
-                        fontSize: FontSize.s20, color: ColorManager.primary),
-                  ),
-                ),
-              ],
-            ),
-          );
-        } else {
-          // Error
-          ErrorViewer.showError(
-              context: context,
-              error: const CustomError(message: 'Failed to submit bid'),
-              callback: () {});
-        }
-      } catch (e) {
-        ErrorViewer.showError(
-            context: context,
-            error: const CustomError(message: 'Failed to submit bid'),
-            callback: () {});
-      }
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text('Please fill all fields and upload images')),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -263,8 +190,15 @@ class _AdditionalDetailsState extends State<AdditionalDetails> {
                       callback: () {},
                     );
                   } else {
-                    // All validations passed, proceed with form submission
-                    _submitForm();
+                    context.read<SignUpForBidCubit>().sellerInfo(
+                          sellerInfo: SellerInfoRequest(
+                            fullName: _fullNameController.text,
+                            idNumber: _ssnController.text,
+                            idImage: _idImage!,
+                            iban: _ibanController.text,
+                            ibanImage: _ibanImage!,
+                          ),
+                        );
                   }
                 }
               },

@@ -25,9 +25,24 @@ class SellerInfoRequest extends BaseRequest {
     return {
       "full_name": fullName,
       "id_number": fullName,
-      "id_img ": fullName,
+      // "id_img ": fullName,
       "iban": fullName,
-      "iban_img ":fullName ,
+      // "iban_img ":fullName ,
     };
+  }
+
+  List<Map<String,dynamic>> getFiles(){
+    return [
+      {
+        'fieldName': 'id_img',
+        'filePath':idImage.path,
+        'fileName': idImage.path.split('/').last,
+      },
+      {
+        'fieldName': 'iban_img',
+        'filePath': ibanImage.path,
+        'fileName': ibanImage.path.split('/').last,
+      },
+    ];
   }
 }

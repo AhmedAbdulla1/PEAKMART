@@ -158,21 +158,63 @@ class AuthRepositoryImp implements AuthRepo {
   @override
   Future<Result<AppErrors, EmptyEntity>> sellerInfo({required SellerInfoRequest sellerInfoRequest}) async {
     Result<AppErrors, EmptyEntity> result;
-    // if (await _networkInfo.isConnected) {
-    //   try {
-    //     Either<AppErrors, EmptyResponse> response =
-    //         await _authDataSource.registerAsSeller(registerRequest: registerRequest);
-    //     result = response.fold((error) {
-    //       return Result(error: error);
-    //     }, (response) {
-    //       return Result(data: response.toEntity());
-    //     });
-    //   } catch (error) {
-    //     result = Result(error: const AppErrors.responseError());
-    //   }
-    // } else {
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors, EmptyResponse> response =
+            await _authDataSource.sellerInfo(sellerInfoRequest: sellerInfoRequest);
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          return Result(data: response.toEntity());
+        });
+      } catch (error) {
+        result = Result(error: const AppErrors.responseError());
+      }
+    } else {
       result = Result(error: const AppErrors.connectionError());
-    // }
+    }
+    return result;
+  }
+
+  @override
+  Future<Result<AppErrors, EmptyEntity>> sendWatsAppOtp()async {
+    Result<AppErrors, EmptyEntity> result;
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors, EmptyResponse> response =
+            await _authDataSource.sendWatsAppOtp();
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          return Result(data: response.toEntity());
+        });
+      } catch (error) {
+        result = Result(error: const AppErrors.responseError());
+      }
+    } else {
+      result = Result(error: const AppErrors.connectionError());
+    }
+    return result;
+  }
+
+  @override
+  Future<Result<AppErrors, EmptyEntity>> verfiyWatsAppOtp(VerfiyOtpRequest verfiyOtpRequest) async{
+    Result<AppErrors, EmptyEntity> result;
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors, EmptyResponse> response =
+            await _authDataSource.verfiyWatsAppOtp(verfiyOtpRequest);
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          return Result(data: response.toEntity());
+        });
+      } catch (error) {
+        result = Result(error: const AppErrors.responseError());
+      }
+    } else {
+      result = Result(error: const AppErrors.connectionError());
+    }
     return result;
   }
 

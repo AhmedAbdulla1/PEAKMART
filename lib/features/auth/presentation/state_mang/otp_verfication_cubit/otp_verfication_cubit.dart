@@ -12,18 +12,19 @@ import 'package:peakmart/features/auth/domain/repository/auth_repo.dart';
 
 part 'otp_verfication_states.dart';
 
-class OtpVerfictionCubit extends Cubit<OtpVerficationState> {
+class OtpVerfictionCubit extends Cubit<OtpVerificationState> {
   AuthRepo authRepo = instance<AuthRepo>();
 
-  OtpVerfictionCubit() : super(OtpVerficationInitialState());
+  OtpVerfictionCubit() : super(OtpVerificationInitialState());
   bool isOtpVerified = false;
   String otp = '';
+
 // late BuildContext context;
   Future<void> sendOtp({
     required SendOtpRequest sendOtpRequest,
   }) async {
     emit(
-      OtpVerficationLoadingState(),
+      OtpVerificationLoadingState(),
     );
 
     debugPrint('in cubit key is ${sendOtpRequest.key}');
@@ -40,7 +41,7 @@ class OtpVerfictionCubit extends Cubit<OtpVerficationState> {
       );
       // Navigator.pop(context);
       emit(
-        OtpVerficationSuccessState(),
+        OtpVerificationSuccessState(),
       );
     }, onError: (error) {
       debugPrint(
@@ -48,7 +49,7 @@ class OtpVerfictionCubit extends Cubit<OtpVerficationState> {
       );
       // Navigator.pop(context);
       emit(
-        OtpVerficationFailureState(
+        OtpVerificationFailureState(
           errors: error,
           onRetry: () {},
         ),
@@ -58,7 +59,7 @@ class OtpVerfictionCubit extends Cubit<OtpVerficationState> {
 
   Future<void> verfiyOtp({required VerfiyOtpRequest verfiyOtpRequest}) async {
     otp = verfiyOtpRequest.otp;
-    emit(OtpVerficationLoadingState());
+    emit(OtpVerificationLoadingState());
     // ShowDialog().showElasticDialog(
     //   context: context,
     //   builder: (context) => const WaitingWidget(),
@@ -78,9 +79,9 @@ class OtpVerfictionCubit extends Cubit<OtpVerficationState> {
           'in otp verification data is $data, otp is $otp',
         );
         // Navigator.pop(context);
-        
+
         emit(
-          OtpVerficationSuccessState(isVerified: true),
+          OtpVerificationSuccessState(isVerified: true),
         );
       },
       onError: (error) {
@@ -89,12 +90,78 @@ class OtpVerfictionCubit extends Cubit<OtpVerficationState> {
         );
         // Navigator.pop(context);
         emit(
-          OtpVerficationFailureState(
+          OtpVerificationFailureState(
             errors: error,
             onRetry: () {},
           ),
         );
       },
     );
+  }
+
+  Future<void> sendWatsAppOtp(// required SendOtpRequest sendOtpRequest,
+      ) async {
+    emit(
+      OtpVerificationLoadingState(),
+    );
+    Result<AppErrors, EmptyEntity> result = await authRepo.sendWatsAppOtp();
+
+    result.pick(onData: (data) {
+      debugPrint(
+        'data in cubit is $data',
+      );
+      // Navigator.pop(context);
+      emit(
+        OtpVerificationSuccessState(),
+      );
+    }, onError: (error) {
+      debugPrint(
+        error.toString(),
+      );
+      // Navigator.pop(context);
+      emit(
+        OtpVerificationFailureState(
+          errors: error,
+          onRetry: () {},
+        ),
+      );
+    });
+  }
+
+  Future<void> verifyWatsAppOtp({
+    required SendOtpRequest sendOtpRequest,
+  }) async {
+    emit(
+      OtpVerificationLoadingState(),
+    );
+
+    debugPrint('in cubit key is ${sendOtpRequest.key}');
+    Result<AppErrors, SendOtpEntity> result =
+        await authRepo.sendOtp(SendOtpRequest(
+      email: sendOtpRequest.email,
+      username: sendOtpRequest.username,
+      key: sendOtpRequest.key,
+    ));
+
+    result.pick(onData: (data) {
+      debugPrint(
+        'data in cubit is $data',
+      );
+      // Navigator.pop(context);
+      emit(
+        OtpVerificationSuccessState(),
+      );
+    }, onError: (error) {
+      debugPrint(
+        error.toString(),
+      );
+      // Navigator.pop(context);
+      emit(
+        OtpVerificationFailureState(
+          errors: error,
+          onRetry: () {},
+        ),
+      );
+    });
   }
 }

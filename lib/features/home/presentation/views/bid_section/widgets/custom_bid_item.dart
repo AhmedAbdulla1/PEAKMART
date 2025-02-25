@@ -38,11 +38,17 @@ class CustomBidItem extends StatelessWidget {
                     topRight: Radius.circular(23),
                   ),
                 ),
-                child: Image.asset(
-                  bidItem.itemImage ?? "assets/images/card.png",
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
+                child: bidItem.itemImage != null
+                    ? Image.network(
+                        bidItem.itemImage,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.asset(
+                        "assets/images/card.png",
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
               ),
             ),
             // CachedNetworkImage(

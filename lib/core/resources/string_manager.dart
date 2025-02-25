@@ -95,6 +95,8 @@ class AppStrings {
   static const String futureBids = 'Future Bids';
   static const String bidsWorkNow = 'Bids Work Now';
   static const String endedBids = 'Ended Bids';
+  static const String product = 'Product';
+
   static const productName = 'Product Name';
   static const String description = 'Description';
   static const String startingPrice = 'Starting price';

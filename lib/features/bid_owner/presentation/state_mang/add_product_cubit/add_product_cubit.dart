@@ -17,10 +17,10 @@ class AddProductCubit extends Cubit<AddProductState> {
   OwnerRepo ownerRepo = instance<OwnerRepo>();
 
   AddProductCubit() : super(AddProductInitialState());
-  late BuildContext context;
+  // late BuildContext context;
   Future<void> addProduct(
       {required AddProductRequest addProductRequest}) async {
-    ShowDialog().showElasticDialog(context: context, builder: (context) => const WaitingWidget(), barrierDismissible: false);
+    // ShowDialog().showElasticDialog(context: context, builder: (context) => const WaitingWidget(), barrierDismissible: false);
 
     emit(
       AddProductLoadingState(),
@@ -55,7 +55,7 @@ class AddProductCubit extends Cubit<AddProductState> {
       debugPrint(
         'data in add product cubit is $data',
       );
-      Navigator.pop(context);
+      // Navigator.pop(context);
       emit(
         AddProductSuccessState(
             addProductEntity: AddProductEntity(
@@ -75,7 +75,7 @@ class AddProductCubit extends Cubit<AddProductState> {
       log(
         error.toString(),
       );
-      Navigator.pop(context);
+      // Navigator.pop(context);
       emit(
         AddProductFailureState(
           errors: error,

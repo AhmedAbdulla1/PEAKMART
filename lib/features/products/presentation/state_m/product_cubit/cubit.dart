@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
+import 'package:peakmart/features/products/data/models/product_model.dart';
 import 'package:peakmart/features/products/presentation/state_m/product_cubit/state.dart';
-import 'package:peakmart/features/products/presentation/views/products_view.dart';
 
 class ProductCubit extends Cubit<ProductState> {
   ProductCubit() : super(ProductInitial());
@@ -41,7 +41,7 @@ class ProductCubit extends Cubit<ProductState> {
       List<Product> productsList =
           products.map((e) => Product.fromJson(e)).toList();
 
-      Future.delayed(Duration(milliseconds: 500))
+      Future.delayed(const Duration(milliseconds: 500))
           .then((value) => emit(ProductLoaded(products: productsList)));
     } catch (e) {
       emit(ProductError(

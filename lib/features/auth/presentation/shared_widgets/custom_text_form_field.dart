@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
@@ -8,7 +7,7 @@ import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/validators.dart';
 
-class CustomTextFormField extends StatelessWidget {
+class CustomTextFormField extends StatefulWidget {
   final String labelText;
   final String hintText;
   final IconData? iconData;
@@ -34,52 +33,66 @@ class CustomTextFormField extends StatelessWidget {
   });
 
   @override
+  State<CustomTextFormField> createState() => _CustomTextFormFieldState();
+}
+
+class _CustomTextFormFieldState extends State<CustomTextFormField> {
+  bool _isEmpty = true;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(() {
+      setState(() {
+        _isEmpty = widget.controller.text.isEmpty;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
-      maxLines: isShowDescription == true ? null : 1,
-      keyboardType: inputType,
+      controller: widget.controller,
+      maxLines: widget.isShowDescription == true ? null : 1,
+      keyboardType: widget.inputType,
       style: getRegularStyle(
         color: ColorManager.primary,
         fontSize: FontSize.s16,
       ),
-      inputFormatters: inputFormatter,
-      onChanged: onChanged,
-      // autovalidateMode: AutovalidateMode.onUserInteraction,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
-        if (validator != null) {
-          return validator!(value);
-        }
-        if (hintText == AppStrings.emailHint) {
-          return Validator.validateEmail(value!);
-        }
-        if (hintText == AppStrings.userNameHint) {
-          return Validator.validateUserName(value!);
-        }
-        if (value == null || value.isEmpty) {
+        if (value == null || value.trim().isEmpty) {
           return AppStrings.fieldRequired;
+        }
+        if (widget.validator != null) {
+          return widget.validator!(value);
         }
         return null;
       },
+      inputFormatters: [
+        if (widget.isAcceptNumbersOnly == true)
+          FilteringTextInputFormatter.digitsOnly,
+      ],
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        labelText: labelText,
-        hintText: hintText,
-        contentPadding: isShowDescription == true
-            ? const EdgeInsets.only(top: AppPadding.p100, left: AppPadding.p20)
-            : const EdgeInsets.all(AppPadding.p20),
+        labelText: widget.labelText,
+        hintText: widget.hintText,
+        contentPadding: widget.isShowDescription == true
+            ? (_isEmpty
+                ? const EdgeInsets.symmetric(vertical: 50, horizontal: 20)
+                : const EdgeInsets.all(20))
+            : const EdgeInsets.all(20),
         prefixIconColor: ColorManager.lightGrey,
-        prefixIcon: iconData != null
+        prefixIcon: widget.iconData != null
             ? Padding(
                 padding: const EdgeInsets.only(left: 5.0),
                 child: Icon(
-                  iconData,
+                  widget.iconData,
                   size: 28.sp,
                 ),
               )
             : null,
-
-      )
+      ),
     );
   }
 }

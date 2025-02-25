@@ -14,6 +14,7 @@ import 'package:peakmart/features/main/main_view.dart';
 import 'package:peakmart/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:peakmart/features/products/presentation/views/auction_rules_view.dart';
 import 'package:peakmart/features/products/presentation/views/privacy_and_policy_view.dart';
+import 'package:peakmart/features/products/presentation/views/product_details.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/product_details.dart';
 import 'package:peakmart/features/products/presentation/views/products_view.dart';
 
@@ -31,7 +32,7 @@ class RouteGenerator {
           return MaterialPageRoute(builder: (_) => const OnboardingView());
         } else if (_appPreferences.isPressKeyLoginScreen()) {
           initHomeModule();
-          return MaterialPageRoute(builder: (_) => MainView());
+          return MaterialPageRoute(builder: (_) => const MainView());
         } else {
           initLoginModule();
           return MaterialPageRoute(builder: (_) => const LogInView());
@@ -43,7 +44,7 @@ class RouteGenerator {
       case MainView.routeName:
         initHomeModule();
         return MaterialPageRoute(
-          builder: (_) => MainView(),
+          builder: (_) => const MainView(),
         );
       case LogInView.routeName:
         initLoginModule();
@@ -68,7 +69,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const SignUpForBidView());
 
       case BidOwnerView.routeName:
-        initBidOwnerModule  ();
+        initBidOwnerModule();
         return MaterialPageRoute(builder: (_) => const BidOwnerView());
       case PrivacyAndPolicyView.routeName:
         return MaterialPageRoute(builder: (_) => const PrivacyAndPolicyView());

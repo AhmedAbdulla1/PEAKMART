@@ -5,7 +5,6 @@ import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/shared_widgets/text_fields.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/password_text_form_field.dart';
-import 'package:peakmart/features/auth/presentation/views/sign_up/widgets/sign_up_build_widgets.dart';
 
 class SignUpUserAcceptData extends StatefulWidget {
   const SignUpUserAcceptData({
@@ -31,7 +30,7 @@ class SignUpUserAcceptData extends StatefulWidget {
 class _SignUpUserAcceptDataState extends State<SignUpUserAcceptData> {
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         CustomTextFormField(
@@ -52,7 +51,7 @@ class _SignUpUserAcceptDataState extends State<SignUpUserAcceptData> {
         SizedBox(height: 25.h),
 
         CustomPhoneTextField(
-          controller: phoneController,
+          controller: widget.phoneController,
           onCountryChanged: widget.onCountryChanged,
         ),
         SizedBox(height: 10.h),

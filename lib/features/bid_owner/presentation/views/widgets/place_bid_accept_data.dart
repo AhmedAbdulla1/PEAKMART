@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
-import 'package:peakmart/features/bid_owner/presentation/widgets/custom_date_field.dart';
+import 'package:peakmart/features/bid_owner/presentation/views/widgets/custom_date_field.dart';
 
 class PlaceBidAcceptData extends StatelessWidget {
   const PlaceBidAcceptData({
@@ -25,6 +25,40 @@ class PlaceBidAcceptData extends StatelessWidget {
   final TextEditingController startDateController;
   final TextEditingController arrivalDateController;
   final TextEditingController periodOfBidsController;
+  String? validatePrice() {
+    if (startingPriceController.text.isEmpty ||
+        expectedPriceController.text.isEmpty) {
+      return "Both prices are required";
+    }
+    int? startingPrice = int.tryParse(startingPriceController.text);
+    int? expectedPrice = int.tryParse(expectedPriceController.text);
+
+    if (startingPrice == null || expectedPrice == null) {
+      return "Please enter valid numeric values";
+    }
+    if (startingPrice < 0 || expectedPrice < 0) {
+      return "Price cannot be negative";
+    }
+    if (startingPrice >= expectedPrice) {
+      return "Expected price must be greater than starting price";
+    }
+    return null;
+  }
+
+  String? validatePeriod() {
+    String input = periodOfBidsController.text.trim();
+    if (input.isEmpty) {
+      return "Please enter period of bids";
+    }
+    int? period = int.tryParse(input);
+    if (period == null) {
+      return "Please enter a valid number";
+    }
+    if (period <= 0) {
+      return "Period of bids must be greater than 0";
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +70,7 @@ class PlaceBidAcceptData extends StatelessWidget {
             isUsedWithBidOwner: true,
             inputType: TextInputType.text,
             controller: productNameController),
-        SizedBox(
-          height: 23.h,
-        ),
+        23.vGap,
         CustomTextFormField(
             labelText: AppStrings.description,
             hintText: AppStrings.description,
@@ -46,50 +78,53 @@ class PlaceBidAcceptData extends StatelessWidget {
             isUsedWithBidOwner: true,
             inputType: TextInputType.multiline,
             controller: descriptionController),
-        SizedBox(
-          height: 23.h,
-        ),
+        23.vGap,
         CustomTextFormField(
             labelText: AppStrings.startingPrice,
             hintText: AppStrings.startingPrice,
             inputType: TextInputType.number,
             isUsedWithBidOwner: true,
+            isAcceptNumbersOnly: true,
             controller: startingPriceController),
-        SizedBox(
-          height: 23.h,
-        ),
+        23.vGap,
         CustomTextFormField(
             labelText: AppStrings.expectedPrice,
             hintText: AppStrings.expectedPrice,
+            validator: (value) {
+              return validatePrice();
+            },
             isUsedWithBidOwner: true,
+            isAcceptNumbersOnly: true,
             inputType: TextInputType.number,
             controller: expectedPriceController),
-        SizedBox(
-          height: 23.h,
-        ),
+        23.vGap,
         CustomTextFormField(
             labelText: AppStrings.location,
             hintText: AppStrings.location,
             isUsedWithBidOwner: true,
             inputType: TextInputType.text,
             controller: locationController),
-        SizedBox(
-          height: 23.h,
-        ),
+        23.vGap,
         CustomDateField(
-            controller: startDateController, labelText: AppStrings.startDate,),
-        SizedBox(
-          height: 23.h,
-        ),CustomDateField(
-            controller: arrivalDateController, labelText: AppStrings.arrivalDate),
-        
-        SizedBox(
-          height: 23.h,
+          controller: startDateController,
+          labelText: AppStrings.startDate,
+          isStartDate: true,
         ),
+        23.vGap,
+        CustomDateField(
+          controller: arrivalDateController,
+          labelText: AppStrings.arrivalDate,
+          startDateController: startDateController,
+        ),
+        23.vGap,
         CustomTextFormField(
             labelText: AppStrings.periodOfBids,
             hintText: AppStrings.periodOfBids,
             isUsedWithBidOwner: true,
+            isAcceptNumbersOnly: true,
+            validator: (value) {
+              return validatePrice();
+            },
             inputType: TextInputType.number,
             controller: periodOfBidsController),
       ],

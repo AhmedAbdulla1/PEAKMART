@@ -1,19 +1,37 @@
 import 'package:easy_localization/easy_localization.dart';
 
 class AppStrings {
-  static String phone = tr('mobile_number');
-  static String phoneHint = tr('mobile_number_hint');
-  static String phoneError = tr("invalid_mobile_number");
-  static String searchCountry = tr("search_country");
+  static String googleSignInLoading = tr('Google Sign In Loading');
+  static String googleSignInSuccess = tr('Google Sign In Success');
+  static String googleSignInFailed = tr('Google Sign In Failed');
+  static String googleSignInCancelled = tr('Google Sign In Cancelled');
+  static String googleAuthFailed = tr('Google Auth Failed');
+  static String networkError = tr('Network Error, Please Try Again');
+  static String unexpectedError = tr('Unexpected Error');
 
-  static String emailErrorEmpty = tr('email_empty');
-  static String emailNotValid = tr('email_not_valid');
-  static String passwordErrorEmpty = tr('password_empty');
-  static String cancel = tr('cancel');
-  static String confirm = tr('confirm');
-  static String forgotPassword = tr('forgot_password');
-  static String resetPassword = tr('reset_password');
-  static String forgotPasswordHint = tr('reset_password_hint');
+  //* Firebase Authentication Errors
+  static String accountExistsWithDifferentCredential =
+      tr('Account Exists With Different Credential');
+  static String invalidCredential = tr('Invalid Credential');
+  static String operationNotAllowed = tr('Operation Not Allowed');
+  static String userDisabled = tr('User Disabled');
+  static String userNotFound = tr('User Not Found');
+  static String wrongPassword = tr('Wrong Password');
+  static String authError = tr('Auth Error');
+  static String phone = tr('Mobile Number');
+  static String phoneHint = tr('Mobile Number Hint');
+  static String phoneError = tr("Invalid Mobile Number");
+  static String searchCountry = tr("Search Country");
+
+  static String emailErrorEmpty = tr('Email Empty');
+  static String emailNotValid = tr('Email Not Valid');
+  static String passwordErrorEmpty = tr('Password Empty');
+  static String cancel = tr('Cancel');
+  static String confirm = tr('Confirm');
+  static String forgotPassword = tr('Forgot Password');
+  static String resetPassword = tr('Reset Password');
+  static String forgotPasswordHint = tr('Reset Password Hint');
+  static String welcomeBack = tr('Welcome Back!');
   static const String enterEmail = 'Please enter an email address';
   static const String rPSMessage =
       'Send you a message to set or reset your new password';
@@ -77,6 +95,8 @@ class AppStrings {
   static const String futureBids = 'Future Bids';
   static const String bidsWorkNow = 'Bids Work Now';
   static const String endedBids = 'Ended Bids';
+  static const String product = 'Product';
+
   static const productName = 'Product Name';
   static const String description = 'Description';
   static const String startingPrice = 'Starting price';
@@ -258,7 +278,7 @@ The platform reserves the right to change these rules at any time. Users will be
   static const String loading = 'loading';
   static const String ok = 'OK';
   static const String retry = 'retry again';
-  static const profilePicture = "upload_profile_picture";
+  static const profilePicture = "upload profile picture";
   static const photoGallery = "Photo From Galley";
   static const photoCamera = "Photo From Camera";
   static const home = 'Home';
@@ -271,14 +291,14 @@ The platform reserves the right to change these rules at any time. Users will be
   static const String cancelError = "cancelError";
   static const String loginErrorRequired = "loginErrorRequired";
   static const String connectionErrorMessage = 'Connection error message';
-  static const String noContent = "no_content";
-  static const String forbiddenError = "forbidden_error";
-  static const String unauthorizedError = "unauthorized_error";
-  static const String notFoundError = "not_found_error";
-  static const String conflictError = "conflict_error";
-  static const String internalServerError = "internal_server_error";
-  static const String unknownError = "unknown_error";
-  static const String timeoutError = "timeout_error";
+  static const String noContent = "no content";
+  static const String forbiddenError = "forbidden error";
+  static const String unauthorizedError = "unauthorized error";
+  static const String notFoundError = "not found error";
+  static const String conflictError = "conflict error";
+  static const String internalServerError = "internal server error";
+  static const String unknownError = "unknown error";
+  static const String timeoutError = "timeout error";
   static const String defaultError = "هناك حظا ما";
   static const String cacheError = "لا توجد بيانات";
   static const String noInternetError = "No Internet";

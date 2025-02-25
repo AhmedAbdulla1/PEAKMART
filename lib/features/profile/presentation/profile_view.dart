@@ -23,7 +23,7 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -59,7 +59,7 @@ class _ProfileViewState extends State<ProfileView> {
                   value: reLoginSwitch,
                   onChanged: (value) {
                     setState(() {
-                        reLoginSwitch = value;
+                      reLoginSwitch = value;
                     });
                     _appPreferences.remove(pressKeyLoginScreen);
                     _appPreferences.remove(userIdKey);
@@ -76,7 +76,7 @@ class _ProfileViewState extends State<ProfileView> {
               ),
               Switch(
                   value: logoutSwitch,
-                  onChanged: (value)async {
+                  onChanged: (value) async {
                     setState(() {
                       logoutSwitch = value;
                     });

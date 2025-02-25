@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:peakmart/core/resources/assets_manager.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
@@ -10,13 +11,15 @@ import 'package:peakmart/core/resources/values_manager.dart';
 class OtherLoginMethodsShape extends StatelessWidget {
   const OtherLoginMethodsShape({
     super.key,
-    required this.icon,
+    this.onTap,
+    this.isLoading,
   });
-  final String icon;
+  final void Function()? onTap;
+  final bool? isLoading;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p5),
       child: Card(
         clipBehavior: Clip.antiAlias,
         color: ColorManager.textFormBackground,
@@ -25,27 +28,29 @@ class OtherLoginMethodsShape extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         child: InkWell(
-          onTap: () {
-            Phoenix.rebirth(context);
-          },
+          onTap: onTap,
           splashColor: const Color(0xffFCF3F6),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p40, vertical:  AppPadding.p10),
             child: Center(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SvgPicture.asset(
-                    icon,
-                  ),
-                  const SizedBox(
-                    width: AppSize.s18,
-                  ),
-                  Text(AppStrings.google,
-                      style: getRegularStyle(
-                          fontSize: FontSize.s16, color: ColorManager.grey1)),
-                ],
-              ),
+              child: isLoading == true
+                  ? const CircularProgressIndicator(
+                      strokeWidth: 3,
+                      semanticsLabel: "Loading",
+                    )
+                  : Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SvgPicture.asset(
+                          IconsAssets.googleIcon,
+                        ),
+                        18.hGap,
+                        Text(AppStrings.google,
+                            style: getRegularStyle(
+                                fontSize: FontSize.s16,
+                                color: ColorManager.grey1)),
+                      ],
+                    ),
             ),
           ),
         ),

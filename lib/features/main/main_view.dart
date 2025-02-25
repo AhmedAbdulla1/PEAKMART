@@ -1,58 +1,54 @@
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:peakmart/core/resources/assets_manager.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/features/home/presentation/views/home_view.dart';
-import 'package:peakmart/features/main/main_view_model.dart';
-import 'package:peakmart/features/main/widget/custom_nav_bar.dart';
 import 'package:peakmart/features/products/presentation/views/products_view.dart';
 import 'package:peakmart/features/profile/presentation/profile_view.dart';
 
-class MainView extends StatelessWidget {
-  MainView({super.key});
+class MainView extends StatefulWidget {
+  const MainView({super.key});
 
   static const String routeName = '/main_view';
 
-  final MainViewModel _viewModel = MainViewModel();
+  @override
+  State<MainView> createState() => _MainViewState();
+}
 
-  final List<NavBarItem> _navBarItems = [
-    NavBarItem(iconPath: IconsAssets.home, label: 'Home'),
-    NavBarItem(iconPath: IconsAssets.products, label: 'Products'),
-    NavBarItem(iconPath: IconsAssets.notification, label: 'Notification'),
-    NavBarItem(iconPath: IconsAssets.profile, label: 'Profile'),
+class _MainViewState extends State<MainView> {
+  int _currentPageIndex = 0;
+  final List<TabItem> _navBarItems = const [
+    TabItem(icon: Icons.home, title: AppStrings.home),
+    TabItem(icon: Icons.shopping_cart, title: AppStrings.product),
+    TabItem(icon: Icons.notifications, title: AppStrings.notification),
+    TabItem(icon: Icons.people, title: AppStrings.profile),
   ];
-
-  void _onNavItemTapped(int index) {
-    _viewModel.onNavItemTapped(index);
+  List<Widget> getBottomNavigationBarBody() {
+    return [
+      const HomeView(),
+      const ProductsView(),
+      const Center(child: Text(AppStrings.notification)),
+      const ProfileView(),
+    ];
   }
-
-  Widget _buildBodyScreens(index) => [
-        HomeView(),
-        ProductsView(),
-        Text('Notification',
-            style: getBoldStyle(color: ColorManager.primary, fontSize: 20)),
-        ProfileView(),
-      ][index];
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<int>(
-        stream: _viewModel.currentIndexOutput,
-        builder: (context, snapshot) {
-          int currentIndex = snapshot.data ?? 0;
-          return SafeArea(
-            child: Scaffold(
-              body: Center(
-                child: _buildBodyScreens(snapshot.data ?? 0),
-              ),
-              bottomNavigationBar: CustomNavigationBar(
-                items: _navBarItems,
-                initialIndex: currentIndex,
-                onTap: _onNavItemTapped,
-                indicatorHeight: 6,
-              ),
-            ),
-          );
-        });
+    return Scaffold(
+      body: getBottomNavigationBarBody()[_currentPageIndex],
+      bottomNavigationBar: ConvexAppBar(
+        height: 55,
+        curve: Curves.easeInOut,
+        style: TabStyle.custom,
+        color: ColorManager.bottomNavBarSecondary,
+        backgroundColor: ColorManager.white,
+        activeColor: ColorManager.primary,
+        items: _navBarItems,
+        initialActiveIndex: _currentPageIndex,
+        onTap: (index) {
+          setState(() => _currentPageIndex = index);
+        },
+      ),
+    );
   }
 }

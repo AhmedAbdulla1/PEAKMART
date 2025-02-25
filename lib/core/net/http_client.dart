@@ -1,14 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:injectable/injectable.dart';
+import 'package:peakmart/app/app_prefs.dart';
+import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/constants/enums/http_method.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/models/base_model.dart';
 import 'package:peakmart/core/net/response_validators/response_validator.dart';
+import 'package:peakmart/core/resources/extentions.dart';
 
 import 'api_url.dart';
 import 'base_http_client.dart';
@@ -17,8 +22,10 @@ import 'models_factory.dart';
 @lazySingleton
 class HttpClient extends BaseHttpClient {
   late Dio _client;
+  final CookieJar cookieJar = CookieJar();
 
-  Dio get instance => _client;
+  Dio get client => _client;
+  final AppPreferences appPreferences = instance<AppPreferences>();
 
   HttpClient() {
     BaseOptions options = BaseOptions(
@@ -29,6 +36,7 @@ class HttpClient extends BaseHttpClient {
       baseUrl: APIUrls.baseUrl,
     );
     _client = Dio(options);
+    _client.interceptors.add(CookieManager(cookieJar));
 
     /// for alice inspector
     // _client.interceptors
@@ -117,12 +125,15 @@ class HttpClient extends BaseHttpClient {
     CancelToken? cancelToken,
     String? baseUrl,
     bool isFormData = false,
+    bool saveCookies = false,
+    List<Map<String, dynamic>>? files, // Add this parameter for file uploads
   }) async {
     if (baseUrl != null) {
       _client.options.baseUrl = baseUrl;
     } else {
       _client.options.baseUrl = APIUrls.baseUrl;
     }
+
     // Get the response from the server
     Response response;
     try {
@@ -136,13 +147,46 @@ class HttpClient extends BaseHttpClient {
           break;
         case HttpMethod.POST:
           print("body $body");
-          response = await _client.post(
-            url,
-            data: isFormData && body != null ? FormData.fromMap(body) :json.encode(body),
-            queryParameters: queryParameters,
-            options: Options(headers: headers),
-            cancelToken: cancelToken,
-          );
+
+          // Handle multipart request if files are provided
+          if (files != null && files.isNotEmpty) {
+            // Create FormData for multipart request
+            FormData formData = FormData.fromMap(body ?? {});
+
+            // Add files to FormData
+            for (var file in files) {
+              print("file $file");
+              formData.files.add(MapEntry(
+                file['fieldName'], // Field name for the file
+                await MultipartFile.fromFile(
+                  file['filePath'], // Path to the file
+                  filename: file['fileName'], // Optional: File name
+                  contentType:
+                      MediaType('image', 'jpg'), // Optional: Content type
+                ),
+              ));
+            }
+
+            // Send multipart request
+            response = await _client.post(
+              url,
+              data: formData,
+              queryParameters: queryParameters,
+              options: Options(headers: headers),
+              cancelToken: cancelToken,
+            );
+          } else {
+            // Normal POST request
+            response = await _client.post(
+              url,
+              data: isFormData && body != null
+                  ? FormData.fromMap(body)
+                  : json.encode(body),
+              queryParameters: queryParameters,
+              options: Options(headers: headers),
+              cancelToken: cancelToken,
+            );
+          }
 
           print("response $response");
           break;
@@ -165,40 +209,37 @@ class HttpClient extends BaseHttpClient {
           );
           break;
       }
-      // Get the decoded json
-      /// json response like this
-      /// {"data":"our data",
-      /// "succeed":true of false,
-      /// "message":"message if there is error"}
-      /// response.data["succeed"] return true if request
-      /// succeed and false if not so if was true we don't need
-      /// return this value to model we just need the data
-      var model;
+
+      // Process the response
       print(response.data);
       responseValidator.processData(response.data);
-      if (responseValidator.isValid) {
-        if (response.statusCode == 401) {}
 
-        /// Here we send the data from response to Models factory
-        /// to assign data as model
-        ///
+      if (responseValidator.isValid) {
+        if (response.statusCode == 401) {
+          return const Left(UnauthorizedError());
+        }
+
+        // Map response data to model
+        T model;
         try {
           model = ModelsFactory().createModel<T>(response.data);
         } catch (e) {
-          if (response.statusCode == 401) {
-            return const Left(UnauthorizedError());
-          }
           return Left(CustomError(message: e.toString()));
         }
+
+        // Save cookies if required
+        if (saveCookies) {
+          List<Cookie> cookies = await cookieJar.loadForRequest(Uri.parse(url));
+          await appPreferences.setCookies(cookies.toMap());
+          print('Cookies after request: $cookies');
+        }
+
         return Right(model);
       } else if (responseValidator.hasError) {
         return Left(CustomError(message: responseValidator.errorMessage!));
-      } else
-        return const Left(
-          CustomError(
-            message: 'genral error',
-          ),
-        );
+      } else {
+        return const Left(CustomError(message: 'General error'));
+      }
     }
 
     /// Handling errors
@@ -209,6 +250,8 @@ class HttpClient extends BaseHttpClient {
     /// Couldn't reach out the server
     on SocketException {
       return const Left(SocketError());
+    } catch (e) {
+      return Left(CustomError(message: e.toString()));
     }
   }
 
@@ -459,15 +502,15 @@ class HttpClient extends BaseHttpClient {
         switch (error.response!.statusCode) {
           case 400:
             print(error.response!.statusCode);
-            return  BadRequestError(message: error.response!.data["message"]);
+            return BadRequestError(message: error.response!.data["message"]);
           case 401:
-            return  UnauthorizedError(message: error.response!.data["message"]);
+            return UnauthorizedError(message: error.response!.data["message"]);
           case 403:
-            return  ForbiddenError(message: error.response!.data["message"]);
+            return ForbiddenError(message: error.response!.data["message"]);
           case 404:
             return NotFoundError(error.response!.data["message"]);
           case 409:
-            return  ConflictError(message: error.response!.data["message"]);
+            return ConflictError(message: error.response!.data["message"]);
           case 500:
             if (error.response?.data is Map) {
               if (error.response!.data?["message"] != null ||
@@ -484,7 +527,7 @@ class HttpClient extends BaseHttpClient {
 
           //   return ErrorMessageModel<E>.fromMap(error.response!.data);
           default:
-            return  UnknownError(message: error.response!.data["message"]);
+            return UnknownError(message: error.response!.data["message"]);
         }
       }
       return const UnknownError();

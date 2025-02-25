@@ -47,8 +47,10 @@ class SignUpForBidCubit extends Cubit<SignUpState> {
     Result<AppErrors, EmptyEntity> result =
     await authRepo.sellerInfo(sellerInfoRequest: sellerInfo);
     result.pick(onData: (data) {
+      Navigator.pop(context);
       emit(SignUpDetailsSuccess());
     }, onError: (error) {
+      Navigator.pop(context);
       emit(SignUpDetailsFailure(error: error, onRetry: () {}));
     });
   }

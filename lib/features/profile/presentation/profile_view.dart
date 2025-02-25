@@ -76,13 +76,14 @@ class _ProfileViewState extends State<ProfileView> {
               ),
               Switch(
                   value: logoutSwitch,
-                  onChanged: (value) {
+                  onChanged: (value) async {
                     setState(() {
                       logoutSwitch = value;
                     });
-                    _appPreferences.logout();
-                    Navigator.pushReplacementNamed(
-                        context, LogInView.routeName);
+                    await _appPreferences.logout();
+                    print('logout');
+                    print(_appPreferences.getCookiesKey());
+                    Navigator.pushNamed(context, LogInView.routeName);
                   }),
             ],
           ),

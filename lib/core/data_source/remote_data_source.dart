@@ -88,6 +88,8 @@ class RemoteDataSource {
     Map<String, String>? headers,
     String? baseUrl,
     bool isFormData = false,
+    bool saveCookies = false,
+    List<Map<String, dynamic>>? files,
     CreateModelInterceptor createModelInterceptor =
         const DefaultCreateModelInterceptor(),
   }) async {
@@ -111,10 +113,10 @@ class RemoteDataSource {
       cancelToken: cancelToken,
       responseValidator: responseValidator ?? DefaultResponseValidator(),
       baseUrl: baseUrl,
+      saveCookies: saveCookies,
+      files: files,
+      isFormData: isFormData,
     );
-    if(T is NewsResponse) print("news response");
-    if (T is NewsResponse) print(response);
-    if(T is NewsResponse) print(response.isLeft());
 
     /// convert jsonResponse to model and return it
     if (response.isLeft()) {
@@ -184,4 +186,8 @@ class RemoteDataSource {
     } else
       return const Left(UnknownError());
   }
+
+
+
+
 }

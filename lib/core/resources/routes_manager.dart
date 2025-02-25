@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
+import 'package:peakmart/features/auth/data/model/request/verfiy_otp_request.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
 import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification.dart';
 import 'package:peakmart/features/auth/presentation/views/reset_password/view.dart';
@@ -56,7 +57,9 @@ class RouteGenerator {
       case OtpVerification.routeName:
         // final registerEntity = settings.arguments as RegisterEntity;
         return MaterialPageRoute(
-          builder: (_) => const OtpVerification(),
+          builder: (_) =>  OtpVerification(
+            verificationType: settings.arguments as VerificationType,
+          ),
         );
 
       case ForgotPasswordView.routeName:

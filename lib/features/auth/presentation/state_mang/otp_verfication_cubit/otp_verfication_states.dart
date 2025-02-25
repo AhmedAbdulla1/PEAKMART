@@ -1,20 +1,20 @@
 part of 'otp_verfication_cubit.dart';
 
-sealed class OtpVerficationState {}
+sealed class OtpVerificationState {}
 
-final class OtpVerficationInitialState extends OtpVerficationState {}
+final class OtpVerificationInitialState extends OtpVerificationState {}
 
-final class OtpVerficationLoadingState extends OtpVerficationState {}
+final class OtpVerificationLoadingState extends OtpVerificationState {}
 
-final class OtpVerficationFailureState extends OtpVerficationState {
+final class OtpVerificationFailureState extends OtpVerificationState {
   final AppErrors errors;
   final Function() onRetry;
 
- OtpVerficationFailureState({required this.errors, required this.onRetry});
+ OtpVerificationFailureState({required this.errors, required this.onRetry});
 }
 
-final class OtpVerficationSuccessState extends OtpVerficationState {
+final class OtpVerificationSuccessState extends OtpVerificationState {
   bool isVerified;
 
-  OtpVerficationSuccessState({this.isVerified = false});
+  OtpVerificationSuccessState({this.isVerified = false});
 }

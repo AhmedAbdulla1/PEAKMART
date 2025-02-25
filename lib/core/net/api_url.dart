@@ -9,7 +9,10 @@ class APIUrls {
   static const register = "${baseUrl}login_API/signUp-api.php";
   static const sendOtp = "${baseUrl}login_API/SendOTP.php";
   static const verfiyOtp = "${baseUrl}login_API/verfiyOTP.php";
+  static const sendWatsAppOtp = "${baseUrl}bids/whatsApp.php";
+  static const verfiyWatsAppOtp = "${baseUrl}bids/verify.php";
   static const registerAsSeller = "${baseUrl}bids/bid_own_rig.php";
+  static const addSellerInfo = "${baseUrl}bids/bid_owner_rig_info.php";
 
 
   // home api

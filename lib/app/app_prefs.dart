@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/language_manager.dart';
@@ -6,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const String prefsKeyLang = "PrefsKeyLang";
 const String pressKeyOnBoardingScreen = 'PressKeyOnBoardingScreen';
+const String cookiesKey = 'cookiesKey';
 const String pressKeyLoginScreen = 'PressKeyLoginScreen';
 const String locationKey = 'locationKey';
 const String userIdKey = 'userIdKey';
@@ -101,11 +103,40 @@ class AppPreferences {
   // logout
   Future<void> logout() async {
     // await _sharedPreferences.remove(pressKeyOnBoardingScreen);
+    await _sharedPreferences.remove(cookiesKey);
     await _sharedPreferences.remove(userIdKey);
     await _sharedPreferences.remove(pressKeyLoginScreen);
   }
 
   Future<void> remove(String key) async {
     _sharedPreferences.remove(key);
+  }
+
+  Future<void> setCookies(Map<String, String> value) async {
+    for (String key in value.keys) {
+      await _sharedPreferences.setString(key, value[key] ?? '');
+    }
+    Set<String> keys = getCookiesKey().toSet();
+    keys.addAll(value.keys);
+    await _sharedPreferences.setStringList(cookiesKey, keys.toList());
+    print('on set  cookies ${_sharedPreferences.getStringList(cookiesKey)}');
+    print(getCookies());
+  }
+
+  List<String> getCookiesKey() {
+    return _sharedPreferences.getStringList(cookiesKey) ?? [];
+  }
+
+  String getCookie(String key) {
+    return _sharedPreferences.getString(key) ?? '';
+  }
+
+  List<String> getCookies() {
+    List<String> cookies = [];
+    for (String key in getCookiesKey()) {
+      String cookie = "$key=${getCookie(key)}";
+      cookies.add(cookie);
+    }
+    return  cookies;
   }
 }

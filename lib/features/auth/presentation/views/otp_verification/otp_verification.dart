@@ -9,9 +9,14 @@ import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_v
 class OtpVerification extends StatelessWidget {
   const OtpVerification({
     super.key,
+    required this.verificationType,
   });
+
+  final VerificationType verificationType;
+
   // final RegisterEntity registerEntity;
   static const String routeName = '/otp_verification';
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -20,11 +25,14 @@ class OtpVerification extends StatelessWidget {
         appBar: CustomAppBar(
           title: AppStrings.otp,
         ),
-        body: BlocProvider(
-          create: (context) => OtpVerfictionCubit(),
-          child: const OtpVerificationBody(),
-        ),
+        body: BlocProvider<OtpVerfictionCubit>(
+            create: (context) => verificationType == VerificationType.watsApp
+                ? (OtpVerfictionCubit()..sendWatsAppOtp())
+                : (OtpVerfictionCubit()),
+            child: const OtpVerificationBody()),
       ),
     );
   }
 }
+
+enum VerificationType { email, watsApp }

@@ -9,6 +9,8 @@ class CustomDateField extends StatefulWidget {
   final DateTime? firstDate;
   final DateTime? lastDate;
   final bool allowFutureDates;
+  final bool isStartDate; // لمعرفة ما إذا كان هذا الحقل هو start date أم arrival date
+  final TextEditingController? startDateController; // للتحقق عند اختيار تاريخ الوصول
 
   const CustomDateField({
     super.key,
@@ -17,6 +19,8 @@ class CustomDateField extends StatefulWidget {
     this.firstDate,
     this.lastDate,
     this.allowFutureDates = true,
+    this.isStartDate = false,
+    this.startDateController,
   });
 
   @override
@@ -46,13 +50,30 @@ class _CustomDateFieldState extends State<CustomDateField> {
   }
 
   String? _validateDate(String? value) {
-    if (value == null || value.isEmpty) {
+    if (value == null || value.trim().isEmpty) {
       return "Please enter a date";
     }
     try {
-      DateTime parsedDate = _dateFormat.parseStrict(value);
-      if (!widget.allowFutureDates && parsedDate.isAfter(DateTime.now())) {
-        return "Date cannot be in the future";
+      DateTime parsedDate = _dateFormat.parseStrict(value.trim());
+      DateTime today = DateTime.now();
+      DateTime todayOnlyDate = DateTime(today.year, today.month, today.day);
+
+      if (widget.isStartDate) {
+        if (parsedDate.isBefore(todayOnlyDate)) {
+          return "Start date must be today or in the future";
+        }
+      } else {
+        if (parsedDate.isBefore(todayOnlyDate)) {
+          return "Arrival date must be today or in the future";
+        }
+        if (widget.startDateController != null &&
+            widget.startDateController!.text.isNotEmpty) {
+          DateTime startDate =
+              _dateFormat.parseStrict(widget.startDateController!.text);
+          if (parsedDate.isBefore(startDate)) {
+            return "Arrival date must be after or equal to start date";
+          }
+        }
       }
     } catch (e) {
       return "Invalid format (DD-MM-YYYY)";
@@ -64,7 +85,7 @@ class _CustomDateFieldState extends State<CustomDateField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.datetime,
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
         _DateInputFormatter(),
@@ -73,7 +94,7 @@ class _CustomDateFieldState extends State<CustomDateField> {
         labelText: widget.labelText,
         hintText: "DD-MM-YYYY",
         alignLabelWithHint: true,
-        floatingLabelBehavior: FloatingLabelBehavior.never,
+        floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: IconButton(
           icon: const Padding(
             padding: EdgeInsets.all(8.0),
@@ -85,6 +106,7 @@ class _CustomDateFieldState extends State<CustomDateField> {
           onPressed: () => _selectDate(context),
         ),
       ),
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: _validateDate,
     );
   }
@@ -94,9 +116,7 @@ class _DateInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
-    String text = newValue.text
-        .replaceAll(RegExp(r'\D'), ''); //* Remove non-digit characters
-
+    String text = newValue.text.replaceAll(RegExp(r'\D'), ''); 
     String formattedText = '';
     if (text.length > 2) {
       formattedText =
@@ -105,8 +125,7 @@ class _DateInputFormatter extends TextInputFormatter {
       formattedText = text;
     }
     if (text.length > 4) {
-      formattedText +=
-          '-${text.substring(4, text.length > 8 ? 8 : text.length)}';
+      formattedText += '-${text.substring(4, text.length > 8 ? 8 : text.length)}';
     }
 
     return TextEditingValue(

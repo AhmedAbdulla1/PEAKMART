@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
-import 'package:peakmart/features/bid_owner/presentation/widgets/custom_date_field.dart';
+import 'package:peakmart/features/bid_owner/presentation/views/widgets/custom_date_field.dart';
 
 class PlaceBidAcceptData extends StatelessWidget {
   const PlaceBidAcceptData({

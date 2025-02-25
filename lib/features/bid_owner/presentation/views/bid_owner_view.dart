@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -5,11 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/shared_widgets/buttons.dart';
-import 'package:peakmart/features/bid_owner/presentation/state_mang/add_product_cubit/image_picker_controller.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
 import 'package:peakmart/features/bid_owner/data/models/request/add_product_request.dart';
 import 'package:peakmart/features/bid_owner/presentation/state_mang/add_product_cubit/add_product_cubit.dart';
-import 'package:peakmart/features/bid_owner/presentation/widgets/place_bid_accept_data.dart';
+import 'package:peakmart/features/bid_owner/presentation/state_mang/add_product_cubit/image_picker_controller.dart';
+import 'package:peakmart/features/bid_owner/presentation/views/widgets/place_bid_accept_data.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/shared_widgets/image_picker_new.dart';
@@ -39,9 +40,7 @@ class _BidOwnerViewState extends State<BidOwnerView> {
               padding: EdgeInsets.symmetric(horizontal: 29.sp, vertical: 32.sp),
               child: ListView(
                 children: [
-                  const ImagePicker(
-                     
-                      title: AppStrings.addProductPhoto),
+                  const ImagePicker(title: AppStrings.addProductPhoto),
                   23.verticalSpace,
                   PlaceBidAcceptData(
                     productNameController: TextEditingController(),
@@ -83,7 +82,7 @@ class _BidOwnerViewState extends State<BidOwnerView> {
                                       periodOfBid: 7,
                                       categoryId: 1,
                                     );
-
+                                    log(addProductRequest.toJson().toString());
                                     context.read<AddProductCubit>().addProduct(
                                           addProductRequest: addProductRequest,
                                         );

@@ -9,7 +9,7 @@ import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/products/presentation/state_m/product_cubit/cubit.dart';
 import 'package:peakmart/features/products/presentation/state_m/product_cubit/state.dart';
-import 'package:peakmart/features/products/presentation/views/product_details.dart';
+import 'package:peakmart/features/products/presentation/views/product_details/product_details.dart';
 
 class ProductsView extends StatefulWidget {
   const ProductsView({super.key});
@@ -55,7 +55,7 @@ class _ProductsViewState extends State<ProductsView> {
 class Product {
   final int id;
   final String name;
-  final String imageUrl;
+  final List<String> imageUrl;
   final String endDate;
   final int peopleRolledIn;
   final double price;
@@ -73,9 +73,9 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      id: json['id'],
-      name: json['name'],
-      imageUrl: json['imageUrl'],
+      id: json['I_ID'],
+      name: json['ITEM_NAME'],
+      imageUrl: json['PHOTO'],
       endDate: json['endDate'],
       peopleRolledIn: json['peopleRolledIn'],
       price: json['price'].toDouble(),
@@ -112,7 +112,7 @@ class ItemWidget extends StatelessWidget {
               ),
             ),
             10.hGap,
-            Image.asset(product.imageUrl, width: 50, height: 50),
+            Image.asset(product.imageUrl[0], width: 50, height: 50),
             10.hGap,
             SizedBox(
               width: 250.w,

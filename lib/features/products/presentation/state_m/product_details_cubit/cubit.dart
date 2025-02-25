@@ -3,10 +3,10 @@ import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/features/products/presentation/state_m/product_cubit/state.dart';
 import 'package:peakmart/features/products/presentation/views/products_view.dart';
 
-class ProductCubit extends Cubit<ProductState> {
-  ProductCubit() : super(ProductInitial());
+class ProductDetailsCubit extends Cubit<ProductState> {
+  ProductDetailsCubit() : super(ProductInitial());
 
-  Future<void> fetchProducts() async {
+  Future<void> fetchProductData() async {
     emit(ProductLoading());
     try {
       final products = [

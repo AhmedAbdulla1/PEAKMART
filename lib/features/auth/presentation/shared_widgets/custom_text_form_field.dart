@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
@@ -16,7 +17,8 @@ class CustomTextFormField extends StatelessWidget {
   final bool? isShowDescription;
   final bool? isUsedWithBidOwner;
   final String? Function(String?)? validator;
-
+  final Function(String)?  onChanged;
+  final List<TextInputFormatter>? inputFormatter ;
   const CustomTextFormField({
     super.key,
     required this.labelText,
@@ -27,6 +29,8 @@ class CustomTextFormField extends StatelessWidget {
     this.isShowDescription,
     this.isUsedWithBidOwner,
     this.validator,
+    this.onChanged,
+    this.inputFormatter,
   });
 
   @override
@@ -39,7 +43,9 @@ class CustomTextFormField extends StatelessWidget {
         color: ColorManager.primary,
         fontSize: FontSize.s16,
       ),
-      autovalidateMode: AutovalidateMode.onUserInteraction,
+      inputFormatters: inputFormatter,
+      onChanged: onChanged,
+      // autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
         if (validator != null) {
           return validator!(value);
@@ -72,7 +78,7 @@ class CustomTextFormField extends StatelessWidget {
                 ),
               )
             : null,
-        
+
       )
     );
   }

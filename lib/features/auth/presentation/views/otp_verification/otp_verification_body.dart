@@ -37,14 +37,13 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
   @override
   void initState() {
     super.initState();
-
-    BlocProvider.of<OtpVerfictionCubit>(context).sendOtp(
-      sendOtpRequest: SendOtpRequest(
-        key: 'SM',
-        username: userName,
-        email: email,
-      ),
-    );
+    // BlocProvider.of<OtpVerfictionCubit>(context).sendOtp(
+    //   sendOtpRequest: SendOtpRequest(
+    //     key: 'SM',
+    //     username: userName,
+    //     email: email,
+    //   ),
+    // );
   }
 
   @override

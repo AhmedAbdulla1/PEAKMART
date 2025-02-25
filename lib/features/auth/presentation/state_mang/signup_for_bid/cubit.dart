@@ -30,6 +30,7 @@ class SignUpForBidCubit extends Cubit<SignUpState> {
 
   Future<void> register(
       {required RegisterAsSellerRequest registerRequest}) async {
+
     emit(SignUpLoading());
     Result<AppErrors, EmptyEntity> result =
         await authRepo.registerAsSeller(registerRequest: registerRequest);

@@ -1,10 +1,11 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
+import 'package:peakmart/core/resources/assets_manager.dart';
 
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/shared_widgets/buttons.dart';
@@ -15,6 +16,7 @@ import 'package:peakmart/features/auth/presentation/state_mang/signup_for_bid/cu
 import 'widgets/dropdown_menu.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
 class MainInfo extends StatefulWidget {
   const MainInfo({super.key});
 
@@ -25,9 +27,6 @@ class MainInfo extends StatefulWidget {
 class _MainInfoState extends State<MainInfo> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _countryController = TextEditingController();
   final TextEditingController _govController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _inlandController = TextEditingController();
@@ -35,34 +34,116 @@ class _MainInfoState extends State<MainInfo> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String? _selectedCountry;
-  bool isButtonActive = false;
   final List<String> countries = ['Egypt', 'Saudi Arabia'];
+
+  // Track touched state for each field
+  final Map<String, bool> _fieldTouchedState = {
+    'username': false,
+    'country': false,
+    'gov': false,
+    'city': false,
+    'address': false,
+    // 'inland': false,
+  };
+
+  // Check if all fields are valid
+  bool get _isFormValid {
+    // Check if all fields are touched
+    bool allFieldsTouched =
+        _fieldTouchedState.values.every((touched) => touched);
+
+    // Check if all fields are valid
+    bool allFieldsValid =
+        _validateDisplayName(_usernameController.text) == null &&
+            _validateCountry(_selectedCountry) == null &&
+            _validateGov(_govController.text) == null &&
+            _validateCity(_cityController.text) == null &&
+            _validateAddress(_addressController.text) == null;
+
+    // Return true only if all fields are touched and valid
+    return allFieldsTouched && allFieldsValid;
+  }
 
   @override
   void initState() {
     super.initState();
-    _usernameController.addListener(_checkFormValidation);
-    _addressController.addListener(_checkFormValidation);
-    _govController.addListener(_checkFormValidation);
-    _cityController.addListener(_checkFormValidation);
+    // Add listeners to controllers to update touched state
+    _fieldTouchedState['inland'] = true; // Mark as touched
+    _usernameController.addListener(() => _updateTouchedState('username'));
+    _govController.addListener(() => _updateTouchedState('gov'));
+    _cityController.addListener(() => _updateTouchedState('city'));
+    _addressController.addListener(() => _updateTouchedState('address'));
+    // _inlandController.addListener(() => _updateTouchedState('inland'));
+    // _validateInland(null);
   }
 
-  void _checkFormValidation() {
-    bool allFieldsFilled = _usernameController.text.isNotEmpty &&
-        _addressController.text.isNotEmpty &&
-        _govController.text.isNotEmpty &&
-        _cityController.text.isNotEmpty;
+  // Update touched state for a field
+  void _updateTouchedState(String fieldName) {
+    setState(() {
+      _fieldTouchedState[fieldName] = true;
+    });
+  }
 
-    if (isButtonActive != allFieldsFilled) {
-      setState(() {
-        isButtonActive = allFieldsFilled;
-      });
+  // Validators
+  String? _validateDisplayName(String? value) {
+    if (!_fieldTouchedState['username']!) {
+      return null; // Don't show error if field hasn't been touched
     }
+    if (value == null || value.isEmpty) {
+      return 'Display Name is required';
+    }
+    if (value.length < 3) {
+      return 'Display Name must be at least 3 characters';
+    }
+    return null;
   }
 
-  String? _validateRequired(String? value, String fieldName) {
+  String? _validateCountry(String? value) {
+    if (!_fieldTouchedState['country']!) {
+      return null; // Don't show error if field hasn't been touched
+    }
     if (value == null || value.isEmpty) {
-      return '$fieldName is required';
+      return 'Country is required';
+    }
+    return null;
+  }
+
+  String? _validateGov(String? value) {
+    if (!_fieldTouchedState['gov']!) {
+      return null; // Don't show error if field hasn't been touched
+    }
+    if (value == null || value.isEmpty) {
+      return 'Gov is required';
+    }
+    return null;
+  }
+
+  String? _validateCity(String? value) {
+    if (!_fieldTouchedState['city']!) {
+      return null; // Don't show error if field hasn't been touched
+    }
+    if (value == null || value.isEmpty) {
+      return 'City is required';
+    }
+    return null;
+  }
+
+  String? _validateAddress(String? value) {
+    if (!_fieldTouchedState['address']!) {
+      return null; // Don't show error if field hasn't been touched
+    }
+    if (value == null || value.isEmpty) {
+      return 'Address is required';
+    }
+    return null;
+  }
+
+  String? _validateInland(String? value) {
+    if (!_fieldTouchedState['inland']!) {
+      return null; // Don't show error if field hasn't been touched
+    }
+    if (value == null || value.isEmpty) {
+      return 'Field is required';
     }
     return null;
   }
@@ -72,7 +153,6 @@ class _MainInfoState extends State<MainInfo> {
     return Form(
       key: _formKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      // Show validation immediately
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -83,28 +163,41 @@ class _MainInfoState extends State<MainInfo> {
             hintText: "Enter your display name",
             iconData: Icons.person_2_outlined,
             inputType: TextInputType.name,
-            validator: (value) => _validateRequired(value, "Display Name"),
+            validator: _validateDisplayName,
+            inputFormatter: [
+              FilteringTextInputFormatter.allow(
+                RegExp(r'[a-zA-Z\s]'),
+              )
+            ],
+            onChanged: (_) => _updateTouchedState('username'),
           ),
           20.vGap,
           CustomDropdownMenu(
             onChanged: (selectedItem) {
               setState(() {
                 _selectedCountry = selectedItem;
+                _fieldTouchedState['country'] = true; // Mark as touched
               });
             },
             items: countries,
             label: "Country",
-            icon: const Icon(Icons.add_card_outlined),
-            validator: (value) => _validateRequired(value, "Country"),
+            icon: Image.asset(IconsAssets.countryIcon),
+            validator: _validateCountry,
           ),
           20.vGap,
           CustomTextFormField(
             controller: _govController,
             labelText: "Gov",
             hintText: "Enter Gov",
+            inputFormatter: [
+              FilteringTextInputFormatter.allow(
+                RegExp(r'[a-zA-Z\s]'),
+              )
+            ],
             iconData: Icons.account_balance_outlined,
             inputType: TextInputType.text,
-            validator: (value) => _validateRequired(value, "Gov"),
+            validator: _validateGov,
+            onChanged: (_) => _updateTouchedState('gov'),
           ),
           20.vGap,
           CustomTextFormField(
@@ -113,7 +206,13 @@ class _MainInfoState extends State<MainInfo> {
             hintText: "Enter Your City",
             iconData: Icons.location_city_outlined,
             inputType: TextInputType.text,
-            validator: (value) => _validateRequired(value, "City"),
+            inputFormatter: [
+              FilteringTextInputFormatter.allow(
+                RegExp(r'[a-zA-Z\s]'),
+              )
+            ],
+            validator: _validateCity,
+            onChanged: (_) => _updateTouchedState('city'),
           ),
           20.vGap,
           CustomTextFormField(
@@ -122,38 +221,34 @@ class _MainInfoState extends State<MainInfo> {
             hintText: "Enter Your Address",
             iconData: Icons.edit_location_alt,
             inputType: TextInputType.streetAddress,
-            validator: (value) => _validateRequired(value, "Address"),
+            validator: _validateAddress,
+            onChanged: (_) => _updateTouchedState('address'),
           ),
           20.vGap,
           CustomDropdownMenu(
             onChanged: (selectedItem) {
-              // Handle inland selection
+              setState(() {
+                _inlandController.text = selectedItem!; // Update the controller
+              });
             },
             items: const ['Inland', 'OutLand'],
             label: "",
             icon: const Icon(Icons.radar),
-            validator: (value) => _validateRequired(value, "Inland"),
+            // validator: _validateInland,
           ),
           20.vGap,
           CustomElevatedButtonWithoutStream(
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-
-                context.read<SignUpForBidCubit>().register(
-                    registerRequest: RegisterAsSellerRequest(
-                        displayName: _usernameController.text,
-                        governmentName: _govController.text,
-                        cityName: _cityController.text,
-                        address: _addressController.text,
-                        country: _selectedCountry!));
-              } else {
-                ErrorViewer.showError(
-                    context: context,
-                    error:
-                        const CustomError(message: 'Enter All Required Fields'),
-                    callback: () {});
-              }
-            },
+            onPressed: _isFormValid
+                ? () {
+                    context.read<SignUpForBidCubit>().register(
+                        registerRequest: RegisterAsSellerRequest(
+                            displayName: _usernameController.text,
+                            governmentName: _govController.text,
+                            cityName: _cityController.text,
+                            address: _addressController.text,
+                            country: _selectedCountry!));
+                  }
+                : null, // Disable button if form is not valid
             text: 'Continue',
           ),
         ],
@@ -162,14 +257,14 @@ class _MainInfoState extends State<MainInfo> {
   }
 }
 
-
 class CookieService {
   // Base URL of the API
   static const String _baseUrl = 'https://hk.herova.net';
+
   // Function to fetch cookies
   static Future<dynamic> getCookies() async {
     final url = Uri.parse('$_baseUrl/login_API/cookies.php');
-    final  AppPreferences appPreferences =instance<AppPreferences>();
+    final AppPreferences appPreferences = instance<AppPreferences>();
     try {
       String cookieString = appPreferences.getCookies().join(';');
       print('cookie string $cookieString');

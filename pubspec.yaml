@@ -68,8 +68,9 @@ dependencies:
   google_sign_in: ^6.2.2
   convex_bottom_bar: ^3.2.0
 #  package_info: ^2.0.2
-  cookie_jar: ^4.0.8
-  dio_cookie_manager: ^3.2.0
+  cookie_jar: ^4.0.0
+  dio_cookie_manager: ^3.0.1
+  skeletonizer: ^1.4.3
 
 
 dev_dependencies:

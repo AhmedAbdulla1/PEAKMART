@@ -16,7 +16,7 @@ import 'package:peakmart/features/onboarding/presentation/views/onboarding_view.
 import 'package:peakmart/features/products/data/models/product_model.dart';
 import 'package:peakmart/features/products/presentation/views/auction_rules_view.dart';
 import 'package:peakmart/features/products/presentation/views/privacy_and_policy_view.dart';
-import 'package:peakmart/features/products/presentation/views/product_details.dart';
+import 'package:peakmart/features/products/presentation/views/product_details/product_details.dart';
 
 final AppPreferences _appPreferences = instance<AppPreferences>();
 

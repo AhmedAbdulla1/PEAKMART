@@ -6,7 +6,7 @@ import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/features/products/data/models/product_model.dart';
-import 'package:peakmart/features/products/presentation/views/product_details.dart';
+import 'package:peakmart/features/products/presentation/views/product_details/product_details.dart';
 
 class ItemWidget extends StatelessWidget {
   const ItemWidget({super.key, required this.product, required this.index});

@@ -34,20 +34,22 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: getBottomNavigationBarBody()[_currentPageIndex],
-      bottomNavigationBar: ConvexAppBar(
-        height: 55,
-        curve: Curves.easeInOut,
-        style: TabStyle.custom,
-        color: ColorManager.bottomNavBarSecondary,
-        backgroundColor: ColorManager.white,
-        activeColor: ColorManager.primary,
-        items: _navBarItems,
-        initialActiveIndex: _currentPageIndex,
-        onTap: (index) {
-          setState(() => _currentPageIndex = index);
-        },
+    return SafeArea(
+      child: Scaffold(
+        body: getBottomNavigationBarBody()[_currentPageIndex],
+        bottomNavigationBar: ConvexAppBar(
+          height: 55,
+          curve: Curves.easeInOut,
+          style: TabStyle.custom,
+          color: ColorManager.bottomNavBarSecondary,
+          backgroundColor: ColorManager.white,
+          activeColor: ColorManager.primary,
+          items: _navBarItems,
+          initialActiveIndex: _currentPageIndex,
+          onTap: (index) {
+            setState(() => _currentPageIndex = index);
+          },
+        ),
       ),
     );
   }

@@ -5,6 +5,8 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/values_manager.dart';
+import 'package:peakmart/features/auth/presentation/shared_widgets/validators.dart';
 
 class CustomTextFormField extends StatefulWidget {
   final String labelText;
@@ -12,10 +14,11 @@ class CustomTextFormField extends StatefulWidget {
   final IconData? iconData;
   final TextInputType inputType;
   final TextEditingController controller;
-  final bool? isShowDescription, isAcceptNumbersOnly;
+  final bool? isShowDescription;
   final bool? isUsedWithBidOwner;
   final String? Function(String?)? validator;
-
+  final Function(String)?  onChanged;
+  final List<TextInputFormatter>? inputFormatter ;
   const CustomTextFormField({
     super.key,
     required this.labelText,
@@ -26,7 +29,8 @@ class CustomTextFormField extends StatefulWidget {
     this.isShowDescription,
     this.isUsedWithBidOwner,
     this.validator,
-    this.isAcceptNumbersOnly,
+    this.onChanged,
+    this.inputFormatter,
   });
 
   @override
@@ -66,10 +70,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         }
         return null;
       },
-      inputFormatters: [
-        if (widget.isAcceptNumbersOnly == true)
-          FilteringTextInputFormatter.digitsOnly,
-      ],
+      inputFormatters: widget.inputFormatter,
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: widget.labelText,

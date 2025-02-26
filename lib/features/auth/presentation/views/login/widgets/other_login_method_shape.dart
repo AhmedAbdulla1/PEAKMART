@@ -7,6 +7,7 @@ import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
+import 'package:peakmart/core/widgets/waiting_widget.dart';
 
 class OtherLoginMethodsShape extends StatelessWidget {
   const OtherLoginMethodsShape({
@@ -34,10 +35,7 @@ class OtherLoginMethodsShape extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: AppPadding.p40, vertical:  AppPadding.p10),
             child: Center(
               child: isLoading == true
-                  ? const CircularProgressIndicator(
-                      strokeWidth: 3,
-                      semanticsLabel: "Loading",
-                    )
+                  ? const WaitingWidget()
                   : Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [

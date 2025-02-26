@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/features/home/presentation/state_m/category_cubit/category_cubit.dart';
@@ -7,7 +8,9 @@ import 'package:peakmart/features/home/presentation/state_m/home_cubits/ended_bi
 import 'package:peakmart/features/home/presentation/state_m/home_cubits/future_bids_cubit.dart';
 import 'package:peakmart/features/home/presentation/state_m/home_cubits/trending_bids_cubit.dart';
 import 'package:peakmart/features/home/presentation/state_m/news_cubit/cubit.dart';
+import 'package:peakmart/features/home/presentation/state_m/news_cubit/state.dart';
 import 'package:peakmart/features/home/presentation/views/home_view_body.dart';
+import 'package:peakmart/features/home/presentation/views/news_section/news_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -30,35 +33,34 @@ class _HomeViewState extends State<HomeView> {
         BlocProvider(create: (context) => EndedBidsCubit()..getEndedBids()),
         BlocProvider(
             create: (context) => TrendingBidsCubit()..getTrendingBids()),
-        BlocProvider(create: (context) => CategoryCubit()),
+        BlocProvider(create: (context) => CategoryCubit()..getCategory()),
       ],
-      child: const Stack(
+      child:  Stack(
         children: [
            HomeViewBody(),
-          // BlocBuilder<NewsCubit, NewsState>(
-          //   builder: (context, state) {
-          //     log("news state: $state");
-          //     return Column(
-          //       crossAxisAlignment: CrossAxisAlignment.center,
-          //       children: [
-          //         if (state is ShowNewNews) ...[
-          //           Padding(
-          //             padding: const EdgeInsets.all(8.0),
-          //             child: SizedBox(
-          //               width: double.infinity,
-          //               height: 60,
-          //               child: AnimatedNewsContainer(
-          //                 newsModel: state.newsModel,
-          //                 windowSize: MediaQuery.of(context).size,
-          //               ),
-          //             ),
-          //           ), // Your dynamic widget
-          //           const SizedBox(height: 20),
-          //         ],
-          //       ],
-          //     );
-          //   },
-          // ),
+          BlocBuilder<NewsCubit, NewsState>(
+            builder: (context, state) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  if (state is ShowNewNews) ...[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 60,
+                        child: AnimatedNewsContainer(
+                          newsModel: state.newsModel,
+                          windowSize: MediaQuery.of(context).size,
+                        ),
+                      ),
+                    ), // Your dynamic widget
+                    const SizedBox(height: 20),
+                  ],
+                ],
+              );
+            },
+          ),
         ],
       ),
     );

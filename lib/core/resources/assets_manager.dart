@@ -12,6 +12,8 @@ class IconsAssets {
   static const String appleIcon = '$iconsPath/apple.svg';
   static const String googleIcon = '$iconsPath/google.svg';
   static const String pickerIcon = '$iconsPath/picker_icon.svg';
+  static const String countryIcon = '$iconsPath/country.png';
+  static const String inlandIcon = '$iconsPath/inland.png';
 
 }
 

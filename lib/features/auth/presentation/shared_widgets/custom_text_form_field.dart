@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
@@ -69,10 +70,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         }
         return null;
       },
-      inputFormatters: [
-        if (widget.isAcceptNumbersOnly == true)
-          FilteringTextInputFormatter.digitsOnly,
-      ],
+      inputFormatters: widget.inputFormatter,
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: widget.labelText,

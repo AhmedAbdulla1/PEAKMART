@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
-import 'package:peakmart/features/auth/data/model/request/verfiy_otp_request.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
 import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification.dart';
 import 'package:peakmart/features/auth/presentation/views/reset_password/view.dart';
@@ -12,11 +11,10 @@ import 'package:peakmart/features/auth/presentation/views/signup_for_bid/view.da
 import 'package:peakmart/features/bid_owner/presentation/views/bid_owner_view.dart';
 import 'package:peakmart/features/main/main_view.dart';
 import 'package:peakmart/features/onboarding/presentation/views/onboarding_view.dart';
+import 'package:peakmart/features/products/data/models/product_model.dart';
 import 'package:peakmart/features/products/presentation/views/auction_rules_view.dart';
 import 'package:peakmart/features/products/presentation/views/privacy_and_policy_view.dart';
-import 'package:peakmart/features/products/presentation/views/product_details.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/product_details.dart';
-import 'package:peakmart/features/products/presentation/views/products_view.dart';
 
 final AppPreferences _appPreferences = instance<AppPreferences>();
 

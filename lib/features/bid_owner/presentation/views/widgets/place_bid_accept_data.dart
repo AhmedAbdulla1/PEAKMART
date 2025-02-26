@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
@@ -84,8 +85,10 @@ class PlaceBidAcceptData extends StatelessWidget {
             hintText: AppStrings.startingPrice,
             inputType: TextInputType.number,
             isUsedWithBidOwner: true,
-            isAcceptNumbersOnly: true,
-            controller: startingPriceController),
+            inputFormatter: [
+
+              FilteringTextInputFormatter.digitsOnly,
+            ],            controller: startingPriceController),
         23.vGap,
         CustomTextFormField(
             labelText: AppStrings.expectedPrice,
@@ -94,7 +97,10 @@ class PlaceBidAcceptData extends StatelessWidget {
               return validatePrice();
             },
             isUsedWithBidOwner: true,
-            isAcceptNumbersOnly: true,
+            inputFormatter: [
+
+                FilteringTextInputFormatter.digitsOnly,
+            ],
             inputType: TextInputType.number,
             controller: expectedPriceController),
         23.vGap,
@@ -121,8 +127,10 @@ class PlaceBidAcceptData extends StatelessWidget {
             labelText: AppStrings.periodOfBids,
             hintText: AppStrings.periodOfBids,
             isUsedWithBidOwner: true,
-            isAcceptNumbersOnly: true,
-            validator: (value) {
+            inputFormatter: [
+
+              FilteringTextInputFormatter.digitsOnly,
+            ],            validator: (value) {
               return validatePrice();
             },
             inputType: TextInputType.number,

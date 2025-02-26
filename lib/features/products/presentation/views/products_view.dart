@@ -7,6 +7,7 @@ import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
+import 'package:peakmart/features/products/data/models/product_model.dart';
 import 'package:peakmart/features/products/presentation/state_m/product_cubit/cubit.dart';
 import 'package:peakmart/features/products/presentation/state_m/product_cubit/state.dart';
 import 'package:peakmart/features/products/presentation/widgets/product_item_widget.dart';

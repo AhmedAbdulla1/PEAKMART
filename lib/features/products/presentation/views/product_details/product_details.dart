@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
+import 'package:peakmart/features/products/data/models/product_model.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/prodcut_details_images.dart';
 import 'package:peakmart/features/products/presentation/views/products_view.dart';
 import 'package:peakmart/features/products/presentation/widgets/top_bidders.dart';

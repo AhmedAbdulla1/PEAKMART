@@ -10,6 +10,7 @@ import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar
 import 'package:peakmart/features/bid_owner/data/models/request/add_product_request.dart';
 import 'package:peakmart/features/bid_owner/presentation/state_mang/add_product_cubit/add_product_cubit.dart';
 import 'package:peakmart/features/bid_owner/presentation/state_mang/add_product_cubit/image_picker_controller.dart';
+import 'package:peakmart/features/bid_owner/presentation/views/add_product_details.dart';
 import 'package:peakmart/features/bid_owner/presentation/views/widgets/place_bid_accept_data.dart';
 import 'package:provider/provider.dart';
 
@@ -25,8 +26,42 @@ class BidOwnerView extends StatefulWidget {
 }
 
 List<File?> productImages = [];
+late TextEditingController productNameController;
+late TextEditingController descriptionController;
+late TextEditingController startingPriceController;
+late TextEditingController expectedPriceController;
+late TextEditingController locationController;
+late TextEditingController startDateController;
+late TextEditingController arrivalDateController;
+late TextEditingController periodOfBidsController;
 
 class _BidOwnerViewState extends State<BidOwnerView> {
+  @override
+  void initState() {
+    super.initState();
+    productNameController = TextEditingController();
+    descriptionController = TextEditingController();
+    startingPriceController = TextEditingController();
+    expectedPriceController = TextEditingController();
+    locationController = TextEditingController();
+    startDateController = TextEditingController();
+    arrivalDateController = TextEditingController();
+    periodOfBidsController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    productNameController.dispose();
+    descriptionController.dispose();
+    startingPriceController.dispose();
+    expectedPriceController.dispose();
+    locationController.dispose();
+    startDateController.dispose();
+    arrivalDateController.dispose();
+    periodOfBidsController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -43,14 +78,14 @@ class _BidOwnerViewState extends State<BidOwnerView> {
                   const ImagePicker(title: AppStrings.addProductPhoto),
                   23.verticalSpace,
                   PlaceBidAcceptData(
-                    productNameController: TextEditingController(),
-                    descriptionController: TextEditingController(),
-                    startingPriceController: TextEditingController(),
-                    expectedPriceController: TextEditingController(),
-                    locationController: TextEditingController(),
-                    startDateController: TextEditingController(),
-                    arrivalDateController: TextEditingController(),
-                    periodOfBidsController: TextEditingController(),
+                    productNameController: productNameController,
+                    descriptionController: descriptionController,
+                    startingPriceController: startingPriceController,
+                    expectedPriceController: expectedPriceController,
+                    locationController: locationController,
+                    startDateController: startDateController,
+                    arrivalDateController: arrivalDateController,
+                    periodOfBidsController: periodOfBidsController,
                   ),
                   23.verticalSpace,
                   BlocConsumer<AddProductCubit, AddProductState>(
@@ -72,20 +107,26 @@ class _BidOwnerViewState extends State<BidOwnerView> {
                                 : () {
                                     final addProductRequest = AddProductRequest(
                                       photo: imageController.images.first.path,
-                                      name: "Product Name",
-                                      description: "Description",
-                                      startingPrice: 100,
-                                      expectedPrice: 200,
-                                      location: "Cairo",
-                                      startDate: "2025-03-01",
-                                      deliveryDate: "2025-03-10",
-                                      periodOfBid: 7,
+                                      name: productNameController.text,
+                                      description: descriptionController.text,
+                                      startingPrice: double.parse(
+                                          startingPriceController.text),
+                                      expectedPrice: double.parse(
+                                          expectedPriceController.text),
+                                      location: locationController.text,
+                                      startDate: startDateController.text,
+                                      deliveryDate: arrivalDateController.text,
+                                      periodOfBid: int.parse(
+                                          periodOfBidsController.text),
                                       categoryId: 1,
                                     );
                                     log(addProductRequest.toJson().toString());
-                                    context.read<AddProductCubit>().addProduct(
-                                          addProductRequest: addProductRequest,
-                                        );
+                                    Navigator.pushNamed(
+                                        context, AddProductDetails.routeName,
+                                        arguments: addProductRequest);
+                                    // context.read<AddProductCubit>().addProduct(
+                                    //       addProductRequest: addProductRequest,
+                                    //     );
                                   },
                             text: AppStrings.placeBid,
                           );

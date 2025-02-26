@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
@@ -39,10 +40,16 @@ class CustomBidItem extends StatelessWidget {
                   ),
                 ),
                 child: bidItem.itemImage != null
-                    ? Image.network(
-                        bidItem.itemImage,
+                    ? CachedNetworkImage(
+                        imageUrl: bidItem.itemImage,
                         width: double.infinity,
                         fit: BoxFit.cover,
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Icon(
+                          Icons.error,size: 28,
+                          color: ColorManager.red,
+                        ),
                       )
                     : Image.asset(
                         "assets/images/card.png",
@@ -51,12 +58,6 @@ class CustomBidItem extends StatelessWidget {
                       ),
               ),
             ),
-            // CachedNetworkImage(
-            //   imageUrl:
-            //       "https://th.bing.com/th/id/R.f8cd97dceece7f86782b9f3ea85b69f9?rik=S0gyWHLbi4myzA&pid=ImgRaw&r=0",
-            //   placeholder: (context, url) =>  CircularProgressIndicator(),
-            //   errorWidget: (context, url, error) => const Icon(Icons.error),
-            // ),
             const SizedBox(
               height: 15,
             ),

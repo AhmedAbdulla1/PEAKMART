@@ -23,50 +23,51 @@ class SignUpViewBody extends StatefulWidget {
 class _SignUpViewBodyState extends State<SignUpViewBody> {
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(
-            AppPadding.p29, 0, AppPadding.p29, AppPadding.p30),
-        child: BlocConsumer<RegisterCubit, RegisterState>(
-          listener: (context, state) {
-            if (state is RegisterLoadingState) {
-              ShowDialog().showElasticDialog(
-                context: context,
-                builder: (context) => const WaitingWidget(),
-                barrierDismissible: false,
-              );
-            }
-            if (state is RegisterSuccessState) {
-              log('success state');
-              log(
-                'Successful with an email is: ${email.toString()}, password is: ${password.toString()}, user name is: ${userName.toString()}, phone number is: ${phoneNumber.toString()}',
-              );
-              RegisterEntity registerEntity = state.registerEntity;
-              log('Register entity is: ${registerEntity.toString()}');
-              Navigator.pushReplacementNamed(
-                context,
-                OtpVerification.routeName,
-              );
-            }
-            if (state is RegisterFailureState) {
-              log('error state');
-              ErrorViewer.showError(
-                  errorViewerOptions: const ErrVToastOptions(
-                    textColor: ColorManager.white,
-                    backGroundColor: ColorManager.textFormErrorBorder,
-                  ),
-                  context: context,
-                  error: state.errors,
-                  callback: state.onRetry);
-            }
-          },
-          builder: (context, state) {
-            return const SingleChildScrollView(
-              child: SignUpBuildWidgets(),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+          AppPadding.p29, 0, AppPadding.p29, AppPadding.p30),
+      child: BlocConsumer<RegisterCubit, RegisterState>(
+        listener: (context, state) {
+          if (state is RegisterLoadingState) {
+            ShowDialog().showElasticDialog(
+              context: context,
+              builder: (context) => const WaitingWidget(),
+              barrierDismissible: false,
             );
-          },
-        ),
+          }
+          if (state is RegisterSuccessState) {
+            log('success state');
+            // log(
+            //   'Successful with an email is: ${email.toString()}, password is: ${password.toString()}, user name is: ${userName.toString()}, phone number is: ${phoneNumber.toString()}',
+            // );
+            RegisterEntity registerEntity = state.registerEntity;
+            log('Register entity is: ${registerEntity.toString()}');
+            Navigator.pushReplacementNamed(
+              context,
+              OtpVerification.routeName,
+              arguments: {
+                'verificationType': VerificationType.email,
+                'registerEntity': RegisterCubit.globalEntity,
+              },
+            );
+          }
+          if (state is RegisterFailureState) {
+            log('error state');
+            ErrorViewer.showError(
+                errorViewerOptions: const ErrVToastOptions(
+                  textColor: ColorManager.white,
+                  backGroundColor: ColorManager.textFormErrorBorder,
+                ),
+                context: context,
+                error: state.errors,
+                callback: state.onRetry);
+          }
+        },
+        builder: (context, state) {
+          return const SingleChildScrollView(
+            child: SignUpBuildWidgets(),
+          );
+        },
       ),
     );
   }

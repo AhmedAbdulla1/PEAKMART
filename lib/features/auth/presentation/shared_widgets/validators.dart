@@ -38,9 +38,9 @@ class Validator {
     if (!RegExp(r'[@$!%*?&]').hasMatch(password)) {
       return AppStrings.passwordAtLeast1SpecialChar;
     }
-    if (passwordController.text != confirmPassController.text) {
-      return AppStrings.passwordNotTheSame;
-    }
+    // if (passwordController.text != confirmPassController.text) {
+    //   return AppStrings.passwordNotTheSame;
+    // }
     return null;
   }
 

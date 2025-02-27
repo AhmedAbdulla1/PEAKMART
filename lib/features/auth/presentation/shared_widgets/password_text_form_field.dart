@@ -11,11 +11,12 @@ class PasswordTextFormField extends StatefulWidget {
     super.key,
     required this.labelText,
     required this.hintText,
-    required this.controller,
+    required this.controller, this.validator,
   });
   final String labelText;
   final String hintText;
   final TextEditingController controller;
+  final String? Function(String?)? validator;
 
   @override
   State<PasswordTextFormField> createState() => _PasswordTextFormFieldState();
@@ -38,6 +39,9 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
           ),
           obscureText: isPressed ? false : true,
           validator: (value) {
+            if (widget.validator != null) {
+              return widget.validator!(value);
+            }
             return Validator.validatePassword(value!);
           },
           decoration: InputDecoration(

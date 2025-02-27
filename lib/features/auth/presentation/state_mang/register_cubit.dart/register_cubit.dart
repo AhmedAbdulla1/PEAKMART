@@ -18,7 +18,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   RegisterCubit() : super(RegisterInitialState());
   late BuildContext context;
-
+  static RegisterEntity? globalEntity;
   Future<void> register({required RegisterRequest registerRequest}) async {
     emit(
       RegisterLoadingState(),
@@ -38,6 +38,8 @@ class RegisterCubit extends Cubit<RegisterState> {
         'data in cubit is $data',
       );
       Navigator.pop(context);
+      globalEntity = data;
+      log("in register cubit global entity is $globalEntity");
       emit(
         RegisterSuccessState(
             registerEntity: RegisterEntity(

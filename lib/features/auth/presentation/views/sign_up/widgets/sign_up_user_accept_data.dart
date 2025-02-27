@@ -65,6 +65,12 @@ class _SignUpUserAcceptDataState extends State<SignUpUserAcceptData> {
           labelText: AppStrings.confirmPassword,
           hintText: AppStrings.confirmPasswordHint,
           controller: widget.confirmPassController,
+          validator: (passwordValue) {
+            if (passwordValue != widget.passwordController.text) {
+              return 'Password does not match';
+            }
+            return null;
+          },
         ),
         //  CustomFormW(
         //   numberOfFields: 3,

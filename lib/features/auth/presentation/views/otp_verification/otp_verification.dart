@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
+import 'package:peakmart/features/auth/domain/entity/register_entity.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
 import 'package:peakmart/features/auth/presentation/state_mang/otp_verfication_cubit/otp_verfication_cubit.dart';
 import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification_body.dart';
@@ -10,11 +11,12 @@ class OtpVerification extends StatelessWidget {
   const OtpVerification({
     super.key,
     required this.verificationType,
+    required this.registerEntity,
   });
 
   final VerificationType verificationType;
 
-  // final RegisterEntity registerEntity;
+  final RegisterEntity registerEntity;
   static const String routeName = '/otp_verification';
 
   @override
@@ -29,7 +31,9 @@ class OtpVerification extends StatelessWidget {
             create: (context) => verificationType == VerificationType.watsApp
                 ? (OtpVerfictionCubit()..sendWatsAppOtp())
                 : (OtpVerfictionCubit()),
-            child: const OtpVerificationBody()),
+            child: OtpVerificationBody(
+              registerEntity: registerEntity!,
+            )),
       ),
     );
   }

@@ -5,7 +5,6 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/validators.dart';
 
 class CustomTextFormField extends StatefulWidget {
@@ -17,8 +16,8 @@ class CustomTextFormField extends StatefulWidget {
   final bool? isShowDescription;
   final bool? isUsedWithBidOwner;
   final String? Function(String?)? validator;
-  final Function(String)?  onChanged;
-  final List<TextInputFormatter>? inputFormatter ;
+  final Function(String)? onChanged;
+  final List<TextInputFormatter>? inputFormatter;
   const CustomTextFormField({
     super.key,
     required this.labelText,
@@ -62,11 +61,22 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
-        if (value == null || value.trim().isEmpty) {
-          return AppStrings.fieldRequired;
-        }
         if (widget.validator != null) {
           return widget.validator!(value);
+        }
+        if (widget.hintText == AppStrings.emailHint) {
+          return Validator.validateEmail(value!);
+        }
+        if (widget.hintText == AppStrings.userNameHint) {
+          return Validator.validateUserName(value!);
+        }
+        if (value == null || value.isEmpty) {
+          if (value == null || value.trim().isEmpty) {
+            return AppStrings.fieldRequired;
+          }
+          if (widget.validator != null) {
+            return widget.validator!(value);
+          }
         }
         return null;
       },

@@ -14,19 +14,20 @@ import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/auth/data/model/request/send_otp_request.dart';
 import 'package:peakmart/features/auth/data/model/request/verfiy_otp_request.dart';
+import 'package:peakmart/features/auth/domain/entity/register_entity.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/cutom_elevated_button.dart';
 import 'package:peakmart/features/auth/presentation/state_mang/otp_verfication_cubit/otp_verfication_cubit.dart';
 import 'package:peakmart/features/auth/presentation/views/otp_verification/custom_otp_text_field.dart';
 import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_resend_timer_row.dart';
 import 'package:peakmart/features/auth/presentation/views/reset_password/widgets/success_bottom_sheet.dart';
-import 'package:peakmart/features/auth/presentation/views/sign_up/widgets/sign_up_build_widgets.dart';
 import 'package:peakmart/features/main/main_view.dart';
 
 class OtpVerificationBody extends StatefulWidget {
   const OtpVerificationBody({
     super.key,
+    required this.registerEntity,
   });
-  // final RegisterEntity registerEntity;
+  final RegisterEntity registerEntity;
   @override
   State<OtpVerificationBody> createState() => _OtpVerificationBodyState();
 }
@@ -37,13 +38,13 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
   @override
   void initState() {
     super.initState();
-    // BlocProvider.of<OtpVerfictionCubit>(context).sendOtp(
-    //   sendOtpRequest: SendOtpRequest(
-    //     key: 'SM',
-    //     username: userName,
-    //     email: email,
-    //   ),
-    // );
+    BlocProvider.of<OtpVerfictionCubit>(context).sendOtp(
+      sendOtpRequest: SendOtpRequest(
+        key: 'SM',
+        username: widget.registerEntity.userName,
+        email: widget.registerEntity.email,
+      ),
+    );
   }
 
   @override
@@ -56,11 +57,15 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
           if (state is OtpVerificationSuccessState) {
             if (state.isVerified) {
               log('Success state in verify otp');
-              state.isVerified ? showSuccessBottomSheet(context) : null;
+              state.isVerified
+                  ? showSuccessBottomSheet(
+                      context, AppStrings.otpSuccessMessage)
+                  : null;
 
               state.isVerified
                   ? Future.delayed(const Duration(seconds: 3), () {
-                      Navigator.pushReplacementNamed(context, MainView.routeName);
+                      Navigator.pushReplacementNamed(
+                          context, MainView.routeName);
                     })
                   : null;
             }
@@ -130,13 +135,15 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
   void verfiyOtp(BuildContext context) {
     BlocProvider.of<OtpVerfictionCubit>(context).verfiyOtp(
         verfiyOtpRequest: VerfiyOtpRequest(
-            email: email, username: userName, otp: verificationCode));
+            email: widget.registerEntity.email,
+            username: widget.registerEntity.userName,
+            otp: verificationCode));
 
     log('otp is: ${BlocProvider.of<OtpVerfictionCubit>(context).otp}');
   }
 }
 
-void showSuccessBottomSheet(BuildContext context) {
+void showSuccessBottomSheet(BuildContext context, String message) {
   showModalBottomSheet(
     context: context,
     isDismissible: false,
@@ -147,7 +154,7 @@ void showSuccessBottomSheet(BuildContext context) {
     builder: (BuildContext context) {
       return SuccessBottomSheet(
         otpVerfictionCubit: OtpVerfictionCubit(),
-        textMessage: AppStrings.otpSuccessMessage,
+        textMessage: message,
       );
     },
   );

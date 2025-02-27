@@ -1,28 +1,24 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:peakmart/core/entities/prodcut_entity.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/home/domain/entity/bid_work_now_entity.dart';
 import 'package:peakmart/features/home/domain/entity/ended_bids_entity.dart';
 import 'package:peakmart/features/home/domain/entity/future_bids_entity.dart'; // Import FutureBidsEntity
 import 'package:peakmart/features/home/presentation/views/bid_section/widgets/bid_item_stack.dart';
+import 'package:peakmart/features/products/presentation/views/product_details/product_details.dart';
 
 class BidsSlider extends StatefulWidget {
   const BidsSlider({
     super.key,
-    required this.bidsWorkNow,
-    required this.endedBids,
-    required this.futureBids,
+    required this.productEntity,
     this.isEnded = false,
     this.isFuture = false,
     this.isTrending = false,
-    required this.trendingBids,
   });
 
-  final List<BidWorkNowData> bidsWorkNow;
-  final List<EndedBidsData> endedBids;
-  final List<FutureBidsData> futureBids;
-  final List<FutureBidsData> trendingBids;
+  final List<ProductEntity> productEntity;
   final bool isEnded, isFuture, isTrending;
 
   @override
@@ -34,13 +30,7 @@ class _BidsSliderState extends State<BidsSlider> {
 
   @override
   Widget build(BuildContext context) {
-    final allBids = widget.isEnded
-        ? widget.endedBids
-        : widget.bidsWorkNow.isNotEmpty
-            ? widget.bidsWorkNow
-            : widget.futureBids.isNotEmpty
-                ? widget.futureBids
-                : widget.trendingBids;
+    final allBids = widget.productEntity;
     // debugPrint(
     //     "BidsSlider received ${widget.trendingBids.length} trending bids");
 
@@ -74,18 +64,25 @@ class _BidsSliderState extends State<BidsSlider> {
 
         final isCurrent = index == _currentPage;
 
-        return BidItemStack(
-          isEnded: widget.isEnded,
-          isFuture: widget.isFuture,
-          isTrending: widget.isTrending,
-          isCurrent: isCurrent,
-          bidWorkNowItem:
-              (widget.isEnded || widget.isFuture || widget.isTrending)
-                  ? null
-                  : widget.bidsWorkNow[index],
-          trendingItem: widget.isTrending ? widget.trendingBids[index] : null,
-          futureBidItem: widget.isFuture ? widget.futureBids[index] : null,
-          endedBidItem: widget.isEnded ? widget.endedBids[index] : null,
+        return InkWell(
+          onTap: (){
+            Navigator.pushNamed(context, ProductDetails.routeName ,arguments: widget.productEntity[index]);
+          },
+          splashColor: Colors.white,
+          child: BidItemStack(
+            isEnded: widget.isEnded,
+            isFuture: widget.isFuture,
+            isTrending: widget.isTrending,
+            isCurrent: isCurrent,
+            productEntity:widget.productEntity[index],
+            // bidWorkNowItem:
+            //     (widget.isEnded || widget.isFuture || widget.isTrending)
+            //         ? null
+            //         : widget.bidsWorkNow[index],
+            // trendingItem: widget.isTrending ? widget.trendingBids[index] : null,
+            // futureBidItem: widget.isFuture ? widget.futureBids[index] : null,
+            // endedBidItem: widget.isEnded ? widget.endedBids[index] : null,
+          ),
         );
       },
     );

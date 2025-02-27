@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:peakmart/core/entities/prodcut_entity.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/extentions.dart';
@@ -40,13 +41,14 @@ class ProductsBody extends StatelessWidget {
             return ErrorViewer.showError(
               context: context,
               error: state.error,
+
               callback: () {
                 context.read<ProductCubit>().fetchProducts();
               },
             );
           }
           if (state is ProductLoaded) {
-            List<Product> products = state.products;
+            List<ProductEntity> products = state.products;
             return ListView.builder(
               itemCount: state.products.length,
               itemBuilder: (context, index) {

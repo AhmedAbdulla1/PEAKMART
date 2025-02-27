@@ -1,11 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:peakmart/core/entities/prodcut_entity.dart';
 import 'package:peakmart/core/resources/assets_manager.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/home/domain/entity/ended_bids_entity.dart';
 
 import '../../../../../../core/resources/values_manager.dart';
@@ -15,12 +18,14 @@ class CustomEndedBidItem extends StatelessWidget {
     super.key,
     required this.endedBidItem,
   });
-  final EndedBidsData endedBidItem;
+
+  final ProductEntity endedBidItem;
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        clipBehavior: Clip.antiAliasWithSaveLayer,
+        clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
           border: Border.all(
@@ -42,11 +47,24 @@ class CustomEndedBidItem extends StatelessWidget {
                   ),
                 ),
                 child: Stack(children: [
-                  Image.asset(
-                    endedBidItem.itemImage ?? "assets/images/card.png",
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
+                  endedBidItem.imageUrl.isNotEmpty
+                      ? CachedNetworkImage(
+                          imageUrl: endedBidItem.imageUrl[0],
+                          width: double.infinity,
+                          fit: BoxFit.fill,
+                          placeholder: (context, url) =>
+                              const WaitingWidget(),
+                          errorWidget: (context, url, error) => Icon(
+                            Icons.error,
+                            size: 28,
+                            color: ColorManager.red,
+                          ),
+                        )
+                      : Image.asset(
+                          "assets/images/card.png",
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
                   Container(
                     width: double.infinity,
                     height: double.infinity,
@@ -70,7 +88,7 @@ class CustomEndedBidItem extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      endedBidItem.itemName,
+                      endedBidItem.name,
                       textAlign: TextAlign.start,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -105,7 +123,7 @@ class CustomEndedBidItem extends StatelessWidget {
                                 fontFamily: FontConstants.fontCabinFamily),
                       ),
                       TextSpan(
-                        text: "\$250",
+                        text: "\$${endedBidItem.price}",
                         style: getBoldStyle(
                                 color: ColorManager.black,
                                 fontSize: FontSize.s22)

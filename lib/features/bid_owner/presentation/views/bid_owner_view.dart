@@ -68,7 +68,7 @@ class _BidOwnerViewState extends State<BidOwnerView> {
         child: Scaffold(
           appBar: const CustomAppBar(title: AppStrings.placeBid),
           body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 29.sp, vertical: 32.sp),
+            padding: EdgeInsets.symmetric(horizontal: 29.sp, ),
             child: ListView(
               children: [
                 const AddProductImagePicker(title: AppStrings.addProductPhoto),

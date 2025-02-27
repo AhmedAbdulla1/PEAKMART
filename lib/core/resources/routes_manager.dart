@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
+import 'package:peakmart/core/entities/prodcut_entity.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/features/auth/domain/entity/register_entity.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
@@ -85,7 +86,7 @@ class RouteGenerator {
       case ProductDetails.routeName:
         return MaterialPageRoute(
             builder: (_) => ProductDetails(
-                  product: settings.arguments as Product,
+                  product: settings.arguments as ProductEntity,
                 ));
       default:
         return unDefinedRoute();

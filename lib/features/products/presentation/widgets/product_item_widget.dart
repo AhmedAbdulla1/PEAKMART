@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:peakmart/core/entities/prodcut_entity.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
@@ -12,7 +13,7 @@ class ItemWidget extends StatelessWidget {
   const ItemWidget({super.key, required this.product, required this.index});
 
   final int index;
-  final Product product;
+  final ProductEntity product;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,9 @@ class ItemWidget extends StatelessWidget {
               ),
             ),
             10.hGap,
-            Image.asset(product.imageUrl, width: 50, height: 50),
+            product.imageUrl.isNotEmpty?
+            Image.network(product.imageUrl[0], width: 50, height: 50)
+            :Image.asset('assets/images/card.png', width: 50, height: 50),
             10.hGap,
             SizedBox(
               width: 250.w,

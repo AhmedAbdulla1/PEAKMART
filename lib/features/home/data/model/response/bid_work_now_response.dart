@@ -1,8 +1,9 @@
 import 'package:peakmart/core/models/base_model.dart';
+import 'package:peakmart/core/responses/product_response.dart';
 import 'package:peakmart/features/home/domain/entity/bid_work_now_entity.dart';
 
 class BidWorkNowResponse extends BaseResponse<BidWorkNowEntity> {
-  final List<BidWorkNowDataResponse> data;
+  final List<ProductResponse> data;
 
   BidWorkNowResponse(
       {required this.data,
@@ -12,8 +13,8 @@ class BidWorkNowResponse extends BaseResponse<BidWorkNowEntity> {
 
   factory BidWorkNowResponse.fromJson(Map<String, dynamic> json) {
     return BidWorkNowResponse(
-      data: List<BidWorkNowDataResponse>.from(json["data"].map(
-          (bidWorkNowData) => BidWorkNowDataResponse.fromJson(bidWorkNowData))),
+      data: List<ProductResponse>.from(json["data"].map(
+          (bidWorkNowData) => ProductResponse.fromJson(bidWorkNowData))),
       message: json["message"],
       status: json["status"],
       code: 200,
@@ -28,31 +29,31 @@ class BidWorkNowResponse extends BaseResponse<BidWorkNowEntity> {
   }
 }
 
-class BidWorkNowDataResponse {
-  final String itemName, description, startDate, status;
-final String? itemImage;
-  const BidWorkNowDataResponse( {this.itemImage,
-    required this.itemName,
-    required this.description,
-    required this.startDate,
-    required this.status,
-  });
-
-  factory BidWorkNowDataResponse.fromJson(Map<String, dynamic> json) {
-    return BidWorkNowDataResponse(
-        itemName: json["ITEM_NAME"],
-        description: json["DESCRIPTION"],
-        itemImage: json["PHOTO"],
-        startDate: json["START_DATE"],
-        status: json["STATUS"]);
-  }
-
-  BidWorkNowData toEntity() {
-    return BidWorkNowData(
-        itemName: itemName,
-        description: description,
-        itemImage: itemImage,
-        startDate: startDate,
-        status: status);
-  }
-}
+// class BidWorkNowDataResponse {
+//   final String itemName, description, startDate, status;
+// final String? itemImage;
+//   const BidWorkNowDataResponse( {this.itemImage,
+//     required this.itemName,
+//     required this.description,
+//     required this.startDate,
+//     required this.status,
+//   });
+//
+//   factory BidWorkNowDataResponse.fromJson(Map<String, dynamic> json) {
+//     return BidWorkNowDataResponse(
+//         itemName: json["ITEM_NAME"],
+//         description: json["DESCRIPTION"],
+//         itemImage: json["PHOTO"],
+//         startDate: json["START_DATE"],
+//         status: json["STATUS"]);
+//   }
+//
+//    toEntity() {
+//     return BidWorkNowData(
+//         itemName: itemName,
+//         description: description,
+//         itemImage: itemImage,
+//         startDate: startDate,
+//         status: status);
+//   }
+// }

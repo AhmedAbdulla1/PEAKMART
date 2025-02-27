@@ -1,7 +1,8 @@
 import 'package:peakmart/core/entities/base_entity.dart';
+import 'package:peakmart/core/entities/prodcut_entity.dart';
 
 class BidWorkNowEntity extends BaseEntity {
-  final List<BidWorkNowData> data;
+  final List<ProductEntity> data;
 
   const BidWorkNowEntity({required this.data});
 
@@ -9,13 +10,4 @@ class BidWorkNowEntity extends BaseEntity {
   List<Object?> get props => data;
 }
 
-class BidWorkNowData {
-  final String itemName, description, startDate, status;
-  final String? itemImage;
-  const BidWorkNowData(
-      {required this.itemName,
-      required this.description,
-      this.itemImage,
-      required this.startDate,
-      required this.status});
-}
+

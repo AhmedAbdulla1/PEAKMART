@@ -2,6 +2,8 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
+import 'package:peakmart/features/bid_owner/presentation/views/add_product_details.dart';
+import 'package:peakmart/features/bid_owner/presentation/views/bid_owner_view.dart';
 import 'package:peakmart/features/home/presentation/views/home_view.dart';
 import 'package:peakmart/features/products/presentation/views/products_view.dart';
 import 'package:peakmart/features/profile/presentation/profile_view.dart';
@@ -21,6 +23,7 @@ class _MainViewState extends State<MainView> {
     TabItem(icon: Icons.home, title: AppStrings.home),
     TabItem(icon: Icons.shopping_cart, title: AppStrings.product),
     TabItem(icon: Icons.notifications, title: AppStrings.notification),
+    TabItem(icon: Icons.add, title: 'add'),
     TabItem(icon: Icons.people, title: AppStrings.profile),
   ];
   List<Widget> getBottomNavigationBarBody() {
@@ -28,6 +31,7 @@ class _MainViewState extends State<MainView> {
       const HomeView(),
       const ProductsView(),
       const Center(child: Text(AppStrings.notification)),
+      const BidOwnerView(),
       const ProfileView(),
     ];
   }

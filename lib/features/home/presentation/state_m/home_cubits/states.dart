@@ -1,3 +1,4 @@
+import 'package:peakmart/core/entities/prodcut_entity.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/features/home/domain/entity/bid_work_now_entity.dart';
 import 'package:peakmart/features/home/domain/entity/ended_bids_entity.dart';
@@ -17,21 +18,21 @@ final class BidsFailureState extends BidsState {
 }
 
 final class BidWorkNowSuccessState extends BidsState {
-  final List<BidWorkNowData> bidWorkNowData;
+  final List<ProductEntity> bidWorkNowData;
   BidWorkNowSuccessState({required this.bidWorkNowData});
 }
 
 final class FutureBidsSuccessState extends BidsState {
-  final List<FutureBidsData> futureBidsData;
+  final List<ProductEntity> futureBidsData;
   FutureBidsSuccessState({required this.futureBidsData});
 }
 
 final class EndedBidsSuccessState extends BidsState {
-  final List<EndedBidsData> endedBidsData;
+  final List<ProductEntity> endedBidsData;
   EndedBidsSuccessState({required this.endedBidsData});
 }
 
 final class TrendingBidsSuccessState extends BidsState {
-  final List<TrendingBidsData> trendingBidsData;
+  final List<ProductEntity> trendingBidsData;
   TrendingBidsSuccessState({required this.trendingBidsData});
 }

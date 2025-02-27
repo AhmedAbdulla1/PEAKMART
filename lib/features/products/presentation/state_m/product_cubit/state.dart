@@ -1,3 +1,4 @@
+import 'package:peakmart/core/entities/prodcut_entity.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/features/products/data/models/product_model.dart';
 
@@ -8,7 +9,7 @@ class ProductInitial extends ProductState {}
 class ProductLoading extends ProductState {}
 
 class ProductLoaded extends ProductState {
-  final List<Product> products;
+  final List<ProductEntity> products;
 
   ProductLoaded({required this.products});
 }

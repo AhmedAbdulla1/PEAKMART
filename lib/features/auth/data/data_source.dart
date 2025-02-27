@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
@@ -17,6 +19,7 @@ import 'package:peakmart/features/auth/data/model/request/verfiy_otp_request.dar
 import 'package:peakmart/features/auth/data/model/response/login_response.dart';
 import 'package:peakmart/features/auth/data/model/response/register_response.dart';
 import 'package:peakmart/features/auth/data/model/response/send_otp_response.dart';
+import 'package:peakmart/features/auth/data/model/response/user_info.dart';
 
 class AuthDataSource extends RemoteDataSource {
   Future<Either<AppErrors, LoginResponse>> login(
@@ -148,4 +151,17 @@ class AuthDataSource extends RemoteDataSource {
       saveCookies: true,
     );
   }
+
+ Future<Either<AppErrors, UserInfoResponse>> getUserInfo() async {
+    return request<UserInfoResponse>(
+        method: HttpMethod.GET,
+        responseValidator: DefaultResponseValidator(),
+        converter: (json) {
+          log("message done in get user info request");
+          log("json in get user info request is $json");
+          return UserInfoResponse.fromJson(json);
+        },
+        url: APIUrls.getUserInfo);
+  }
+
 }

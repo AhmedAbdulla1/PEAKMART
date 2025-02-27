@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:peakmart/app/di.dart';
+import 'package:peakmart/app/network_info.dart';
 import 'package:peakmart/core/entities/empty_entity.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/app/network_info.dart';
 import 'package:peakmart/core/responses/emty_response.dart';
 import 'package:peakmart/core/results/result.dart';
 import 'package:peakmart/features/auth/data/data_source.dart';
@@ -16,9 +16,11 @@ import 'package:peakmart/features/auth/data/model/request/verfiy_otp_request.dar
 import 'package:peakmart/features/auth/data/model/response/login_response.dart';
 import 'package:peakmart/features/auth/data/model/response/register_response.dart';
 import 'package:peakmart/features/auth/data/model/response/send_otp_response.dart';
+import 'package:peakmart/features/auth/data/model/response/user_info.dart';
 import 'package:peakmart/features/auth/domain/entity/login_entity.dart';
 import 'package:peakmart/features/auth/domain/entity/register_entity.dart';
 import 'package:peakmart/features/auth/domain/entity/send_otp_entity.dart';
+import 'package:peakmart/features/auth/domain/entity/user_info_entity.dart';
 import 'package:peakmart/features/auth/domain/repository/auth_repo.dart';
 
 class AuthRepositoryImp implements AuthRepo {
@@ -112,9 +114,10 @@ class AuthRepositoryImp implements AuthRepo {
     }
     return result;
   }
-  
+
   @override
-  Future<Result<AppErrors, EmptyEntity>> verfiyOtp(VerfiyOtpRequest verfiyOtpRequest) async {
+  Future<Result<AppErrors, EmptyEntity>> verfiyOtp(
+      VerfiyOtpRequest verfiyOtpRequest) async {
     Result<AppErrors, EmptyEntity> result;
     if (await _networkInfo.isConnected) {
       try {
@@ -135,33 +138,13 @@ class AuthRepositoryImp implements AuthRepo {
   }
 
   @override
-  Future<Result<AppErrors, EmptyEntity>> registerAsSeller({required RegisterAsSellerRequest registerRequest})async {
-    Result<AppErrors, EmptyEntity> result;
-    if (await _networkInfo.isConnected) {
-  try {
-  Either<AppErrors, EmptyResponse> response =
-  await _authDataSource.registerAsSeller(registerRequest: registerRequest);
-  result = response.fold((error) {
-  return Result(error: error);
-  }, (response) {
-  return Result(data: response.toEntity());
-  });
-  } catch (error) {
-  result = Result(error: const AppErrors.responseError());
-  }
-  } else {
-  result = Result(error: const AppErrors.connectionError());
-  }
-  return result;
-}
-
-  @override
-  Future<Result<AppErrors, EmptyEntity>> sellerInfo({required SellerInfoRequest sellerInfoRequest}) async {
+  Future<Result<AppErrors, EmptyEntity>> registerAsSeller(
+      {required RegisterAsSellerRequest registerRequest}) async {
     Result<AppErrors, EmptyEntity> result;
     if (await _networkInfo.isConnected) {
       try {
-        Either<AppErrors, EmptyResponse> response =
-            await _authDataSource.sellerInfo(sellerInfoRequest: sellerInfoRequest);
+        Either<AppErrors, EmptyResponse> response = await _authDataSource
+            .registerAsSeller(registerRequest: registerRequest);
         result = response.fold((error) {
           return Result(error: error);
         }, (response) {
@@ -177,7 +160,29 @@ class AuthRepositoryImp implements AuthRepo {
   }
 
   @override
-  Future<Result<AppErrors, EmptyEntity>> sendWatsAppOtp()async {
+  Future<Result<AppErrors, EmptyEntity>> sellerInfo(
+      {required SellerInfoRequest sellerInfoRequest}) async {
+    Result<AppErrors, EmptyEntity> result;
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors, EmptyResponse> response = await _authDataSource
+            .sellerInfo(sellerInfoRequest: sellerInfoRequest);
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          return Result(data: response.toEntity());
+        });
+      } catch (error) {
+        result = Result(error: const AppErrors.responseError());
+      }
+    } else {
+      result = Result(error: const AppErrors.connectionError());
+    }
+    return result;
+  }
+
+  @override
+  Future<Result<AppErrors, EmptyEntity>> sendWatsAppOtp() async {
     Result<AppErrors, EmptyEntity> result;
     if (await _networkInfo.isConnected) {
       try {
@@ -198,7 +203,8 @@ class AuthRepositoryImp implements AuthRepo {
   }
 
   @override
-  Future<Result<AppErrors, EmptyEntity>> verfiyWatsAppOtp(VerfiyOtpRequest verfiyOtpRequest) async{
+  Future<Result<AppErrors, EmptyEntity>> verfiyWatsAppOtp(
+      VerfiyOtpRequest verfiyOtpRequest) async {
     Result<AppErrors, EmptyEntity> result;
     if (await _networkInfo.isConnected) {
       try {
@@ -218,7 +224,24 @@ class AuthRepositoryImp implements AuthRepo {
     return result;
   }
 
-
- 
+  @override
+  Future<Result<AppErrors, UserInfoEntity>> getUserInfo() async {
+    Result<AppErrors, UserInfoEntity> result;
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors, UserInfoResponse> response =
+            await _authDataSource.getUserInfo();
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          return Result(data: response.toEntity());
+        });
+      } catch (error) {
+        result = Result(error: const AppErrors.responseError());
+      }
+    } else {
+      result = Result(error: const AppErrors.connectionError());
+    }
+    return result;
+  }
 }
- 

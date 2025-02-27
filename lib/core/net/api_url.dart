@@ -2,7 +2,6 @@
 class APIUrls {
   static const baseUrl = "https://hk.herova.net/";
 
-
   // auth api
   static const login = "${baseUrl}login_API/login-api.php";
   static const resetPassword = "${baseUrl}login_API/SendToMail.php";
@@ -13,7 +12,7 @@ class APIUrls {
   static const verfiyWatsAppOtp = "${baseUrl}bids/verify.php";
   static const registerAsSeller = "${baseUrl}bids/bid_own_rig.php";
   static const addSellerInfo = "${baseUrl}bids/bid_owner_rig_info.php";
-
+  static const getUserInfo = "${baseUrl}data/user_info.php";
 
   // home api
   static const getNews = "${baseUrl}InPageApi/news-api.php";
@@ -23,10 +22,9 @@ class APIUrls {
   static const getTrendingBids = "${baseUrl}products/fetch.php?key=3";
   static const getCategories = "${baseUrl}products/fetch.php?key=2";
 
-
   // static const getAllProducts = "${baseUrl}products/fetch.php?key=4";
 
   static const getContent = "${baseUrl}InPageApi/pageContent-api.php";
- // Add Product
+  // Add Product
   static const addProduct = "${baseUrl}products/new_Product.php";
 }

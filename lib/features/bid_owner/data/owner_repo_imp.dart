@@ -19,22 +19,29 @@ class OwnerRepoImp extends OwnerRepo {
   @override
   Future<Result<AppErrors, AddProductEntity>> addProduct(
       AddProductRequest addProductRequest) async {
-    Result<AppErrors, AddProductEntity> result;
+    Result<AppErrors, AddProductEntity> result = Result(
+        error: const AppErrors.connectionError()); // ✅ التهيئة الافتراضية
+
     if (await _networkInfo.isConnected) {
       try {
         Either<AppErrors, AddProductResponse> response =
             await _remoteDataSource.addProduct(addProductRequest);
+
         result = response.fold((error) {
+          print("API Error: ${error.toString()}"); // ✅ طباعة الخطأ الحقيقي
           return Result(error: error);
         }, (response) {
           return Result(data: response.toEntity());
         });
-      } catch (error) {
-        result = Result(error: const AppErrors.responseError());
+      } catch (error, stacktrace) {
+        print("Unexpected Error: $error");
+        print(stacktrace);
+        result = Result(
+            error: const AppErrors.responseError(
+                message: "Unexpected error occurred"));
       }
-    } else {
-      result = Result(error: const AppErrors.connectionError());
     }
-    return result;
+
+    return result; // ✅ الآن `result` سيكون لديه قيمة في جميع الحالات
   }
 }

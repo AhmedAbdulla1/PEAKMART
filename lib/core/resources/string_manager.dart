@@ -89,20 +89,27 @@ class AppStrings {
   static const String enrollNow = 'Enroll Now';
   static const String placeBid = 'Place a bid';
   static const String addProductPhoto = 'Add your product photo';
+  static const String productAddedSuccessfully = 'Product Added Successfully';
   static const String topBidders = "Top Bidders";
-
+  static const String productDetails = "Product Details";
   static const String trendingBids = 'Trending Bids';
   static const String futureBids = 'Future Bids';
   static const String bidsWorkNow = 'Bids Work Now';
   static const String endedBids = 'Ended Bids';
   static const String product = 'Product';
-
+  static const String auctionStart = 'Auction Start: ';
+  static const String deliveryDate = 'Delivery: ';
+  static const String bidDuration = 'Bid Duration: ';
+  static const String category = 'Category ID: ';
+  static const String biddingPeriod = "Bidding Period";
+  static const String electronics = 'Electronics';
   static const productName = 'Product Name';
   static const String description = 'Description';
   static const String startingPrice = 'Starting price';
   static const String expectedPrice = 'Expected price';
   static const String location = 'Location';
   static const String startDate = 'Start date';
+  static const String addProduct = 'Add Product';
   static const String arrivalDate = 'Arrival date';
   static const String periodOfBids = 'Period of bids';
   static const String privacyPolicy = 'Privacy and Policy ';

@@ -14,12 +14,14 @@ import 'package:peakmart/features/main/main_view.dart';
 import 'package:timer_button/timer_button.dart';
 
 class SuccessBottomSheet extends StatelessWidget {
-   SuccessBottomSheet(
+  SuccessBottomSheet(
       {super.key,
       this.restPassCubit,
       this.otpVerfictionCubit,
-      required this.textMessage});
+      required this.textMessage,
+      this.isUsedWithProductDetails});
   final RestPassCubit? restPassCubit;
+  final bool? isUsedWithProductDetails;
   final OtpVerfictionCubit? otpVerfictionCubit;
   final String textMessage;
   final AppPreferences _appPreferences = instance<AppPreferences>();
@@ -49,7 +51,7 @@ class SuccessBottomSheet extends StatelessWidget {
           const SizedBox(height: 20),
 
           // Resend button with TimerButton
-          otpVerfictionCubit != null
+          (otpVerfictionCubit != null || isUsedWithProductDetails == true)
               ? Container()
               : TimerButton(
                   label: AppStrings.resend,
@@ -69,22 +71,20 @@ class SuccessBottomSheet extends StatelessWidget {
           const SizedBox(height: 20),
 
           // Login button
-          otpVerfictionCubit != null
+          (otpVerfictionCubit == null && isUsedWithProductDetails == false)
               ? CustomElevatedButtonWithoutStream(
                   onPressed: () {
                     Navigator.pushReplacementNamed(
-                        context, MainView.routeName); // Close the bottom sheet
-                    _appPreferences.setPressKeyLoginScreen();
+                        context, LogInView.routeName);
                   },
-                  text: AppStrings.Continue,
+                  text: AppStrings.login,
                 )
               : CustomElevatedButtonWithoutStream(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(
-                        context, LogInView.routeName); // Close the bottom sheet
+                    Navigator.pushReplacementNamed(context, MainView.routeName);
                   },
-                  text: AppStrings.login,
-                ),
+                  text: AppStrings.Continue,
+                )
         ],
       ),
     );

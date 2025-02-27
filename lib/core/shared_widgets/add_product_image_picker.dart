@@ -8,11 +8,11 @@ import 'package:provider/provider.dart';
 
 import '../../features/bid_owner/presentation/state_mang/add_product_cubit/image_picker_controller.dart';
 
-class ImagePicker extends StatelessWidget {
+class AddProductImagePicker extends StatelessWidget {
   final String title;
   final Function(File? image)? onSingleImageSelected;
   final Function(List<File?> images)? onMultipleImageSelected;
-  const ImagePicker(
+  const AddProductImagePicker(
       {super.key,
       required this.title,
       this.onSingleImageSelected,
@@ -63,7 +63,7 @@ class ImagePicker extends StatelessWidget {
               onTap: () => _showImageSourceBottomSheet(context),
               child: Container(
                 width: double.infinity,
-                height: 120.h,
+                height: 150.h,
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(10.r),

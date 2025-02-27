@@ -3,10 +3,8 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/app/di.dart';
-import 'package:peakmart/core/error_ui/dialogs/show_dialog.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/results/result.dart';
-import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/bid_owner/data/models/request/add_product_request.dart';
 import 'package:peakmart/features/bid_owner/domain/entity/add_product_entity.dart';
 import 'package:peakmart/features/bid_owner/domain/repository/owner_repo.dart';
@@ -28,7 +26,7 @@ class AddProductCubit extends Cubit<AddProductState> {
 
     Result<AppErrors, AddProductEntity> result = await ownerRepo.addProduct(
       AddProductRequest(
-        photo: addProductRequest.photo,
+        photos: addProductRequest.photos,
         description: addProductRequest.description,
         location: addProductRequest.location,
         name: addProductRequest.name,
@@ -40,7 +38,7 @@ class AddProductCubit extends Cubit<AddProductState> {
         expectedPrice: addProductRequest.expectedPrice,
       ),
     );
-    debugPrint('''In AddProduct Cubit photo: ${addProductRequest.photo},
+    debugPrint('''In AddProduct Cubit photo: ${addProductRequest.photos},
         description: ${addProductRequest.description},
         location: ${addProductRequest.location},
         name: ${addProductRequest.name},
@@ -59,21 +57,13 @@ class AddProductCubit extends Cubit<AddProductState> {
       emit(
         AddProductSuccessState(
             addProductEntity: AddProductEntity(
-                productId: data.productId,
-                description: data.description,
-                location: data.location,
-                startingPrice: data.startingPrice,
-                categoryId: data.categoryId,
-                expectedPrice: data.expectedPrice,
-                periodOfBid: data.periodOfBid,
-                deliveryDate: data.deliveryDate,
-                startDate: data.startDate,
-                productName: data.productName,
-                photoUrl: data.photoUrl)),
+          productId: data.productId,
+          productPhotos: data.productPhotos,
+        )),
       );
     }, onError: (error) {
       log(
-        error.toString(),
+        "in add product cubit error is $error",
       );
       // Navigator.pop(context);
       emit(

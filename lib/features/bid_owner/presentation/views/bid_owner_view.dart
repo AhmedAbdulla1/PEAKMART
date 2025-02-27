@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +13,7 @@ import 'package:peakmart/features/bid_owner/presentation/views/add_product_detai
 import 'package:peakmart/features/bid_owner/presentation/views/widgets/place_bid_accept_data.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/shared_widgets/image_picker_new.dart';
+import '../../../../core/shared_widgets/add_product_image_picker.dart';
 
 class BidOwnerView extends StatefulWidget {
   const BidOwnerView({super.key});
@@ -25,17 +24,16 @@ class BidOwnerView extends StatefulWidget {
   State<BidOwnerView> createState() => _BidOwnerViewState();
 }
 
-List<File?> productImages = [];
-late TextEditingController productNameController;
-late TextEditingController descriptionController;
-late TextEditingController startingPriceController;
-late TextEditingController expectedPriceController;
-late TextEditingController locationController;
-late TextEditingController startDateController;
-late TextEditingController arrivalDateController;
-late TextEditingController periodOfBidsController;
-
 class _BidOwnerViewState extends State<BidOwnerView> {
+  late TextEditingController productNameController;
+  late TextEditingController descriptionController;
+  late TextEditingController startingPriceController;
+  late TextEditingController expectedPriceController;
+  late TextEditingController locationController;
+  late TextEditingController startDateController;
+  late TextEditingController arrivalDateController;
+  late TextEditingController periodOfBidsController;
+
   @override
   void initState() {
     super.initState();
@@ -67,75 +65,61 @@ class _BidOwnerViewState extends State<BidOwnerView> {
     return ChangeNotifierProvider(
       create: (context) => ImagePickerController(),
       child: SafeArea(
-        child: BlocProvider(
-          create: (context) => AddProductCubit(),
-          child: Scaffold(
-            appBar: const CustomAppBar(title: AppStrings.placeBid),
-            body: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 29.sp, vertical: 32.sp),
-              child: ListView(
-                children: [
-                  const ImagePicker(title: AppStrings.addProductPhoto),
-                  23.verticalSpace,
-                  PlaceBidAcceptData(
-                    productNameController: productNameController,
-                    descriptionController: descriptionController,
-                    startingPriceController: startingPriceController,
-                    expectedPriceController: expectedPriceController,
-                    locationController: locationController,
-                    startDateController: startDateController,
-                    arrivalDateController: arrivalDateController,
-                    periodOfBidsController: periodOfBidsController,
-                  ),
-                  23.verticalSpace,
-                  BlocConsumer<AddProductCubit, AddProductState>(
-                    listener: (context, state) {
-                      if (state is AddProductLoadingState) {
-                        debugPrint("Loading...");
-                      } else if (state is AddProductSuccessState) {
-                        debugPrint("Success!");
-                      } else if (state is AddProductFailureState) {
-                        debugPrint("Error: ${state.errors}");
-                      }
-                    },
-                    builder: (context, state) {
-                      return Consumer<ImagePickerController>(
-                        builder: (context, imageController, child) {
-                          return CustomElevatedButtonWithoutStream(
-                            onPressed: imageController.images.isEmpty
-                                ? null
-                                : () {
-                                    final addProductRequest = AddProductRequest(
-                                      photo: imageController.images.first.path,
-                                      name: productNameController.text,
-                                      description: descriptionController.text,
-                                      startingPrice: double.parse(
-                                          startingPriceController.text),
-                                      expectedPrice: double.parse(
-                                          expectedPriceController.text),
-                                      location: locationController.text,
-                                      startDate: startDateController.text,
-                                      deliveryDate: arrivalDateController.text,
-                                      periodOfBid: int.parse(
-                                          periodOfBidsController.text),
-                                      categoryId: 1,
-                                    );
-                                    log(addProductRequest.toJson().toString());
-                                    Navigator.pushNamed(
-                                        context, AddProductDetails.routeName,
-                                        arguments: addProductRequest);
-                                    // context.read<AddProductCubit>().addProduct(
-                                    //       addProductRequest: addProductRequest,
-                                    //     );
-                                  },
-                            text: AppStrings.placeBid,
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
+        child: Scaffold(
+          appBar: const CustomAppBar(title: AppStrings.placeBid),
+          body: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 29.sp, vertical: 32.sp),
+            child: ListView(
+              children: [
+                const AddProductImagePicker(title: AppStrings.addProductPhoto),
+                23.verticalSpace,
+                PlaceBidAcceptData(
+                  productNameController: productNameController,
+                  descriptionController: descriptionController,
+                  startingPriceController: startingPriceController,
+                  expectedPriceController: expectedPriceController,
+                  locationController: locationController,
+                  startDateController: startDateController,
+                  arrivalDateController: arrivalDateController,
+                  periodOfBidsController: periodOfBidsController,
+                ),
+                23.verticalSpace,
+                Consumer<ImagePickerController>(
+                  builder: (context, imageController, child) {
+                    return BlocProvider(
+                      create: (context) => AddProductCubit(),
+                      child: CustomElevatedButtonWithoutStream(
+                        onPressed: imageController.images.isEmpty
+                            ? null
+                            : () {
+                                final addProductRequest = AddProductRequest(
+                                  photos: imageController.images,
+                                  name: productNameController.text,
+                                  description: descriptionController.text,
+                                  startingPrice: double.parse(
+                                      startingPriceController.text),
+                                  expectedPrice: double.parse(
+                                      expectedPriceController.text),
+                                  location: locationController.text,
+                                  startDate: startDateController.text,
+                                  deliveryDate: arrivalDateController.text,
+                                  periodOfBid:
+                                      int.parse(periodOfBidsController.text),
+                                  categoryId: 1,
+                                );
+                                Navigator.pushNamed(
+                                  context,
+                                  AddProductDetails.routeName,
+                                  arguments: addProductRequest,
+                                );
+                                log(addProductRequest.toFormData().toString());
+                              },
+                        text: AppStrings.placeBid,
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
           ),
         ),
@@ -143,3 +127,15 @@ class _BidOwnerViewState extends State<BidOwnerView> {
     );
   }
 }
+/* name: "Dell XPS 15 9530 - 13th Gen Intel Core i9, 32GB RAM, 1TB SSD, NVIDIA RTX 4060, 4K OLED Touch Display",
+  description: 
+      The Dell XPS 15 9530 is a powerhouse designed for professionals and creators who demand top-tier performance.
+Featuring a stunning 15.6-inch 4K OLED touch display, it delivers vibrant colors, deep blacks, and incredible clarity.
+Powered by the latest 13th Gen Intel Core i9 processor and NVIDIA GeForce RTX 4060 GPU, this laptop handles intensive tasks such as video editing,
+3D rendering, and gaming with ease. With 32GB DDR5 RAM and a 1TB PCIe NVMe SSD, you can enjoy blazing-fast performance, seamless multitasking, and ample storage for all your projects.
+Its premium aluminum chassis, edge-to-edge keyboard, and immersive audio make it the perfect blend of power, portability, and elegance.
+Ideal for content creators, designers, and business professionals looking for a high-performance laptop.
+  25008
+  40500
+  Tanta
+  */

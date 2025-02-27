@@ -16,63 +16,30 @@ class AddProductResponse extends BaseResponse<BaseEntity> {
 
   factory AddProductResponse.fromJson(Map<String, dynamic> json) {
     log('on from json in add product response');
+    log(' in add product response, code: ' + json['status_code'].toString());
     return AddProductResponse(
       status: json['status'] ?? "",
-      message: json['message'] ?? "",
+      message: json['message'] ?? "any",
       code: json['status_code'] ?? 400,
       data: AddProductData(
         productId: json['data']['id'],
-        productName: json['data']['name'],
-        description: json['data']['description'],
-        photoUrl: json['data']['photo_url'],
-        location: json['data']['location'],
-        startDate: json['data']['start_date'],
-        deliveryDate: json['data']['delivery_date'],
-        categoryId: json['data']['category_id'],
-        periodOfBid: json['data']['period_of_bid'],
-        startingPrice: json['data']['starting_price'],
-        expectedPrice: json['data']['expected_price'],
+        productPhotos: json['data']['photos'],
       ),
     );
   }
 
   @override
   AddProductEntity toEntity() {
-    return  AddProductEntity(
+    return AddProductEntity(
       productId: data.productId,
-      productName: data.productName,
-      description: data.description,
-      photoUrl: data.photoUrl,
-      location: data.location,
-      startDate: data.startDate,
-      deliveryDate: data.deliveryDate,
-      categoryId: data.categoryId,
-      periodOfBid: data.periodOfBid,
-      startingPrice: data.startingPrice,
-      expectedPrice: data.expectedPrice
+      productPhotos: data.productPhotos,
     );
   }
 }
 
 class AddProductData {
-  final int productId, categoryId, startingPrice, expectedPrice, periodOfBid;
-  final String productName,
-      description,
-      photoUrl,
-      location,
-      startDate,
-      deliveryDate;
+  final int productId;
+  final List<String> productPhotos;
 
-  AddProductData(
-      {required this.productId,
-      required this.categoryId,
-      required this.startingPrice,
-      required this.expectedPrice,
-      required this.periodOfBid,
-      required this.productName,
-      required this.description,
-      required this.photoUrl,
-      required this.location,
-      required this.startDate,
-      required this.deliveryDate});
+  AddProductData({required this.productId, required this.productPhotos});
 }

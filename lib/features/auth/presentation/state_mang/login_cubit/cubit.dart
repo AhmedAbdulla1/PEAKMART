@@ -15,22 +15,25 @@ part 'state.dart';
 class LoginCubit extends Cubit<LoginState> {
   AuthRepo authRepo = instance<AuthRepo>();
   AppPreferences appPreferences = instance<AppPreferences>();
-  LoginCubit() : super(SignUpInitialState());
+  LoginCubit() : super(LoginInitialState());
   late BuildContext context;
 
   Future<void> login({required String email, required String password}) async {
-    emit(SignUpLoadingState());
-    ShowDialog().showElasticDialog(context: context, builder: (context) => const WaitingWidget(), barrierDismissible: true);
+    emit(LoginLoadingState());
+    ShowDialog().showElasticDialog(
+        context: context,
+        builder: (context) => const WaitingWidget(),
+        barrierDismissible: true);
     Result<AppErrors, LoginEntity> result =
         await authRepo.login(LoginRequest(email: email, password: password));
     result.pick(onData: (data) {
       Navigator.pop(context);
-      emit(SignUpSuccessState());
+      emit(LoginSuccessState());
       appPreferences.setPressKeyLoginScreen();
       appPreferences.setUserId(data.userId);
     }, onError: (error) {
       Navigator.pop(context);
-      emit(SignUpFailureState(errors: error, onRetry: () {}));
+      emit(LoginFailureState(errors: error, onRetry: () {}));
     });
   }
 }

@@ -75,7 +75,7 @@ class _LogInViewState extends State<LogInView> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
         child: BlocConsumer<LoginCubit, LoginState>(listener: (context, state) {
-          if (state is SignUpFailureState) {
+          if (state is LoginFailureState) {
             ErrorViewer.showError(
                 errorViewerOptions: const ErrVToastOptions(
                     backGroundColor: ColorManager.textFormErrorBorder,
@@ -84,7 +84,7 @@ class _LogInViewState extends State<LogInView> {
                 error: state.errors,
                 callback: () {});
           }
-          if (state is SignUpSuccessState) {
+          if (state is LoginSuccessState) {
             Navigator.pushReplacementNamed(context, MainView.routeName);
           }
         }, builder: (context, state) {

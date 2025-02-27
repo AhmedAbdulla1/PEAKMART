@@ -1,9 +1,7 @@
 import 'dart:developer';
 
-import 'package:peakmart/core/entities/base_entity.dart';
 import 'package:peakmart/core/entities/empty_entity.dart';
 import 'package:peakmart/core/models/base_model.dart';
-import 'package:peakmart/features/auth/domain/entity/send_otp_entity.dart';
 
 class WatsAppOtpResponse extends BaseResponse {
   String? error;

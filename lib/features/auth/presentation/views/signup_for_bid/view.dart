@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/error_ui/dialogs/show_dialog.dart';
@@ -6,6 +8,7 @@ import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
 import 'package:peakmart/features/auth/presentation/state_mang/signup_for_bid/cubit.dart';
+import 'package:peakmart/features/auth/presentation/state_mang/user_info_cubit/user_info_cubit.dart';
 import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification.dart';
 import 'package:peakmart/features/auth/presentation/views/signup_for_bid/additional_details.dart';
 import 'package:peakmart/features/auth/presentation/views/signup_for_bid/main_info.dart';
@@ -44,19 +47,23 @@ class _SignUpForBidViewState extends State<SignUpForBidView> {
         appBar: const CustomAppBar(title: "Sign Up For Bid"),
         body: Padding(
           padding: const EdgeInsets.only(
-              left: AppPadding.p20,
-              right: AppPadding.p20,),
+            left: AppPadding.p20,
+            right: AppPadding.p20,
+          ),
           child: BlocConsumer<SignUpForBidCubit, SignUpState>(
               listener: (context, state) {
             if (state is SignUpFailure) {
+              Navigator.pop(context);
               ErrorViewer.showError(
                   context: context, error: state.error, callback: () {});
             }
             if (state is SignUpDetailsFailure) {
+              Navigator.pop(context);
               ErrorViewer.showError(
                   context: context, error: state.error, callback: () {});
             }
             if (state is SignUpSuccess) {
+              Navigator.pop(context);
               index = 1;
             }
             if (state is SignUpDetailsLoading || state is SignUpLoading) {
@@ -66,8 +73,16 @@ class _SignUpForBidViewState extends State<SignUpForBidView> {
                   barrierDismissible: true);
             }
             if (state is SignUpDetailsSuccess) {
-              Navigator.pushNamed(context, OtpVerification.routeName,
-                  arguments: VerificationType.watsApp);
+              log("in sign up for owner register entity: ${UserInfoCubit.entity.toString()}");
+              Navigator.pop(context);
+              Navigator.pushReplacementNamed(
+                context,
+                OtpVerification.routeName,
+                arguments: {
+                  'verificationType': VerificationType.email,
+                  'registerEntity': UserInfoCubit.entity,
+                },
+              );
             }
             if (state is SignUpLoading) {
               ShowDialog().showElasticDialog(

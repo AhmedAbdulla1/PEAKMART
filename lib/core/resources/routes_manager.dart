@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
+import 'package:peakmart/features/auth/domain/entity/register_entity.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
 import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification.dart';
 import 'package:peakmart/features/auth/presentation/views/reset_password/view.dart';
@@ -56,10 +57,11 @@ class RouteGenerator {
           builder: (_) => const SignUpView(),
         );
       case OtpVerification.routeName:
-        // final registerEntity = settings.arguments as RegisterEntity;
+        final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder: (_) => OtpVerification(
-            verificationType: settings.arguments as VerificationType,
+            verificationType: args['verificationType'] as VerificationType,
+            registerEntity: args['registerEntity'] as RegisterEntity,
           ),
         );
 

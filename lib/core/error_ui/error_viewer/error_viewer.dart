@@ -270,6 +270,7 @@ class ErrorViewer {
     BuildContext context, {
     ErrorViewerOptions errorViewerOptions = const ErrVToastOptions(),
     VoidCallback? callback,
+        String? message,
     required bool retryWhenNotAuthorized,
   }) {
     // if (errorViewerOptions is ErrVToastOptions) {
@@ -282,7 +283,7 @@ class ErrorViewer {
     // } else
       if (errorViewerOptions is ErrVToastOptions) {
       showErrorToast(
-        message: AppStrings.forbiddenError,
+        message: message?? AppStrings.forbiddenError,
         errVToastOptions: errorViewerOptions,
       );
     } else if (errorViewerOptions is ErrVDialogOptions) {

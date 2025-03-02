@@ -76,6 +76,7 @@ class _LogInViewState extends State<LogInView> {
         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
         child: BlocConsumer<LoginCubit, LoginState>(listener: (context, state) {
           if (state is LoginFailureState) {
+            print('state.errors ${state.errors}');
             ErrorViewer.showError(
                 errorViewerOptions: const ErrVToastOptions(
                     backGroundColor: ColorManager.textFormErrorBorder,

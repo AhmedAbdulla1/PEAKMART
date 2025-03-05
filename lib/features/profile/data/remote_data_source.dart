@@ -11,12 +11,19 @@ import 'package:peakmart/features/profile/data/models/response/user_product_resp
 
 class ProfileDataSource extends RemoteDataSource {
   Future<Either<AppErrors, UserProductResponse>> getUserProducts() async {
+    final AppPreferences appPreferences = instance<AppPreferences>();
+    String cookieString = appPreferences.getCookies().join(';');
+    print('cookie string $cookieString');
     return request<UserProductResponse>(
         method: HttpMethod.GET,
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           return UserProductResponse.fromJson(json);
         },
+        body: {
+          "HK":appPreferences.getUserId(),
+        },
+        headers: {"cookie": cookieString},
         url: APIUrls.getUserProducts);
   }
 
@@ -26,9 +33,9 @@ class ProfileDataSource extends RemoteDataSource {
     print('cookie string $cookieString');
     return request<UserInfoResponse>(
         method: HttpMethod.GET,
-        // body: {
-        //   "HK":285,
-        // },
+        body: {
+          "HK":appPreferences.getUserId(),
+        },
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           return UserInfoResponse.fromJson(json);

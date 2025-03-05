@@ -19,6 +19,7 @@ import 'package:peakmart/features/products/data/models/product_model.dart';
 import 'package:peakmart/features/products/presentation/views/auction_rules_view.dart';
 import 'package:peakmart/features/products/presentation/views/privacy_and_policy_view.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/product_details.dart';
+import 'package:peakmart/features/profile/presentation/cart/cart_view.dart';
 
 final AppPreferences _appPreferences = instance<AppPreferences>();
 
@@ -83,6 +84,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const PrivacyAndPolicyView());
       case AuctionRulesView.routeName:
         return MaterialPageRoute(builder: (_) => const AuctionRulesView());
+      case CartView.routeName:
+        return MaterialPageRoute(builder: (_) => const CartView());
       case ProductDetails.routeName:
         return MaterialPageRoute(
             builder: (_) => ProductDetails(

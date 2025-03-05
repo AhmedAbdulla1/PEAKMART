@@ -1,6 +1,9 @@
 // screens/summary_profile_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
+import 'package:peakmart/core/widgets/waiting_widget.dart';
+import 'package:peakmart/features/profile/domain/enitiy/user_info_entity.dart';
 import 'package:peakmart/features/profile/presentation/state_m/summary_profile/cubit.dart';
 import 'package:peakmart/features/profile/presentation/summary_profile/profile_body.dart';
 
@@ -11,16 +14,28 @@ class SummaryProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ProfileCubit()..fetchProfile(),
-      child: BlocBuilder<ProfileCubit, ProfileState>(
+      child: BlocConsumer<ProfileCubit, ProfileState>(
+        listener: (context, state) {
+          if (state is ProfileError) {
+            ErrorViewer.showError(
+                context: context, error: state.error, callback: () {});
+          }
+        },
         builder: (context, state) {
           if (state is ProfileLoading) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: WaitingWidget());
           } else if (state is ProfileLoaded) {
-            return ProfileScreen(model: state.summaryProfileModel);
+            return ProfileScreen(userinfo: state.userInfo);
           } else if (state is ProfileError) {
-            return Center(child: Text(state.message));
+            return const ProfileScreen(
+                userinfo: UserInfoEntity(
+                    userName: "Ahmed",
+                    phone: "01099409512",
+                    photo: "https://picsum.photos/800/600",
+                    sellerInfo: "",
+                    email: "ahmedelabassy14@gmail.com"));
           } else {
-            return Center(child: Text('No data available'));
+            return const Center(child: Text('No data available'));
           }
         },
       ),

@@ -62,7 +62,7 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) => OtpVerification(
             verificationType: args['verificationType'] as VerificationType,
-            registerEntity: args['registerEntity'] as RegisterEntity,
+            registerEntity: args['registerEntity'],
           ),
         );
 

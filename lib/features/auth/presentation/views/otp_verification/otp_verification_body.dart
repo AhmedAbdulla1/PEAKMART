@@ -25,9 +25,11 @@ import 'package:peakmart/features/main/main_view.dart';
 class OtpVerificationBody extends StatefulWidget {
   const OtpVerificationBody({
     super.key,
-    required this.registerEntity,
+    this.registerEntity,
   });
-  final RegisterEntity registerEntity;
+
+  final RegisterEntity? registerEntity;
+
   @override
   State<OtpVerificationBody> createState() => _OtpVerificationBodyState();
 }
@@ -38,13 +40,15 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<OtpVerfictionCubit>(context).sendOtp(
-      sendOtpRequest: SendOtpRequest(
-        key: 'SM',
-        username: widget.registerEntity.userName,
-        email: widget.registerEntity.email,
-      ),
-    );
+    if (widget.registerEntity != null) {
+      BlocProvider.of<OtpVerfictionCubit>(context).sendOtp(
+        sendOtpRequest: SendOtpRequest(
+          key: 'SM',
+          username: widget.registerEntity!.userName,
+          email: widget.registerEntity!.email,
+        ),
+      );
+    }
   }
 
   @override
@@ -55,6 +59,7 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
       child: BlocConsumer<OtpVerfictionCubit, OtpVerificationState>(
         listener: (context, state) {
           if (state is OtpVerificationSuccessState) {
+            Navigator.pop(context);
             if (state.isVerified) {
               log('Success state in verify otp');
               state.isVerified
@@ -112,7 +117,22 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
                 },
               ),
               SizedBox(height: 25.h),
-              const OtpResendTimerRow(),
+              OtpResendTimerRow(
+                onPressed: () {
+                  if (widget.registerEntity != null) {
+                    BlocProvider.of<OtpVerfictionCubit>(context).sendOtp(
+                      sendOtpRequest: SendOtpRequest(
+                        key: 'SM',
+                        username: widget.registerEntity!.userName,
+                        email: widget.registerEntity!.email,
+                      ),
+                    );
+                  } else {
+                    BlocProvider.of<OtpVerfictionCubit>(context)
+                        .sendWatsAppOtp();
+                  }
+                },
+              ),
               const Spacer(flex: 8),
               CustomElevatedButton(
                 textButton: AppStrings.Continue,
@@ -133,12 +153,20 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
   }
 
   void verfiyOtp(BuildContext context) {
-    BlocProvider.of<OtpVerfictionCubit>(context).verfiyOtp(
-        verfiyOtpRequest: VerfiyOtpRequest(
-            email: widget.registerEntity.email,
-            username: widget.registerEntity.userName,
-            otp: verificationCode));
-
+    if (widget.registerEntity != null) {
+      BlocProvider.of<OtpVerfictionCubit>(context).verfiyOtp(
+          verfiyOtpRequest: VerfiyOtpRequest(
+              email: widget.registerEntity!.email,
+              username: widget.registerEntity!.userName,
+              otp: verificationCode));
+    } else {
+      BlocProvider.of<OtpVerfictionCubit>(context).verifyWatsAppOtp(
+          verifyOtpRequest: VerfiyOtpRequest(
+        email: '',
+        username: '',
+        otp: verificationCode,
+      ));
+    }
     log('otp is: ${BlocProvider.of<OtpVerfictionCubit>(context).otp}');
   }
 }

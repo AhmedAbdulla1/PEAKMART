@@ -52,7 +52,7 @@ class ProductsBody extends StatelessWidget {
             return ListView.builder(
               itemCount: state.products.length,
               itemBuilder: (context, index) {
-                return ItemWidget(product: state.products[index], index: index);
+                return ItemWidget(product: state.products[index], index: index+1);
               },
             );
           }

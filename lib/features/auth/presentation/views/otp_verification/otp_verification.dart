@@ -11,12 +11,12 @@ class OtpVerification extends StatelessWidget {
   const OtpVerification({
     super.key,
     required this.verificationType,
-    required this.registerEntity,
+    this.registerEntity,
   });
 
   final VerificationType verificationType;
 
-  final RegisterEntity registerEntity;
+  final RegisterEntity? registerEntity;
   static const String routeName = '/otp_verification';
 
   @override
@@ -32,7 +32,7 @@ class OtpVerification extends StatelessWidget {
                 ? (OtpVerfictionCubit()..sendWatsAppOtp())
                 : (OtpVerfictionCubit()),
             child: OtpVerificationBody(
-              registerEntity: registerEntity!,
+              registerEntity: registerEntity,
             )),
       ),
     );

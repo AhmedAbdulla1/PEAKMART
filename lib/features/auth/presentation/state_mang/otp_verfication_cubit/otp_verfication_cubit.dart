@@ -129,19 +129,15 @@ class OtpVerfictionCubit extends Cubit<OtpVerificationState> {
   }
 
   Future<void> verifyWatsAppOtp({
-    required SendOtpRequest sendOtpRequest,
+    required VerfiyOtpRequest verifyOtpRequest,
   }) async {
     emit(
       OtpVerificationLoadingState(),
     );
 
-    debugPrint('in cubit key is ${sendOtpRequest.key}');
-    Result<AppErrors, SendOtpEntity> result =
-        await authRepo.sendOtp(SendOtpRequest(
-      email: sendOtpRequest.email,
-      username: sendOtpRequest.username,
-      key: sendOtpRequest.key,
-    ));
+    debugPrint('in cubit key is ${verifyOtpRequest.otp}');
+    Result<AppErrors, EmptyEntity> result =
+        await authRepo.verfiyWatsAppOtp(verifyOtpRequest);
 
     result.pick(onData: (data) {
       debugPrint(

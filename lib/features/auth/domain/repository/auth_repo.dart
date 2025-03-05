@@ -39,6 +39,8 @@ abstract class AuthRepo {
 
   Future<Result<AppErrors, EmptyEntity>> sellerInfo(
       {required SellerInfoRequest sellerInfoRequest});
+
+
   Future<Result<AppErrors, UserInfoEntity>> getUserInfo();
 
 }

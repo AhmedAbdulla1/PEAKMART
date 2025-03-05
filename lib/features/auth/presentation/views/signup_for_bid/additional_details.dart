@@ -123,7 +123,7 @@ class _AdditionalDetailsState extends State<AdditionalDetails> {
     if (!_fieldTouchedState['iban']!) {
       return null; // Don't show error if field hasn't been touched
     }
-    if (value == null || value.length < 14) {
+    if (value == null || value.length < 16) {
       return 'Enter a valid IBAN (16 characters).';
     }
     if (!RegExp(r"^[A-Za-z0-9]+$").hasMatch(value)) {

@@ -7,8 +7,8 @@ import 'package:timer_button/timer_button.dart';
 import '../../../../../core/resources/style_manager.dart';
 
 class OtpResendTimerRow extends StatelessWidget {
-  const OtpResendTimerRow({super.key});
-
+  const OtpResendTimerRow({super.key,required this.onPressed});
+  final Function() onPressed;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -22,8 +22,8 @@ class OtpResendTimerRow extends StatelessWidget {
                   ),
                   TimerButton(
                     label: AppStrings.resend,
-                    timeOutInSeconds: 30,
-                    onPressed: () {},
+                    timeOutInSeconds: 60,
+                    onPressed: onPressed,
                     disabledColor: ColorManager.white,
                     color: ColorManager.white,
                     disabledTextStyle: getMediumStyle(

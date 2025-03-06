@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:peakmart/core/entities/prodcut_entity.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
@@ -22,8 +21,9 @@ class CustomBidItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        Navigator.pushNamed(context, ProductDetails.routeName,arguments: bidItem);
+      onTap: () {
+        Navigator.pushNamed(context, ProductDetails.routeName,
+            arguments: bidItem);
       },
       child: Center(
         child: Container(
@@ -96,8 +96,10 @@ class CustomBidItem extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         bidItem.description,
                         style: getMediumStyle(
-                                color: ColorManager.grey1, fontSize: FontSize.s12)
-                            .copyWith(fontFamily: FontConstants.fontCabinFamily),
+                                color: ColorManager.grey1,
+                                fontSize: FontSize.s12)
+                            .copyWith(
+                                fontFamily: FontConstants.fontCabinFamily),
                       ),
                     ),
                     const SizedBox(
@@ -109,7 +111,8 @@ class CustomBidItem extends StatelessWidget {
                         Text(
                           "${AppStrings.nowBid}\n${"\$${bidItem.price}"}",
                           style: getSemiBoldStyle(
-                              fontSize: FontSize.s12, color: ColorManager.black),
+                              fontSize: FontSize.s12,
+                              color: ColorManager.black),
                         ),
                         ElevatedButton(
                           onPressed: () {},

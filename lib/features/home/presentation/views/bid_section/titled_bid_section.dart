@@ -6,9 +6,6 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
-import 'package:peakmart/features/home/domain/entity/bid_work_now_entity.dart';
-import 'package:peakmart/features/home/domain/entity/ended_bids_entity.dart';
-import 'package:peakmart/features/home/domain/entity/future_bids_entity.dart';
 import 'package:peakmart/features/home/presentation/state_m/home_cubits/states.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/widgets/bids_slider.dart';
 
@@ -23,12 +20,13 @@ class TitledBidSection<C extends Cubit<BidsState>> extends StatelessWidget {
 
   final String title;
   final bool isEnded, isFuture, isTrending;
-  static List<ProductEntity> products = [];
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<C, BidsState>(
       builder: (context, state) {
+   List<ProductEntity> products = [];
+
         if (state is BidWorkNowSuccessState) {
           products = state.bidWorkNowData;
         }
@@ -37,20 +35,10 @@ class TitledBidSection<C extends Cubit<BidsState>> extends StatelessWidget {
         }
         if (state is FutureBidsSuccessState) {
           products = state.futureBidsData;
-          products = state.futureBidsData;
         }
         if (state is TrendingBidsSuccessState) {
-          // loadedTrendingBids = state.trendingBidsData;
-
+          products = state.trendingBidsData;
         }
-        // debugPrint(
-        //     "📢 Passing Trending Bids to BidsSlider: ${products.length}");
-        // debugPrint(
-        //     "📢 Passing Future Bids to BidsSlider: ${loadedFutureBids.length}");
-        // // debugPrint(
-        // //     "📢 Passing Work Now Bids to BidsSlider: ${loadedBidWorkNow.length}");
-        // debugPrint(
-        //     "📢 Passing Ended Bids to BidsSlider: ${loadedEndedBids.length}");
 
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -70,7 +58,7 @@ class TitledBidSection<C extends Cubit<BidsState>> extends StatelessWidget {
                 isTrending: isTrending,
                 isEnded: isEnded,
                 productEntity: products,
-               /* endedBids: loadedEndedBids,
+                /* endedBids: loadedEndedBids,
                 trendingBids: loadedTrendingBids,
                 futureBids: loadedFutureBids,*/
               ),

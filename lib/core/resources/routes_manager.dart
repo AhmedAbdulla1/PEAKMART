@@ -15,10 +15,10 @@ import 'package:peakmart/features/bid_owner/presentation/views/add_product_detai
 import 'package:peakmart/features/bid_owner/presentation/views/bid_owner_view.dart';
 import 'package:peakmart/features/main/main_view.dart';
 import 'package:peakmart/features/onboarding/presentation/views/onboarding_view.dart';
-import 'package:peakmart/features/products/data/models/product_model.dart';
 import 'package:peakmart/features/products/presentation/views/auction_rules_view.dart';
 import 'package:peakmart/features/products/presentation/views/privacy_and_policy_view.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/product_details.dart';
+import 'package:peakmart/features/products/presentation/views/random_products/random_products_view.dart';
 
 final AppPreferences _appPreferences = instance<AppPreferences>();
 
@@ -74,15 +74,26 @@ class RouteGenerator {
       case BidOwnerView.routeName:
         initBidOwnerModule();
         return MaterialPageRoute(builder: (_) => const BidOwnerView());
+
       case AddProductDetails.routeName:
         return MaterialPageRoute(
             builder: (_) => AddProductDetails(
-                  addProductRequest: settings.arguments as AddProductRequest,
+                addProductRequest: settings.arguments as AddProductRequest));
+
+      case RandomProductsView.routeName:
+        final args = settings.arguments as List<ProductEntity>;
+
+        return MaterialPageRoute(
+            builder: (_) => RandomProductsView(
+                  allProducts: args,
                 ));
+
       case PrivacyAndPolicyView.routeName:
         return MaterialPageRoute(builder: (_) => const PrivacyAndPolicyView());
+
       case AuctionRulesView.routeName:
         return MaterialPageRoute(builder: (_) => const AuctionRulesView());
+
       case ProductDetails.routeName:
         return MaterialPageRoute(
             builder: (_) => ProductDetails(

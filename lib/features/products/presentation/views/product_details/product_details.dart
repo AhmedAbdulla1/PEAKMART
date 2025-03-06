@@ -6,9 +6,7 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/features/home/presentation/state_m/home_cubits/future_bids_cubit.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/titled_bid_section.dart';
-import 'package:peakmart/features/products/data/models/product_model.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/prodcut_details_images.dart';
-import 'package:peakmart/features/products/presentation/views/products_view.dart';
 import 'package:peakmart/features/products/presentation/widgets/top_bidders.dart';
 
 import '../../../../../core/resources/style_manager.dart';
@@ -82,8 +80,11 @@ class ProductDetails extends StatelessWidget {
 
                   const TopBidders(),
                   BlocProvider(
-                      create: (context)=> FutureBidsCubit()..getFutureBids(),
-                      child: const TitledBidSection<FutureBidsCubit>(title: 'Recommended Bids',isTrending: true ,)),
+                      create: (context) => FutureBidsCubit()..getFutureBids(),
+                      child: const TitledBidSection<FutureBidsCubit>(
+                        title: 'Recommended Bids',
+                        isTrending: true,
+                      )),
                 ],
               ),
             ),

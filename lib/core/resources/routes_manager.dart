@@ -4,7 +4,6 @@ import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/entities/prodcut_entity.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
-import 'package:peakmart/features/auth/domain/entity/register_entity.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
 import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification.dart';
 import 'package:peakmart/features/auth/presentation/views/reset_password/view.dart';
@@ -19,6 +18,7 @@ import 'package:peakmart/features/products/presentation/views/auction_rules_view
 import 'package:peakmart/features/products/presentation/views/privacy_and_policy_view.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/product_details.dart';
 import 'package:peakmart/features/products/presentation/views/random_products/random_products_view.dart';
+import 'package:peakmart/features/profile/presentation/cart/cart_view.dart';
 
 final AppPreferences _appPreferences = instance<AppPreferences>();
 

@@ -11,7 +11,7 @@ import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar
 import 'package:peakmart/features/bid_owner/presentation/views/bid_owner_view.dart';
 import 'package:peakmart/features/products/presentation/state_m/product_cubit/cubit.dart';
 import 'package:peakmart/features/products/presentation/state_m/product_cubit/state.dart';
-import 'package:peakmart/features/products/presentation/widgets/product_item_widget.dart';
+import 'package:peakmart/features/profile/presentation/cart/product_item_widget.dart';
 
 class ProductsView extends StatelessWidget {
   const ProductsView({super.key});

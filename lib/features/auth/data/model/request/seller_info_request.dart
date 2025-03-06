@@ -24,9 +24,9 @@ class SellerInfoRequest extends BaseRequest {
   Map<String, dynamic> toJson() {
     return {
       "full_name": fullName,
-      "id_number": fullName,
+      "id_number": idNumber,
       // "id_img ": fullName,
-      "iban": fullName,
+      "iban": iban,
       // "iban_img ":fullName ,
     };
   }

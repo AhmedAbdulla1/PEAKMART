@@ -62,7 +62,7 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) => OtpVerification(
             verificationType: args['verificationType'] as VerificationType,
-            registerEntity: args['registerEntity'] as RegisterEntity,
+            registerEntity: args['registerEntity'],
           ),
         );
 
@@ -93,7 +93,8 @@ class RouteGenerator {
 
       case AuctionRulesView.routeName:
         return MaterialPageRoute(builder: (_) => const AuctionRulesView());
-
+      case CartView.routeName:
+        return MaterialPageRoute(builder: (_) => const CartView());
       case ProductDetails.routeName:
         return MaterialPageRoute(
             builder: (_) => ProductDetails(

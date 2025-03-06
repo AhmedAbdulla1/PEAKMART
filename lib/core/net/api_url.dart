@@ -12,7 +12,12 @@ class APIUrls {
   static const verfiyWatsAppOtp = "${baseUrl}bids/verify.php";
   static const registerAsSeller = "${baseUrl}bids/bid_own_rig.php";
   static const addSellerInfo = "${baseUrl}bids/bid_owner_rig_info.php";
+
+
+  // profile api
+
   static const getUserInfo = "${baseUrl}data/user_info.php";
+  static const getUserProducts= "${baseUrl}data/user_products.php";
 
   // home api
   static const getNews = "${baseUrl}InPageApi/news-api.php";

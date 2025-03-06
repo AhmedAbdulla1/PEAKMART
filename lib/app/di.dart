@@ -10,6 +10,8 @@ import 'package:peakmart/features/bid_owner/data/owner_repo_imp.dart';
 import 'package:peakmart/features/bid_owner/domain/repository/owner_repo.dart';
 import 'package:peakmart/features/home/data/home_repo_imp.dart';
 import 'package:peakmart/features/home/domain/home_repo.dart';
+import 'package:peakmart/features/profile/data/profile_repo_imp.dart';
+import 'package:peakmart/features/profile/domain/profile_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -96,6 +98,12 @@ initHomeModule() {
   if(!GetIt.I.isRegistered<HomeRepository>()){
     instance.registerCachedFactory<HomeRepository>(()=>HomeRepositoryImp());
   }
+  if(!GetIt.I.isRegistered<ProfileRepo>()){
+    instance.registerLazySingleton<ProfileRepo> (
+        ()=>ProfileRepoImpl()
+    );
+  }
+
 }
 initBidOwnerModule() {
   if (!GetIt.I.isRegistered<OwnerRepo>()) {

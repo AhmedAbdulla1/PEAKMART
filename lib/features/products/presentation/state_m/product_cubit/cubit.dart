@@ -17,7 +17,7 @@ class ProductCubit extends Cubit<ProductState> {
           "ITEM_NAME": "aaaaa",
           "DESCRIPTION": "bbbbb",
           "STARTING_PRICE": "500.00",
-          "PHOTO": "[\"https://picsum.photos/800/600\"]",
+          "PHOTO": "[\"https://picsum.photos/800/600\",\"https://picsum.photos/1800/600\",\"https://picsum.photos/800/1400\",\"https://picsum.photos/1080/600\"]",
           "START_DATE": "2025-02-27",
           "END_DATE": "2025-03-07",
           "STATUS": "not_ended"

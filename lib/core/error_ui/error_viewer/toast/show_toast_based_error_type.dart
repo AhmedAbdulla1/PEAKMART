@@ -80,9 +80,10 @@ void showToastBasedErrorType(
         callback: callback,
       );
     },
-    forbiddenError: (_) {
+    forbiddenError: (error) {
       ErrorViewer.showForbiddenError(
         context,
+        message: error.message,
         errorViewerOptions: errVToastOptions,
         callback: callback,
         retryWhenNotAuthorized: retryWhenNotAuthorized,

@@ -73,14 +73,14 @@ class _SignUpForBidViewState extends State<SignUpForBidView> {
                   barrierDismissible: true);
             }
             if (state is SignUpDetailsSuccess) {
-              log("in sign up for owner register entity: ${UserInfoCubit.entity.toString()}");
+              // log("in sign up for owner register entity: ${UserInfoCubit.entity.toString()}");
               Navigator.pop(context);
-              Navigator.pushReplacementNamed(
+              Navigator.pushNamed(
                 context,
                 OtpVerification.routeName,
                 arguments: {
-                  'verificationType': VerificationType.email,
-                  'registerEntity': UserInfoCubit.entity,
+                  'verificationType': VerificationType.watsApp,
+                  // 'registerEntity': UserInfoCubit.entity,
                 },
               );
             }

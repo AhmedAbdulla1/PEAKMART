@@ -82,12 +82,12 @@ class ProductsBody extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.shopping_cart_outlined,
-                          size: AppSize.s80, color: Colors.grey.shade400),
+                          size: AppSize.s100, color: ColorManager.greyColor),
                       const SizedBox(height: 10),
                       Text("No products added yet!",
                           style: getBoldStyle(
-                              fontSize: FontSize.s16,
-                              color: ColorManager.grey)),
+                              fontSize: FontSize.s28,
+                              color: ColorManager.greyColor)),
                     ],
                   ),
                 );
@@ -96,7 +96,10 @@ class ProductsBody extends StatelessWidget {
               return ListView.builder(
                 itemCount: products.length,
                 itemBuilder: (context, index) {
-                  return ItemWidget(product: products[index], index: index);
+                  return ItemWidget(
+                    product: products[index],
+                    index: index,
+                  );
                 },
               );
             }

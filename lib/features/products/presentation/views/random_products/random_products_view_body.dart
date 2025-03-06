@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/features/home/presentation/state_m/random_products_cubit/random_products_cubit.dart';
 import 'package:peakmart/features/home/presentation/state_m/random_products_cubit/random_products_states.dart';
 import 'package:peakmart/features/products/presentation/widgets/product_item_widget.dart';
@@ -33,7 +34,7 @@ class RandomProductsViewBody extends StatelessWidget {
                 Text(state.errors.toString()),
                 ElevatedButton(
                   onPressed: state.onRetry,
-                  child: const Text("Retry"),
+                  child: const Text(AppStrings.retry),
                 ),
               ],
             ),

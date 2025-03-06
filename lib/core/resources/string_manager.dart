@@ -8,7 +8,9 @@ class AppStrings {
   static String googleAuthFailed = tr('Google Auth Failed');
   static String networkError = tr('Network Error, Please Try Again');
   static String unexpectedError = tr('Unexpected Error');
-
+static String  recommendedProducts=tr('Recommended Products');
+  static String  auctionEnd=tr('Auction Ends');
+  static String  priceNow=tr('Price Now');
   //* Firebase Authentication Errors
   static String accountExistsWithDifferentCredential =
       tr('Account Exists With Different Credential');

@@ -4,6 +4,7 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
+import 'package:peakmart/features/auth/presentation/views/signup_for_bid/main_info.dart';
 import 'package:peakmart/features/auth/presentation/views/signup_for_bid/view.dart';
 import 'package:peakmart/features/home/domain/entity/content_entity.dart';
 
@@ -58,7 +59,8 @@ class ContentLoadedWidget extends StatelessWidget {
                 SizedBox(height: AppSize.s40.h),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, SignUpForBidView.routeName);
+                    CookieService.getCookies();
+                    // Navigator.pushNamed(context, SignUpForBidView.routeName);
                   },
                   child: Text(
                     buttonText,

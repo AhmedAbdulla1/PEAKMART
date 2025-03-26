@@ -40,7 +40,8 @@ class ProfileDataSource extends RemoteDataSource {
         converter: (json) {
           return UserInfoResponse.fromJson(json);
         },
+        saveCookies: true,
         headers: {"cookie": cookieString},
-        url: APIUrls.getUserProducts);
+        url: APIUrls.getUserInfo);
   }
 }

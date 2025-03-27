@@ -7,7 +7,9 @@ import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/results/result.dart';
 import 'package:peakmart/features/bid_owner/data/models/request/add_product_request.dart';
 import 'package:peakmart/features/bid_owner/data/models/response/add_product_response.dart';
+import 'package:peakmart/features/bid_owner/data/models/response/check_is_seller_response.dart';
 import 'package:peakmart/features/bid_owner/domain/entity/add_product_entity.dart';
+import 'package:peakmart/features/bid_owner/domain/entity/check_is_seller_entity.dart';
 import 'package:peakmart/features/bid_owner/domain/repository/owner_repo.dart';
 
 import 'remote_data_source.dart';
@@ -43,5 +45,31 @@ class OwnerRepoImp extends OwnerRepo {
     }
 
     return result; // ✅ الآن `result` سيكون لديه قيمة في جميع الحالات
+  }
+
+  @override
+  Future<Result<AppErrors, CheckIsSellerEntity>> checkIsASeller() async {
+    Result<AppErrors, CheckIsSellerEntity> result; // ✅ التهيئة الافتراضية
+
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors, CheckIsSellerResponse> response =
+            await _remoteDataSource.checkIsASeller();
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          return Result(data: response.toEntity());
+        });
+      } catch (error, stacktrace) {
+        print("Unexpected Error: $error");
+        print(stacktrace);
+        result = Result(
+            error: const AppErrors.responseError(
+                message: "Unexpected error occurred"));
+      }
+    } else {
+      result = Result(error: const AppErrors.connectionError());
+    }
+    return result;
   }
 }

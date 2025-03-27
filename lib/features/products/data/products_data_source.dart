@@ -21,13 +21,16 @@ class ProductsDataSource extends RemoteDataSource {
   Future<Either<AppErrors, ProductsResponse>> getProducts() async {
     return request<ProductsResponse>(
         method: HttpMethod.GET,
+        queryParameters: {
+          "limit": 5
+        },
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           log("message done in getBidWorkNow request");
           log("json is $json");
           return ProductsResponse.fromJson(json);
         },
-        url: APIUrls.getFutureBids);
+        url: APIUrls.getBidWorkNow);
   }
 
   Future<Either<AppErrors, ProductsResponse>> getProductsByCategory(int catId) async {

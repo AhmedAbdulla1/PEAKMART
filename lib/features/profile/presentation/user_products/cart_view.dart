@@ -28,7 +28,7 @@ class ProductsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Cart'),
+      appBar: const CustomAppBar(title: 'Your Products'),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: BlocBuilder<CartCubit, CartState>(

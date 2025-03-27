@@ -19,7 +19,6 @@ import 'package:peakmart/features/auth/data/model/request/verfiy_otp_request.dar
 import 'package:peakmart/features/auth/data/model/response/login_response.dart';
 import 'package:peakmart/features/auth/data/model/response/register_response.dart';
 import 'package:peakmart/features/auth/data/model/response/send_otp_response.dart';
-import 'package:peakmart/features/auth/data/model/response/user_info.dart';
 
 class AuthDataSource extends RemoteDataSource {
   Future<Either<AppErrors, LoginResponse>> login(

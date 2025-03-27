@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:peakmart/app/app.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
@@ -99,7 +101,7 @@ class _CategorySectionState extends State<CategorySection> {
                 ),
               ),
               SizedBox(
-                height: 50,
+                height: 45.h,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: state.categoryEntity.categories.length,

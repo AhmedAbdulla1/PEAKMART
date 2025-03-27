@@ -82,7 +82,7 @@ class _ProductsViewState extends State<ProductsView> {
               snap: true,
               pinned: false,
               backgroundColor: Colors.white,
-              expandedHeight: 125.0.h,
+              expandedHeight: 130.0.h,
               flexibleSpace: FlexibleSpaceBar(
                 background: Column(
                   children: [

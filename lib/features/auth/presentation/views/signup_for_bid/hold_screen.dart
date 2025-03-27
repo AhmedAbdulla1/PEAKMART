@@ -93,7 +93,7 @@ class HoldScreen extends StatelessWidget {
                 text: 'Back To Home',
               ),
             ),
-
+          const SizedBox(height: 10,),
           ],
         ),
       ),

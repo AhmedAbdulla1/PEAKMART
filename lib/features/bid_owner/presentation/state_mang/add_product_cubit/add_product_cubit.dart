@@ -2,19 +2,24 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/results/result.dart';
 import 'package:peakmart/features/bid_owner/data/models/request/add_product_request.dart';
+import 'package:peakmart/features/bid_owner/data/owner_repo_imp.dart';
 import 'package:peakmart/features/bid_owner/domain/entity/add_product_entity.dart';
+import 'package:peakmart/features/bid_owner/domain/entity/check_is_seller_entity.dart';
 import 'package:peakmart/features/bid_owner/domain/repository/owner_repo.dart';
 
 part 'add_product_state.dart';
 
 class AddProductCubit extends Cubit<AddProductState> {
-  OwnerRepo ownerRepo = instance<OwnerRepo>();
+  OwnerRepo ownerRepo = OwnerRepoImp();
+  AppPreferences appPreferences = instance<AppPreferences>();
 
   AddProductCubit() : super(AddProductInitialState());
+
   // late BuildContext context;
   Future<void> addProduct(
       {required AddProductRequest addProductRequest}) async {
@@ -73,5 +78,28 @@ class AddProductCubit extends Cubit<AddProductState> {
         ),
       );
     });
+  }
+
+  Future checkIsASeller() async {
+    if (appPreferences.getCookie("HKH") != '') {
+      emit(AddProductLoadingState());
+      Result<AppErrors, CheckIsSellerEntity> result =
+          await ownerRepo.checkIsASeller();
+      result.pick(
+          onData: (data) {
+            if (data.isSeller) {
+              emit(ActivatedState());
+            } else {
+              emit(NotActivatedState());
+            }
+          },
+          onError: (error) {});
+    } else if (instance<AppPreferences>().getCookie("PHONE") != '') {
+      emit(NotVerifiedState());
+    } else if (appPreferences.getCookie("HKHN") != '') {
+      emit(NotCompleteState());
+    } else {
+      emit(NotASellerState());
+    }
   }
 }

@@ -63,9 +63,6 @@ class ContentLoadedWidget extends StatelessWidget {
                 SizedBox(height: AppSize.s40.h),
                 ElevatedButton(
                   onPressed: () {
-                    // CookieService.getCookies();
-                    print(instance<AppPreferences>().getCookies());
-                    print("hkh  ${instance<AppPreferences>().getCookie("HKH")}");
                     if (instance<AppPreferences>().getCookie("HKH") != '') {
                       // هو هنا ي اما منتظر التفعيل من الادمن ي اما متفعل خلاص ف يدخل علي صفحه الadd prododcut
                       Navigator.pushNamed(context, HoldScreen.routeName,);
@@ -85,7 +82,6 @@ class ContentLoadedWidget extends StatelessWidget {
                       );
                     }
 
-                    print(instance<AppPreferences>().getCookie("HKHN")); // )
                   },
                   child: Text(
                     buttonText,

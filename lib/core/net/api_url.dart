@@ -36,4 +36,5 @@ class APIUrls {
   static const getContent = "${baseUrl}InPageApi/pageContent-api.php";
   // Add Product
   static const addProduct = "${baseUrl}products/new_Product.php";
+  static const checkIsASeller = "${baseUrl}login_API/admin_c.php";
 }

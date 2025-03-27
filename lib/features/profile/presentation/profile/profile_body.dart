@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
@@ -32,17 +33,12 @@ class ProfileScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    IconButton(
-                      icon: const Icon(Icons.shopping_cart_outlined,
-                          size: 30, color: Colors.white),
-                      onPressed: () {
-                        Navigator.pushNamed(context, UserProductsView.routeName);
-                      },
-                    ),
+                   const SizedBox(
+                      width:30,),
                     Text(
                       'Profile',
                       style:
-                          getBoldStyle(fontSize: 20, color: ColorManager.white),
+                          getBoldStyle(fontSize: FontSize.s22, color: ColorManager.white),
                     ),
                     IconButton(
                       icon: const Icon(Icons.settings_outlined,
@@ -122,6 +118,14 @@ class ProfileScreen extends StatelessWidget {
                               title: 'Personal Information',
                               iconColor: Colors.blue,
                               onTap: () {},
+                            ),
+                            ProfileMenuItem(
+                              icon: Icons.production_quantity_limits_outlined,
+                              title: 'Your Products',
+                              iconColor: Colors.blueGrey,
+                              onTap: () {
+                                    Navigator.pushNamed(context, UserProductsView.routeName);
+                              },
                             ),
                             ProfileMenuItem(
                               icon: Icons.payment,

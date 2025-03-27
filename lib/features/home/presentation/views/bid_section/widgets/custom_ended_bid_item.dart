@@ -9,7 +9,6 @@ import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
-import 'package:peakmart/features/home/domain/entity/ended_bids_entity.dart';
 
 import '../../../../../../core/resources/values_manager.dart';
 
@@ -52,8 +51,7 @@ class CustomEndedBidItem extends StatelessWidget {
                           imageUrl: endedBidItem.imageUrl[0],
                           width: double.infinity,
                           fit: BoxFit.fill,
-                          placeholder: (context, url) =>
-                              const WaitingWidget(),
+                          placeholder: (context, url) => const WaitingWidget(),
                           errorWidget: (context, url, error) => Icon(
                             Icons.error,
                             size: 28,
@@ -92,8 +90,7 @@ class CustomEndedBidItem extends StatelessWidget {
                       textAlign: TextAlign.start,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: getSemiBoldStyle(
-                          color: ColorManager.black, fontSize: FontSize.s16),
+                      style: getSemiBoldStyle(fontSize: FontSize.s16),
                     ),
                   ),
                   const SizedBox(
@@ -116,19 +113,13 @@ class CustomEndedBidItem extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: AppStrings.soldFor,
-                        style: getMediumStyle(
-                                color: ColorManager.black,
-                                fontSize: FontSize.s14)
-                            .copyWith(
-                                fontFamily: FontConstants.fontCabinFamily),
+                        style: getMediumStyle(fontSize: FontSize.s14).copyWith(
+                            fontFamily: FontConstants.fontCabinFamily),
                       ),
                       TextSpan(
                         text: "\$${endedBidItem.price}",
-                        style: getBoldStyle(
-                                color: ColorManager.black,
-                                fontSize: FontSize.s22)
-                            .copyWith(
-                                fontFamily: FontConstants.fontCabinFamily),
+                        style: getBoldStyle(fontSize: FontSize.s22).copyWith(
+                            fontFamily: FontConstants.fontCabinFamily),
                       ),
                     ],
                   )),

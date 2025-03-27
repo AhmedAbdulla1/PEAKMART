@@ -1,14 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart' as di;
 import 'package:peakmart/core/resources/routes_manager.dart';
-import 'package:peakmart/core/resources/theme_manager.dart';
-import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
-import 'package:peakmart/features/auth/presentation/views/sign_up/sign_up_view.dart';
-import 'package:peakmart/features/home/presentation/views/home_view.dart';
-import 'package:peakmart/features/main/main_view.dart';
+import 'package:peakmart/core/resources/theme/app_theming_cubit/app_theme_cubit.dart';
+import 'package:peakmart/core/resources/theme/dark_theme_data.dart';
+import 'package:peakmart/core/resources/theme/light_theme_data.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();
@@ -38,15 +37,24 @@ class _MyAppState extends State<MyApp> {
       designSize: const Size(390, 844),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context, child) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        locale: context.locale,
-        supportedLocales: context.supportedLocales,
-        localizationsDelegates: context.localizationDelegates,
-        theme: getApplicationTheme(),
-        title: 'Peakmart',
-        initialRoute:Routes.root,
-        onGenerateRoute: RouteGenerator.getRoute,
+      builder: (context, child) => BlocProvider(
+        create: (context) => AppThemeCubit(),
+        child: BlocBuilder<AppThemeCubit, ThemeMode>(
+          builder: (context, themeMode) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              locale: context.locale,
+              supportedLocales: context.supportedLocales,
+              localizationsDelegates: context.localizationDelegates,
+              themeMode: themeMode,
+              theme: getLightTheme(),
+              darkTheme: getDarkTheme(),
+              title: 'Peakmart',
+              initialRoute: Routes.root,
+              onGenerateRoute: RouteGenerator.getRoute,
+            );
+          },
+        ),
       ),
     );
   }

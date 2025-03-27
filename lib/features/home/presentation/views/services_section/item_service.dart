@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/features/home/presentation/views/services_section/item_service_model.dart';
 
 class ItemService extends StatelessWidget {
@@ -15,6 +16,8 @@ class ItemService extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(bottom: 15.0),
         child: Card(
+          shadowColor: context.isDarkMode ? Colors.black : Colors.white,
+          // color: context.isDarkMode ? Colors.white : Colors.white,
           elevation: 10,
           child: Padding(
             padding: const EdgeInsets.all(12.0),
@@ -31,7 +34,6 @@ class ItemService extends StatelessWidget {
                         itemServiceModel.title,
                         style: getSemiBoldStyle(
                           fontSize: FontSize.s16,
-                          color: Colors.black,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -41,7 +43,6 @@ class ItemService extends StatelessWidget {
                         itemServiceModel.description,
                         style: getMediumStyle(
                           fontSize: FontSize.s10,
-                          color: Colors.black,
                         ),
                         maxLines: 4,
                         textAlign: TextAlign.left,

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/home/domain/entity/content_entity.dart';
@@ -37,10 +39,14 @@ class PartnersView extends StatelessWidget {
                 style: getBoldStyle(
                     fontSize: FontSize.s16, color: ColorManager.primary),
               ),
+              6.vGap,
               Text(
                 _contentData.subTitle ?? "",
                 style: getRegularStyle(
-                    fontSize: FontSize.s12, color: ColorManager.grey1),
+                    fontSize: FontSize.s12,
+                    color: context.isDarkMode
+                        ? ColorManager.white
+                        : ColorManager.grey1),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
@@ -50,17 +56,13 @@ class PartnersView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Expanded(
-                      child:
-                          PartnerCard(imageLink: _contentData.image["p1"])),
-                   Expanded(
-                      child:
-                          PartnerCard(imageLink: _contentData.image["p2"])),
-                   Expanded(
-                      child:
-                          PartnerCard(imageLink: _contentData.image["p3"])),
-                   Expanded(
-                      child:
-                          PartnerCard(imageLink: _contentData.image["p4"])),
+                      child: PartnerCard(imageLink: _contentData.image["p1"])),
+                  Expanded(
+                      child: PartnerCard(imageLink: _contentData.image["p2"])),
+                  Expanded(
+                      child: PartnerCard(imageLink: _contentData.image["p3"])),
+                  Expanded(
+                      child: PartnerCard(imageLink: _contentData.image["p4"])),
                 ],
               ),
             ],

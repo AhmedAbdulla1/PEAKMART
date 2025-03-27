@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/features/home/domain/entity/category_entity.dart';
-import 'package:peakmart/features/home/domain/entity/category_model.dart';
 
 class CategoryItemWidget extends StatelessWidget {
   const CategoryItemWidget(
@@ -26,15 +24,15 @@ class CategoryItemWidget extends StatelessWidget {
         radius: 30,
         onTap: onTap,
         child: ConstrainedBox(
-          constraints: const  BoxConstraints(
+          constraints: const BoxConstraints(
             maxHeight: 50,
           ),
           child: Container(
             padding: const EdgeInsets.all(AppPadding.p5),
-
             decoration: BoxDecoration(
-              color: isSelected ? ColorManager.lightPrimary : ColorManager.white,
-              border: Border.all(color: Colors.orange),
+              color:
+                  isSelected ? ColorManager.lightPrimary : ColorManager.white,
+              border: Border.all(color: ColorManager.primary, width: 1.5),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
@@ -62,6 +60,5 @@ class CategoryItemWidget extends StatelessWidget {
         ),
       ),
     );
-
   }
 }

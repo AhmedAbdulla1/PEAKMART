@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:peakmart/core/entities/prodcut_entity.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
@@ -21,7 +22,8 @@ class CustomBidItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, ProductDetails.routeName, arguments: bidItem);
+        Navigator.pushNamed(context, ProductDetails.routeName,
+            arguments: bidItem);
       },
       child: Center(
         child: Container(
@@ -47,28 +49,29 @@ class CustomBidItem extends StatelessWidget {
                   ),
                   child: bidItem.imageUrl.isNotEmpty
                       ? CachedNetworkImage(
-                    imageUrl: bidItem.imageUrl[0],
-                    width: double.infinity,
-                    fit: BoxFit.fill,
-                    placeholder: (context, url) {
-                      return const WaitingWidget();
-                    },
-                    errorWidget: (context, url, error) => Icon(
-                      Icons.error,
-                      size: 28,
-                      color: ColorManager.red,
-                    ),
-                  )
+                          imageUrl: bidItem.imageUrl[0],
+                          width: double.infinity,
+                          fit: BoxFit.fill,
+                          placeholder: (context, url) {
+                            return const WaitingWidget();
+                          },
+                          errorWidget: (context, url, error) => Icon(
+                            Icons.error,
+                            size: 28,
+                            color: ColorManager.red,
+                          ),
+                        )
                       : Image.asset(
-                    "assets/images/card.png",
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
+                          "assets/images/card.png",
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
                 ),
               ),
-              const SizedBox(height: 15),
+              15.vGap,
               Padding(
-                padding: const EdgeInsets.only(left: AppPadding.p8, right: AppPadding.p19),
+                padding: const EdgeInsets.only(
+                    left: AppPadding.p8, right: AppPadding.p19),
                 child: Column(
                   children: [
                     Align(
@@ -78,7 +81,6 @@ class CustomBidItem extends StatelessWidget {
                         maxLines: 2,
                         textAlign: TextAlign.start,
                         style: getSemiBoldStyle(
-                          color: ColorManager.black,
                           fontSize: FontSize.s16,
                         ),
                       ),
@@ -91,7 +93,6 @@ class CustomBidItem extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         bidItem.description,
                         style: getMediumStyle(
-                          color: ColorManager.grey1,
                           fontSize: FontSize.s12,
                         ).copyWith(fontFamily: FontConstants.fontCabinFamily),
                       ),
@@ -104,16 +105,17 @@ class CustomBidItem extends StatelessWidget {
                           "${AppStrings.nowBid}\n${"\$${bidItem.price}"}",
                           style: getSemiBoldStyle(
                             fontSize: FontSize.s12,
-                            color: ColorManager.black,
                           ),
                         ),
-                       const  SizedBox(width: AppSize.s20),
+                        const SizedBox(width: AppSize.s20),
                         Expanded(
                           child: LayoutBuilder(
                             builder: (context, constraints) {
                               // Calculate font size based on the button's width
-                              double fontSize = constraints.maxWidth * 0.16; // 30% of the button's width
-                              fontSize = fontSize.clamp(10.0, 16.0); // Min 10, Max 18
+                              double fontSize = constraints.maxWidth *
+                                  0.16; // 30% of the button's width
+                              fontSize =
+                                  fontSize.clamp(10.0, 16.0); // Min 10, Max 18
                               return ElevatedButton(
                                 onPressed: () {},
                                 style: ElevatedButton.styleFrom(
@@ -121,7 +123,8 @@ class CustomBidItem extends StatelessWidget {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
-                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 8),
                                 ),
                                 child: Text(
                                   AppStrings.enrollNow,

@@ -20,6 +20,7 @@ import 'package:peakmart/features/products/presentation/views/privacy_and_policy
 import 'package:peakmart/features/products/presentation/views/product_details/product_details.dart';
 import 'package:peakmart/features/products/presentation/views/random_products/random_products_view.dart';
 import 'package:peakmart/features/profile/presentation/views/personal_inof/personal_inof_screen.dart';
+import 'package:peakmart/features/profile/presentation/views/settings/settings_view.dart';
 import 'package:peakmart/features/profile/presentation/views/user_products/cart_view.dart';
 
 final AppPreferences _appPreferences = instance<AppPreferences>();
@@ -152,6 +153,13 @@ class RouteGenerator {
           builder: (_) => const PersonalInformationScreen(),
           settings: const RouteSettings(
               name: PersonalInformationScreen.routeName),
+        ); 
+        
+        case SettingsView.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const SettingsView(),
+          settings: const RouteSettings(
+              name: SettingsView.routeName),
         );
       default:
         return MaterialPageRoute(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'color_manager.dart';
-import 'font_manager.dart';
-import 'style_manager.dart';
-import 'values_manager.dart';
+import '../color_manager.dart';
+import '../font_manager.dart';
+import '../style_manager.dart';
+import '../values_manager.dart';
 
-ThemeData getApplicationTheme() {
+ThemeData getLightTheme() {
   return ThemeData(
     //main color
     scaffoldBackgroundColor: ColorManager.white,
@@ -57,16 +57,14 @@ ThemeData getApplicationTheme() {
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-        side: BorderSide(
-          color: ColorManager.primary,
-          width: 2,
-          style: BorderStyle.solid,
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppSize.s15),
-        )
-      ),
-
+          side: BorderSide(
+            color: ColorManager.primary,
+            width: 2,
+            style: BorderStyle.solid,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppSize.s15),
+          )),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       selectedIconTheme: IconThemeData(
@@ -226,6 +224,12 @@ ThemeData getApplicationTheme() {
           width: AppSize.s1_5,
         ),
       ),
+    ),
+    listTileTheme: ListTileThemeData(
+      iconColor: ColorManager.black,
+      textColor: ColorManager.simiBlack,
+      contentPadding:
+          const EdgeInsets.only(left: AppPadding.p12, right: AppPadding.p8),
     ),
   );
 }

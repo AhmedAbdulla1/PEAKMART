@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
@@ -8,6 +7,7 @@ import 'package:peakmart/features/auth/presentation/views/login/login_view.dart'
 import 'package:peakmart/features/profile/domain/enitiy/user_info_entity.dart';
 import 'package:peakmart/features/profile/presentation/state_m/profile/cubit.dart';
 import 'package:peakmart/features/profile/presentation/views/personal_inof/personal_inof_screen.dart';
+import 'package:peakmart/features/profile/presentation/views/settings/settings_view.dart';
 import 'package:peakmart/features/profile/presentation/views/user_products/cart_view.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -34,17 +34,21 @@ class ProfileScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                   const SizedBox(
-                      width:30,),
+                    const SizedBox(
+                      width: 30,
+                    ),
                     Text(
                       'Profile',
-                      style:
-                          getBoldStyle(fontSize: FontSize.s22, color: ColorManager.white),
+                      style: getBoldStyle(
+                          fontSize: FontSize.s22, color: ColorManager.white),
                     ),
                     IconButton(
                       icon: const Icon(Icons.settings_outlined,
                           size: 30, color: Colors.white),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context,
+                            SettingsView.routeName); // Navigate to settings
+                      },
                     ),
                   ],
                 ),
@@ -119,7 +123,8 @@ class ProfileScreen extends StatelessWidget {
                               title: 'Personal Information',
                               iconColor: Colors.blue,
                               onTap: () {
-                                Navigator.pushNamed(context, PersonalInformationScreen.routeName);
+                                Navigator.pushNamed(context,
+                                    PersonalInformationScreen.routeName);
                               },
                             ),
                             ProfileMenuItem(
@@ -127,7 +132,8 @@ class ProfileScreen extends StatelessWidget {
                               title: 'Your Products',
                               iconColor: Colors.blueGrey,
                               onTap: () {
-                                    Navigator.pushNamed(context, UserProductsView.routeName);
+                                Navigator.pushNamed(
+                                    context, UserProductsView.routeName);
                               },
                             ),
                             ProfileMenuItem(
@@ -185,7 +191,10 @@ class ProfileScreen extends StatelessWidget {
         return AlertDialog(
           alignment: Alignment.center,
           actionsAlignment: MainAxisAlignment.spaceBetween,
-          title: const Text('Logout',textAlign: TextAlign.center,),
+          title: const Text(
+            'Logout',
+            textAlign: TextAlign.center,
+          ),
           content: const Text(
             'You’ll need to enter your username\n  and password next time\n you want to login',
             textAlign: TextAlign.center,
@@ -204,9 +213,9 @@ class ProfileScreen extends StatelessWidget {
               color: ColorManager.grey,
             ),
             TextButton(
-              child:  Text('Logout',
-                  style: getRegularStyle(fontSize: 20, color: ColorManager.red)
-              ),
+              child: Text('Logout',
+                  style:
+                      getRegularStyle(fontSize: 20, color: ColorManager.red)),
               onPressed: () {
                 Navigator.of(context).pop();
                 ProfileCubit().logout(onSuccess: () {

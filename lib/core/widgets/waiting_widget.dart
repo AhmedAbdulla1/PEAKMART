@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:peakmart/core/resources/color_manager.dart';
 
 class WaitingWidget extends StatelessWidget {
   const WaitingWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: CircularProgressIndicator.adaptive(),
+    return Center(
+      child: CircularProgressIndicator.adaptive(
+        backgroundColor: ColorManager.primary,
+      ),
     );
   }
 }

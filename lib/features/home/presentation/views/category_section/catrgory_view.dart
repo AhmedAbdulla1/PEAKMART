@@ -1,15 +1,13 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/app/app.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/home/domain/entity/category_entity.dart';
-import 'package:peakmart/features/home/domain/entity/category_model.dart';
 import 'package:peakmart/features/home/presentation/state_m/category_cubit/category_cubit.dart';
 import 'package:peakmart/features/home/presentation/state_m/category_cubit/states.dart';
 import 'package:peakmart/features/home/presentation/views/category_section/category_item_widget.dart';
@@ -43,7 +41,7 @@ class _CategorySectionState extends State<CategorySection> {
   void didUpdateWidget(covariant CategorySection oldWidget) {
     super.didUpdateWidget(oldWidget);
     // Update isSelected when selectedCategoryId changes
-    if (oldWidget.selectedCategoryId != widget.selectedCategoryId && categoryEntity != null) {
+    if (oldWidget.selectedCategoryId != widget.selectedCategoryId) {
       setState(() {
         if (widget.selectedCategoryId == null) {
           // Deselect all categories if selectedCategoryId is null
@@ -52,8 +50,8 @@ class _CategorySectionState extends State<CategorySection> {
           // Update isSelected based on the new selectedCategoryId
           isSelected = categoryEntity
               .asMap()
-              .map((index, category) => MapEntry(
-              index, category.catId == widget.selectedCategoryId))
+              .map((index, category) =>
+                  MapEntry(index, category.catId == widget.selectedCategoryId))
               .values
               .toList();
         }
@@ -78,7 +76,7 @@ class _CategorySectionState extends State<CategorySection> {
             isSelected = categoryEntity
                 .asMap()
                 .map((index, category) => MapEntry(
-                index, category.catId == widget.selectedCategoryId))
+                    index, category.catId == widget.selectedCategoryId))
                 .values
                 .toList();
           }
@@ -96,7 +94,10 @@ class _CategorySectionState extends State<CategorySection> {
                   child: Text(
                     "Categories",
                     style: getBoldStyle(
-                        fontSize: FontSize.s20, color: ColorManager.grey1),
+                        fontSize: FontSize.s20,
+                        color: context.isDarkMode
+                            ? ColorManager.primary
+                            : ColorManager.black),
                   ),
                 ),
               ),
@@ -110,8 +111,8 @@ class _CategorySectionState extends State<CategorySection> {
                     isSelected: isSelected[index],
                     onTap: () {
                       // Deselect all and select the tapped category
-                      isSelected =
-                          List.generate(categoryEntity.length, (index) => false);
+                      isSelected = List.generate(
+                          categoryEntity.length, (index) => false);
                       isSelected[index] = true;
                       setState(() {});
                       widget.onCategorySelected(categoryEntity[index].catId);
@@ -124,7 +125,7 @@ class _CategorySectionState extends State<CategorySection> {
         } else if (state is CategoryLoading) {
           return const WaitingWidget();
         } else {
-          return  ErrorWidget('');
+          return ErrorWidget('');
         }
       },
     );

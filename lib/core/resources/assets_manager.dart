@@ -4,7 +4,9 @@ const String jsonPath = "assets/json";
 
 class IconsAssets {
   static const String home = '$iconsPath/home.svg';
-  static const String notification = '$iconsPath/notification.svg';
+  static const String bottomNavBarNotification = '$iconsPath/notification.svg';
+  static const String settingsNotification = '$iconsPath/settings_notification.svg';
+  static const String darkTheme = '$iconsPath/dark_theme_icon.svg';
   static const String profile = '$iconsPath/profile.svg';
   static const String products = '$iconsPath/products.svg';
   static const String arrowBack = '$iconsPath/arrow_back.svg';

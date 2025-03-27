@@ -55,7 +55,7 @@ class _ProductsViewState extends State<ProductsView> {
       } else {
         filteredProducts = allProducts
             .where((product) =>
-            product.name.toLowerCase().contains(query.toLowerCase()))
+                product.name.toLowerCase().contains(query.toLowerCase()))
             .toList();
       }
     });
@@ -81,7 +81,6 @@ class _ProductsViewState extends State<ProductsView> {
               floating: true,
               snap: true,
               pinned: false,
-              backgroundColor: Colors.white,
               expandedHeight: 130.0.h,
               flexibleSpace: FlexibleSpaceBar(
                 background: Column(
@@ -93,7 +92,8 @@ class _ProductsViewState extends State<ProductsView> {
                       child: CategorySection(
                         showTitle: false,
                         onCategorySelected: onCategorySelected,
-                        selectedCategoryId: currentCategoryId, // Pass the currentCategoryId
+                        selectedCategoryId:
+                            currentCategoryId, // Pass the currentCategoryId
                       ),
                     ),
                   ],
@@ -114,14 +114,16 @@ class _ProductsViewState extends State<ProductsView> {
                 builder: (context, state) {
                   if (state is ProductLoading) {
                     return const SizedBox(
-                      height: 300, // Ensure enough height to allow pull-to-refresh
+                      height:
+                          300, // Ensure enough height to allow pull-to-refresh
                       child: Center(child: WaitingWidget()),
                     );
                   }
 
                   if (state is ProductError) {
                     return SizedBox(
-                      height: 300, // Ensure enough height to allow pull-to-refresh
+                      height:
+                          300, // Ensure enough height to allow pull-to-refresh
                       child: Center(
                         child: ErrorViewer.showError(
                           context: context,
@@ -138,7 +140,8 @@ class _ProductsViewState extends State<ProductsView> {
                     print("Filtered Products: ${filteredProducts.length}");
                     if (filteredProducts.isEmpty) {
                       return SizedBox(
-                        height: 300, // Ensure enough height to allow pull-to-refresh
+                        height:
+                            300, // Ensure enough height to allow pull-to-refresh
                         child: Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -172,7 +175,8 @@ class _ProductsViewState extends State<ProductsView> {
                           GridView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               crossAxisSpacing: AppSize.s12,
                               mainAxisSpacing: AppSize.s12,
@@ -192,7 +196,8 @@ class _ProductsViewState extends State<ProductsView> {
                   }
 
                   return const SizedBox(
-                    height: 300, // Ensure enough height to allow pull-to-refresh
+                    height:
+                        300, // Ensure enough height to allow pull-to-refresh
                     child: Center(child: WaitingWidget()),
                   );
                 },
@@ -272,15 +277,15 @@ class _SearchBarState extends State<SearchBar> {
             ),
             suffixIcon: _hasText
                 ? IconButton(
-              icon: const Icon(
-                Icons.clear,
-                color: Colors.grey,
-                size: 24,
-              ),
-              onPressed: () {
-                _controller.clear();
-              },
-            )
+                    icon: const Icon(
+                      Icons.clear,
+                      color: Colors.grey,
+                      size: 24,
+                    ),
+                    onPressed: () {
+                      _controller.clear();
+                    },
+                  )
                 : null,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30.0),
@@ -289,7 +294,7 @@ class _SearchBarState extends State<SearchBar> {
             filled: true,
             fillColor: Colors.white,
             contentPadding:
-            const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+                const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
           ),
           style: const TextStyle(
             color: Colors.black,

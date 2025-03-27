@@ -7,7 +7,8 @@ import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
 import 'package:peakmart/features/profile/domain/enitiy/user_info_entity.dart';
 import 'package:peakmart/features/profile/presentation/state_m/profile/cubit.dart';
-import 'package:peakmart/features/profile/presentation/user_products/cart_view.dart';
+import 'package:peakmart/features/profile/presentation/views/personal_inof/personal_inof_screen.dart';
+import 'package:peakmart/features/profile/presentation/views/user_products/cart_view.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key, required this.userinfo});
@@ -117,7 +118,9 @@ class ProfileScreen extends StatelessWidget {
                               icon: Icons.person,
                               title: 'Personal Information',
                               iconColor: Colors.blue,
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.pushNamed(context, PersonalInformationScreen.routeName);
+                              },
                             ),
                             ProfileMenuItem(
                               icon: Icons.production_quantity_limits_outlined,

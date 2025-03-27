@@ -19,7 +19,8 @@ import 'package:peakmart/features/products/presentation/views/auction_rules_view
 import 'package:peakmart/features/products/presentation/views/privacy_and_policy_view.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/product_details.dart';
 import 'package:peakmart/features/products/presentation/views/random_products/random_products_view.dart';
-import 'package:peakmart/features/profile/presentation/user_products/cart_view.dart';
+import 'package:peakmart/features/profile/presentation/views/personal_inof/personal_inof_screen.dart';
+import 'package:peakmart/features/profile/presentation/views/user_products/cart_view.dart';
 
 final AppPreferences _appPreferences = instance<AppPreferences>();
 
@@ -74,11 +75,12 @@ class RouteGenerator {
       case OtpVerification.routeName:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => OtpVerification(
-            verificationType: args['verificationType'] as VerificationType,
-            registerEntity: args['registerEntity'],
-            autoSendOtp: args['autoSendOtp'] ?? false,
-          ),
+          builder: (_) =>
+              OtpVerification(
+                verificationType: args['verificationType'] as VerificationType,
+                registerEntity: args['registerEntity'],
+                autoSendOtp: args['autoSendOtp'] ?? false,
+              ),
           settings: const RouteSettings(name: OtpVerification.routeName),
         );
       case ForgotPasswordView.routeName:
@@ -87,7 +89,8 @@ class RouteGenerator {
           settings: const RouteSettings(name: ForgotPasswordView.routeName),
         );
       case SignUpForBidView.routeName:
-        int indexScreen = settings.arguments == null ? 0 : settings.arguments as int;
+        int indexScreen = settings.arguments == null ? 0 : settings
+            .arguments as int;
         return MaterialPageRoute(
           builder: (_) => SignUpForBidView(indexScreen: indexScreen),
           settings: const RouteSettings(name: SignUpForBidView.routeName),
@@ -100,17 +103,19 @@ class RouteGenerator {
         );
       case AddProductDetails.routeName:
         return MaterialPageRoute(
-          builder: (_) => AddProductDetails(
-            addProductRequest: settings.arguments as AddProductRequest,
-          ),
+          builder: (_) =>
+              AddProductDetails(
+                addProductRequest: settings.arguments as AddProductRequest,
+              ),
           settings: const RouteSettings(name: AddProductDetails.routeName),
         );
       case RandomProductsView.routeName:
         final args = settings.arguments as List<ProductEntity>;
         return MaterialPageRoute(
-          builder: (_) => RandomProductsView(
-            allProducts: args,
-          ),
+          builder: (_) =>
+              RandomProductsView(
+                allProducts: args,
+              ),
           settings: const RouteSettings(name: RandomProductsView.routeName),
         );
       case PrivacyAndPolicyView.routeName:
@@ -130,9 +135,10 @@ class RouteGenerator {
         );
       case ProductDetails.routeName:
         return MaterialPageRoute(
-          builder: (_) => ProductDetails(
-            product: settings.arguments as ProductEntity,
-          ),
+          builder: (_) =>
+              ProductDetails(
+                product: settings.arguments as ProductEntity,
+              ),
           settings: const RouteSettings(name: ProductDetails.routeName),
         );
       case HoldScreen.routeName:
@@ -140,15 +146,24 @@ class RouteGenerator {
           builder: (_) => const HoldScreen(),
           settings: const RouteSettings(name: HoldScreen.routeName),
         );
+
+      case PersonalInformationScreen.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const PersonalInformationScreen(),
+          settings: const RouteSettings(
+              name: PersonalInformationScreen.routeName),
+        );
       default:
         return MaterialPageRoute(
-          builder: (_) => const Scaffold(
+          builder: (_) =>
+          const Scaffold(
             body: Center(child: Text('Route not found')),
           ),
           settings: const RouteSettings(name: 'undefined'),
         );
     }
   }
+
   static Route unDefinedRoute() {
     return MaterialPageRoute(
       builder: (_) =>

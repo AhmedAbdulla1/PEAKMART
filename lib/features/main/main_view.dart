@@ -6,7 +6,7 @@ import 'package:peakmart/features/bid_owner/presentation/views/bid_owner_view.da
 import 'package:peakmart/features/home/presentation/views/home_view.dart';
 import 'package:peakmart/features/products/presentation/views/products_view.dart';
 import 'package:peakmart/features/profile/presentation/profile_view.dart';
-import 'package:peakmart/features/profile/presentation/profile/view.dart';
+import 'package:peakmart/features/profile/presentation/views/profile/view.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});

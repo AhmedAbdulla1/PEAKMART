@@ -36,6 +36,7 @@ class ProductResponse {
     );
   }
 
+
   ProductEntity toEntity() {
     return ProductEntity(
         id: id,

@@ -6,24 +6,13 @@ import 'package:peakmart/core/data_source/remote_data_source.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/net/api_url.dart';
 import 'package:peakmart/core/net/response_validators/default_response_validator.dart';
-import 'package:peakmart/features/home/data/model/request/news_request.dart';
-import 'package:peakmart/features/home/data/model/response/bid_work_now_response.dart';
-import 'package:peakmart/features/home/data/model/response/category_response.dart';
-import 'package:peakmart/features/home/data/model/response/content_response.dart';
-import 'package:peakmart/features/home/data/model/response/ended_bids_response.dart';
-import 'package:peakmart/features/home/data/model/response/future_bids_response.dart';
-import 'package:peakmart/features/home/data/model/response/news_response.dart';
-import 'package:peakmart/features/home/data/model/response/trending_bids_response.dart';
 import 'package:peakmart/features/products/data/models/response/products_response.dart';
-import 'package:peakmart/features/products/domain/entity/prodcuts_entity.dart';
 
 class ProductsDataSource extends RemoteDataSource {
   Future<Either<AppErrors, ProductsResponse>> getProducts() async {
     return request<ProductsResponse>(
         method: HttpMethod.GET,
-        queryParameters: {
-          "limit": 5
-        },
+        queryParameters: {"limit": 5},
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           log("message done in getBidWorkNow request");
@@ -33,12 +22,11 @@ class ProductsDataSource extends RemoteDataSource {
         url: APIUrls.getBidWorkNow);
   }
 
-  Future<Either<AppErrors, ProductsResponse>> getProductsByCategory(int catId) async {
+  Future<Either<AppErrors, ProductsResponse>> getProductsByCategory(
+      int catId) async {
     return request<ProductsResponse>(
         method: HttpMethod.GET,
-        queryParameters: {
-          "id": catId
-        },
+        queryParameters: {"id": catId},
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           log("message done in ended bids request");
@@ -46,5 +34,4 @@ class ProductsDataSource extends RemoteDataSource {
         },
         url: APIUrls.getProductsByCategory);
   }
-
 }

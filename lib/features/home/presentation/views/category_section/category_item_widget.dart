@@ -47,14 +47,14 @@ class CategoryItemWidget extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: AppSize.s8),
-                SvgPicture.network(
-                  "https://www.svgrepo.com/download/125/car.svg",
-                  width: 40,
-                  height: 40,
+                Image.network(
+                  category.image,
+                  width: 35,
+                  height: 35,
                   color: ColorManager.grey1,
                   matchTextDirection: true,
-                  placeholderBuilder: (context) =>
-                      const CircularProgressIndicator(),
+                  // placeholderBuilder: (context) =>
+                  //     const CircularProgressIndicator(),
                 ),
               ],
             ),

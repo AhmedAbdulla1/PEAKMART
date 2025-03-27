@@ -13,10 +13,10 @@ import 'package:peakmart/features/home/presentation/views/home_view_body.dart';
 import 'package:peakmart/features/home/presentation/views/news_section/news_view.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+  const HomeView({super.key , required this.onCategorySelected});
 
   static const String routeName = '/home';
-
+  final Function(int categoryId) onCategorySelected;
   @override
   State<HomeView> createState() => _HomeViewState();
 }
@@ -37,7 +37,7 @@ class _HomeViewState extends State<HomeView> {
       ],
       child:  Stack(
         children: [
-           HomeViewBody(),
+           HomeViewBody( onCategorySelected: widget.onCategorySelected,),
           BlocBuilder<NewsCubit, NewsState>(
             builder: (context, state) {
               return Column(

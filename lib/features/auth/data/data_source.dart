@@ -19,7 +19,6 @@ import 'package:peakmart/features/auth/data/model/request/verfiy_otp_request.dar
 import 'package:peakmart/features/auth/data/model/response/login_response.dart';
 import 'package:peakmart/features/auth/data/model/response/register_response.dart';
 import 'package:peakmart/features/auth/data/model/response/send_otp_response.dart';
-import 'package:peakmart/features/auth/data/model/response/user_info.dart';
 
 class AuthDataSource extends RemoteDataSource {
   Future<Either<AppErrors, LoginResponse>> login(
@@ -98,19 +97,24 @@ class AuthDataSource extends RemoteDataSource {
         converter: (json) {
           return EmptyResponse.fromJson(json);
         },
+        saveCookies: true,
         url: APIUrls.sendWatsAppOtp);
   }
 
   Future<Either<AppErrors, EmptyResponse>> verfiyWatsAppOtp(
       VerfiyOtpRequest verfiyOtpRequest) async {
+    final AppPreferences appPreferences = instance<AppPreferences>();
+    String cookieString = appPreferences.getCookies().join(';');
+    print('cookie string $cookieString');
     return request<EmptyResponse>(
         method: HttpMethod.POST,
         body: verfiyOtpRequest.toJson(),
-        headers: verfiyOtpRequest.toHeaders(),
+        headers: {"cookie": cookieString},
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           return EmptyResponse.fromJson(json);
         },
+        saveCookies: true,
         url: APIUrls.verfiyWatsAppOtp);
   }
 
@@ -152,16 +156,16 @@ class AuthDataSource extends RemoteDataSource {
     );
   }
 
- Future<Either<AppErrors, UserInfoResponse>> getUserInfo() async {
-    return request<UserInfoResponse>(
-        method: HttpMethod.GET,
-        responseValidator: DefaultResponseValidator(),
-        converter: (json) {
-          log("message done in get user info request");
-          log("json in get user info request is $json");
-          return UserInfoResponse.fromJson(json);
-        },
-        url: APIUrls.getUserInfo);
-  }
+ // Future<Either<AppErrors, UserInfoResponse>> getUserInfo() async {
+ //    return request<UserInfoResponse>(
+ //        method: HttpMethod.GET,
+ //        responseValidator: DefaultResponseValidator(),
+ //        converter: (json) {
+ //          log("message done in get user info request");
+ //          log("json in get user info request is $json");
+ //          return UserInfoResponse.fromJson(json);
+ //        },
+ //        url: APIUrls.getUserInfo);
+ //  }
 
 }

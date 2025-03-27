@@ -22,8 +22,9 @@ import '../state_m/home_cubits/future_bids_cubit.dart';
 class HomeViewBody extends StatefulWidget {
   const HomeViewBody({
     super.key,
+    required this.onCategorySelected,
   });
-
+  final Function(int categoryId) onCategorySelected;
   @override
   State<HomeViewBody> createState() => _HomeViewBodyState();
 }
@@ -49,7 +50,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
           ),
           const SizedBox(height: AppSize.s12),
           OfferSView(),
-          CategorySection(),
+          CategorySection(onCategorySelected: widget.onCategorySelected,),
           const SizedBox(height: AppSize.s12),
           const TitledBidSection<BidWorkNowCubit>(
             title: AppStrings.bidsWorkNow,
@@ -64,31 +65,31 @@ class _HomeViewBodyState extends State<HomeViewBody> {
           const SizedBox(height: AppSize.s12),
           PartnersView(),
           const SizedBox(height: AppSize.s12),
-          CustomElevatedButtonWithoutStream(
-            onPressed: () {
-              final bidWorkNowState =
-                  BlocProvider.of<BidWorkNowCubit>(context).state;
-              final futureBidsState =
-                  BlocProvider.of<FutureBidsCubit>(context).state;
-              final trendingBidsState =
-                  BlocProvider.of<TrendingBidsCubit>(context).state;
-
-              List<ProductEntity> futureProducts =
-                  _getProductsFromState(futureBidsState);
-              List<ProductEntity> trendingProducts =
-                  _getProductsFromState(trendingBidsState);
-              List<ProductEntity> currentProducts =
-                  _getProductsFromState(bidWorkNowState);
-              List<ProductEntity> allProducts = [
-                ...futureProducts,
-                ...trendingProducts,
-                ...currentProducts
-              ];
-              Navigator.pushNamed(context, RandomProductsView.routeName,
-                  arguments: allProducts);
-            },
-            text: "Nav to Bid owner",
-          ),
+          // CustomElevatedButtonWithoutStream(
+          //   onPressed: () {
+          //     final bidWorkNowState =
+          //         BlocProvider.of<BidWorkNowCubit>(context).state;
+          //     final futureBidsState =
+          //         BlocProvider.of<FutureBidsCubit>(context).state;
+          //     final trendingBidsState =
+          //         BlocProvider.of<TrendingBidsCubit>(context).state;
+          //
+          //     List<ProductEntity> futureProducts =
+          //         _getProductsFromState(futureBidsState);
+          //     List<ProductEntity> trendingProducts =
+          //         _getProductsFromState(trendingBidsState);
+          //     List<ProductEntity> currentProducts =
+          //         _getProductsFromState(bidWorkNowState);
+          //     List<ProductEntity> allProducts = [
+          //       ...futureProducts,
+          //       ...trendingProducts,
+          //       ...currentProducts
+          //     ];
+          //     Navigator.pushNamed(context, RandomProductsView.routeName,
+          //         arguments: allProducts);
+          //   },
+          //   text: "Nav to Bid owner",
+          // ),
         ],
       ),
     );

@@ -14,14 +14,14 @@ class CategoriesEntity extends BaseEntity {
 class CategoryEntity {
   final int catId;
   final String catName;
-  final int noOfProducts;
+  final String image;
 
   CategoryEntity({
     required this.catId,
     required this.catName,
-    required this.noOfProducts,
+    required this.image,
   });
 
   @override
-  List<Object?> get props => [catId, catName, noOfProducts];
+  List<Object?> get props => [catId, catName, image];
 }

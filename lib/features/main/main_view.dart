@@ -1,16 +1,12 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart';
-import 'package:peakmart/core/resources/assets_manager.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
-import 'package:peakmart/features/bid_owner/presentation/views/add_product_details.dart';
 import 'package:peakmart/features/bid_owner/presentation/views/bid_owner_view.dart';
 import 'package:peakmart/features/home/presentation/views/home_view.dart';
 import 'package:peakmart/features/products/presentation/views/products_view.dart';
 import 'package:peakmart/features/profile/presentation/profile_view.dart';
-import 'package:peakmart/features/profile/presentation/profile/view.dart';
+import 'package:peakmart/features/profile/presentation/views/profile/view.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});
@@ -23,6 +19,8 @@ class MainView extends StatefulWidget {
 
 class _MainViewState extends State<MainView> {
   int _currentPageIndex = 0;
+  int? _selectedCategoryId; // Store the selected category ID
+
   final List<TabItem> _navBarItems =  [
     const TabItem(icon: Icons.home_outlined, title: AppStrings.home),
     TabItem(icon: Icons.shopping_cart_outlined, title: AppStrings.product),
@@ -33,10 +31,26 @@ class _MainViewState extends State<MainView> {
     const TabItem(icon: Icons.person_2_outlined, title: AppStrings.profile),
   ];
 
+  void _onCategorySelected(int categoryId) {
+    setState(() {
+      _selectedCategoryId = categoryId;
+      _currentPageIndex = 1; // Switch to the Products tab (index 1)
+    });
+  }
+
+  void _onTabSelected(int index) {
+    setState(() {
+      _currentPageIndex = index;
+      if (index == 1) {
+        _selectedCategoryId = null; // Reset category ID when manually switching to Products tab
+      }
+    });
+  }
+
   List<Widget> getBottomNavigationBarBody() {
     return [
-      const HomeView(),
-      const ProductsView(),
+      HomeView(onCategorySelected: _onCategorySelected),
+      ProductsView(categoryId: _selectedCategoryId),
       const ProfileView(),
       const BidOwnerView(),
       const SummaryProfileScreen(),
@@ -49,6 +63,7 @@ class _MainViewState extends State<MainView> {
       child: Scaffold(
         body: getBottomNavigationBarBody()[_currentPageIndex],
         bottomNavigationBar: ConvexAppBar(
+          key: ValueKey(_currentPageIndex), // Force rebuild when _currentPageIndex changes
           height: 55,
           curve: Curves.easeInOut,
           style: TabStyle.custom,
@@ -57,10 +72,8 @@ class _MainViewState extends State<MainView> {
           elevation: 5,
           activeColor: ColorManager.primary,
           items: _navBarItems,
-          initialActiveIndex: _currentPageIndex,
-          onTap: (index) {
-            setState(() => _currentPageIndex = index);
-          },
+          initialActiveIndex: _currentPageIndex, // Update the selected tab
+          onTap: _onTabSelected,
         ),
       ),
     );

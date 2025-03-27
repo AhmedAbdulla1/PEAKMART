@@ -269,7 +269,7 @@ class CookieService {
       String cookieString = appPreferences.getCookies().join(';');
       print('cookie string $cookieString');
       // Make the HTTP GET request
-      final response = await http.get(url, headers: {"cookie": cookieString});
+      final response = await http.get(url, headers: {"cookie": '    hhgg'});
 
       if (response.statusCode == 200) {
         // Parse the JSON response

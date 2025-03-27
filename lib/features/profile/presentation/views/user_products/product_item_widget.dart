@@ -31,7 +31,7 @@ class ProductItemWidget extends StatelessWidget {
             arguments: product);
       },
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
+        // margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
         clipBehavior: Clip.antiAliasWithSaveLayer,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.r),
@@ -49,7 +49,7 @@ class ProductItemWidget extends StatelessWidget {
                   ? CachedNetworkImage(
                       imageUrl: product.imageUrl[0],
                       width: double.infinity,
-                      height: 150.h,
+                      height: 120.h,
                       fit: BoxFit.cover,
                       placeholder: (context, url) => const WaitingWidget(),
                       errorWidget: (context, url, error) => Icon(
@@ -61,7 +61,7 @@ class ProductItemWidget extends StatelessWidget {
                   : Image.asset(
                       'assets/images/card.png',
                       width: double.infinity,
-                      height: 150.h,
+                      height: 120.h,
                       fit: BoxFit.cover,
                     ),
             ),
@@ -73,14 +73,14 @@ class ProductItemWidget extends StatelessWidget {
                   Text(
                     product.name,
                     style: getBoldStyle(
-                        fontSize: FontSize.s18, color: ColorManager.black),
-                    maxLines: 2,
+                        fontSize: FontSize.s16, color: ColorManager.black),
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
                     product.description,
                     style: getMediumStyle(
-                        fontSize: FontSize.s14, color: ColorManager.grey1),
+                        fontSize: FontSize.s12, color: ColorManager.grey1),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),

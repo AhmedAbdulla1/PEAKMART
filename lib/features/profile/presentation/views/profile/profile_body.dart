@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
 import 'package:peakmart/features/profile/domain/enitiy/user_info_entity.dart';
-import 'package:peakmart/features/profile/presentation/cart/cart_view.dart';
 import 'package:peakmart/features/profile/presentation/state_m/profile/cubit.dart';
+import 'package:peakmart/features/profile/presentation/views/personal_inof/personal_inof_screen.dart';
+import 'package:peakmart/features/profile/presentation/views/user_products/cart_view.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key, required this.userinfo});
@@ -32,17 +34,12 @@ class ProfileScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    IconButton(
-                      icon: const Icon(Icons.shopping_cart_outlined,
-                          size: 30, color: Colors.white),
-                      onPressed: () {
-                        Navigator.pushNamed(context, CartView.routeName);
-                      },
-                    ),
+                   const SizedBox(
+                      width:30,),
                     Text(
                       'Profile',
                       style:
-                          getBoldStyle(fontSize: 20, color: ColorManager.white),
+                          getBoldStyle(fontSize: FontSize.s22, color: ColorManager.white),
                     ),
                     IconButton(
                       icon: const Icon(Icons.settings_outlined,
@@ -106,7 +103,7 @@ class ProfileScreen extends StatelessWidget {
                                 color: ColorManager.grey,
                                 child: Center(
                                   child: Text(
-                                    'POINTS: 200',
+                                    'POINTS: ${userinfo.loyaltyPoint}',
                                     style: TextStyle(
                                       fontSize: screenWidth * 0.04,
                                       fontWeight: FontWeight.bold,
@@ -121,7 +118,17 @@ class ProfileScreen extends StatelessWidget {
                               icon: Icons.person,
                               title: 'Personal Information',
                               iconColor: Colors.blue,
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.pushNamed(context, PersonalInformationScreen.routeName);
+                              },
+                            ),
+                            ProfileMenuItem(
+                              icon: Icons.production_quantity_limits_outlined,
+                              title: 'Your Products',
+                              iconColor: Colors.blueGrey,
+                              onTap: () {
+                                    Navigator.pushNamed(context, UserProductsView.routeName);
+                              },
                             ),
                             ProfileMenuItem(
                               icon: Icons.payment,

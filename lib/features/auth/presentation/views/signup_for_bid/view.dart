@@ -15,8 +15,8 @@ import 'package:peakmart/features/auth/presentation/views/signup_for_bid/main_in
 
 class SignUpForBidView extends StatefulWidget {
   static const String routeName = '/signUpForBid';
-
-  const SignUpForBidView({super.key});
+  final int indexScreen  ;
+  const SignUpForBidView({super.key ,this.indexScreen = 0});
 
   @override
   State<SignUpForBidView> createState() => _SignUpForBidViewState();
@@ -24,15 +24,17 @@ class SignUpForBidView extends StatefulWidget {
 
 class _SignUpForBidViewState extends State<SignUpForBidView> {
   late SignUpForBidCubit _signUpForBidCubit;
-
+  late  int index ;
   @override
   void initState() {
+
+    index=  widget.indexScreen;
     _signUpForBidCubit = SignUpForBidCubit();
     _signUpForBidCubit.context = context;
     super.initState();
   }
 
-  int index = 0;
+
   List<Widget> screens = [
     const MainInfo(),
     const AdditionalDetails(),
@@ -80,6 +82,7 @@ class _SignUpForBidViewState extends State<SignUpForBidView> {
                 OtpVerification.routeName,
                 arguments: {
                   'verificationType': VerificationType.watsApp,
+                  'autoSendOtp': true,
                   // 'registerEntity': UserInfoCubit.entity,
                 },
               );

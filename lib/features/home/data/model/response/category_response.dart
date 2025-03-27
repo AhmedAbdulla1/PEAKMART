@@ -35,20 +35,20 @@ class CategoriesResponse extends BaseResponse<CategoriesEntity> {
 class CategoryDataResponse {
   int? catId;
   String? catName;
-  int? numOfProducts;
+  String? image;
 
   CategoryDataResponse(
       {
   this.catId,
   this.catName,
-  this.numOfProducts,
+  this.image,
   });
 
   factory CategoryDataResponse.fromJson(Map<String, dynamic> json) {
     return CategoryDataResponse(
       catId: json["CAT_ID"],
       catName: json["CAT_NAME"],
-      numOfProducts: json["NO_OF_PRODUCTS"],
+      image: json["IMG"],
     );
   }
 
@@ -56,7 +56,7 @@ class CategoryDataResponse {
     return CategoryEntity(
       catId: catId ?? 0,
       catName: catName ?? "",
-      noOfProducts: numOfProducts ?? 0,
+      image: image ?? "",
     );
   }
 }

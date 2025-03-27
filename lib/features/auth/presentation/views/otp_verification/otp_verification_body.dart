@@ -20,25 +20,29 @@ import 'package:peakmart/features/auth/presentation/state_mang/otp_verfication_c
 import 'package:peakmart/features/auth/presentation/views/otp_verification/custom_otp_text_field.dart';
 import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_resend_timer_row.dart';
 import 'package:peakmart/features/auth/presentation/views/reset_password/widgets/success_bottom_sheet.dart';
+import 'package:peakmart/features/auth/presentation/views/signup_for_bid/hold_screen.dart';
 import 'package:peakmart/features/main/main_view.dart';
 
 class OtpVerificationBody extends StatefulWidget {
   const OtpVerificationBody({
     super.key,
     this.registerEntity,
+    this.autoSend = false,
   });
-
   final RegisterEntity? registerEntity;
-
+  final bool autoSend ;
   @override
   State<OtpVerificationBody> createState() => _OtpVerificationBodyState();
 }
 
-String verificationCode = '';
 
 class _OtpVerificationBodyState extends State<OtpVerificationBody> {
+  String verificationCode = '';
+
+  late bool  autoSend;
   @override
   void initState() {
+    autoSend = widget.autoSend;
     super.initState();
     if (widget.registerEntity != null) {
       BlocProvider.of<OtpVerfictionCubit>(context).sendOtp(
@@ -74,7 +78,14 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
                     })
                   : null;
             }
-          } else if (state is OtpVerificationFailureState) {
+          }
+          if(state is SendOtpVerificationSuccessState){
+            Navigator.pop(context);
+          }
+          if(state is WatsAppOtpVerificationSuccessState){
+            Navigator.pushReplacementNamed(context, HoldScreen.routeName);
+          }
+          else if (state is OtpVerificationFailureState) {
             log('Failure state');
             Navigator.pop(context);
             ErrorViewer.showError(
@@ -118,6 +129,7 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
               ),
               SizedBox(height: 25.h),
               OtpResendTimerRow(
+                autoStart: autoSend,
                 onPressed: () {
                   if (widget.registerEntity != null) {
                     BlocProvider.of<OtpVerfictionCubit>(context).sendOtp(
@@ -137,6 +149,29 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
               CustomElevatedButton(
                 textButton: AppStrings.Continue,
                 onPressed: () {
+                  print('=== Navigation Stack (Bottom to Top) ===');
+                  int index = 0;
+
+                  // Get the Navigator's state
+                  final navigator = Navigator.of(context);
+
+                  // Use a temporary list to collect route names without popping
+                  List<String> stack = [];
+                  navigator.popUntil((route) {
+                    stack.add(route.settings.name ?? 'Unnamed Route');
+                    return true; // Keep the route in the stack, don't pop
+                  });
+
+                  // Reverse the list to show the stack from bottom to top
+                  stack = stack.reversed.toList();
+
+                  // Print the stack
+                  for (var routeName in stack) {
+                    print('[$index] Route: $routeName');
+                    index++;
+                  }
+                  print('=====================');
+                  Navigator.pushReplacementNamed(context, HoldScreen.routeName);
                   if (verificationCode.isNotEmpty) {
                     verfiyOtp(context);
                   } else {

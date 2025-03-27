@@ -11,11 +11,12 @@ class OtpVerification extends StatelessWidget {
   const OtpVerification({
     super.key,
     required this.verificationType,
+    this.autoSendOtp = false,
     this.registerEntity,
   });
 
   final VerificationType verificationType;
-
+  final bool autoSendOtp;
   final RegisterEntity? registerEntity;
   static const String routeName = '/otp_verification';
 
@@ -29,9 +30,13 @@ class OtpVerification extends StatelessWidget {
         ),
         body: BlocProvider<OtpVerfictionCubit>(
             create: (context) => verificationType == VerificationType.watsApp
-                ? (OtpVerfictionCubit()..sendWatsAppOtp())
+                ? autoSendOtp
+                    ? ((OtpVerfictionCubit()..sendWatsAppOtp()))
+                    : (OtpVerfictionCubit())
                 : (OtpVerfictionCubit()),
             child: OtpVerificationBody(
+              // verificationType: verificationType,
+              autoSend: autoSendOtp,
               registerEntity: registerEntity,
             )),
       ),

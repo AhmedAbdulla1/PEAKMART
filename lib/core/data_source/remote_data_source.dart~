@@ -11,6 +11,7 @@ import 'package:peakmart/core/net/models_factory.dart';
 import 'package:peakmart/core/net/response_validators/default_response_validator.dart';
 import 'package:peakmart/core/net/response_validators/list_response_validator.dart';
 import 'package:peakmart/core/net/response_validators/response_validator.dart';
+import 'package:peakmart/features/home/data/model/response/news_response.dart';
 
 class RemoteDataSource {
   Future<Either<AppErrors, T>> requestUploadFile<T extends BaseResponse>({
@@ -88,7 +89,6 @@ class RemoteDataSource {
     String? baseUrl,
     bool isFormData = false,
     bool saveCookies = false,
-    List<Map<String, dynamic>>? files,
     CreateModelInterceptor createModelInterceptor =
         const DefaultCreateModelInterceptor(),
   }) async {
@@ -100,7 +100,7 @@ class RemoteDataSource {
       createModelInterceptor,
     );
 
-    print('url for request $queryParameters');
+    print('url for request $url');
 
     /// Send the request.
     final response = await HttpClient().sendRequest<T>(
@@ -113,8 +113,6 @@ class RemoteDataSource {
       responseValidator: responseValidator ?? DefaultResponseValidator(),
       baseUrl: baseUrl,
       saveCookies: saveCookies,
-      files: files,
-      isFormData: isFormData,
     );
 
     /// convert jsonResponse to model and return it
@@ -185,4 +183,8 @@ class RemoteDataSource {
     } else
       return const Left(UnknownError());
   }
+
+
+
+
 }

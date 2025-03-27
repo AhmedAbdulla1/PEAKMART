@@ -1,11 +1,10 @@
-// screens/summary_profile_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/profile/domain/enitiy/user_info_entity.dart';
-import 'package:peakmart/features/profile/presentation/profile/profile_body.dart';
 import 'package:peakmart/features/profile/presentation/state_m/profile/cubit.dart';
+import 'package:peakmart/features/profile/presentation/views/profile/profile_body.dart';
 
 class SummaryProfileScreen extends StatelessWidget {
   const SummaryProfileScreen({super.key});
@@ -33,6 +32,7 @@ class SummaryProfileScreen extends StatelessWidget {
                     phone: "01099409512",
                     photo: "https://picsum.photos/800/600",
                     sellerInfo: "",
+                    loyaltyPoint: 0,
                     email: "ahmedelabassy14@gmail.com"));
           } else {
             return const Center(child: Text('No data available'));

@@ -5,13 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/results/result.dart';
-import 'package:peakmart/features/auth/domain/entity/user_info_entity.dart';
-import 'package:peakmart/features/auth/domain/repository/auth_repo.dart';
+import 'package:peakmart/features/profile/domain/enitiy/user_info_entity.dart';
+import 'package:peakmart/features/profile/domain/profile_repo.dart';
 
 part 'user_info_states.dart';
 
 class UserInfoCubit extends Cubit<UserInfoState> {
-  final AuthRepo authRepo = instance<AuthRepo>();
+  final ProfileRepo authRepo = instance<ProfileRepo>();
 
   UserInfoCubit() : super(UserInfoInitialState());
   late BuildContext context;

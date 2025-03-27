@@ -11,8 +11,8 @@ import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/product_details.dart';
 
-class ItemWidget extends StatelessWidget {
-  const ItemWidget({
+class ProductItemWidget extends StatelessWidget {
+  const ProductItemWidget({
     super.key,
     required this.product,
     required this.index,

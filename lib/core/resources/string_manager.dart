@@ -8,9 +8,10 @@ class AppStrings {
   static String googleAuthFailed = tr('Google Auth Failed');
   static String networkError = tr('Network Error, Please Try Again');
   static String unexpectedError = tr('Unexpected Error');
-static String  recommendedProducts=tr('Recommended Products');
-  static String  auctionEnd=tr('Auction Ends');
-  static String  priceNow=tr('Price Now');
+  static String product = "product";
+  static String recommendedProducts = tr('Recommended Products');
+  static String auctionEnd = tr('Auction Ends');
+  static String priceNow = tr('Price Now');
   //* Firebase Authentication Errors
   static String accountExistsWithDifferentCredential =
       tr('Account Exists With Different Credential');
@@ -98,7 +99,7 @@ static String  recommendedProducts=tr('Recommended Products');
   static const String futureBids = 'Future Bids';
   static const String bidsWorkNow = 'Bids Work Now';
   static const String endedBids = 'Ended Bids';
-  static const String product = 'Product';
+  static const String myProduct = 'MyProduct';
   static const String auctionStart = 'Auction Start: ';
   static const String deliveryDate = 'Delivery: ';
   static const String bidDuration = 'Bid Duration: ';

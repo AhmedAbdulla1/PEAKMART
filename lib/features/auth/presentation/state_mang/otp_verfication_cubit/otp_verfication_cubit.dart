@@ -145,7 +145,7 @@ class OtpVerfictionCubit extends Cubit<OtpVerificationState> {
       );
       // Navigator.pop(context);
       emit(
-        OtpVerificationSuccessState(),
+        OtpVerificationSuccessState(isVerified: true),
       );
     }, onError: (error) {
       debugPrint(

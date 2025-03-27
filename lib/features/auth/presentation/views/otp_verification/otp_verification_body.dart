@@ -59,7 +59,7 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
       child: BlocConsumer<OtpVerfictionCubit, OtpVerificationState>(
         listener: (context, state) {
           if (state is OtpVerificationSuccessState) {
-            Navigator.pop(context);
+            // Navigator.pop(context);
             if (state.isVerified) {
               log('Success state in verify otp');
               state.isVerified

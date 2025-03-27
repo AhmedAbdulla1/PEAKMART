@@ -23,14 +23,14 @@ class MainView extends StatefulWidget {
 
 class _MainViewState extends State<MainView> {
   int _currentPageIndex = 0;
-  final List<TabItem> _navBarItems = const [
-    TabItem(icon: Icons.home_outlined, title: AppStrings.home),
+  final List<TabItem> _navBarItems =  [
+    const TabItem(icon: Icons.home_outlined, title: AppStrings.home),
     TabItem(icon: Icons.shopping_cart_outlined, title: AppStrings.product),
-    TabItem(
+    const TabItem(
         icon: Icons.notifications_active_outlined,
         title: AppStrings.notification),
-    TabItem(icon: Icons.add, title: 'add'),
-    TabItem(icon: Icons.person_2_outlined, title: AppStrings.profile),
+    const TabItem(icon: Icons.add, title: 'add'),
+    const TabItem(icon: Icons.person_2_outlined, title: AppStrings.profile),
   ];
 
   List<Widget> getBottomNavigationBarBody() {

@@ -6,6 +6,7 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
+import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/home/presentation/state_m/home_cubits/states.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/widgets/bids_slider.dart';
 
@@ -25,7 +26,7 @@ class TitledBidSection<C extends Cubit<BidsState>> extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<C, BidsState>(
       builder: (context, state) {
-   List<ProductEntity> products = [];
+        List<ProductEntity> products = [];
 
         if (state is BidWorkNowSuccessState) {
           products = state.bidWorkNowData;
@@ -39,7 +40,9 @@ class TitledBidSection<C extends Cubit<BidsState>> extends StatelessWidget {
         if (state is TrendingBidsSuccessState) {
           products = state.trendingBidsData;
         }
-
+        if (state is BidsLoadingState) {
+          return const WaitingWidget();
+        }
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -58,9 +61,6 @@ class TitledBidSection<C extends Cubit<BidsState>> extends StatelessWidget {
                 isTrending: isTrending,
                 isEnded: isEnded,
                 productEntity: products,
-                /* endedBids: loadedEndedBids,
-                trendingBids: loadedTrendingBids,
-                futureBids: loadedFutureBids,*/
               ),
             ),
           ],

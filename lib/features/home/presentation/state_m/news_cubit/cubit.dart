@@ -43,6 +43,36 @@ class NewsCubit extends Cubit<NewsState> {
   void _showNextNewsWithTimer() {
     if (_currentIndex < data.news.length) {
       final news = data.news[_currentIndex];
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       emit(ShowNewNews(news));
 
       // Schedule to hide the news after `timeShow`

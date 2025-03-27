@@ -6,6 +6,7 @@ import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/home/presentation/state_m/category_cubit/category_cubit.dart';
@@ -137,7 +138,6 @@ class _ProductsViewState extends State<ProductsView> {
                   }
 
                   if (state is ProductLoaded) {
-                    print("Filtered Products: ${filteredProducts.length}");
                     if (filteredProducts.isEmpty) {
                       return SizedBox(
                         height:
@@ -251,7 +251,7 @@ class _SearchBarState extends State<SearchBar> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: context.isDarkMode ? ColorManager.black : ColorManager.white,
           borderRadius: BorderRadius.circular(30.0),
           boxShadow: [
             BoxShadow(
@@ -292,7 +292,8 @@ class _SearchBarState extends State<SearchBar> {
               borderSide: BorderSide.none,
             ),
             filled: true,
-            fillColor: Colors.white,
+            fillColor:
+                context.isDarkMode ? ColorManager.black : ColorManager.white,
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
           ),

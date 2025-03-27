@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/features/home/domain/entity/category_entity.dart';
 
@@ -31,7 +32,7 @@ class CategoryItemWidget extends StatelessWidget {
             padding: const EdgeInsets.all(AppPadding.p5),
             decoration: BoxDecoration(
               color:
-                  isSelected ? ColorManager.lightPrimary : ColorManager.white,
+                  context.isDarkMode ? ColorManager.black : ColorManager.white,
               border: Border.all(color: ColorManager.primary, width: 1.5),
               borderRadius: BorderRadius.circular(12),
             ),
@@ -41,7 +42,6 @@ class CategoryItemWidget extends StatelessWidget {
                   category.catName,
                   style: getMediumStyle(
                     fontSize: FontSize.s16,
-                    color: ColorManager.grey1,
                   ),
                 ),
                 const SizedBox(width: AppSize.s8),
@@ -49,7 +49,9 @@ class CategoryItemWidget extends StatelessWidget {
                   category.image,
                   width: 35,
                   height: 35,
-                  color: ColorManager.grey1,
+                  color: context.isDarkMode
+                      ? ColorManager.grey
+                      : ColorManager.grey1,
                   matchTextDirection: true,
                   // placeholderBuilder: (context) =>
                   //     const CircularProgressIndicator(),

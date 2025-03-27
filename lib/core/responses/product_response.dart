@@ -42,7 +42,8 @@ class ProductResponse {
         name: name,
         imageUrl: imageUrl != null && imageUrl!.isNotEmpty
             ? List<String>.from(jsonDecode(imageUrl!))
-            : ["https://picsum.photos/800/600"],
+            : ["https://hk.herova.net/assets/img/product.png"],
+
         endDate: endDate,
         peopleRolledIn: peopleRolledIn,
         price: price,

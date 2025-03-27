@@ -5,8 +5,8 @@ import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
 import 'package:peakmart/features/profile/domain/enitiy/user_info_entity.dart';
-import 'package:peakmart/features/profile/presentation/cart/cart_view.dart';
 import 'package:peakmart/features/profile/presentation/state_m/profile/cubit.dart';
+import 'package:peakmart/features/profile/presentation/user_products/cart_view.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key, required this.userinfo});
@@ -36,7 +36,7 @@ class ProfileScreen extends StatelessWidget {
                       icon: const Icon(Icons.shopping_cart_outlined,
                           size: 30, color: Colors.white),
                       onPressed: () {
-                        Navigator.pushNamed(context, CartView.routeName);
+                        Navigator.pushNamed(context, UserProductsView.routeName);
                       },
                     ),
                     Text(
@@ -106,7 +106,7 @@ class ProfileScreen extends StatelessWidget {
                                 color: ColorManager.grey,
                                 child: Center(
                                   child: Text(
-                                    'POINTS: 200',
+                                    'POINTS: ${userinfo.loyaltyPoint}',
                                     style: TextStyle(
                                       fontSize: screenWidth * 0.04,
                                       fontWeight: FontWeight.bold,

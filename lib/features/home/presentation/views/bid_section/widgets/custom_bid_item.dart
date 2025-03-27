@@ -5,10 +5,9 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/product_details.dart';
-
-import '../../../../../../core/resources/values_manager.dart';
 
 class CustomBidItem extends StatelessWidget {
   const CustomBidItem({
@@ -22,8 +21,7 @@ class CustomBidItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, ProductDetails.routeName,
-            arguments: bidItem);
+        Navigator.pushNamed(context, ProductDetails.routeName, arguments: bidItem);
       },
       child: Center(
         child: Container(
@@ -49,31 +47,28 @@ class CustomBidItem extends StatelessWidget {
                   ),
                   child: bidItem.imageUrl.isNotEmpty
                       ? CachedNetworkImage(
-                          imageUrl: bidItem.imageUrl[0],
-                          width: double.infinity,
-                          fit: BoxFit.fill,
-                          placeholder: (context, url) {
-                            return const WaitingWidget();
-                          },
-                          errorWidget: (context, url, error) => Icon(
-                            Icons.error,
-                            size: 28,
-                            color: ColorManager.red,
-                          ),
-                        )
+                    imageUrl: bidItem.imageUrl[0],
+                    width: double.infinity,
+                    fit: BoxFit.fill,
+                    placeholder: (context, url) {
+                      return const WaitingWidget();
+                    },
+                    errorWidget: (context, url, error) => Icon(
+                      Icons.error,
+                      size: 28,
+                      color: ColorManager.red,
+                    ),
+                  )
                       : Image.asset(
-                          "assets/images/card.png",
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                        ),
+                    "assets/images/card.png",
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-              const SizedBox(
-                height: 15,
-              ),
+              const SizedBox(height: 15),
               Padding(
-                padding: const EdgeInsets.only(
-                    left: AppPadding.p8, right: AppPadding.p19),
+                padding: const EdgeInsets.only(left: AppPadding.p8, right: AppPadding.p19),
                 child: Column(
                   children: [
                     Align(
@@ -83,12 +78,12 @@ class CustomBidItem extends StatelessWidget {
                         maxLines: 2,
                         textAlign: TextAlign.start,
                         style: getSemiBoldStyle(
-                            color: ColorManager.black, fontSize: FontSize.s16),
+                          color: ColorManager.black,
+                          fontSize: FontSize.s16,
+                        ),
                       ),
                     ),
-                    const SizedBox(
-                      height: AppSize.s10,
-                    ),
+                    const SizedBox(height: AppSize.s10),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -96,36 +91,56 @@ class CustomBidItem extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         bidItem.description,
                         style: getMediumStyle(
-                                color: ColorManager.grey1,
-                                fontSize: FontSize.s12)
-                            .copyWith(
-                                fontFamily: FontConstants.fontCabinFamily),
+                          color: ColorManager.grey1,
+                          fontSize: FontSize.s12,
+                        ).copyWith(fontFamily: FontConstants.fontCabinFamily),
                       ),
                     ),
-                    const SizedBox(
-                      height: AppSize.s10,
-                    ),
+                    const SizedBox(height: AppSize.s10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           "${AppStrings.nowBid}\n${"\$${bidItem.price}"}",
                           style: getSemiBoldStyle(
-                              fontSize: FontSize.s12,
-                              color: ColorManager.black),
+                            fontSize: FontSize.s12,
+                            color: ColorManager.black,
+                          ),
                         ),
-                        ElevatedButton(
-                          onPressed: () {},
-                          child: const Text(AppStrings.enrollNow),
+                       const  SizedBox(width: AppSize.s20),
+                        Expanded(
+                          child: LayoutBuilder(
+                            builder: (context, constraints) {
+                              // Calculate font size based on the button's width
+                              double fontSize = constraints.maxWidth * 0.16; // 30% of the button's width
+                              fontSize = fontSize.clamp(10.0, 16.0); // Min 10, Max 18
+                              return ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFF8B4513),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                                ),
+                                child: Text(
+                                  AppStrings.enrollNow,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: fontSize, // Dynamic font size
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: AppSize.s10,
-                    ),
+                    const SizedBox(height: AppSize.s10),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

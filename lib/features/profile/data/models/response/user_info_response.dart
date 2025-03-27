@@ -23,6 +23,7 @@ class UserInfoResponse extends BaseResponse<BaseEntity> {
         email: json['data']['EMAIL'],
         phone: json['data']['PHONE'],
         photo: json['data']['PHOTO'],
+      loyaltyPoint: json['data']['LOYALTY_P']??0,
         sellerInfo: json['data']['seller_info'],
       ),
     );
@@ -34,6 +35,7 @@ class UserInfoResponse extends BaseResponse<BaseEntity> {
       email: data.email,
       phone: data.phone,
       photo: data.photo,
+      loyaltyPoint: data.loyaltyPoint,
       sellerInfo: data.sellerInfo,
       userName: data.userName,
     );
@@ -42,10 +44,11 @@ class UserInfoResponse extends BaseResponse<BaseEntity> {
 
 class UserInfoData {
   String email, phone, photo, sellerInfo, userName;
-
+  int loyaltyPoint;
   UserInfoData({
     required this.email,
     required this.phone,
+    required this.loyaltyPoint,
     required this.photo,
     required this.sellerInfo,
     required this.userName,

@@ -4,14 +4,14 @@ import 'package:peakmart/core/entities/prodcut_entity.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
-import 'package:peakmart/features/profile/presentation/cart/product_item_widget.dart';
+import 'package:peakmart/features/products/presentation/widgets/product_item_widget.dart';
 import 'package:peakmart/features/profile/presentation/state_m/cart/cubit.dart';
 import 'package:peakmart/features/profile/presentation/state_m/cart/state.dart';
 
-class CartView extends StatelessWidget {
+class UserProductsView extends StatelessWidget {
   static const String routeName = '/cart';
 
-  const CartView({super.key});
+  const UserProductsView({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -141,8 +141,10 @@ class HttpClient extends BaseHttpClient {
         case HttpMethod.GET:
           response = await _client.get(
             url,
+            data: body,
             queryParameters: queryParameters,
             cancelToken: cancelToken,
+            options: Options(headers: headers),
           );
           break;
         case HttpMethod.POST:
@@ -174,6 +176,7 @@ class HttpClient extends BaseHttpClient {
               queryParameters: queryParameters,
               options: Options(headers: headers),
               cancelToken: cancelToken,
+
             );
           } else {
             // Normal POST request

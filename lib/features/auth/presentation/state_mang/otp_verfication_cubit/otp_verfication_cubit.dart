@@ -41,7 +41,7 @@ class OtpVerfictionCubit extends Cubit<OtpVerificationState> {
       );
       // Navigator.pop(context);
       emit(
-        OtpVerificationSuccessState(),
+        SendOtpVerificationSuccessState(),
       );
     }, onError: (error) {
       debugPrint(
@@ -112,7 +112,7 @@ class OtpVerfictionCubit extends Cubit<OtpVerificationState> {
       );
       // Navigator.pop(context);
       emit(
-        OtpVerificationSuccessState(),
+        SendOtpVerificationSuccessState(),
       );
     }, onError: (error) {
       debugPrint(
@@ -145,7 +145,7 @@ class OtpVerfictionCubit extends Cubit<OtpVerificationState> {
       );
       // Navigator.pop(context);
       emit(
-        OtpVerificationSuccessState(),
+        WatsAppOtpVerificationSuccessState(),
       );
     }, onError: (error) {
       debugPrint(

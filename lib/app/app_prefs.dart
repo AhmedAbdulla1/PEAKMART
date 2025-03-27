@@ -103,6 +103,7 @@ class AppPreferences {
   // logout
   Future<void> logout() async {
     // await _sharedPreferences.remove(pressKeyOnBoardingScreen);
+    removeAllCookies();
     await _sharedPreferences.remove(cookiesKey);
     await _sharedPreferences.remove(userIdKey);
     await _sharedPreferences.remove(pressKeyLoginScreen);
@@ -111,8 +112,14 @@ class AppPreferences {
   Future<void> remove(String key) async {
     _sharedPreferences.remove(key);
   }
-
+  Future<void> removeAllCookies() async {
+    List<String> keys = getCookiesKey();
+    for (String key in keys) {
+      await _sharedPreferences.remove(key);
+    }
+  }
   Future<void> setCookies(Map<String, String> value) async {
+    await removeAllCookies();
     for (String key in value.keys) {
       await _sharedPreferences.setString(key, value[key] ?? '');
     }

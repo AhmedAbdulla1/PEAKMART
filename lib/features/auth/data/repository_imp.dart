@@ -25,6 +25,7 @@ import 'package:peakmart/features/auth/domain/repository/auth_repo.dart';
 
 class AuthRepositoryImp implements AuthRepo {
   final AuthDataSource _authDataSource = AuthDataSource();
+
   final NetWorkInfo _networkInfo = instance<NetWorkInfo>();
 
   @override
@@ -224,24 +225,24 @@ class AuthRepositoryImp implements AuthRepo {
     return result;
   }
 
-  @override
-  Future<Result<AppErrors, UserInfoEntity>> getUserInfo() async {
-    Result<AppErrors, UserInfoEntity> result;
-    if (await _networkInfo.isConnected) {
-      try {
-        Either<AppErrors, UserInfoResponse> response =
-            await _authDataSource.getUserInfo();
-        result = response.fold((error) {
-          return Result(error: error);
-        }, (response) {
-          return Result(data: response.toEntity());
-        });
-      } catch (error) {
-        result = Result(error: const AppErrors.responseError());
-      }
-    } else {
-      result = Result(error: const AppErrors.connectionError());
-    }
-    return result;
-  }
+  // @override
+  // Future<Result<AppErrors, UserInfoEntity>> getUserInfo() async {
+  //   Result<AppErrors, UserInfoEntity> result;
+  //   if (await _networkInfo.isConnected) {
+  //     try {
+  //       Either<AppErrors, UserInfoResponse> response =
+  //           await _authDataSource.getUserInfo();
+  //       result = response.fold((error) {
+  //         return Result(error: error);
+  //       }, (response) {
+  //         return Result(data: response.toEntity());
+  //       });
+  //     } catch (error) {
+  //       result = Result(error: const AppErrors.responseError());
+  //     }
+  //   } else {
+  //     result = Result(error: const AppErrors.connectionError());
+  //   }
+  //   return result;
+  // }
 }

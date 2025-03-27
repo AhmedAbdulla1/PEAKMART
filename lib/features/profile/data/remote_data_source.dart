@@ -30,6 +30,7 @@ class ProfileDataSource extends RemoteDataSource {
   Future<Either<AppErrors, UserInfoResponse>> getUserInfo() async {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
+    print('hk ${appPreferences.getUserId()}');
     print('cookie string $cookieString');
     return request<UserInfoResponse>(
         method: HttpMethod.GET,

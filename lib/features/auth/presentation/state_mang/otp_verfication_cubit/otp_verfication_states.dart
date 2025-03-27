@@ -18,3 +18,19 @@ final class OtpVerificationSuccessState extends OtpVerificationState {
 
   OtpVerificationSuccessState({this.isVerified = false});
 }
+final class SendOtpVerificationSuccessState extends OtpVerificationState {
+
+
+  SendOtpVerificationSuccessState();
+}
+final class WatsAppOtpVerificationFailureState extends OtpVerificationState {
+  final AppErrors errors;
+  final Function() onRetry;
+
+  WatsAppOtpVerificationFailureState({required this.errors, required this.onRetry});
+}
+
+final class WatsAppOtpVerificationSuccessState extends OtpVerificationState {
+
+  WatsAppOtpVerificationSuccessState();
+}

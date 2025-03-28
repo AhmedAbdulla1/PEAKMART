@@ -9,12 +9,14 @@ class TopBiddersEntity extends BaseEntity {
 }
 
 class TopBiddersData {
-  final String userName;
+  final String userName, userPhoto;
   final int bidderId, bidAmount, productId;
   const TopBiddersData({
     required this.userName,
+    required this.userPhoto,
     required this.bidderId,
     required this.bidAmount,
     required this.productId,
+
   });
 }

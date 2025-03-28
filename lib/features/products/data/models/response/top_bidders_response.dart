@@ -30,11 +30,11 @@ class TopBiddersResponse extends BaseResponse<TopBiddersEntity> {
 
 @override
 class TopBiddersDataResponse {
-  final String userName;
+  final String userName,userPhoto;
 
   final int bidderId, bidAmount, productId;
   TopBiddersDataResponse(
-      {required this.userName,
+      {required this.userName,required this.userPhoto, 
       required this.bidderId,
       required this.bidAmount,
       required this.productId});
@@ -42,6 +42,7 @@ class TopBiddersDataResponse {
   factory TopBiddersDataResponse.fromJson(Map<String, dynamic> json) {
     return TopBiddersDataResponse(
       userName: json['USER_NAME'] ?? "",
+      userPhoto: json['PHOTO'] ?? "",
       bidderId: json['BIDDER_ID'] ?? 0,
       bidAmount: json['BID_AMOUNT'] ?? 0,
       productId: json['I_ID'] ?? 0,
@@ -54,6 +55,7 @@ class TopBiddersDataResponse {
       bidderId: bidderId,
       bidAmount: bidAmount,
       productId: productId,
+      userPhoto: userPhoto,
     );
   }
 }

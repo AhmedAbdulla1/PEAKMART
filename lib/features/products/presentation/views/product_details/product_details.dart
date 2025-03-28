@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/entities/prodcut_entity.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/features/home/presentation/state_m/home_cubits/future_bids_cubit.dart';
@@ -76,14 +77,16 @@ class ProductDetails extends StatelessWidget {
                   Text('*${product.peopleRolledIn} people rolled in',
                       style: getBoldStyle(
                           fontSize: FontSize.s16, color: ColorManager.primary)),
-                  // ReorderableListWithApi(),
                   SizedBox(height: 16.h),
 
                   BlocProvider(
                     create: (context) =>
                         TopBidderCubit()..getTopBidders(productId: product.id),
-                    child: const TopBidders(),
+                    child: TopBidders(
+                      productId: product.id,
+                    ),
                   ),
+                  10.vGap,
                   BlocProvider(
                       create: (context) => FutureBidsCubit()..getFutureBids(),
                       child: const TitledBidSection<FutureBidsCubit>(

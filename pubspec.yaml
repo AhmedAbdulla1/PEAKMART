@@ -75,6 +75,7 @@ dependencies:
   font_awesome_flutter: ^10.8.0
   bottom_navy_bar: ^6.1.0
   hydrated_bloc: ^10.0.0
+  animated_reorderable_list: ^1.2.0
 
 
 dev_dependencies:

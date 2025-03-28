@@ -33,9 +33,9 @@ class _ProfileViewState extends State<ProfileView> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 'Show OnBoarding',
-                style: TextStyle(color: ColorManager.black, fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               ),
               Switch(
                   value: onBoardingSwitch,
@@ -51,9 +51,9 @@ class _ProfileViewState extends State<ProfileView> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 'Re login',
-                style: TextStyle(color: ColorManager.black, fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               ),
               Switch(
                   value: reLoginSwitch,
@@ -70,9 +70,9 @@ class _ProfileViewState extends State<ProfileView> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 'Logout',
-                style: TextStyle(color: ColorManager.black, fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               ),
               Switch(
                   value: logoutSwitch,

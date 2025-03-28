@@ -1,9 +1,5 @@
 import 'package:peakmart/core/entities/prodcut_entity.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/features/home/domain/entity/bid_work_now_entity.dart';
-import 'package:peakmart/features/home/domain/entity/ended_bids_entity.dart';
-import 'package:peakmart/features/home/domain/entity/future_bids_entity.dart';
-import 'package:peakmart/features/home/domain/entity/trending_bids_entity.dart';
 
 sealed class BidsState {}
 

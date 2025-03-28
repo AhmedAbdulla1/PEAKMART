@@ -1,6 +1,5 @@
 import 'package:peakmart/core/entities/prodcut_entity.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/features/products/data/models/product_model.dart';
 
 abstract class ProductState {}
 

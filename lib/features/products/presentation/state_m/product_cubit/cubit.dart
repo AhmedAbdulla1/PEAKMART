@@ -1,9 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/core/entities/prodcut_entity.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/responses/product_response.dart';
 import 'package:peakmart/core/results/result.dart';
-import 'package:peakmart/features/products/data/models/product_model.dart';
 import 'package:peakmart/features/products/data/products_repo_imp.dart';
 import 'package:peakmart/features/products/domain/entity/prodcuts_entity.dart';
 import 'package:peakmart/features/products/domain/products_repo.dart';
@@ -17,7 +14,7 @@ class ProductCubit extends Cubit<ProductState> {
     emit(ProductLoading());
     try {
       Result<AppErrors, ProductsEntity> result =
-      await productsRepo.getProducts();
+          await productsRepo.getProducts();
 
       result.pick(onData: (data) {
         emit(ProductLoaded(products: data.data));

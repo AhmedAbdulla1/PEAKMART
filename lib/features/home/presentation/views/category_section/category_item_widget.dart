@@ -19,6 +19,7 @@ class CategoryItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Padding(
       padding: const EdgeInsetsDirectional.only(start: 8.0),
       child: InkWell(
@@ -31,8 +32,7 @@ class CategoryItemWidget extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(AppPadding.p5),
             decoration: BoxDecoration(
-              color:
-                  context.isDarkMode ? ColorManager.black : ColorManager.white,
+              color: context.colorScheme.surface,
               border: Border.all(color: ColorManager.primary, width: 1.5),
               borderRadius: BorderRadius.circular(12),
             ),

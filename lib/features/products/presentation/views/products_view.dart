@@ -251,7 +251,7 @@ class _SearchBarState extends State<SearchBar> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Container(
         decoration: BoxDecoration(
-          color: context.isDarkMode ? ColorManager.black : ColorManager.white,
+          color: context.colorScheme.surface,
           borderRadius: BorderRadius.circular(30.0),
           boxShadow: [
             BoxShadow(
@@ -292,8 +292,7 @@ class _SearchBarState extends State<SearchBar> {
               borderSide: BorderSide.none,
             ),
             filled: true,
-            fillColor:
-                context.isDarkMode ? ColorManager.black : ColorManager.white,
+            fillColor: context.colorScheme.surface,
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
           ),

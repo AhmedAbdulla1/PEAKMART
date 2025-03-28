@@ -10,10 +10,11 @@ import 'package:peakmart/features/bid_owner/data/owner_repo_imp.dart';
 import 'package:peakmart/features/bid_owner/domain/repository/owner_repo.dart';
 import 'package:peakmart/features/home/data/home_repo_imp.dart';
 import 'package:peakmart/features/home/domain/home_repo.dart';
+import 'package:peakmart/features/products/data/products_repo_imp.dart';
+import 'package:peakmart/features/products/domain/products_repo.dart';
 import 'package:peakmart/features/profile/data/profile_repo_imp.dart';
 import 'package:peakmart/features/profile/domain/profile_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 final instance = GetIt.instance;
 
@@ -28,7 +29,7 @@ Future<void> initAppModule() async {
     ),
   );
   instance.registerLazySingleton<NetWorkInfo>(
-        () => NetworkInfoImpl(
+    () => NetworkInfoImpl(
       InternetConnectionChecker(),
     ),
   );
@@ -83,31 +84,35 @@ Future<void> initAppModule() async {
 
 initLoginModule() {
   if (!GetIt.I.isRegistered<LoginViewModel>()) {
-    instance.registerCachedFactory<LoginCubit>(()=> LoginCubit());
-    instance.registerFactory<LoginViewModel>(
-        () => LoginViewModel());
+    instance.registerCachedFactory<LoginCubit>(() => LoginCubit());
+    instance.registerFactory<LoginViewModel>(() => LoginViewModel());
   }
   if (!GetIt.I.isRegistered<AuthRepo>()) {
-    instance.registerCachedFactory<AuthRepo>(()=> AuthRepositoryImp());
+    instance.registerCachedFactory<AuthRepo>(() => AuthRepositoryImp());
   }
 }
+
 initHomeModule() {
   if (!GetIt.I.isRegistered<AuthRepo>()) {
-    instance.registerCachedFactory<AuthRepo>(()=> AuthRepositoryImp());
+    instance.registerCachedFactory<AuthRepo>(() => AuthRepositoryImp());
   }
-  if(!GetIt.I.isRegistered<HomeRepository>()){
-    instance.registerCachedFactory<HomeRepository>(()=>HomeRepositoryImp());
+  if (!GetIt.I.isRegistered<HomeRepository>()) {
+    instance.registerCachedFactory<HomeRepository>(() => HomeRepositoryImp());
   }
-  if(!GetIt.I.isRegistered<ProfileRepo>()){
-    instance.registerLazySingleton<ProfileRepo> (
-        ()=>ProfileRepoImpl()
-    );
+  if (!GetIt.I.isRegistered<ProfileRepo>()) {
+    instance.registerLazySingleton<ProfileRepo>(() => ProfileRepoImpl());
   }
-
 }
+
 initBidOwnerModule() {
   if (!GetIt.I.isRegistered<OwnerRepo>()) {
-    instance.registerCachedFactory<OwnerRepo>(()=> OwnerRepoImp());
+    instance.registerCachedFactory<OwnerRepo>(() => OwnerRepoImp());
+  }
+}
+
+initTopBiddersModule() {
+  if (!GetIt.I.isRegistered<ProductsRepo>()) {
+    instance.registerCachedFactory<ProductsRepo>(() => ProductsRepoImp());
   }
 }
 //

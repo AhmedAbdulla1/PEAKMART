@@ -7,6 +7,7 @@ import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/net/api_url.dart';
 import 'package:peakmart/core/net/response_validators/default_response_validator.dart';
 import 'package:peakmart/features/products/data/models/response/products_response.dart';
+import 'package:peakmart/features/products/data/models/response/top_bidders_response.dart';
 
 class ProductsDataSource extends RemoteDataSource {
   Future<Either<AppErrors, ProductsResponse>> getProducts() async {
@@ -33,5 +34,17 @@ class ProductsDataSource extends RemoteDataSource {
           return ProductsResponse.fromJson(json);
         },
         url: APIUrls.getProductsByCategory);
+  }
+
+    Future<Either<AppErrors, TopBiddersResponse>> getTopBidders(
+      int productId) async {
+    return request<TopBiddersResponse>(
+        method: HttpMethod.GET,
+        queryParameters: {"id": productId},
+        responseValidator: DefaultResponseValidator(),
+        converter: (json) {
+          return TopBiddersResponse.fromJson(json);
+        },
+        url: APIUrls.getTopBidders);
   }
 }

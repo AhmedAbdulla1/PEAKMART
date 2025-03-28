@@ -7,6 +7,7 @@ import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/features/home/presentation/state_m/home_cubits/future_bids_cubit.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/titled_bid_section.dart';
+import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/cubit.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/prodcut_details_images.dart';
 import 'package:peakmart/features/products/presentation/widgets/top_bidders.dart';
 
@@ -78,7 +79,11 @@ class ProductDetails extends StatelessWidget {
                   // ReorderableListWithApi(),
                   SizedBox(height: 16.h),
 
-                  const TopBidders(),
+                  BlocProvider(
+                    create: (context) =>
+                        TopBidderCubit()..getTopBidders(productId: product.id),
+                    child: const TopBidders(),
+                  ),
                   BlocProvider(
                       create: (context) => FutureBidsCubit()..getFutureBids(),
                       child: const TitledBidSection<FutureBidsCubit>(

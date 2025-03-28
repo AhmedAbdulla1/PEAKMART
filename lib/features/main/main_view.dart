@@ -1,8 +1,9 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
-import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:peakmart/core/resources/theme/app_theming_cubit/app_theme_cubit.dart';
 import 'package:peakmart/features/bid_owner/presentation/views/bid_owner_view.dart';
 import 'package:peakmart/features/home/presentation/views/home_view.dart';
 import 'package:peakmart/features/products/presentation/views/products_view.dart';
@@ -65,28 +66,31 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: getBottomNavigationBarBody()[_currentPageIndex],
-        bottomNavigationBar: ConvexAppBar(
-          key: ValueKey(
-              _currentPageIndex), // Force rebuild when _currentPageIndex changes
-          height: 55,
-          curve: Curves.easeInOut,
-          style: TabStyle.custom,
-          color: context.isDarkMode
-              ? ColorManager.white
-              : ColorManager.bottomNavBarSecondary,
-          backgroundColor: context.isDarkMode
-              ? ColorManager.black
-              : ColorManager.bottomNavBarSecondary,
-          elevation: 5,
-          activeColor: ColorManager.primary,
-          items: _navBarItems,
-          initialActiveIndex: _currentPageIndex, // Update the selected tab
-          onTap: _onTabSelected,
-        ),
-      ),
+    return BlocBuilder<AppThemeCubit, ThemeMode>(
+      builder: (context, themeMode) {
+        bool isDarkMode = themeMode == ThemeMode.dark;
+
+        return SafeArea(
+          child: Scaffold(
+            body: getBottomNavigationBarBody()[_currentPageIndex],
+            bottomNavigationBar: ConvexAppBar(
+              // key: ValueKey(
+              //     _currentPageIndex), // Force rebuild when _currentPageIndex changes
+              height: 55,
+              curve: Curves.easeInOut,
+              style: TabStyle.custom,
+              color: isDarkMode ? ColorManager.white : ColorManager.black,
+              backgroundColor:
+                  isDarkMode ? ColorManager.black : ColorManager.white,
+              elevation: 5,
+              activeColor: ColorManager.primary,
+              items: _navBarItems,
+              initialActiveIndex: _currentPageIndex,
+              onTap: _onTabSelected,
+            ),
+          ),
+        );
+      },
     );
   }
 }

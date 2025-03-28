@@ -1,6 +1,5 @@
 import 'package:peakmart/core/models/base_model.dart';
 import 'package:peakmart/core/responses/product_response.dart';
-import 'package:peakmart/features/home/domain/entity/ended_bids_entity.dart';
 import 'package:peakmart/features/products/domain/entity/prodcuts_entity.dart';
 
 class ProductsResponse extends BaseResponse<ProductsEntity> {

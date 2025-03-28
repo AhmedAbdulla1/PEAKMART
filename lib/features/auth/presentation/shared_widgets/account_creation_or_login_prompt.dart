@@ -19,7 +19,8 @@ class AccountCreationOrLoginPrompt extends StatelessWidget {
           text,
           overflow: TextOverflow.ellipsis,
           style: getMediumStyle(
-              fontSize: FontSize.s15, color: ColorManager.darkGrey),
+            fontSize: FontSize.s15,
+          ),
         ),
         TextButton(
           onPressed: () {

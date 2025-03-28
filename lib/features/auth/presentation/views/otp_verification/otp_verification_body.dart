@@ -10,6 +10,7 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/auth/data/model/request/send_otp_request.dart';
@@ -30,16 +31,15 @@ class OtpVerificationBody extends StatefulWidget {
     this.autoSend = false,
   });
   final RegisterEntity? registerEntity;
-  final bool autoSend ;
+  final bool autoSend;
   @override
   State<OtpVerificationBody> createState() => _OtpVerificationBodyState();
 }
 
-
 class _OtpVerificationBodyState extends State<OtpVerificationBody> {
   String verificationCode = '';
 
-  late bool  autoSend;
+  late bool autoSend;
   @override
   void initState() {
     autoSend = widget.autoSend;
@@ -79,13 +79,12 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
                   : null;
             }
           }
-          if(state is SendOtpVerificationSuccessState){
+          if (state is SendOtpVerificationSuccessState) {
             Navigator.pop(context);
           }
-          if(state is WatsAppOtpVerificationSuccessState){
+          if (state is WatsAppOtpVerificationSuccessState) {
             Navigator.pushReplacementNamed(context, HoldScreen.routeName);
-          }
-          else if (state is OtpVerificationFailureState) {
+          } else if (state is OtpVerificationFailureState) {
             log('Failure state');
             Navigator.pop(context);
             ErrorViewer.showError(
@@ -114,7 +113,10 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
               Text(
                 AppStrings.otpHeader,
                 style: getMediumStyle(
-                        fontSize: FontSize.s15, color: ColorManager.grey1)
+                        fontSize: FontSize.s15,
+                        color: context.isDarkMode
+                            ? ColorManager.grey
+                            : ColorManager.grey1)
                     .copyWith(fontFamily: FontConstants.fontMontserratFamily),
               ),
               SizedBox(height: 78.h),

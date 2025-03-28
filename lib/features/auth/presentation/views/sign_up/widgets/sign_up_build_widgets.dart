@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
@@ -86,7 +85,6 @@ class _SignUpBuildWidgetsState extends State<SignUpBuildWidgets> {
               AppStrings.createAccount,
               style: getSemiBoldStyle(
                 fontSize: FontSize.s28,
-                color: ColorManager.black,
               ).copyWith(fontFamily: FontConstants.fontMontserratFamily),
             ),
             34.vGap,

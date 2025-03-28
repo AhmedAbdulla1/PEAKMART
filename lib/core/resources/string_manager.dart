@@ -35,7 +35,8 @@ class AppStrings {
   static String confirm = tr('Confirm');
   static String forgotPassword = tr('Forgot Password');
   static String resetPassword = tr('Reset Password');
-  static String forgotPasswordHint = tr('Reset Password Hint');
+  static String forgotPasswordHint =
+      tr('We will send you a message to set or reset your new password');
   static String welcomeBack = tr('Welcome Back!');
   static const String enterEmail = 'Please enter an email address';
   static const String rPSMessage =

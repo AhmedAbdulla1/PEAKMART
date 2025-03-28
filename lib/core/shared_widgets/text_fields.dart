@@ -8,6 +8,7 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 
 class CustomPhoneTextField extends StatelessWidget {
@@ -29,11 +30,11 @@ class CustomPhoneTextField extends StatelessWidget {
       keyboardType: TextInputType.phone,
       cursorColor: ColorManager.primary,
       style: getRegularStyle(
-        color: ColorManager.primary,
+        color: context.isDarkMode ? ColorManager.white : ColorManager.primary,
         fontSize: FontSize.s16,
       ),
       dropdownTextStyle: getRegularStyle(
-        color: ColorManager.grey1,
+        color: context.isDarkMode ? ColorManager.grey : ColorManager.grey1,
         fontSize: FontSize.s16,
       ),
       initialCountryCode: 'EG',
@@ -50,11 +51,11 @@ class CustomPhoneTextField extends StatelessWidget {
       pickerDialogStyle: PickerDialogStyle(
         searchFieldCursorColor: ColorManager.grey1,
         countryCodeStyle: getRegularStyle(
-          color: ColorManager.grey1,
+          color: context.isDarkMode ? ColorManager.grey : ColorManager.grey1,
           fontSize: FontSize.s16,
         ),
         countryNameStyle: getRegularStyle(
-          color: ColorManager.grey1,
+          color: context.isDarkMode ? ColorManager.grey : ColorManager.grey1,
           fontSize: FontSize.s16,
         ),
         searchFieldPadding: EdgeInsets.all(AppPadding.p8.w),
@@ -72,7 +73,7 @@ class CustomPhoneTextField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: AppStrings.phone,
         hintStyle: getRegularStyle(
-          color: ColorManager.grey1,
+          color: context.isDarkMode ? ColorManager.grey : ColorManager.grey1,
           fontSize: FontSize.s14,
         ),
         contentPadding: const EdgeInsets.all(
@@ -119,15 +120,15 @@ class CustomTextFormWithStream extends StatelessWidget {
         cursorRadius: const Radius.circular(20),
         cursorColor: ColorManager.primary,
         // maxLines: 20,
-         style: getRegularStyle(
-            color: ColorManager.primary,
-            fontSize: FontSize.s16,
-          ),
+        style: getRegularStyle(
+          color: ColorManager.primary,
+          fontSize: FontSize.s16,
+        ),
         minLines: minLines,
         maxLines: maxLines,
         enabled: enabled,
         onTap: onTap,
-  
+
         // expands: true,
         keyboardType: textInputType,
         controller: textEditingController,
@@ -180,10 +181,10 @@ class _PasswordTextFieldWithStreamState
       stream: widget.stream,
       builder: (context, snapshot) => TextFormField(
         cursorRadius: const Radius.circular(10),
-         style: getRegularStyle(
-            color: ColorManager.primary,
-            fontSize: FontSize.s16,
-          ),
+        style: getRegularStyle(
+          color: ColorManager.primary,
+          fontSize: FontSize.s16,
+        ),
         cursorColor: ColorManager.primary,
         keyboardType: TextInputType.visiblePassword,
         controller: widget.textEditingController,
@@ -195,9 +196,7 @@ class _PasswordTextFieldWithStreamState
           suffixIcon: InkWell(
             onTap: onIconPressed,
             child: Icon(
-              obscureText
-                  ? Icons.visibility
-                  : Icons.visibility_off,
+              obscureText ? Icons.visibility : Icons.visibility_off,
               color: ColorManager.grey1,
             ),
           ),

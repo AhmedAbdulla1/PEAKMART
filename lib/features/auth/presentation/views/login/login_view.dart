@@ -8,6 +8,7 @@ import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/core/shared_widgets/buttons.dart';
 import 'package:peakmart/core/shared_widgets/text_fields.dart';
@@ -95,8 +96,7 @@ class _LogInViewState extends State<LogInView> {
               130.vGap,
               Text(
                 AppStrings.welcomeBack,
-                style: getSemiBoldStyle(
-                        fontSize: FontSize.s32, color: ColorManager.black)
+                style: getSemiBoldStyle(fontSize: FontSize.s32)
                     .copyWith(fontFamily: FontConstants.fontMontserratFamily),
               ),
               40.vGap,
@@ -119,6 +119,11 @@ class _LogInViewState extends State<LogInView> {
                     Navigator.pushNamed(context, ForgotPasswordView.routeName);
                   },
                   title: AppStrings.forgotPassword,
+                  textStyle: getRegularStyle(
+                      fontSize: FontSize.s14,
+                      color: context.isDarkMode
+                          ? ColorManager.white
+                          : ColorManager.black),
                 ),
               ),
               8.vGap,

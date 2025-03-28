@@ -40,18 +40,19 @@ class CustomElevatedButton extends StatelessWidget {
 }
 
 class CustomTextButton extends StatelessWidget {
-  const CustomTextButton({super.key, this.onPressed, required this.title});
+  const CustomTextButton({super.key, this.onPressed, required this.title, this.textStyle});
 
   final Function()? onPressed;
 
   final String title;
-
+final TextStyle? textStyle;
   @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onPressed,
       child: Text(
         title,
+        style: textStyle,
       ),
     );
   }

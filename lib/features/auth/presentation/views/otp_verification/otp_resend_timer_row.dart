@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:timer_button/timer_button.dart';
 
 import '../../../../../core/resources/style_manager.dart';
@@ -35,7 +36,8 @@ class _OtpResendTimerRowState extends State<OtpResendTimerRow> {
           AppStrings.otpNotReceived,
           overflow: TextOverflow.ellipsis,
           style: getSemiBoldStyle(
-              fontSize: FontSize.s16, color: ColorManager.black),
+            fontSize: FontSize.s16,
+          ),
         ),
         autoStart
             ? TimerButton(
@@ -43,7 +45,7 @@ class _OtpResendTimerRowState extends State<OtpResendTimerRow> {
                 timeOutInSeconds: 30,
                 onPressed: widget.onPressed,
                 disabledColor: ColorManager.white,
-                color: ColorManager.white,
+                color: context.colorScheme.surface,
                 disabledTextStyle: getMediumStyle(
                     fontSize: FontSize.s16, color: ColorManager.darkGrey),
                 activeTextStyle: getMediumStyle(

@@ -5,6 +5,7 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/validators.dart';
 
 class CustomTextFormField extends StatefulWidget {
@@ -56,7 +57,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       maxLines: widget.isShowDescription == true ? null : 1,
       keyboardType: widget.inputType,
       style: getRegularStyle(
-        color: ColorManager.primary,
+        color: context.isDarkMode ? ColorManager.white : ColorManager.primary,
         fontSize: FontSize.s16,
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,

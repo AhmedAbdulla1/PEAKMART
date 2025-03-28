@@ -6,6 +6,7 @@ import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 
@@ -23,7 +24,7 @@ class OtherLoginMethodsShape extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p5),
       child: Card(
         clipBehavior: Clip.antiAlias,
-        color: ColorManager.textFormBackground,
+        color: context.colorScheme.surface,
         shape: RoundedRectangleBorder(
           side: BorderSide(color: ColorManager.primary, width: 1),
           borderRadius: BorderRadius.circular(12),
@@ -32,7 +33,8 @@ class OtherLoginMethodsShape extends StatelessWidget {
           onTap: onTap,
           splashColor: const Color(0xffFCF3F6),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p40, vertical:  AppPadding.p10),
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppPadding.p40, vertical: AppPadding.p10),
             child: Center(
               child: isLoading == true
                   ? const WaitingWidget()
@@ -45,8 +47,8 @@ class OtherLoginMethodsShape extends StatelessWidget {
                         18.hGap,
                         Text(AppStrings.google,
                             style: getRegularStyle(
-                                fontSize: FontSize.s16,
-                                color: ColorManager.grey1)),
+                              fontSize: FontSize.s16,
+                            )),
                       ],
                     ),
             ),

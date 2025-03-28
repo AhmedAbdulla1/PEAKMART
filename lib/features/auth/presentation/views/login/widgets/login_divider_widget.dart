@@ -18,8 +18,9 @@ class LoginDividerWidget extends StatelessWidget {
         ),
         Text(
           '  Or Continue with  ',
-          style:
-              getMediumStyle(fontSize: FontSize.s12, color: ColorManager.grey2),
+          style: getMediumStyle(
+            fontSize: FontSize.s12,
+          ),
         ),
         Expanded(
           child: Divider(

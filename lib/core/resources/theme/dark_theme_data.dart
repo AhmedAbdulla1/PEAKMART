@@ -93,9 +93,9 @@ ThemeData getDarkTheme() {
     // Text button theme
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        textStyle: getRegularStyle(
-                fontSize: FontSize.s14, color: ColorManager.lightGreen)
-            .copyWith(
+        textStyle:
+            getRegularStyle(fontSize: FontSize.s14, color: ColorManager.white)
+                .copyWith(
           fontFamily: 'Montserrat',
         ),
       ),
@@ -156,7 +156,7 @@ ThemeData getDarkTheme() {
       ),
       errorStyle: getRegularStyle(
         fontSize: FontSize.s12,
-        color: ColorManager.textFormErrorBorder,
+        color: ColorManager.red,
       ),
       hintStyle: getRegularStyle(
         color: ColorManager.grey3,
@@ -170,20 +170,20 @@ ThemeData getDarkTheme() {
         borderRadius: BorderRadius.circular(
           AppSize.s12,
         ),
-        borderSide: BorderSide(color: ColorManager.grey1),
+        borderSide: BorderSide(color: ColorManager.darkGrey),
       ),
       focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: ColorManager.darkGrey),
         borderRadius: BorderRadius.circular(
           AppSize.s12,
         ),
-        borderSide: BorderSide(color: ColorManager.grey1),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(
           AppSize.s12,
         ),
         borderSide: BorderSide(
-          color: ColorManager.grey1,
+          color: ColorManager.darkGrey,
           width: AppSize.s1_5,
         ),
       ),
@@ -196,6 +196,12 @@ ThemeData getDarkTheme() {
       fillColor: ColorManager.darkGrey.withOpacity(.2),
       filled: true,
     ),
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: ColorManager.white,
+      selectionColor: ColorManager.black,
+      selectionHandleColor: ColorManager.primary,
+    ),
+
     // ListTile theme
     listTileTheme: ListTileThemeData(
       iconColor: ColorManager.white,

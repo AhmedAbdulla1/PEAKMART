@@ -95,7 +95,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   // Save changes and detect which fields have changed
-  Future<void> saveChanges() async {
+  Future<void> saveChanges(String password) async {
     emit(ProfileLoading());
 
     try {
@@ -108,7 +108,9 @@ class ProfileCubit extends Cubit<ProfileState> {
       if (imageChanged) {
         Result<AppErrors, EmptyEntity> result =
             await profileRepo.updateProfileImage(
-                UpdateProfileImageRequest(imagePath: tempProfileImagePath!));
+                UpdateProfileImageRequest(
+                    password: password,
+                    imagePath: tempProfileImagePath!));
         result.pick(
           onData: (newImageUrl) {
             // currentUserInfo = currentUserInfo.copyWith(photo: newImageUrl);
@@ -118,7 +120,8 @@ class ProfileCubit extends Cubit<ProfileState> {
           onError: (error) {
             emit(ProfileError(
               error: error,
-              onRetry: saveChanges,
+              onRetry:()=>saveChanges(password),
+
             ));
             return;
           },
@@ -130,7 +133,9 @@ class ProfileCubit extends Cubit<ProfileState> {
             UpdateProfileRequest(
                 userName: currentUserInfo.userName,
                 email: currentUserInfo.email,
-                phone: currentUserInfo.phone));
+                phone: currentUserInfo.phone,
+                password: password
+            ));
         result.pick(
           onData: (success) {
             originalUserInfo =
@@ -139,34 +144,12 @@ class ProfileCubit extends Cubit<ProfileState> {
           onError: (error) {
             emit(ProfileError(
               error: error,
-              onRetry: saveChanges,
+              onRetry:()=> saveChanges(password),
             ));
             return;
           },
         );
       }
-// todo update phone function
-      // // Update phone number if changed (send OTP)
-      // if (phoneChanged) {
-      //   Result<AppErrors, bool> result =
-      //       await profileRepo.sendPhoneOtp(currentUserInfo.phone);
-      //   result.pick(
-      //     onData: (success) {
-      //       if (success) {
-      //         emit(ProfileOtpSent("phone", currentUserInfo.phone));
-      //       }
-      //     },
-      //     onError: (error) {
-      //       emit(ProfileError(
-      //         error: error,
-      //         onRetry: saveChanges,
-      //       ));
-      //     },
-      //   );
-      //   return; // Stop here to wait for OTP verification
-      // }
-
-      // If no OTP is required, emit the updated state
       emit(ProfileLoaded(
         userInfo: currentUserInfo,
         tempProfileImagePath: tempProfileImagePath,
@@ -174,7 +157,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     } catch (e) {
       emit(ProfileError(
         error: const AppErrors.customError(message: 'Failed to save changes'),
-        onRetry: saveChanges,
+        onRetry: ()=>saveChanges(password),
       ));
     }
   }

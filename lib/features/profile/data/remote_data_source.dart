@@ -44,7 +44,6 @@ class ProfileDataSource extends RemoteDataSource {
         converter: (json) {
           return UserInfoResponse.fromJson(json);
         },
-        saveCookies: true,
         headers: {"cookie": cookieString},
         url: APIUrls.getUserInfo);
   }
@@ -59,26 +58,35 @@ class ProfileDataSource extends RemoteDataSource {
       body: updateProfileRequest.toMap(),
       responseValidator: DefaultResponseValidator(),
       converter: (json) {
+        print('inconverter $json');
         return EmptyResponse.fromJson(json);
       },
+      headers: {"cookie": cookieString},
+      isFormData: true,
       url: APIUrls.updateUserInfo,
     );
   }
 
   Future<Either<AppErrors, EmptyResponse>> updaterProfileImage(
-     UpdateProfileImageRequest body) async {
+      UpdateProfileImageRequest body) async {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
     print('cookie string $cookieString');
     return request<EmptyResponse>(
       method: HttpMethod.POST,
+      body: body.toMap(),
       files: body.getFiles(),
       responseValidator: DefaultResponseValidator(),
       converter: (json) {
+        print('inconverter $json');
         return EmptyResponse.fromJson(json);
       },
-      headers: {"cookie": cookieString},
-      url: APIUrls.updateUserInfo,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        "cookie": cookieString,
+      },
+      isFormData: true,
+      url: APIUrls.updateUserImage,
     );
   }
 }

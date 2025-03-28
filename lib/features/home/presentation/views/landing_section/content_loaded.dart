@@ -80,6 +80,9 @@ class ContentLoadedWidget extends StatelessWidget {
                           'verificationType': VerificationType.watsApp,
                         },
                       );
+                    }else {
+                      Navigator.pushNamed(context, SignUpForBidView.routeName,
+                          arguments: 0);
                     }
 
                   },

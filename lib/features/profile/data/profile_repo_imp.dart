@@ -90,6 +90,8 @@ class ProfileRepoImpl extends ProfileRepo {
       try {
         Either<AppErrors, EmptyResponse> response =
             await _remoteDataSource.updaterProfileImage(updateProfileImageRequest);
+          print('response: $response');
+
         result = response.fold((error) {
           return Result(error: error);
         }, (response) {

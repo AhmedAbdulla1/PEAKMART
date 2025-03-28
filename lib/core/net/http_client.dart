@@ -168,7 +168,6 @@ class HttpClient extends BaseHttpClient {
                 ),
               ));
             }
-
             // Send multipart request
             response = await _client.post(
               url,

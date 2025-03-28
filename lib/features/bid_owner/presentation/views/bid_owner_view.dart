@@ -35,7 +35,7 @@ class _BidOwnerViewState extends State<BidOwnerView> {
           child: BlocConsumer<AddProductCubit, AddProductState>(
               listener: (context, state) {},
               builder: (context, state) {
-                return AddProductBody();
+                return const AddProductBody();
               }),
         ),
       ),
@@ -148,19 +148,5 @@ class _AddProductBodyState extends State<AddProductBody> {
         ),
       ),
     );
-    ;
   }
 }
-
-/* name: "Dell XPS 15 9530 - 13th Gen Intel Core i9, 32GB RAM, 1TB SSD, NVIDIA RTX 4060, 4K OLED Touch Display",
-  description:
-      The Dell XPS 15 9530 is a powerhouse designed for professionals and creators who demand top-tier performance.
-Featuring a stunning 15.6-inch 4K OLED touch display, it delivers vibrant colors, deep blacks, and incredible clarity.
-Powered by the latest 13th Gen Intel Core i9 processor and NVIDIA GeForce RTX 4060 GPU, this laptop handles intensive tasks such as video editing,
-3D rendering, and gaming with ease. With 32GB DDR5 RAM and a 1TB PCIe NVMe SSD, you can enjoy blazing-fast performance, seamless multitasking, and ample storage for all your projects.
-Its premium aluminum chassis, edge-to-edge keyboard, and immersive audio make it the perfect blend of power, portability, and elegance.
-Ideal for content creators, designers, and business professionals looking for a high-performance laptop.
-  25008
-  40500
-  Tanta
-  */

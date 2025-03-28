@@ -41,12 +41,14 @@ class _MyAppState extends State<MyApp> {
         create: (context) => AppThemeCubit(),
         child: BlocBuilder<AppThemeCubit, ThemeMode>(
           builder: (context, themeMode) {
+            print('themeMode: $themeMode');
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               locale: context.locale,
               supportedLocales: context.supportedLocales,
               localizationsDelegates: context.localizationDelegates,
               themeMode: themeMode,
+
               theme: getLightTheme(),
               darkTheme: getDarkTheme(),
               title: 'Peakmart',

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:provider/provider.dart';
 
 import '../../features/bid_owner/presentation/state_mang/add_product_cubit/image_picker_controller.dart';
@@ -65,9 +66,12 @@ class AddProductImagePicker extends StatelessWidget {
                 width: double.infinity,
                 height: 150.h,
                 decoration: BoxDecoration(
-                  color: Colors.grey[200],
+                  // color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(10.r),
-                  border: Border.all(color: Colors.grey),
+                  border: Border.all(
+                      color: context.isDarkMode
+                          ? ColorManager.grey1
+                          : ColorManager.grey),
                 ),
                 child: controller.images.isEmpty
                     ? Column(

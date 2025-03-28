@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/entities/prodcut_entity.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
+import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/features/home/presentation/state_m/home_cubits/future_bids_cubit.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/titled_bid_section.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/prodcut_details_images.dart';
@@ -21,7 +22,9 @@ class ProductDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Product Details"),
+        title: Text(AppStrings.productDetails,
+            style: getBoldStyle(
+                fontSize: FontSize.s25, color: ColorManager.white)),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
@@ -44,23 +47,19 @@ class ProductDetails extends StatelessWidget {
                 children: [
                   Text(
                     product.name,
-                    style: TextStyle(
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: getBoldStyle(fontSize: FontSize.s24),
                   ),
                   SizedBox(height: 16.h),
                   RichText(
                     text: TextSpan(
                       text: "Description: ",
                       style: getBoldStyle(
-                          fontSize: FontSize.s16, color: ColorManager.black),
+                        fontSize: FontSize.s16,
+                      ),
                       children: [
                         TextSpan(
                             text: product.description,
-                            style: getRegularStyle(
-                                color: ColorManager.black,
-                                fontSize: FontSize.s16))
+                            style: getRegularStyle(fontSize: FontSize.s16))
                       ],
                     ),
                   ),
@@ -71,7 +70,8 @@ class ProductDetails extends StatelessWidget {
                   ),
                   Text('Now Bid:\$${product.price}',
                       style: getBoldStyle(
-                          fontSize: FontSize.s16, color: ColorManager.black)),
+                        fontSize: FontSize.s16,
+                      )),
                   Text('*${product.peopleRolledIn} people rolled in',
                       style: getBoldStyle(
                           fontSize: FontSize.s16, color: ColorManager.primary)),

@@ -24,9 +24,9 @@ class _MainViewState extends State<MainView> {
 
   final List<TabItem> _navBarItems = [
     const TabItem(
-        icon: Icons.home_outlined,
-        title: AppStrings.home,
-       ),
+      icon: Icons.home_outlined,
+      title: AppStrings.home,
+    ),
     const TabItem(
         icon: Icons.shopping_cart_outlined, title: AppStrings.product),
     const TabItem(

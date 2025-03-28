@@ -39,25 +39,22 @@ class _SettingsViewState extends State<SettingsView> {
               },
             ),
             16.vGap,
-            CustomSwitchListTile(
-              title: AppStrings.darkTheme,
-              leadingIcon: Icons.dark_mode_outlined,
-              isActive: context.read<AppThemeCubit>().isDarkMode,
-              onNotificationsChanged: (value) {
-                setState(() {
-                  isDarkThemeActive = value;
-                  if (isDarkThemeActive) {
-                    context
-                        .read<AppThemeCubit>()
-                        .changeTheme(ThemeMode.dark, isDarkMode: true);
-                  } else {
-                    context
-                        .read<AppThemeCubit>()
-                        .changeTheme(ThemeMode.light, isDarkMode: false);
-                  }
-                });
+            BlocBuilder<AppThemeCubit, ThemeMode>(
+              builder: (context, themeMode) {
+                return CustomSwitchListTile(
+                  title: AppStrings.darkTheme,
+                  leadingIcon: Icons.dark_mode_outlined,
+                  isActive: context.read<AppThemeCubit>().isDarkMode,
+                  onNotificationsChanged: (value) {
+                    context.read<AppThemeCubit>().changeTheme(
+                          value ? ThemeMode.dark : ThemeMode.light,
+                          isDarkMode: value,
+                        );
+                  },
+                );
               },
-            )
+            ),
+           
           ],
         ),
       ),

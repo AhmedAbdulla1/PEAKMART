@@ -13,7 +13,7 @@ ThemeData getDarkTheme() {
     primaryColorLight: ColorManager.lightGrey,
     primaryColorDark: ColorManager.black,
     disabledColor: ColorManager.grey2,
-    splashColor: ColorManager.darkGreen,
+    splashColor: ColorManager.darkGrey,
 
     // Color scheme
     colorScheme: ColorScheme(
@@ -21,7 +21,7 @@ ThemeData getDarkTheme() {
       primary: ColorManager.darkPrimary,
       onPrimary: ColorManager.lightPrimary,
       secondary: ColorManager.lightGreen,
-      onSecondary: ColorManager.darkGreen,
+      onSecondary: ColorManager.darkGrey,
       error: ColorManager.textFormErrorBorder,
       onError: ColorManager.textFormErrorBorder,
       surface: ColorManager.simiBlack,
@@ -75,24 +75,6 @@ ThemeData getDarkTheme() {
           )),
     ),
 
-    // Bottom navigation bar theme
-    // bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    //   selectedIconTheme: IconThemeData(
-    //     color: ColorManager.lightGreen,
-    //   ),
-    //   unselectedItemColor: ColorManager.black,
-    //   selectedItemColor: ColorManager.lightGreen,
-    //   showSelectedLabels: true,
-    //   showUnselectedLabels: true,
-    //   selectedLabelStyle: getMediumStyle(
-    //     fontSize: FontSize.s12,
-    //     color: ColorManager.lightGreen,
-    //   ),
-    //   unselectedLabelStyle: getMediumStyle(
-    //     fontSize: FontSize.s12,
-    //     color: ColorManager.grey1,
-    //   ),
-    // ),
     // Elevated button theme
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -177,33 +159,42 @@ ThemeData getDarkTheme() {
         color: ColorManager.textFormErrorBorder,
       ),
       hintStyle: getRegularStyle(
-        color: ColorManager.grey2,
+        color: ColorManager.grey3,
         fontSize: FontSize.s14,
       ),
       labelStyle: getMediumStyle(
-        color: ColorManager.grey2,
+        color: ColorManager.grey,
         fontSize: FontSize.s14,
       ),
-      fillColor: ColorManager.darkGrey,
-      filled: true,
-      enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: ColorManager.grey2,
-          width: AppSize.s1_5,
-        ),
+      disabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(
           AppSize.s12,
         ),
+        borderSide: BorderSide(color: ColorManager.grey1),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(
           AppSize.s12,
         ),
+        borderSide: BorderSide(color: ColorManager.grey1),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(
+          AppSize.s12,
+        ),
         borderSide: BorderSide(
-          color: ColorManager.lightGreen,
+          color: ColorManager.grey1,
           width: AppSize.s1_5,
         ),
       ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(
+          AppSize.s12,
+        ),
+        borderSide: BorderSide(color: ColorManager.grey1),
+      ),
+      fillColor: ColorManager.darkGrey.withOpacity(.2),
+      filled: true,
     ),
     // ListTile theme
     listTileTheme: ListTileThemeData(

@@ -9,6 +9,7 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/auth/presentation/views/reset_password/widgets/success_bottom_sheet.dart';
@@ -36,11 +37,13 @@ class _AddProductDetailsState extends State<AddProductDetails> {
       create: (context) => AddProductCubit(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(AppStrings.productDetails,
-              style: TextStyle(color: Colors.white)),
+          title:  Text(AppStrings.productDetails,
+              style: getBoldStyle(
+                  fontSize: FontSize.s25, color: ColorManager.white)),
           backgroundColor: ColorManager.primary,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
+            icon: Icon(Icons.arrow_back,
+                color: ColorManager.white, size: FontSize.s28),
             onPressed: () => Navigator.pop(context),
           ),
         ),
@@ -103,7 +106,8 @@ class _AddProductDetailsState extends State<AddProductDetails> {
                         child: const Text(
                           AppStrings.addProduct,
                         )),
-                  )
+                  ),
+                  50.vGap,
                 ],
               );
             },
@@ -183,11 +187,14 @@ class _AddProductDetailsState extends State<AddProductDetails> {
     return Column(
       children: [
         Text(widget.addProductRequest.name,
-            style: getBoldStyle(fontSize: FontSize.s22, color: Colors.black)),
+            style: getBoldStyle(fontSize: FontSize.s22)),
         12.vGap,
         Text(widget.addProductRequest.description,
             style: getRegularStyle(
-                fontSize: FontSize.s16, color: Colors.grey[700]!)),
+                fontSize: FontSize.s16,
+                color: context.isDarkMode
+                    ? ColorManager.grey
+                    : Colors.grey[700]!)),
       ],
     );
   }
@@ -199,12 +206,14 @@ class _AddProductDetailsState extends State<AddProductDetails> {
         children: [
           Icon(icon, color: ColorManager.primary, size: 20),
           SizedBox(width: 16.w),
-          Text(title,
-              style: getBoldStyle(fontSize: FontSize.s16, color: Colors.black)),
+          Text(title, style: getBoldStyle(fontSize: FontSize.s16)),
           const Spacer(),
           Text(value,
               style: getRegularStyle(
-                  fontSize: FontSize.s16, color: Colors.grey[800]!)),
+                  fontSize: FontSize.s16,
+                  color: context.isDarkMode
+                      ? ColorManager.grey
+                      : Colors.grey[800]!)),
         ],
       ),
     );

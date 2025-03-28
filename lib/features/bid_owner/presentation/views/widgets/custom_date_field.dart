@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/style_manager.dart';
 
 class CustomDateField extends StatefulWidget {
   final TextEditingController controller;
@@ -9,8 +10,8 @@ class CustomDateField extends StatefulWidget {
   final DateTime? firstDate;
   final DateTime? lastDate;
   final bool allowFutureDates;
-  final bool isStartDate; // لمعرفة ما إذا كان هذا الحقل هو start date أم arrival date
-  final TextEditingController? startDateController; // للتحقق عند اختيار تاريخ الوصول
+  final bool isStartDate;
+  final TextEditingController? startDateController;
 
   const CustomDateField({
     super.key,
@@ -84,6 +85,7 @@ class _CustomDateFieldState extends State<CustomDateField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: getRegularStyle(fontSize: 14, color: ColorManager.primary),
       controller: widget.controller,
       keyboardType: TextInputType.datetime,
       inputFormatters: [
@@ -116,7 +118,7 @@ class _DateInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
-    String text = newValue.text.replaceAll(RegExp(r'\D'), ''); 
+    String text = newValue.text.replaceAll(RegExp(r'\D'), '');
     String formattedText = '';
     if (text.length > 2) {
       formattedText =
@@ -125,7 +127,8 @@ class _DateInputFormatter extends TextInputFormatter {
       formattedText = text;
     }
     if (text.length > 4) {
-      formattedText += '-${text.substring(4, text.length > 8 ? 8 : text.length)}';
+      formattedText +=
+          '-${text.substring(4, text.length > 8 ? 8 : text.length)}';
     }
 
     return TextEditingValue(

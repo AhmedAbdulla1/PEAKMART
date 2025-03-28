@@ -46,6 +46,7 @@ class OwnerDataSource extends RemoteDataSource {
 
   Future<Either<AppErrors,CheckIsSellerResponse>> checkIsASeller() async {
     AppPreferences appPref = instance<AppPreferences>();
+    print(appPref.getUserId());
     return request<CheckIsSellerResponse>(
       method: HttpMethod.GET,
       queryParameters: {
@@ -55,6 +56,7 @@ class OwnerDataSource extends RemoteDataSource {
       converter: (json) {
         return CheckIsSellerResponse.fromJson(json);
       },
+      headers: {"cookie": appPref.getCookies().join(';') },
       url: APIUrls.checkIsASeller,
     );
   }

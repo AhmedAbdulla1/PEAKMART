@@ -81,7 +81,9 @@ class AddProductCubit extends Cubit<AddProductState> {
   }
 
   Future checkIsASeller() async {
+    print('${appPreferences.getCookie("HKH") != ' '}');
     if (appPreferences.getCookie("HKH") != '') {
+      print('in check fun');
       emit(AddProductLoadingState());
       Result<AppErrors, CheckIsSellerEntity> result =
           await ownerRepo.checkIsASeller();
@@ -95,6 +97,7 @@ class AddProductCubit extends Cubit<AddProductState> {
           },
           onError: (error) {});
     } else if (instance<AppPreferences>().getCookie("PHONE") != '') {
+      print('not verified');
       emit(NotVerifiedState());
     } else if (appPreferences.getCookie("HKHN") != '') {
       emit(NotCompleteState());

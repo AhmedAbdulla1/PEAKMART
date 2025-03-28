@@ -49,7 +49,7 @@ class OwnerRepoImp extends OwnerRepo {
 
   @override
   Future<Result<AppErrors, CheckIsSellerEntity>> checkIsASeller() async {
-    Result<AppErrors, CheckIsSellerEntity> result; // ✅ التهيئة الافتراضية
+    Result<AppErrors, CheckIsSellerEntity> result;
 
     if (await _networkInfo.isConnected) {
       try {

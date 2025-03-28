@@ -4,6 +4,7 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/features/products/data/models/top_bidder_model.dart';
 import 'package:peakmart/features/products/presentation/widgets/top_bidders_item.dart';
 
@@ -55,6 +56,7 @@ class _TopBiddersState extends State<TopBidders> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: context.isDarkMode ? Colors.black : Colors.white,
       elevation: 2,
       margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       child: Padding(

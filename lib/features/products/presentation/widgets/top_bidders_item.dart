@@ -34,8 +34,7 @@ class TopBidderItem extends StatelessWidget {
                 children: [
                   Text(
                     topBidderModel.name,
-                    style: getMediumStyle(
-                        fontSize: FontSize.s14, color: ColorManager.black),
+                    style: getMediumStyle(fontSize: FontSize.s14),
                   ),
                   const Spacer(),
                   Text(

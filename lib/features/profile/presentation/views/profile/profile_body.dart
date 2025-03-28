@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
 import 'package:peakmart/features/profile/domain/enitiy/user_info_entity.dart';
@@ -72,6 +73,7 @@ class ProfileScreen extends StatelessWidget {
                     right: 0,
                     bottom: 0,
                     child: Card(
+                      color: context.isDarkMode ? Colors.black : Colors.white,
                       margin: EdgeInsets.zero,
                       shape: const RoundedRectangleBorder(
                         borderRadius:

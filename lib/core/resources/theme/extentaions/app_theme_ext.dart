@@ -9,4 +9,8 @@ extension AppThemeExt on BuildContext {
         (themeMode == ThemeMode.system &&
             MediaQuery.of(this).platformBrightness == Brightness.dark);
   }
+
+  ThemeData get theme => Theme.of(this);
+
+  ColorScheme get colorScheme => Theme.of(this).colorScheme;
 }

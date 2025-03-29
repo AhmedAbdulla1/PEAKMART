@@ -1,10 +1,20 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 class AppThemeCubit extends HydratedCubit<ThemeMode> {
-  AppThemeCubit() : super(ThemeMode.system);
+  AppThemeCubit() : super(ThemeMode.system) {
+    final savedTheme = fromJson(HydratedBloc.storage.read('themeMode') ?? {});
+    if (savedTheme == null) {
+      final isSystemDarkMode =
+          WidgetsBinding.instance.platformDispatcher.platformBrightness ==
+              Brightness.dark;
+      changeTheme(isSystemDarkMode ? ThemeMode.dark : ThemeMode.light,
+          isDarkMode: isSystemDarkMode);
+    } else {
+      emit(savedTheme);
+    }
+  }
 
   bool isDarkMode = false;
 

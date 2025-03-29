@@ -9,7 +9,7 @@ ThemeData getDarkTheme() {
   return ThemeData(
     // Main color
     scaffoldBackgroundColor: ColorManager.simiBlack,
-    primaryColor: ColorManager.darkPrimary,
+    primaryColor: ColorManager.darkModePrimary,
     primaryColorLight: ColorManager.lightGrey,
     primaryColorDark: ColorManager.black,
     disabledColor: ColorManager.grey2,
@@ -18,7 +18,7 @@ ThemeData getDarkTheme() {
     // Color scheme
     colorScheme: ColorScheme(
       brightness: Brightness.dark,
-      primary: ColorManager.darkPrimary,
+      primary: ColorManager.darkModePrimary,
       onPrimary: ColorManager.lightPrimary,
       secondary: ColorManager.lightGreen,
       onSecondary: ColorManager.darkGrey,
@@ -43,7 +43,7 @@ ThemeData getDarkTheme() {
       centerTitle: true,
       elevation: AppSize.s4,
       color: ColorManager.black,
-      shadowColor: ColorManager.darkPrimary,
+      shadowColor: ColorManager.darkModePrimary,
       titleTextStyle: getBoldStyle(
         fontSize: FontSize.s28,
         color: ColorManager.black,
@@ -199,7 +199,7 @@ ThemeData getDarkTheme() {
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: ColorManager.white,
       selectionColor: ColorManager.black,
-      selectionHandleColor: ColorManager.primary,
+      selectionHandleColor: ColorManager.darkModePrimary,
     ),
 
     // ListTile theme

@@ -60,7 +60,10 @@ class _OtpResendTimerRowState extends State<OtpResendTimerRow> {
                 child: Text(
                   AppStrings.resend,
                   style: getMediumStyle(
-                      fontSize: FontSize.s16, color: ColorManager.primary),
+                      fontSize: FontSize.s16,
+                      color: context.isDarkMode
+                          ? ColorManager.darkModePrimary
+                          : ColorManager.primary),
                 )),
       ],
     );

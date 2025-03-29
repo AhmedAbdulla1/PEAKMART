@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
@@ -200,9 +198,9 @@ class _AdditionalDetailsState extends State<AdditionalDetails> {
                   title: 'Upload your ID Photo',
                 ),
                 if (!_isIdImageSelected && _fieldTouchedState['idImage']!)
-                  Text(
+                  const Text(
                     'Please upload your ID Photo',
-                    style: TextStyle(color: Colors.red, fontSize: 12),
+                    style: const TextStyle(color: Colors.red, fontSize: 12),
                   ),
               ],
             ),
@@ -228,6 +226,7 @@ class _AdditionalDetailsState extends State<AdditionalDetails> {
                 "Bank elahly 1",
                 "Bank elahly 2",
               ],
+             
               validator: _validateBankName,
               onChanged: (value) {
                 setState(() {

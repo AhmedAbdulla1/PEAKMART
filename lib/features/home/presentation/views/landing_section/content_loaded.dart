@@ -5,10 +5,10 @@ import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification.dart';
 import 'package:peakmart/features/auth/presentation/views/signup_for_bid/hold_screen.dart';
-import 'package:peakmart/features/auth/presentation/views/signup_for_bid/main_info.dart';
 import 'package:peakmart/features/auth/presentation/views/signup_for_bid/view.dart';
 import 'package:peakmart/features/home/domain/entity/content_entity.dart';
 
@@ -25,12 +25,13 @@ class ContentLoadedWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: context.isDarkMode ? ColorManager.black : ColorManager.white,
       margin: const EdgeInsets.all(AppPadding.p20),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
       clipBehavior: Clip.antiAlias,
-      elevation: 4.0,
+      elevation: 2.0,
       child: Container(
         padding: const EdgeInsetsDirectional.only(
           start: AppPadding.p30,
@@ -65,14 +66,17 @@ class ContentLoadedWidget extends StatelessWidget {
                   onPressed: () {
                     if (instance<AppPreferences>().getCookie("HKH") != '') {
                       // هو هنا ي اما منتظر التفعيل من الادمن ي اما متفعل خلاص ف يدخل علي صفحه الadd prododcut
-                      Navigator.pushNamed(context, HoldScreen.routeName,);
-                    }
-                     else if (instance<AppPreferences>().getCookie("HKHN") != '') {
+                      Navigator.pushNamed(
+                        context,
+                        HoldScreen.routeName,
+                      );
+                    } else if (instance<AppPreferences>().getCookie("HKHN") !=
+                        '') {
                       // هنا هو مش مكمل بياناته
                       Navigator.pushNamed(context, SignUpForBidView.routeName,
                           arguments: 1);
-                    }
-                    else if (instance<AppPreferences>().getCookie("PHONE") != '') {
+                    } else if (instance<AppPreferences>().getCookie("PHONE") !=
+                        '') {
                       Navigator.pushNamed(
                         context,
                         OtpVerification.routeName,
@@ -80,11 +84,10 @@ class ContentLoadedWidget extends StatelessWidget {
                           'verificationType': VerificationType.watsApp,
                         },
                       );
-                    }else {
+                    } else {
                       Navigator.pushNamed(context, SignUpForBidView.routeName,
                           arguments: 0);
                     }
-
                   },
                   child: Text(
                     buttonText,

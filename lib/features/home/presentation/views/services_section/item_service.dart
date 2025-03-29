@@ -17,7 +17,7 @@ class ItemService extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 15.0),
         child: Card(
           shadowColor: context.isDarkMode ? Colors.black : Colors.white,
-          // color: context.isDarkMode ? Colors.white : Colors.white,
+          color: context.isDarkMode ? Colors.black : Colors.white,
           elevation: 10,
           child: Padding(
             padding: const EdgeInsets.all(12.0),

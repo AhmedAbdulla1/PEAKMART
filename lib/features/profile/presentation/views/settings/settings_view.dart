@@ -14,10 +14,19 @@ class SettingsView extends StatefulWidget {
   @override
   State<SettingsView> createState() => _SettingsViewState();
 }
-
 class _SettingsViewState extends State<SettingsView> {
   bool isNotificationsActive = false;
   bool isDarkThemeActive = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final themeMode = context.watch<AppThemeCubit>().state;
+    isDarkThemeActive = themeMode == ThemeMode.dark ||
+        (themeMode == ThemeMode.system &&
+            MediaQuery.of(context).platformBrightness == Brightness.dark);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,8 +53,11 @@ class _SettingsViewState extends State<SettingsView> {
                 return CustomSwitchListTile(
                   title: AppStrings.darkTheme,
                   leadingIcon: Icons.dark_mode_outlined,
-                  isActive: context.read<AppThemeCubit>().isDarkMode,
+                  isActive: isDarkThemeActive,
                   onNotificationsChanged: (value) {
+                    setState(() {
+                      isDarkThemeActive = value;
+                    });
                     context.read<AppThemeCubit>().changeTheme(
                           value ? ThemeMode.dark : ThemeMode.light,
                           isDarkMode: value,
@@ -54,7 +66,6 @@ class _SettingsViewState extends State<SettingsView> {
                 );
               },
             ),
-           
           ],
         ),
       ),

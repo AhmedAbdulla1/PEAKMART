@@ -36,8 +36,9 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           controller: widget.controller,
           style: getRegularStyle(
-            color:
-                context.isDarkMode ? ColorManager.white : ColorManager.primary,
+            color: context.isDarkMode
+                ? ColorManager.darkModePrimary
+                : ColorManager.primary,
             fontSize: FontSize.s16,
           ),
           obscureText: isPressed ? false : true,

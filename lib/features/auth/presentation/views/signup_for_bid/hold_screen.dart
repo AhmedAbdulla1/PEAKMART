@@ -5,8 +5,8 @@ import 'package:peakmart/core/shared_widgets/buttons.dart';
 
 class HoldScreen extends StatelessWidget {
   static const String routeName = '/hold-screen';
-
-  const HoldScreen({super.key});
+  final bool showBackButton ;
+  const HoldScreen({super.key,this.showBackButton=true});
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +15,7 @@ class HoldScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            // Custom status bar
 
-            // Main content
             Expanded(
               child: Center(
                 child: Container(
@@ -62,35 +60,38 @@ class HoldScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CustomElevatedButtonWithoutStream(
-                onPressed: () {
-                  print('=== Navigation Stack (Bottom to Top) ===');
-                  int index = 0;
+            Visibility(
+              visible: showBackButton,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CustomElevatedButtonWithoutStream(
+                  onPressed: () {
+                    print('=== Navigation Stack (Bottom to Top) ===');
+                    int index = 0;
 
-                  // Get the Navigator's state
-                  final navigator = Navigator.of(context);
+                    // Get the Navigator's state
+                    final navigator = Navigator.of(context);
 
-                  // Use a temporary list to collect route names without popping
-                  List<String> stack = [];
-                  navigator.popUntil((route) {
-                    stack.add(route.settings.name ?? 'Unnamed Route');
-                    return true; // Keep the route in the stack, don't pop
-                  });
+                    // Use a temporary list to collect route names without popping
+                    List<String> stack = [];
+                    navigator.popUntil((route) {
+                      stack.add(route.settings.name ?? 'Unnamed Route');
+                      return true; // Keep the route in the stack, don't pop
+                    });
 
-                  // Reverse the list to show the stack from bottom to top
-                  stack = stack.reversed.toList();
+                    // Reverse the list to show the stack from bottom to top
+                    stack = stack.reversed.toList();
 
-                  // Print the stack
-                  for (var routeName in stack) {
-                    print('[$index] Route: $routeName');
-                    index++;
-                  }
-                  print('=====================');
-                  Navigator.pop(context);
-                },
-                text: 'Back To Home',
+                    // Print the stack
+                    for (var routeName in stack) {
+                      print('[$index] Route: $routeName');
+                      index++;
+                    }
+                    print('=====================');
+                    Navigator.pop(context);
+                  },
+                  text: 'Back To Home',
+                ),
               ),
             ),
           const SizedBox(height: 10,),

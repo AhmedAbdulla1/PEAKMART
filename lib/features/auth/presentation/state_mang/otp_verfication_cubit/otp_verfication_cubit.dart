@@ -99,11 +99,11 @@ class OtpVerfictionCubit extends Cubit<OtpVerificationState> {
     );
   }
 
-  Future<void> sendWatsAppOtp(// required SendOtpRequest sendOtpRequest,
-      ) async {
+  Future<void> sendWatsAppOtp() async {
     emit(
       OtpVerificationLoadingState(),
     );
+
     Result<AppErrors, EmptyEntity> result = await authRepo.sendWatsAppOtp();
 
     result.pick(onData: (data) {

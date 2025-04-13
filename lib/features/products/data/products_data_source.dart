@@ -13,14 +13,14 @@ class ProductsDataSource extends RemoteDataSource {
   Future<Either<AppErrors, ProductsResponse>> getProducts() async {
     return request<ProductsResponse>(
         method: HttpMethod.GET,
-        queryParameters: {"limit": 5},
+        queryParameters: {"limit": 48},
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           log("message done in getBidWorkNow request");
           log("json is $json");
           return ProductsResponse.fromJson(json);
         },
-        url: APIUrls.getBidWorkNow);
+        url: APIUrls.getProducts);
   }
 
   Future<Either<AppErrors, ProductsResponse>> getProductsByCategory(
@@ -33,7 +33,7 @@ class ProductsDataSource extends RemoteDataSource {
           log("message done in ended bids request");
           return ProductsResponse.fromJson(json);
         },
-        url: APIUrls.getProductsByCategory);
+        url: APIUrls.getProducts);
   }
 
     Future<Either<AppErrors, TopBiddersResponse>> getTopBidders(

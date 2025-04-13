@@ -23,9 +23,6 @@ class _AnimatedNewsContainerState extends State<AnimatedNewsContainer> with Sing
   late AnimationViewModel _viewModel;
   @override
   void initState() {
-    print('init ${
-      widget.windowSize.width
-    }');
     super.initState();
     _viewModel = AnimationViewModel();
     // Start the initial animation
@@ -36,9 +33,6 @@ class _AnimatedNewsContainerState extends State<AnimatedNewsContainer> with Sing
 
   @override
   void dispose() {
-    print(
-      'dispose'
-    );
     _viewModel.dispose();
     super.dispose();
   }
@@ -55,7 +49,6 @@ class _AnimatedNewsContainerState extends State<AnimatedNewsContainer> with Sing
               stream: _viewModel.positionStream,
               initialData: 0,
               builder: (context, snapshot) {
-                print(snapshot.data);
                 return AnimatedPositioned(
                   duration: const Duration(seconds: 1),
                   curve: Curves.easeInOut,

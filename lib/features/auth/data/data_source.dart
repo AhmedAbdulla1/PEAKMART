@@ -97,7 +97,6 @@ class AuthDataSource extends RemoteDataSource {
         converter: (json) {
           return EmptyResponse.fromJson(json);
         },
-        saveCookies: true,
         url: APIUrls.sendWatsAppOtp);
   }
 
@@ -152,7 +151,6 @@ class AuthDataSource extends RemoteDataSource {
       headers: {"cookie": cookieString},
       url: APIUrls.addSellerInfo,
       isFormData: true,
-      saveCookies: true,
     );
   }
 

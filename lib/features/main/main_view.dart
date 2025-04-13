@@ -95,7 +95,6 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
-    print(" is dark mode ${context.isDarkMode}");
     return SafeArea(
       child: Scaffold(
         body: getBottomNavigationBarBody()[_currentPageIndex],

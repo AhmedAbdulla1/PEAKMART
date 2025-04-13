@@ -63,27 +63,27 @@ class ContentLoadedWidget extends StatelessWidget {
                 SizedBox(height: AppSize.s40.h),
                 ElevatedButton(
                   onPressed: () {
-                    if (instance<AppPreferences>().getCookie("HKH") != '') {
-                      // هو هنا ي اما منتظر التفعيل من الادمن ي اما متفعل خلاص ف يدخل علي صفحه الadd prododcut
-                      Navigator.pushNamed(context, HoldScreen.routeName,);
-                    }
-                     else if (instance<AppPreferences>().getCookie("HKHN") != '') {
-                      // هنا هو مش مكمل بياناته
-                      Navigator.pushNamed(context, SignUpForBidView.routeName,
-                          arguments: 1);
-                    }
-                    else if (instance<AppPreferences>().getCookie("PHONE") != '') {
-                      Navigator.pushNamed(
-                        context,
-                        OtpVerification.routeName,
-                        arguments: {
-                          'verificationType': VerificationType.watsApp,
-                        },
-                      );
-                    }else {
+                    // if (instance<AppPreferences>().getCookie("HKH") != '') {
+                    //   // هو هنا ي اما منتظر التفعيل من الادمن ي اما متفعل خلاص ف يدخل علي صفحه الadd prododcut
+                    //   Navigator.pushNamed(context, HoldScreen.routeName,);
+                    // }
+                    //  else if (instance<AppPreferences>().getCookie("HKHN") != '') {
+                    //   // هنا هو مش مكمل بياناته
+                    //   Navigator.pushNamed(context, SignUpForBidView.routeName,
+                    //       arguments: 1);
+                    // }
+                    // else if (instance<AppPreferences>().getCookie("PHONE") != '') {
+                    //   Navigator.pushNamed(
+                    //     context,
+                    //     OtpVerification.routeName,
+                    //     arguments: {
+                    //       'verificationType': VerificationType.watsApp,
+                    //     },
+                    //   );
+                    // }else {
                       Navigator.pushNamed(context, SignUpForBidView.routeName,
                           arguments: 0);
-                    }
+                    // }
 
                   },
                   child: Text(

@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 extension AppThemeExt on BuildContext {
   bool get isDarkMode {
     final themeMode = read<AppThemeCubit>().state;
-    print('themeMode in isDarkMode: $themeMode');
     return themeMode == ThemeMode.dark ||
         (themeMode == ThemeMode.system &&
             MediaQuery.of(this).platformBrightness == Brightness.dark);

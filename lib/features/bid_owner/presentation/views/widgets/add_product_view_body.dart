@@ -60,7 +60,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: AppStrings.placeBid),
+      // appBar: const CustomAppBar(title: AppStrings.placeBid),
       body: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: 29.sp,

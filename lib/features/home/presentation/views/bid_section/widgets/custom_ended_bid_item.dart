@@ -8,6 +8,7 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 
 import '../../../../../../core/resources/values_manager.dart';
@@ -113,13 +114,23 @@ class CustomEndedBidItem extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: AppStrings.soldFor,
-                        style: getMediumStyle(fontSize: FontSize.s14).copyWith(
-                            fontFamily: FontConstants.fontCabinFamily),
+                        style: getMediumStyle(
+                                fontSize: FontSize.s14,
+                                color: context.isDarkMode
+                                    ? ColorManager.white
+                                    : ColorManager.black)
+                            .copyWith(
+                                fontFamily: FontConstants.fontCabinFamily),
                       ),
                       TextSpan(
                         text: "\$${endedBidItem.price}",
-                        style: getBoldStyle(fontSize: FontSize.s22).copyWith(
-                            fontFamily: FontConstants.fontCabinFamily),
+                        style: getBoldStyle(
+                                fontSize: FontSize.s22,
+                                color: context.isDarkMode
+                                    ? ColorManager.white
+                                    : ColorManager.black)
+                            .copyWith(
+                                fontFamily: FontConstants.fontCabinFamily),
                       ),
                     ],
                   )),

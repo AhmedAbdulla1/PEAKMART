@@ -30,7 +30,9 @@ class CustomPhoneTextField extends StatelessWidget {
       keyboardType: TextInputType.phone,
       cursorColor: ColorManager.primary,
       style: getRegularStyle(
-        color: context.isDarkMode ? ColorManager.white : ColorManager.primary,
+        color: context.isDarkMode
+            ? ColorManager.darkModePrimary
+            : ColorManager.primary,
         fontSize: FontSize.s16,
       ),
       dropdownTextStyle: getRegularStyle(
@@ -121,7 +123,9 @@ class CustomTextFormWithStream extends StatelessWidget {
         cursorColor: ColorManager.primary,
         // maxLines: 20,
         style: getRegularStyle(
-          color: ColorManager.primary,
+          color: context.isDarkMode
+              ? ColorManager.darkModePrimary
+              : ColorManager.primary,
           fontSize: FontSize.s16,
         ),
         minLines: minLines,
@@ -182,7 +186,9 @@ class _PasswordTextFieldWithStreamState
       builder: (context, snapshot) => TextFormField(
         cursorRadius: const Radius.circular(10),
         style: getRegularStyle(
-          color: ColorManager.primary,
+          color: context.isDarkMode
+              ? ColorManager.darkModePrimary
+              : ColorManager.primary,
           fontSize: FontSize.s16,
         ),
         cursorColor: ColorManager.primary,

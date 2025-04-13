@@ -1,21 +1,22 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:http/http.dart' as http;
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
-import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/resources/assets_manager.dart';
-
+import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/extentions.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/core/shared_widgets/buttons.dart';
 import 'package:peakmart/features/auth/data/model/request/signup_for_bid_request.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/features/auth/presentation/state_mang/signup_for_bid/cubit.dart';
+
 import 'widgets/dropdown_menu.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class MainInfo extends StatefulWidget {
   const MainInfo({super.key});
@@ -180,8 +181,13 @@ class _MainInfoState extends State<MainInfo> {
               });
             },
             items: countries,
-            label: "Country",
-            icon: Image.asset(IconsAssets.countryIcon),
+            label: "",
+            icon: Image.asset(
+              IconsAssets.countryIcon,
+              color: context.isDarkMode
+                  ? ColorManager.greyColor
+                  : ColorManager.darkGrey,
+            ),
             validator: _validateCountry,
           ),
           20.vGap,

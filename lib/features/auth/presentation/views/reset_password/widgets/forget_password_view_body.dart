@@ -8,6 +8,7 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/core/shared_widgets/buttons.dart';
 import 'package:peakmart/core/shared_widgets/text_fields.dart';
 import 'package:peakmart/features/auth/presentation/state_mang/reset_pass_cubit/cubit.dart';
@@ -92,7 +93,10 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
                 TextSpan(
                   text: AppStrings.forgotPasswordHint,
                   style: getRegularStyle(
-                          fontSize: FontSize.s14, color: ColorManager.darkGrey)
+                          fontSize: FontSize.s14,
+                          color: context.isDarkMode
+                              ? ColorManager.grey
+                              : ColorManager.darkGrey)
                       .copyWith(fontFamily: FontConstants.fontMontserratFamily),
                 )
               ]),

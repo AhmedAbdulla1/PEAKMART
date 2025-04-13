@@ -57,7 +57,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       maxLines: widget.isShowDescription == true ? null : 1,
       keyboardType: widget.inputType,
       style: getRegularStyle(
-        color: context.isDarkMode ? ColorManager.white : ColorManager.primary,
+        color: context.isDarkMode
+            ? ColorManager.darkModePrimary
+            : ColorManager.primary,
         fontSize: FontSize.s16,
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,

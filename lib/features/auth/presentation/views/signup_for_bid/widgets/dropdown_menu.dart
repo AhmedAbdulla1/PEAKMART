@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:timer_button/timer_button.dart';
+import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/font_manager.dart';
+import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 
 class CustomDropdownMenu extends StatelessWidget {
   CustomDropdownMenu(
@@ -20,6 +23,9 @@ class CustomDropdownMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
+      iconEnabledColor:
+          context.isDarkMode ? ColorManager.white : ColorManager.black,
+      iconDisabledColor: ColorManager.grey,
       onTap: () {
         print("onTap");
       },
@@ -29,11 +35,15 @@ class CustomDropdownMenu extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         hintText: label,
-        prefixIcon: icon,
-        suffixIcon: const Icon(
-          Icons.keyboard_arrow_down,
-          size: 30,
+        hintStyle: getRegularStyle(
+          color: context.isDarkMode ? ColorManager.red : Colors.red,
+          fontSize: FontSize.s14,
         ),
+        labelStyle: getRegularStyle(
+          color: context.isDarkMode ? ColorManager.grey : ColorManager.darkGrey,
+          fontSize: FontSize.s14,
+        ),
+        prefixIcon: icon,
       ),
       items: items.map((String value) {
         return DropdownMenuItem<String>(

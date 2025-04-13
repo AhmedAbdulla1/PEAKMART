@@ -66,12 +66,14 @@ class AddProductImagePicker extends StatelessWidget {
                 width: double.infinity,
                 height: 150.h,
                 decoration: BoxDecoration(
-                  // color: Colors.grey[200],
+                  color: context.isDarkMode
+                      ? ColorManager.darkGrey.withOpacity(.2)
+                      : Colors.grey[200],
                   borderRadius: BorderRadius.circular(10.r),
                   border: Border.all(
                       color: context.isDarkMode
                           ? ColorManager.grey1
-                          : ColorManager.grey),
+                          : ColorManager.textFormBorder),
                 ),
                 child: controller.images.isEmpty
                     ? Column(

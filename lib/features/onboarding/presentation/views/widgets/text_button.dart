@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 
 import '../../../../../core/resources/style_manager.dart';
 
@@ -18,12 +19,16 @@ class NextTextButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         'Next',
-        style:
-            getBoldStyle(fontSize: FontSize.s18, color: ColorManager.primary),
+        style: getBoldStyle(
+            fontSize: FontSize.s18,
+            color: context.isDarkMode
+                ? ColorManager.darkModePrimary
+                : ColorManager.primary),
       ),
     );
   }
 }
+
 class GetStart extends StatelessWidget {
   final VoidCallback? onPressed;
 
@@ -38,10 +43,12 @@ class GetStart extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         'Get Start',
-        style:
-        getBoldStyle(fontSize: FontSize.s18, color: ColorManager.primary),
+        style: getBoldStyle(
+            fontSize: FontSize.s18,
+            color: context.isDarkMode
+                ? ColorManager.darkModePrimary
+                : ColorManager.primary),
       ),
     );
   }
 }
-

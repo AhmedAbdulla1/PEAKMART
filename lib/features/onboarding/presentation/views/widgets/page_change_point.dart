@@ -1,8 +1,8 @@
-
+import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 
 import 'onboarding_view_body.dart';
-import 'package:flutter/material.dart';
 
 class PageChangePoints extends StatelessWidget {
   const PageChangePoints({super.key, required this.currentIndex});
@@ -27,7 +27,9 @@ class PageChangePoints extends StatelessWidget {
             height: 8,
             decoration: BoxDecoration(
               color: currentIndex == index
-                  ? ColorManager.black
+                  ? context.isDarkMode
+                      ? ColorManager.darkModePrimary
+                      : ColorManager.black
                   : ColorManager.grey2,
               borderRadius: BorderRadius.circular(5),
             ),

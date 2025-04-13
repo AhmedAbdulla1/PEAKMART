@@ -3,6 +3,7 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/features/auth/presentation/views/sign_up/sign_up_view.dart';
 
 class AccountCreationOrLoginPrompt extends StatelessWidget {
@@ -33,7 +34,9 @@ class AccountCreationOrLoginPrompt extends StatelessWidget {
           child: Text(textButton,
               style: getBoldStyle(
                 fontSize: FontSize.s16,
-                color: ColorManager.primary,
+                color: context.isDarkMode
+                    ? ColorManager.darkModePrimary
+                    : ColorManager.primary,
               ).copyWith(
                 decoration: TextDecoration.underline,
               )),

@@ -27,7 +27,10 @@ class RegisterAgreementText extends StatelessWidget {
           TextSpan(
             text: AppStrings.register,
             style: getRegularStyle(
-                fontSize: FontSize.s15, color: ColorManager.primary),
+                fontSize: FontSize.s15,
+                color: context.isDarkMode
+                    ? ColorManager.darkModePrimary
+                    : ColorManager.primary),
           ),
           TextSpan(
             text: AppStrings.agreeText,

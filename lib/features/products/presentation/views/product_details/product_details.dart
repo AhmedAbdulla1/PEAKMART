@@ -6,6 +6,7 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/features/home/presentation/state_m/home_cubits/future_bids_cubit.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/titled_bid_section.dart';
 import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/cubit.dart';
@@ -57,6 +58,9 @@ class ProductDetails extends StatelessWidget {
                       text: "Description: ",
                       style: getBoldStyle(
                         fontSize: FontSize.s16,
+                        color: context.isDarkMode
+                            ? ColorManager.white
+                            : ColorManager.black,
                       ),
                       children: [
                         TextSpan(
@@ -78,7 +82,6 @@ class ProductDetails extends StatelessWidget {
                       style: getBoldStyle(
                           fontSize: FontSize.s16, color: ColorManager.primary)),
                   SizedBox(height: 16.h),
-
                   BlocProvider(
                     create: (context) =>
                         TopBidderCubit()..getTopBidders(productId: product.id),

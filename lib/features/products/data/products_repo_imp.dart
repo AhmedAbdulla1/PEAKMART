@@ -40,6 +40,7 @@ class ProductsRepoImp extends ProductsRepo {
 
   @override
   Future<Result<AppErrors, ProductsEntity>> getProductsByCategory(int catId) async {
+
     Result<AppErrors, ProductsEntity> result;
     if (await _networkInfo.isConnected) {
       try {

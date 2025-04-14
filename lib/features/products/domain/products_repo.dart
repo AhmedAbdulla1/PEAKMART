@@ -9,6 +9,7 @@ abstract class ProductsRepo {
     required PaginationRequest getProductsPaginationRequest,
   });
 
-  Future<Result<AppErrors, ProductsEntity>> getProductsByCategory(int catId);
+  Future<Result<AppErrors, ProductsEntity>> getProductsByCategory(
+      int catId, PaginationRequest getProductsPaginationRequest);
   Future<Result<AppErrors, TopBiddersEntity>> getTopBidders(int productId);
 }

@@ -34,7 +34,9 @@ class _ProductsViewState extends State<ProductsView> {
   List<ProductEntity> filteredProducts = [];
   List<ProductEntity> allProducts = [];
   int? currentCategoryId;
-  int page = 1;
+  int productPaginationPage = 1;
+  int categoryPaginationPage = 1;
+
   bool isLoadingMore = false;
   String searchQuery = '';
   bool hasErrorWhilePaginating = false;
@@ -47,9 +49,10 @@ class _ProductsViewState extends State<ProductsView> {
     _scrollController.addListener(_scrollListener);
 
     if (widget.categoryId == null) {
-      productCubit.fetchProducts(page: page);
+      productCubit.fetchProducts(page: productPaginationPage);
     } else {
-      productCubit.fetchProductsByCategory(widget.categoryId!);
+      productCubit.fetchProductsByCategory(
+          catId: widget.categoryId!, page: categoryPaginationPage);
     }
   }
 
@@ -67,35 +70,58 @@ class _ProductsViewState extends State<ProductsView> {
         !hasErrorWhilePaginating) {
       log("loading more products ...");
       isLoadingMore = true;
-      page++;
-
-      productCubit.fetchProducts(page: page).then((_) {
-        isLoadingMore = false;
-        hasErrorWhilePaginating = false;
-      }).catchError((e) {
-        isLoadingMore = false;
-        hasErrorWhilePaginating = true;
-
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text("Failed to load more products, please try again"),
-              backgroundColor: Colors.red,
-            ),
-          );
-        }
-        page--;
-      });
+      if (currentCategoryId == null) {
+        productPaginationPage++;
+        productCubit.fetchProducts(page: productPaginationPage).then((_) {
+          isLoadingMore = false;
+          hasErrorWhilePaginating = false;
+        }).catchError((e) {
+          isLoadingMore = false;
+          hasErrorWhilePaginating = true;
+          productPaginationPage--;
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Failed to load more products, please try again"),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        });
+      } else {
+        categoryPaginationPage++;
+        productCubit.fetchProductsByCategory(
+          catId: currentCategoryId!,
+          page: categoryPaginationPage,
+        ).then((_) {
+          isLoadingMore = false;
+          hasErrorWhilePaginating = false;
+        }).catchError((e) {
+          isLoadingMore = false;
+          hasErrorWhilePaginating = true;
+          categoryPaginationPage--;
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Failed to load more products, please try again"),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        });
+      }
     }
   }
 
   void onCategorySelected(int categoryId) {
     setState(() {
       currentCategoryId = categoryId;
-      page = 1;
+      productPaginationPage = 1;
+      categoryPaginationPage = 1;
       allProducts.clear();
     });
-    productCubit.fetchProductsByCategory(categoryId);
+    productCubit.fetchProductsByCategory(
+        catId: categoryId, page: categoryPaginationPage);
   }
 
   void onSearch(String query) {
@@ -114,11 +140,12 @@ class _ProductsViewState extends State<ProductsView> {
 
   Future<void> onRefresh() async {
     setState(() {
-      page = 1;
+      productPaginationPage = 1;
+      categoryPaginationPage = 1;
       allProducts.clear();
       currentCategoryId = null;
     });
-    await productCubit.fetchProducts(page: page);
+    await productCubit.fetchProducts(page: productPaginationPage);
   }
 
   @override
@@ -138,7 +165,6 @@ class _ProductsViewState extends State<ProductsView> {
               shadowColor: context.isDarkMode
                   ? ColorManager.black
                   : ColorManager.grey.withValues(alpha: .5),
-              // automaticallyImplyLeading: false,
               floating: true,
               snap: true,
               pinned: false,
@@ -182,7 +208,11 @@ class _ProductsViewState extends State<ProductsView> {
                   } else if (state is ProductError && isLoadingMore) {
                     hasErrorWhilePaginating = true;
                     isLoadingMore = false;
-                    page--;
+                    if (currentCategoryId == null) {
+                      productPaginationPage--;
+                    } else {
+                      categoryPaginationPage--;
+                    }
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -242,7 +272,7 @@ class _ProductsViewState extends State<ProductsView> {
           context: context,
           error: state.error,
           callback: () {
-            context.read<ProductCubit>().fetchProducts(page: page);
+            context.read<ProductCubit>().fetchProducts(page: productPaginationPage);
           },
         ),
       ),

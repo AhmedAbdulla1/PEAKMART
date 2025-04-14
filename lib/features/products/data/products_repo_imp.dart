@@ -40,12 +40,12 @@ class ProductsRepoImp extends ProductsRepo {
 
   @override
   Future<Result<AppErrors, ProductsEntity>> getProductsByCategory(
-      int catId) async {
+      int catId, PaginationRequest getProductsPaginationRequest) async {
     Result<AppErrors, ProductsEntity> result;
     if (await _networkInfo.isConnected) {
       try {
-        Either<AppErrors, ProductsResponse> response =
-            await _remoteDataSource.getProductsByCategory(catId);
+        Either<AppErrors, ProductsResponse> response = await _remoteDataSource
+            .getProductsByCategory(catId, getProductsPaginationRequest);
         result = response.fold((error) {
           return Result(error: error);
         }, (response) {

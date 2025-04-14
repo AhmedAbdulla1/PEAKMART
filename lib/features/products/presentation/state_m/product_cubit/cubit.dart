@@ -39,10 +39,15 @@ class ProductCubit extends Cubit<ProductState> {
     emit(ProductLoading());
   }
 
-  Future<void> fetchProductsByCategory(int catId) async {
+  Future<void> fetchProductsByCategory(
+      {required int catId, required int page}) async {
     emit(ProductLoading());
     Result<AppErrors, ProductsEntity> result =
-        await productsRepo.getProductsByCategory(catId);
+        await productsRepo.getProductsByCategory(catId, PaginationRequest
+        (
+          page: page,
+          limit: 10
+        ));
 
     result.pick(onData: (data) {
       emit(ProductLoaded(products: data.data));

@@ -27,12 +27,6 @@ class BidItemStack extends StatelessWidget {
       children: [
         isEnded
             ? CustomEndedBidItem(endedBidItem: productEntity)
-            : isFuture
-                ? CustomBidItem(bidItem: productEntity)
-                : isTrending
-                    ? CustomBidItem(
-                        bidItem: productEntity,
-                      )
                     : CustomBidItem(
                         bidItem: productEntity,
                       ),

@@ -27,6 +27,7 @@ class ProductsResponse extends BaseResponse<ProductsEntity> {
   @override
   ProductsEntity toEntity() {
     return ProductsEntity(
+      pagination: paginationResponse.toEntity(),
       data: data.map((endedBidsData) => endedBidsData.toEntity()).toList(),
     );
   }

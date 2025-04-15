@@ -160,11 +160,11 @@ class _ProductsViewState extends State<ProductsView> {
             SliverAppBar(
               backgroundColor: context.isDarkMode
                   ? ColorManager.black
-                  : ColorManager.grey.withValues(alpha: .5),
+                  : ColorManager.grey.withAlpha(128),
 
               shadowColor: context.isDarkMode
                   ? ColorManager.black
-                  : ColorManager.grey.withValues(alpha: .5),
+                  : ColorManager.grey.withAlpha(128),
               floating: true,
               snap: true,
               pinned: false,

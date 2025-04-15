@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
@@ -15,11 +16,11 @@ import 'package:peakmart/features/home/domain/entity/content_entity.dart';
 class ContentLoadedWidget extends StatelessWidget {
   const ContentLoadedWidget({
     super.key,
-    required ContentData? contentData,
+    required this.contentData,
     required this.buttonText,
-  }) : _contentData = contentData;
+  });
 
-  final ContentData? _contentData;
+  final ContentData contentData;
   final String buttonText;
 
   @override
@@ -40,41 +41,55 @@ class ContentLoadedWidget extends StatelessWidget {
         ),
         width: double.infinity,
         decoration: BoxDecoration(
-            image: DecorationImage(
-                image: NetworkImage(_contentData!.image["background"]),
-                fit: BoxFit.cover)),
+          image: contentData.image['background']!.isEmpty
+              ? null
+              : DecorationImage(
+                  image: NetworkImage(contentData.image['background']!),
+                  fit: BoxFit.cover,
+                ),
+        ),
         child: Stack(
           children: [
+            // Foreground image with Skeleton.replace
             Positioned(
-                right: 0,
-                child:
-                    Image.network(_contentData!.image["image"], height: 125.w)),
+              right: 0,
+              child: Skeleton.replace(
+                child: contentData.image['image']!.isEmpty
+                    ? const SizedBox()
+                    : Image.network(
+                        contentData.image['image']!,
+                        height: 125.w,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.error, size: 50),
+                      ),
+              ),
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
                   width: 240,
                   child: Text(
-                    _contentData!.content,
+                    contentData.content,
                     softWrap: true,
                     style: getBoldStyle(
-                        fontSize: FontSize.s17, color: ColorManager.primary),
+                      fontSize: FontSize.s17,
+                      color: ColorManager.primary,
+                    ),
                   ),
                 ),
                 SizedBox(height: AppSize.s40.h),
                 ElevatedButton(
                   onPressed: () {
                     if (instance<AppPreferences>().getCookie("HKH") != '') {
-                      // هو هنا ي اما منتظر التفعيل من الادمن ي اما متفعل خلاص ف يدخل علي صفحه الadd prododcut
-                      Navigator.pushNamed(
-                        context,
-                        HoldScreen.routeName,
-                      );
+                      Navigator.pushNamed(context, HoldScreen.routeName);
                     } else if (instance<AppPreferences>().getCookie("HKHN") !=
                         '') {
-                      // هنا هو مش مكمل بياناته
-                      Navigator.pushNamed(context, SignUpForBidView.routeName,
-                          arguments: 1);
+                      Navigator.pushNamed(
+                        context,
+                        SignUpForBidView.routeName,
+                        arguments: 1,
+                      );
                     } else if (instance<AppPreferences>().getCookie("PHONE") !=
                         '') {
                       Navigator.pushNamed(
@@ -85,14 +100,19 @@ class ContentLoadedWidget extends StatelessWidget {
                         },
                       );
                     } else {
-                      Navigator.pushNamed(context, SignUpForBidView.routeName,
-                          arguments: 0);
+                      Navigator.pushNamed(
+                        context,
+                        SignUpForBidView.routeName,
+                        arguments: 0,
+                      );
                     }
                   },
                   child: Text(
                     buttonText,
                     style: getBoldStyle(
-                        fontSize: FontSize.s17, color: ColorManager.white),
+                      fontSize: FontSize.s17,
+                      color: ColorManager.white,
+                    ),
                   ),
                 ),
               ],

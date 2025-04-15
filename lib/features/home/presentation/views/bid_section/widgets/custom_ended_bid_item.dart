@@ -51,7 +51,7 @@ class CustomEndedBidItem extends StatelessWidget {
                       ? CachedNetworkImage(
                           imageUrl: endedBidItem.imageUrl[0],
                           width: double.infinity,
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                           placeholder: (context, url) => const WaitingWidget(),
                           errorWidget: (context, url, error) => Icon(
                             Icons.error,

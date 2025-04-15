@@ -45,7 +45,7 @@ class CategoryItemWidget extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: AppSize.s8),
-                Image.network(
+                category.image.isEmpty ? const SizedBox(width: 35,) :  Image.network(
                   category.image,
                   width: 35,
                   height: 35,
@@ -53,8 +53,6 @@ class CategoryItemWidget extends StatelessWidget {
                       ? ColorManager.grey
                       : ColorManager.grey1,
                   matchTextDirection: true,
-                  // placeholderBuilder: (context) =>
-                  //     const CircularProgressIndicator(),
                 ),
               ],
             ),

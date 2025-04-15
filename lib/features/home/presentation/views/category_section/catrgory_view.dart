@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
@@ -12,17 +13,27 @@ import 'package:peakmart/features/home/presentation/state_m/category_cubit/categ
 import 'package:peakmart/features/home/presentation/state_m/category_cubit/states.dart';
 import 'package:peakmart/features/home/presentation/views/category_section/category_item_widget.dart';
 
+// Fake CategoryEntity for skeleton loading
+List<CategoryEntity> fakeCategories = List.generate(
+  5,
+      (index) => CategoryEntity(
+    catId: index,
+    catName: 'Category $index',
+    image: '',
+  ),
+);
+
 class CategorySection extends StatefulWidget {
   const CategorySection({
     super.key,
     required this.onCategorySelected,
     this.showTitle = true,
-    this.selectedCategoryId, // Add parameter for the current selected category
+    this.selectedCategoryId,
   });
 
   final Function(int categoryId) onCategorySelected;
   final bool showTitle;
-  final int? selectedCategoryId; // Current selected category ID
+  final int? selectedCategoryId;
 
   @override
   State<CategorySection> createState() => _CategorySectionState();
@@ -40,18 +51,15 @@ class _CategorySectionState extends State<CategorySection> {
   @override
   void didUpdateWidget(covariant CategorySection oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // Update isSelected when selectedCategoryId changes
     if (oldWidget.selectedCategoryId != widget.selectedCategoryId) {
       setState(() {
         if (widget.selectedCategoryId == null) {
-          // Deselect all categories if selectedCategoryId is null
           isSelected = List.generate(categoryEntity.length, (index) => false);
         } else {
-          // Update isSelected based on the new selectedCategoryId
           isSelected = categoryEntity
               .asMap()
               .map((index, category) =>
-                  MapEntry(index, category.catId == widget.selectedCategoryId))
+              MapEntry(index, category.catId == widget.selectedCategoryId))
               .values
               .toList();
         }
@@ -69,20 +77,56 @@ class _CategorySectionState extends State<CategorySection> {
         }
         if (state is CategoryLoaded) {
           categoryEntity = state.categoryEntity.categories;
-          // Initialize isSelected based on the current selectedCategoryId
           if (widget.selectedCategoryId == null) {
             isSelected = List.generate(categoryEntity.length, (index) => false);
           } else {
             isSelected = categoryEntity
                 .asMap()
                 .map((index, category) => MapEntry(
-                    index, category.catId == widget.selectedCategoryId))
+                index, category.catId == widget.selectedCategoryId))
                 .values
                 .toList();
           }
         }
       },
       builder: (context, state) {
+        if (state is CategoryLoading || state is CategoryInitial) {
+          return Skeletonizer(
+            enabled: true,
+            enableSwitchAnimation: true,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Visibility(
+                  visible: widget.showTitle,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Categories",
+                      style: getBoldStyle(
+                          fontSize: FontSize.s20,
+                          color: context.isDarkMode
+                              ? ColorManager.primary
+                              : ColorManager.black),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 45.h,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: fakeCategories.length,
+                    itemBuilder: (context, index) => CategoryItemWidget(
+                      category: fakeCategories[index],
+                      isSelected: false,
+                      onTap: () {},
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
         if (state is CategoryLoaded) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,7 +154,6 @@ class _CategorySectionState extends State<CategorySection> {
                     category: state.categoryEntity.categories[index],
                     isSelected: isSelected[index],
                     onTap: () {
-                      // Deselect all and select the tapped category
                       isSelected = List.generate(
                           categoryEntity.length, (index) => false);
                       isSelected[index] = true;
@@ -122,11 +165,8 @@ class _CategorySectionState extends State<CategorySection> {
               ),
             ],
           );
-        } else if (state is CategoryLoading) {
-          return const WaitingWidget();
-        } else {
-          return ErrorWidget('');
         }
+        return  ErrorWidget('');
       },
     );
   }

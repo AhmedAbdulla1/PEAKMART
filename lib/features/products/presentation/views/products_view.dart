@@ -17,6 +17,7 @@ import 'package:peakmart/features/home/presentation/views/category_section/catrg
 import 'package:peakmart/features/products/presentation/state_m/product_cubit/cubit.dart';
 import 'package:peakmart/features/products/presentation/state_m/product_cubit/state.dart';
 import 'package:peakmart/features/products/presentation/widgets/products_view_search_bar.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class ProductsView extends StatefulWidget {
   const ProductsView({super.key, required this.categoryId});
@@ -90,10 +91,12 @@ class _ProductsViewState extends State<ProductsView> {
         });
       } else {
         categoryPaginationPage++;
-        productCubit.fetchProductsByCategory(
+        productCubit
+            .fetchProductsByCategory(
           catId: currentCategoryId!,
           page: categoryPaginationPage,
-        ).then((_) {
+        )
+            .then((_) {
           isLoadingMore = false;
           hasErrorWhilePaginating = false;
         }).catchError((e) {
@@ -161,7 +164,6 @@ class _ProductsViewState extends State<ProductsView> {
               backgroundColor: context.isDarkMode
                   ? ColorManager.black
                   : ColorManager.grey.withAlpha(128),
-
               shadowColor: context.isDarkMode
                   ? ColorManager.black
                   : ColorManager.grey.withAlpha(128),
@@ -225,10 +227,7 @@ class _ProductsViewState extends State<ProductsView> {
                 },
                 builder: (context, state) {
                   if (state is ProductLoading && allProducts.isEmpty) {
-                    return const SizedBox(
-                      height: 300,
-                      child: Center(child: WaitingWidget()),
-                    );
+                    return  Skeletonizer(child: FakeProductsGridView());
                   }
 
                   if (state is ProductError) {
@@ -272,7 +271,9 @@ class _ProductsViewState extends State<ProductsView> {
           context: context,
           error: state.error,
           callback: () {
-            context.read<ProductCubit>().fetchProducts(page: productPaginationPage);
+            context
+                .read<ProductCubit>()
+                .fetchProducts(page: productPaginationPage);
           },
         ),
       ),
@@ -320,6 +321,44 @@ class GetProductsGridView extends StatelessWidget {
   });
 
   final List<ProductEntity> filteredProducts;
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: AppSize.s12,
+        mainAxisSpacing: AppSize.s12,
+        childAspectRatio: 0.7,
+      ),
+      itemCount: filteredProducts.length,
+      itemBuilder: (context, index) {
+        return CustomBidItem(
+          bidItem: filteredProducts[index],
+        );
+      },
+    );
+  }
+}
+
+class FakeProductsGridView extends StatelessWidget {
+  FakeProductsGridView({
+    super.key,
+  });
+
+  final List<ProductEntity> filteredProducts =
+      List.generate(10, (index) => ProductEntity(
+        id: index,
+        name: 'Product $index',
+        description: 'Description $index',
+        imageUrl: [],
+        endDate: DateTime.now().toString(),
+        peopleRolledIn: 0,
+        price: 0,
+        isEnded: false,
+      ));
 
   @override
   Widget build(BuildContext context) {

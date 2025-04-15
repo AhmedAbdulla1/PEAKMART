@@ -78,7 +78,7 @@ class CustomBidItem extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         bidItem.name,
-                        maxLines: 2,
+                        maxLines: 1,
                         textAlign: TextAlign.start,
                         style: getSemiBoldStyle(
                           fontSize: FontSize.s16,

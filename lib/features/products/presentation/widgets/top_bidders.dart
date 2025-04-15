@@ -58,15 +58,16 @@ class _TopBiddersState extends State<TopBidders> {
                         style: TextStyle(color: Colors.white));
                   }
                   return SizedBox(
-                    height: topBidders.length * 70,
+                    height: topBidders.length * 80,
                     child: AnimatedReorderableListView(
+                      longPressDraggable: false,
                       items: topBidders,
                       itemBuilder: (context, index) {
                         final bidder = topBidders[index];
                         return TopBidderItem(
                           key: ValueKey(bidder.bidderId),
                           topBiddersData: bidder,
-                          rank: index + 1, // إضافة الرقم بجانب المزايد
+                          rank: index + 1, 
                         );
                       },
                       enterTransition: [

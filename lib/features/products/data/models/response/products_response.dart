@@ -5,29 +5,29 @@ import 'package:peakmart/features/products/domain/entity/prodcuts_entity.dart';
 
 class ProductsResponse extends BaseResponse<ProductsEntity> {
   final List<ProductResponse> data;
-  final PaginationResponse pagination;
+  final PaginationResponse paginationResponse;
   ProductsResponse(
       {required this.data,
+      required this.paginationResponse,
       required super.message,
       required super.status,
-        required this.pagination,
       required super.code});
 
   factory ProductsResponse.fromJson(Map<String, dynamic> json) {
     return ProductsResponse(
-      pagination: PaginationResponse.fromJson(json['pagination']),
       data: List<ProductResponse>.from(json["data"]
           .map((endedBidsData) => ProductResponse.fromJson(endedBidsData))),
       message: json["message"],
       status: json["status"],
       code: 200,
+      paginationResponse: PaginationResponse.fromJson(json["pagination"]),
     );
   }
 
   @override
   ProductsEntity toEntity() {
     return ProductsEntity(
-      pagination: pagination.toEntity(),
+      pagination: paginationResponse.toEntity(),
       data: data.map((endedBidsData) => endedBidsData.toEntity()).toList(),
     );
   }

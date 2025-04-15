@@ -6,17 +6,18 @@ import 'package:peakmart/core/data_source/remote_data_source.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/net/api_url.dart';
 import 'package:peakmart/core/net/response_validators/default_response_validator.dart';
+import 'package:peakmart/features/products/data/models/request/pagination_request.dart';
 import 'package:peakmart/features/products/data/models/response/products_response.dart';
 import 'package:peakmart/features/products/data/models/response/top_bidders_response.dart';
 
 class ProductsDataSource extends RemoteDataSource {
-  Future<Either<AppErrors, ProductsResponse>> getProducts() async {
+  Future<Either<AppErrors, ProductsResponse>> getProducts(
+      PaginationRequest getProductsPaginationRequest) async {
     return request<ProductsResponse>(
         method: HttpMethod.GET,
-        queryParameters: {"limit": 48},
+        queryParameters: getProductsPaginationRequest.toJson(),
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
-          log("message done in getBidWorkNow request");
           log("json is $json");
           return ProductsResponse.fromJson(json);
         },
@@ -24,19 +25,21 @@ class ProductsDataSource extends RemoteDataSource {
   }
 
   Future<Either<AppErrors, ProductsResponse>> getProductsByCategory(
-      int catId) async {
+      int catId, PaginationRequest getProductsPaginationRequest) async {
     return request<ProductsResponse>(
         method: HttpMethod.GET,
-        queryParameters: {"id": catId},
+        queryParameters: {
+          "id": catId,
+          ...getProductsPaginationRequest.toJson(),
+        },
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
-          log("message done in ended bids request");
           return ProductsResponse.fromJson(json);
         },
         url: APIUrls.getProducts);
   }
 
-    Future<Either<AppErrors, TopBiddersResponse>> getTopBidders(
+  Future<Either<AppErrors, TopBiddersResponse>> getTopBidders(
       int productId) async {
     return request<TopBiddersResponse>(
         method: HttpMethod.GET,

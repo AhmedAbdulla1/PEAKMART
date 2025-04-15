@@ -5,6 +5,7 @@ import 'package:peakmart/app/di.dart';
 import 'package:peakmart/app/network_info.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/results/result.dart';
+import 'package:peakmart/features/products/data/models/request/pagination_request.dart';
 import 'package:peakmart/features/products/data/models/response/products_response.dart';
 import 'package:peakmart/features/products/data/models/response/top_bidders_response.dart';
 import 'package:peakmart/features/products/data/products_data_source.dart';
@@ -18,12 +19,14 @@ class ProductsRepoImp extends ProductsRepo {
 
 
   @override
-  Future<Result<AppErrors, ProductsEntity>> getProducts() async {
+  Future<Result<AppErrors, ProductsEntity>> getProducts({
+    required PaginationRequest getProductsPaginationRequest,
+  }) async {
     Result<AppErrors, ProductsEntity> result;
     if (await _networkInfo.isConnected) {
       try {
         Either<AppErrors, ProductsResponse> response =
-        await _remoteDataSource.getProducts();
+            await _remoteDataSource.getProducts(getProductsPaginationRequest);
         result = response.fold((error) {
           return Result(error: error);
         }, (response) {
@@ -39,13 +42,13 @@ class ProductsRepoImp extends ProductsRepo {
   }
 
   @override
-  Future<Result<AppErrors, ProductsEntity>> getProductsByCategory(int catId) async {
-
+  Future<Result<AppErrors, ProductsEntity>> getProductsByCategory(
+      int catId, PaginationRequest getProductsPaginationRequest) async {
     Result<AppErrors, ProductsEntity> result;
     if (await _networkInfo.isConnected) {
       try {
-        Either<AppErrors, ProductsResponse> response =
-        await _remoteDataSource.getProductsByCategory(catId);
+        Either<AppErrors, ProductsResponse> response = await _remoteDataSource
+            .getProductsByCategory(catId, getProductsPaginationRequest);
         result = response.fold((error) {
           return Result(error: error);
         }, (response) {
@@ -60,13 +63,14 @@ class ProductsRepoImp extends ProductsRepo {
     return result;
   }
 
-   @override
-  Future<Result<AppErrors, TopBiddersEntity>> getTopBidders(int productId) async {
+  @override
+  Future<Result<AppErrors, TopBiddersEntity>> getTopBidders(
+      int productId) async {
     Result<AppErrors, TopBiddersEntity> result;
     if (await _networkInfo.isConnected) {
       try {
         Either<AppErrors, TopBiddersResponse> response =
-        await _remoteDataSource.getTopBidders(productId);
+            await _remoteDataSource.getTopBidders(productId);
         result = response.fold((error) {
           return Result(error: error);
         }, (response) {

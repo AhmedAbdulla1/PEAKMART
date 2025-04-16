@@ -190,6 +190,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.1"
+  card_flutter:
+    dependency: "direct main"
+    description:
+      name: card_flutter
+      sha256: "7648c50f6e90b753604ba803851b942def49c79b876dc4804a5eb787bd96c696"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.11"
   carousel_slider:
     dependency: "direct main"
     description:

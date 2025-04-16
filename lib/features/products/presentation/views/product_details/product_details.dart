@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +13,7 @@ import 'package:peakmart/features/home/presentation/state_m/home_cubits/future_b
 import 'package:peakmart/features/home/presentation/views/bid_section/titled_bid_section.dart';
 import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/cubit.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/prodcut_details_images.dart';
+import 'package:peakmart/features/products/presentation/views/product_details/widgets/bid_dialog.dart';
 import 'package:peakmart/features/products/presentation/widgets/top_bidders.dart';
 
 import '../../../../../core/resources/style_manager.dart';
@@ -78,9 +81,25 @@ class ProductDetails extends StatelessWidget {
                       style: getBoldStyle(
                         fontSize: FontSize.s16,
                       )),
-                  Text('*${product.peopleRolledIn} people rolled in',
-                      style: getBoldStyle(
-                          fontSize: FontSize.s16, color: ColorManager.primary)),
+                  Row(
+                    children: [
+                      Text('*${product.peopleRolledIn} people rolled in',
+                          style: getBoldStyle(
+                              fontSize: FontSize.s16, color: ColorManager.primary)),
+                      const Spacer(),
+                      ElevatedButton(onPressed:  (){
+                        showDialog<double?>(
+                          context: context,
+                          builder: (context) => BidDialog(higherPrice: product.price),
+                        ).then((bid) {
+                          if (bid != null) {
+                            log('User entered bid: $bid');
+                            // Handle the bid value
+                          }
+                        });
+                      }, child: const Text('Roll Now'))
+                    ],
+                  ),
                   SizedBox(height: 16.h),
                   BlocProvider(
                     create: (context) =>

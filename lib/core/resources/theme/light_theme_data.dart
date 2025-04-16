@@ -12,13 +12,13 @@ ThemeData getLightTheme() {
     extensions: [
       SkeletonizerConfigData(
           effect: ShimmerEffect(
-            baseColor: ColorManager.white, // Dark grey for dark mode
+            baseColor: ColorManager.white,
             highlightColor: ColorManager.grey2, // Lighter grey highlight
             duration: const Duration(milliseconds: 800),
           ),
           enableSwitchAnimation: true,
-          switchAnimationConfig: SwitchAnimationConfig(
-            duration: const Duration(milliseconds: 1000),
+          switchAnimationConfig:  SwitchAnimationConfig(
+            duration: Duration(milliseconds: 1000),
             switchOutCurve: Curves.easeOut,
           )
       ),

@@ -5,6 +5,7 @@ class ColorManager {
   static Color primary = const Color(0xFFA15100);
   static Color darkModePrimary = const Color.fromARGB(255, 255, 128, 0);
   static Color textPrimary = const Color(0xFF575757);
+  static Color blue = const Color(0xFF1051A8);
   static Color darkGrey = const Color(0xFF444444);
   static Color red = Colors.red;
   static Color lightPrimary = const Color(0xFfFFDC91);

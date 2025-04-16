@@ -1,11 +1,20 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
+
 class ImagePickerWidget extends StatefulWidget {
-  const ImagePickerWidget({super.key, required this.onImageSelected,required this.title, this.initialImage});
-  final Function(File? image) onImageSelected; // Callback to return the selected image
+  const ImagePickerWidget(
+      {super.key,
+      required this.onImageSelected,
+      required this.title,
+      this.initialImage});
+  final Function(File? image)
+      onImageSelected; // Callback to return the selected image
   final File? initialImage; // Optional initial image
   final String title;
   @override
@@ -71,38 +80,39 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
         width: double.infinity,
         height: 120.h,
         decoration: BoxDecoration(
-          color: Colors.grey[200], // Customize as needed
-          borderRadius: BorderRadius.circular(10.r),
-          border: Border.all(color: Colors.grey), // Customize as needed
-        ),
+            borderRadius: BorderRadius.circular(10.r),
+            border: Border.all(
+              color: context.isDarkMode
+                  ? ColorManager.grey1
+                  : ColorManager.textFormBorder,
+            )),
         child: _image == null
             ? Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset('assets/icons/picker_icon.svg'), // Update with your icon path
-            SizedBox(height: 10.h),
-            Text(
-              widget.title,
-              style: TextStyle(
-                color: Colors.grey, // Customize as needed
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
-        )
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                      'assets/icons/picker_icon.svg'), // Update with your icon path
+                  SizedBox(height: 10.h),
+                  Text(
+                    widget.title,
+                    style: TextStyle(
+                      color: Colors.grey, // Customize as needed
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              )
             : ClipRRect(
-          borderRadius: BorderRadius.circular(10.r),
-          child: Image.file(
-            _image!,
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: double.infinity,
-          ),
-        ),
+                borderRadius: BorderRadius.circular(10.r),
+                child: Image.file(
+                  _image!,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: double.infinity,
+                ),
+              ),
       ),
     );
   }
 }
-
-

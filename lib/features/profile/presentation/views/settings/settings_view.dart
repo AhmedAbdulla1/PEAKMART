@@ -60,7 +60,6 @@ class _SettingsViewState extends State<SettingsView> {
                     });
                     context.read<AppThemeCubit>().changeTheme(
                           value ? ThemeMode.dark : ThemeMode.light,
-                          isDarkMode: value,
                         );
                   },
                 );

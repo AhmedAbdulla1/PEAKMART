@@ -80,13 +80,13 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
             }
           }
           if (state is SendOtpVerificationSuccessState) {
-            Navigator.pop(context);
+            // Navigator.pop(context);
           }
           if (state is WatsAppOtpVerificationSuccessState) {
             Navigator.pushReplacementNamed(context, HoldScreen.routeName);
           } else if (state is OtpVerificationFailureState) {
             log('Failure state');
-            Navigator.pop(context);
+            // Navigator.pop(context);
             ErrorViewer.showError(
                 errorViewerOptions: ErrVToastOptions(
                   textColor: ColorManager.white,

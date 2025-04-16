@@ -130,7 +130,7 @@ ThemeData getDarkTheme() {
         fontSize: FontSize.s14,
       ),
       bodyLarge: getRegularStyle(
-        color: ColorManager.lightGreen,
+        color: ColorManager.primary,
         fontSize: FontSize.s14,
       ),
       bodySmall: getLightStyle(

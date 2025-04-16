@@ -39,6 +39,7 @@ class CustomEndedBidItem extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
+                width: double.infinity,
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
@@ -46,34 +47,37 @@ class CustomEndedBidItem extends StatelessWidget {
                     topRight: Radius.circular(23),
                   ),
                 ),
-                child: Stack(children: [
-                  endedBidItem.imageUrl.isNotEmpty
-                      ? CachedNetworkImage(
-                          imageUrl: endedBidItem.imageUrl[0],
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) => const WaitingWidget(),
-                          errorWidget: (context, url, error) => Icon(
-                            Icons.error,
-                            size: 28,
-                            color: ColorManager.red,
-                          ),
-                        )
-                      : Image.asset(
-                          "assets/images/card.png",
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                        ),
-                  Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    color: ColorManager.black.withOpacity(.5),
-                  ),
-                  Positioned(
-                    top: 15.h,
-                    child: SvgPicture.asset(ImageAssets.endedBadge),
-                  ),
-                ]),
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: endedBidItem.imageUrl.isNotEmpty
+                          ? CachedNetworkImage(
+                              imageUrl: endedBidItem.imageUrl[0],
+                              fit: BoxFit.cover, 
+                              placeholder: (context, url) =>
+                                  const WaitingWidget(),
+                              errorWidget: (context, url, error) => Icon(
+                                Icons.error,
+                                size: 28,
+                                color: ColorManager.red,
+                              ),
+                            )
+                          : Image.asset(
+                              "assets/images/card.png",
+                              fit: BoxFit.cover,
+                            ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      color: ColorManager.black.withOpacity(.5),
+                    ),
+                    Positioned(
+                      top: 15.h,
+                      child: SvgPicture.asset(ImageAssets.endedBadge),
+                    ),
+                  ],
+                ),
               ),
             ),
             SizedBox(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../color_manager.dart';
 import '../font_manager.dart';
@@ -7,7 +8,20 @@ import '../values_manager.dart';
 
 ThemeData getDarkTheme() {
   return ThemeData(
-    // Main color
+    extensions: [
+      SkeletonizerConfigData(
+        effect: ShimmerEffect(
+          baseColor: ColorManager.lightGrey, // Dark grey for dark mode
+          highlightColor: ColorManager.black, // Lighter grey highlight
+          duration: const Duration(milliseconds: 800),
+        ),
+        enableSwitchAnimation: true,
+        switchAnimationConfig:const  SwitchAnimationConfig(
+          duration:  Duration(milliseconds: 1000),
+          switchOutCurve: Curves.easeOut,
+        )
+      ),
+    ],
     scaffoldBackgroundColor: ColorManager.simiBlack,
     primaryColor: ColorManager.darkModePrimary,
     primaryColorLight: ColorManager.lightGrey,

@@ -86,11 +86,32 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
             Navigator.pushReplacementNamed(context, HoldScreen.routeName);
           } else if (state is OtpVerificationFailureState) {
             log('Failure state');
-            // Navigator.pop(context);
+            // Navigator.pop(context); 
             ErrorViewer.showError(
                 errorViewerOptions: ErrVToastOptions(
                   textColor: ColorManager.white,
-                  backGroundColor: ColorManager.lightGrey,
+                  backGroundColor: ColorManager.lightGrey, 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  
                 ),
                 context: context,
                 error: state.errors,

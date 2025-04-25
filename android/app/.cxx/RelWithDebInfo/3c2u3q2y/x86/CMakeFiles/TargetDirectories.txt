@@ -1,0 +1,2 @@
+D:/PEAKMART/android/app/.cxx/RelWithDebInfo/3c2u3q2y/x86/CMakeFiles/edit_cache.dir
+D:/PEAKMART/android/app/.cxx/RelWithDebInfo/3c2u3q2y/x86/CMakeFiles/rebuild_cache.dir

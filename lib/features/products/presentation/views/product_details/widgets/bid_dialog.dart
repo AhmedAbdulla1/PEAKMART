@@ -1,20 +1,15 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_sell_sdk_flutter/go_sell_sdk_flutter.dart';
-import 'package:go_sell_sdk_flutter/model/models.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:peakmart/features/products/presentation/views/product_details/widgets/web_view_payment.dart';
 
 // Placeholder routes (replace with your actual routes)
 const String bidRulesRoute = '/bid_rules';
 const String contactUsRoute = '/contact_us';
-
-// Tap Payments configuration
-const String tapSandboxSecretKey = 'sk_test_ngxsuqmWN617hST5cI8LfEQ4'; // Replace with your test secret key
-const String tapBundleId = 'com.peakmart.app'; // Replace with your app's bundle ID
 
 class BidDialog extends StatefulWidget {
   final double higherPrice;
@@ -33,7 +28,6 @@ class _BidDialogState extends State<BidDialog> {
   String? _errorMessage;
   double? _enteredBid;
   bool _isProcessingPayment = false;
-  bool _isSessionActive = false;
   DateTime? _lastButtonPress;
 
   @override
@@ -80,167 +74,88 @@ class _BidDialogState extends State<BidDialog> {
       return;
     }
 
-    if (_isSessionActive) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Another payment session is active. Please wait.')),
-      );
-      return;
-    }
-
     setState(() {
       _isProcessingPayment = true;
-      _isSessionActive = true;
-      log('Session marked as active');
     });
 
     try {
-      // Calculate 5% tax and total amount
-      final double taxFee = _enteredBid! * 0.05;
-      final double totalAmount = _enteredBid! + taxFee;
-      log('Total amount: $totalAmount, Tax: $taxFee');
+// Construct payment URL with bid amount
+      final paymentUrl =
+          'https://hk.herova.net/payment/pay4new.php?name=astron&price=$_enteredBid';
+      log('Opening WebView with URL: $paymentUrl');
 
-      // Configure payment session
-      log('Configuring session...');
-       GoSellSdkFlutter.sessionConfigurations(
-
-        trxMode: TransactionMode.PURCHASE,
-        transactionCurrency: 'USD',
-        amount: totalAmount,
-        customer: Customer(
-          customerId: '',
-          email: 'test@tap.company',
-          isdNumber: '965',
-          number: '00000000',
-          firstName: 'Test',
-          middleName: '',
-          lastName: 'User',
-          metaData: null,
+// Navigate to WebView screen
+      final result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PaymentWebViewScreen(paymentUrl: paymentUrl),
         ),
-        paymentItems: [
-          PaymentItem(
-            name: 'Bid Payment',
-            amountPerUnit: totalAmount,
-            quantity: Quantity(value: 1),
-            description: 'Payment for bid',
-            taxes: [
-              Tax(
-                amount: Amount(type: 'F', value: taxFee, minimumFee: 0, maximumFee: 0),
-                name: 'Tax',
-                description: '5% tax',
-              ),
-            ],
-            totalAmount: totalAmount.toInt(),
-          ),
-        ],
-        taxes: [
-          Tax(
-            amount: Amount(type: 'F', value: taxFee, minimumFee: 0, maximumFee: 0),
-            name: 'Tax',
-            description: '5% tax',
-          ),
-        ],
-        postURL: 'https://api.tap.company/v2/charges/', // Replace with your backend URL
-        paymentDescription: 'Payment for bid',
-        paymentMetaData: {'bid_id': 'bid_${DateTime.now().millisecondsSinceEpoch}'},
-        paymentReference: Reference(
-          acquirer: 'tap',
-          gateway: 'tap',
-          payment: 'payment',
-          track: 'track',
-          transaction: 'trans_${DateTime.now().millisecondsSinceEpoch}',
-          order: 'order_${DateTime.now().millisecondsSinceEpoch}',
-        ),
-        paymentStatementDescriptor: 'PeakMart Bid',
-        isUserAllowedToSaveCard: true,
-        isRequires3DSecure: true,
-        receipt: Receipt(true, false),
-        authorizeAction: AuthorizeAction(type: AuthorizeActionType.CAPTURE, timeInHours: 0),
-        merchantID: '',
-        allowedCadTypes: CardType.CREDIT,
-        applePayMerchantID: '',
-        allowsToSaveSameCardMoreThanOnce: false,
-        cardHolderName: 'Test User',
-        allowsToEditCardHolderName: false,
-        paymentType: PaymentType.ALL,
-        sdkMode: SDKMode.Sandbox,
-        shippings: [],
       );
-      log('Session configured');
 
-      // Start payment
-      log('Starting payment...');
-      final tapSDKResult = await GoSellSdkFlutter.startPaymentSDK;
-      log('Payment result: $tapSDKResult');
-
-      // Handle payment result
+// Handle payment result
       setState(() {
-        switch (tapSDKResult['sdk_result']) {
-          case 'SUCCESS':
-            if (tapSDKResult['trx_mode'] == 'CHARGE' && tapSDKResult['status'] == 'CAPTURED') {
+        _isProcessingPayment = false;
+        if (result != null && result is Map) {
+          final paymentStatus = result['payment_status'] ?? 'unknown';
+          switch (paymentStatus) {
+            case 'success':
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Payment successful!')),
               );
               Navigator.pop(context, {
                 'bid': _enteredBid,
                 'payment_status': 'success',
-                'transaction_id': tapSDKResult['charge_id'],
               });
-            } else {
+              break;
+            case 'failed':
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Payment failed: ${tapSDKResult['message'] ?? 'Unknown error'}')),
+                const SnackBar(
+                    content: Text('Payment failed. Please try again.')),
               );
               Navigator.pop(context, {
                 'bid': _enteredBid,
                 'payment_status': 'failed',
               });
-            }
-            break;
-          case 'FAILED':
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Payment failed: ${tapSDKResult['message'] ?? 'Unknown error'}')),
-            );
-            Navigator.pop(context, {
-              'bid': _enteredBid,
-              'payment_status': 'failed',
-            });
-            break;
-          case 'SDK_ERROR':
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  'SDK Error: Code ${tapSDKResult['sdk_error_code']} - ${tapSDKResult['sdk_error_message']}',
-                ),
-              ),
-            );
-            Navigator.pop(context, {
-              'bid': _enteredBid,
-              'payment_status': 'failed',
-            });
-            break;
-          default:
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Payment error: Unknown result')),
-            );
-            Navigator.pop(context, {
-              'bid': _enteredBid,
-              'payment_status': 'failed',
-            });
+              break;
+            case 'cancelled':
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Payment cancelled by user.')),
+              );
+              Navigator.pop(context, {
+                'bid': _enteredBid,
+                'payment_status': 'cancelled',
+              });
+              break;
+            default:
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Unknown payment result.')),
+              );
+              Navigator.pop(context, {
+                'bid': _enteredBid,
+                'payment_status': 'failed',
+              });
+          }
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Payment cancelled or no result.')),
+          );
+          Navigator.pop(context, {
+            'bid': _enteredBid,
+            'payment_status': 'cancelled',
+          });
         }
       });
     } catch (e, stack) {
       log('Payment error: $e', stackTrace: stack);
+      setState(() {
+        _isProcessingPayment = false;
+      });
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Payment error: $e')),
       );
       Navigator.pop(context, {
         'bid': _enteredBid,
         'payment_status': 'failed',
-      });
-    } finally {
-      setState(() {
-        _isProcessingPayment = false;
-        _isSessionActive = false;
-        log('Session reset');
       });
     }
   }
@@ -257,7 +172,7 @@ class _BidDialogState extends State<BidDialog> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header
+// Header
             RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
@@ -266,7 +181,9 @@ class _BidDialogState extends State<BidDialog> {
                     text: 'The highest bid for this product currently is ',
                     style: getBoldStyle(
                       fontSize: FontSize.s16,
-                      color: context.isDarkMode ? ColorManager.white : ColorManager.black,
+                      color: context.isDarkMode
+                          ? ColorManager.white
+                          : ColorManager.black,
                     ),
                   ),
                   TextSpan(
@@ -280,9 +197,11 @@ class _BidDialogState extends State<BidDialog> {
               ),
             ),
             SizedBox(height: 8.h),
-            // Rules
-            const BulletText('You MUST enter a number larger than the highlighted number'),
-            const BulletText('A tax fee of 5% will be added to the number you enter'),
+// Rules
+            const BulletText(
+                'You MUST enter a number larger than the highlighted number'),
+            const BulletText(
+                'A tax fee of 5% will be added to the number you enter'),
             const BulletText(
                 'In case you are the highest bidder and want to cancel 20% of the money won\'t be refunded'),
             BulletTextWithLink(
@@ -300,7 +219,7 @@ class _BidDialogState extends State<BidDialog> {
               },
             ),
             SizedBox(height: 12.h),
-            // Bid Input
+// Bid Input
             TextField(
               controller: _bidController,
               keyboardType: TextInputType.number,
@@ -312,55 +231,36 @@ class _BidDialogState extends State<BidDialog> {
               onChanged: _validateBid,
             ),
             SizedBox(height: 12.h),
-            // Bid Button
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ElevatedButton(
-                onPressed: (){
-                  GoSellSdkFlutter.terminateSession();
-                  Navigator.pop(context);
-                },
+// Bid Button
+            Center(
+              child: ElevatedButton(
+                onPressed: (_enteredBid != null &&
+                        _enteredBid! > widget.higherPrice &&
+                        !_isProcessingPayment)
+                    ? () => _initiatePayment(context)
+                    : null,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: ColorManager.textFormErrorBorder,
-                ),
-                child: Text(
-                  'Cancel',
-                  style: getBoldStyle(
-                    fontSize: FontSize.s16,
-                    color: ColorManager.white,
+                  backgroundColor: ColorManager.primary,
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 32.w, vertical: 12.h),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
                 ),
+                child: _isProcessingPayment
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : Text(
+                        'Bid',
+                        style: getBoldStyle(
+                          fontSize: FontSize.s16,
+                          color: ColorManager.white,
+                        ),
+                      ),
               ),
-                ElevatedButton(
-                  onPressed: (_enteredBid != null &&
-                      _enteredBid! > widget.higherPrice &&
-                      !_isProcessingPayment)
-                      ? () => _initiatePayment(context)
-                      : null,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: ColorManager.primary,
-                    padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 12.h),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
-                  ),
-                  child: _isProcessingPayment
-                      ? const CircularProgressIndicator(color: Colors.white)
-                      : Text(
-                    'Bid',
-                    style: getBoldStyle(
-                      fontSize: FontSize.s16,
-                      color: ColorManager.white,
-                    ),
-                  ),
-                ),
-              ],
             ),
           ],
         ),
       ),
-
     );
   }
 }

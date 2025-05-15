@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -11,7 +13,8 @@ import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/resources/language_manager.dart';
 import 'package:path_provider/path_provider.dart';
-
+import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_flutter_android/webview_flutter_android.dart';
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
     HydratedBloc.storage = await HydratedStorage.build(
@@ -23,12 +26,10 @@ void main()async {
   await initAppModule();
   await EasyLocalization.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
-  GoSellSdkFlutter.configureApp(
-    bundleId: 'com.peakmart.app', // Replace with your bundle ID
-    productionSecretKey: '',
-    sandBoxSecretKey: 'pk_test_ylNYKdIqrkm1APSvJU29tnbD', // Your test key
-    lang: 'en',
-  );
+  if (Platform.isAndroid && WebViewPlatform.instance == null) {
+    WebViewPlatform.instance = AndroidWebViewPlatform();
+  } else if (Platform.isIOS && WebViewPlatform.instance == null) {
+  }
   runApp(EasyLocalization(
     supportedLocales: const  [englishLocale,arabicLocale],
     path: assetPathLocalizations,

@@ -80,6 +80,8 @@ dependencies:
   fluttertoast: ^8.2.12
   card_flutter: ^1.0.14
   go_sell_sdk_flutter: ^2.4.17
+  webview_flutter: ^4.11.0
+  webview_flutter_android: ^4.5.0
 #  card_flutter: ^1.0.11
 
 

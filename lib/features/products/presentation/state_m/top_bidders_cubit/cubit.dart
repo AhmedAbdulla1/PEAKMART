@@ -67,7 +67,7 @@ class TopBidderCubit extends Cubit<TopBiddersState> {
     bidders.sort((a, b) => b.bidAmount.compareTo(a.bidAmount));
     productBidders[productId] = bidders;
 
-    log.log("✅ تحديث مزايدين المنتج $productId: $bidders");
+
 
     emit(TopBiddersSuccessState(topBidders: List.from(bidders)));
   }

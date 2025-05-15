@@ -88,8 +88,9 @@ class ProductDetails extends StatelessWidget {
                               fontSize: FontSize.s16, color: ColorManager.primary)),
                       const Spacer(),
                       ElevatedButton(onPressed:  (){
-                        showDialog<double?>(
+                        showDialog(
                           context: context,
+                          barrierDismissible: false,
                           builder: (context) => BidDialog(higherPrice: product.price),
                         ).then((bid) {
                           if (bid != null) {

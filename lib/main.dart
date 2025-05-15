@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_sell_sdk_flutter/go_sell_sdk_flutter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:peakmart/app/app.dart';
 import 'package:peakmart/app/app_prefs.dart';
@@ -22,7 +23,12 @@ void main()async {
   await initAppModule();
   await EasyLocalization.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
-
+  GoSellSdkFlutter.configureApp(
+    bundleId: 'com.peakmart.app', // Replace with your bundle ID
+    productionSecretKey: '',
+    sandBoxSecretKey: 'pk_test_ylNYKdIqrkm1APSvJU29tnbD', // Your test key
+    lang: 'en',
+  );
   runApp(EasyLocalization(
     supportedLocales: const  [englishLocale,arabicLocale],
     path: assetPathLocalizations,

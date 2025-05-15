@@ -118,7 +118,7 @@ class _AnimatedNewsContainerState extends State<AnimatedNewsContainer> with Sing
                         });
                       }
                     },
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: Svg('assets/images/news_badge.svg'),
                         fit: BoxFit.fill,

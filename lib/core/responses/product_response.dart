@@ -30,12 +30,11 @@ class ProductResponse {
       name: json['ITEM_NAME'] ?? "",
       imageUrl: json['PHOTO'],
       endDate: json['END_DATE'] ?? "",
-      peopleRolledIn: json['peopleRolledIn'] ?? 20,
+      peopleRolledIn: json['peopleRolledIn'] ?? 0,
       price: double.tryParse(json['STARTING_PRICE'].toString()) ?? 0.0,
       isEnded: json['STATUS'] == "not_ended" ? false : true,
     );
   }
-
 
   ProductEntity toEntity() {
     return ProductEntity(
@@ -44,7 +43,6 @@ class ProductResponse {
         imageUrl: imageUrl != null && imageUrl!.isNotEmpty
             ? List<String>.from(jsonDecode(imageUrl!))
             : ["https://hk.herova.net/assets/img/product.png"],
-
         endDate: endDate,
         peopleRolledIn: peopleRolledIn,
         price: price,

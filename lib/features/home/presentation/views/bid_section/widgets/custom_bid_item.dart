@@ -8,7 +8,7 @@ import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
-import 'package:peakmart/features/products/presentation/views/product_details/product_details.dart';
+import 'package:peakmart/features/products/presentation/views/product_details/product_details_view.dart';
 
 class CustomBidItem extends StatelessWidget {
   const CustomBidItem({
@@ -23,7 +23,7 @@ class CustomBidItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.pushNamed(context, ProductDetails.routeName,
-            arguments: bidItem);
+            arguments: bidItem.id);
       },
       child: Center(
         child: Container(

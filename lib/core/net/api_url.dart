@@ -30,6 +30,7 @@ class APIUrls {
 
   static const getProducts = "${baseUrl}products/cat_p.php";
   static const getTopBidders = "${baseUrl}bids/top3.php";
+  static const getProductById = "${baseUrl}bids/get_product_data.php";
 
   // static const getAllProducts = "${baseUrl}products/fetch.php?key=4";
 

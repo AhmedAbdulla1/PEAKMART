@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
-
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/features/home/domain/entity/news_entity.dart';
 import 'package:peakmart/features/home/presentation/views/news_section/animations_view_model.dart';
+import 'package:peakmart/features/products/presentation/views/product_details/product_details_view.dart';
 import 'package:text_scroll/text_scroll.dart';
 
 class AnimatedNewsContainer extends StatefulWidget {
-  const AnimatedNewsContainer({super.key,required this.newsModel,  required this.windowSize});
+  const AnimatedNewsContainer(
+      {super.key, required this.newsModel, required this.windowSize});
   final NewsData newsModel;
   final Size windowSize;
 
@@ -19,7 +20,8 @@ class AnimatedNewsContainer extends StatefulWidget {
   _AnimatedNewsContainerState createState() => _AnimatedNewsContainerState();
 }
 
-class _AnimatedNewsContainerState extends State<AnimatedNewsContainer> with SingleTickerProviderStateMixin  {
+class _AnimatedNewsContainerState extends State<AnimatedNewsContainer>
+    with SingleTickerProviderStateMixin {
   late AnimationViewModel _viewModel;
   @override
   void initState() {
@@ -58,38 +60,45 @@ class _AnimatedNewsContainerState extends State<AnimatedNewsContainer> with Sing
                     _viewModel.startExpandAnimation();
                   },
                   child: Container(
-                    padding:const  EdgeInsetsDirectional.only(
-                      start: AppPadding.p10,
-                      end: AppPadding.p10
-                    ),
+                    padding: const EdgeInsetsDirectional.only(
+                        start: AppPadding.p10, end: AppPadding.p10),
                     width: parentWidth,
                     height: 40,
                     decoration: BoxDecoration(
-                      color: ColorManager.newsBarColor,
-                      borderRadius: BorderRadius.circular(5.r),
-                      boxShadow: [
-                        BoxShadow(
-                          color: ColorManager.black.withOpacity(0.1),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: const Offset(0, 3), // changes position of shadow
+                        color: ColorManager.newsBarColor,
+                        borderRadius: BorderRadius.circular(5.r),
+                        boxShadow: [
+                          BoxShadow(
+                            color: ColorManager.black.withOpacity(0.1),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: const Offset(
+                                0, 3), // changes position of shadow
+                          ),
+                        ]),
+                    child: Center(
+                      child: InkWell(
+                        onTap: () {
+                          print("wjfbjwbf");
+                          print(widget.newsModel.link);
+                          Navigator.pushNamed(context, ProductDetails.routeName,
+                              arguments: widget.newsModel.id);
+                        },
+                        child: TextScroll(
+                          widget.newsModel.content,
+                          mode: TextScrollMode.endless,
+                          velocity:
+                              const Velocity(pixelsPerSecond: Offset(50, 0)),
+                          delayBefore: const Duration(seconds: 2),
+                          pauseBetween: const Duration(milliseconds: 1000),
+                          style: getBoldStyle(
+                            fontSize: FontSize.s16,
+                            color: ColorManager.black,
+                          ),
+                          intervalSpaces: 20,
+                          // fadedBorder: true,
+                          textAlign: TextAlign.right,
                         ),
-                      ]
-                    ),
-                    child:  Center(
-                      child: TextScroll(
-                        widget.newsModel.content,
-                        mode: TextScrollMode.endless,
-                        velocity: const Velocity(pixelsPerSecond: Offset(50, 0)),
-                        delayBefore: const Duration(seconds: 2),
-                        pauseBetween: const Duration(milliseconds: 1000),
-                        style: getBoldStyle(
-                          fontSize: FontSize.s16,
-                          color: ColorManager.black,
-                        ),
-                        intervalSpaces: 20,
-                        // fadedBorder: true,
-                        textAlign: TextAlign.right,
                       ),
                     ),
                   ),
@@ -113,19 +122,18 @@ class _AnimatedNewsContainerState extends State<AnimatedNewsContainer> with Sing
                     height: AppSize.s32.h,
                     onEnd: () {
                       if (isExpanded) {
-                        Future.delayed( const Duration(seconds: 10), () {
+                        Future.delayed(const Duration(seconds: 10), () {
                           _viewModel.startCollapseAnimation(parentWidth);
                         });
                       }
                     },
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: Svg('assets/images/news_badge.svg'),
+                    decoration: const BoxDecoration(
+                      image: const DecorationImage(
+                        image: const Svg('assets/images/news_badge.svg'),
                         fit: BoxFit.fill,
                       ),
                     ),
                     alignment: Alignment.center,
-
                     child: isExpanded
                         ? Text(
                             "News",

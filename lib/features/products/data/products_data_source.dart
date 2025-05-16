@@ -24,6 +24,20 @@ class ProductsDataSource extends RemoteDataSource {
         url: APIUrls.getProducts);
   }
 
+  Future<Either<AppErrors, ProductsResponse>> getProductById(
+      int productId) async {
+    return request<ProductsResponse>(
+        method: HttpMethod.GET,
+        queryParameters: {
+          "id": productId,
+        },
+        responseValidator: DefaultResponseValidator(),
+        converter: (json) {
+          return ProductsResponse.fromJson(json);
+        },
+        url: APIUrls.getProductById);
+  }
+
   Future<Either<AppErrors, ProductsResponse>> getProductsByCategory(
       int catId, PaginationRequest getProductsPaginationRequest) async {
     return request<ProductsResponse>(

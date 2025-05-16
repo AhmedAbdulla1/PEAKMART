@@ -18,7 +18,14 @@ class PaginationResponse {
       totalRecords: json['total_records'],
     );
   }
-
+  factory PaginationResponse.empty() {
+    return PaginationResponse(
+      totalPages: 0,
+      currentPage: 0,
+      limitPerPage: 0,
+      totalRecords: 0,
+    );
+  }
   PaginationEntity toEntity() {
     return PaginationEntity(
       totalPages: totalPages,

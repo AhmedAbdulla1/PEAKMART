@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:card_flutter/card_flutter.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
@@ -191,10 +190,10 @@ class _BidDialogState extends State<BidDialog> {
             ),
             SizedBox(height: 8.h),
             // Rules List
-            BulletText(
+            const BulletText(
                 'You MUST enter a number larger than the highlighted number'),
-            BulletText('A tax fee of 5% will be added to the number you enter'),
-            BulletText(
+            const BulletText('A tax fee of 5% will be added to the number you enter'),
+            const BulletText(
                 'In case you are the highest bidder and want to cancel 20% of the money won\'t be refunded'),
             BulletTextWithLink(
               text: 'For more details check the ',

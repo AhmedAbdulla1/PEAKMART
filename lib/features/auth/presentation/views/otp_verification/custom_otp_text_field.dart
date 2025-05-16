@@ -23,12 +23,6 @@ final Function(String)? onSubmit;
       showFieldAsBox: true,
       onCodeChanged: (String code) {},
       onSubmit: onSubmit
-      //(String verificationCode) {
-      //   debugPrint("Code submitted: $verificationCode");
-       
-      //   // Navigator.push(context,
-      //   //     MaterialPageRoute(builder: (context) => const Text("Done")));
-      // },
     );
   }
 }

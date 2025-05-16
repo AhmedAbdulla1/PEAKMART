@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/entities/prodcut_entity.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/widgets/bid_item_stack.dart';
-import 'package:peakmart/features/products/presentation/views/product_details/product_details.dart';
+import 'package:peakmart/features/products/presentation/views/product_details/product_details_view.dart';
 
 class BidsSlider extends StatefulWidget {
   const BidsSlider({
@@ -61,7 +61,7 @@ class _BidsSliderState extends State<BidsSlider> {
               return InkWell(
                 onTap: () {
                   Navigator.pushNamed(context, ProductDetails.routeName,
-                      arguments: widget.productEntity[index]);
+                      arguments: widget.productEntity[index].id);
                 },
                 splashColor: Colors.white,
                 child: BidItemStack(

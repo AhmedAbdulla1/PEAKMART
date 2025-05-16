@@ -12,7 +12,11 @@ class ProductLoaded extends ProductState {
 
   ProductLoaded({required this.products});
 }
+class ProductDetailsLoaded extends ProductState {
+  final ProductEntity product;
 
+  ProductDetailsLoaded({required this.product});
+}
 class ProductError extends ProductState {
   final AppErrors error;
   final Function onRetry;

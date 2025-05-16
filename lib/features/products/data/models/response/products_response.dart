@@ -14,13 +14,30 @@ class ProductsResponse extends BaseResponse<ProductsEntity> {
       required super.code});
 
   factory ProductsResponse.fromJson(Map<String, dynamic> json) {
+    final rawData = json['data'];
+
+    List<ProductResponse> products;
+    if (rawData is List) {
+      products = rawData
+          .map((item) =>
+              ProductResponse.fromJson(Map<String, dynamic>.from(item)))
+          .toList();
+    } else if (rawData is Map) {
+      products = [ProductResponse.fromJson(Map<String, dynamic>.from(rawData))];
+    } else {
+      throw const FormatException(
+          "Unexpected data format for product response");
+    }
+
     return ProductsResponse(
-      data: List<ProductResponse>.from(json["data"]
-          .map((endedBidsData) => ProductResponse.fromJson(endedBidsData))),
-      message: json["message"],
-      status: json["status"],
+      data: products,
+      message: json["message"] ?? "",
+      status: json["status"] ?? false,
       code: 200,
-      paginationResponse: PaginationResponse.fromJson(json["pagination"]),
+      paginationResponse: json["pagination"] != null
+          ? PaginationResponse.fromJson(
+              Map<String, dynamic>.from(json["pagination"]))
+          : PaginationResponse.empty(),
     );
   }
 
@@ -28,7 +45,7 @@ class ProductsResponse extends BaseResponse<ProductsEntity> {
   ProductsEntity toEntity() {
     return ProductsEntity(
       pagination: paginationResponse.toEntity(),
-      data: data.map((endedBidsData) => endedBidsData.toEntity()).toList(),
+      data: data.map((product) => product.toEntity()).toList(),
     );
   }
 }

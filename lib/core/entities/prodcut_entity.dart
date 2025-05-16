@@ -23,5 +23,5 @@ class ProductEntity extends BaseEntity {
 
   @override
   // TODO: implement props
-  List<Object?> get props => [id,name, imageUrl,endDate , isEnded];
+  List<Object?> get props => [id, name, imageUrl, endDate, isEnded];
 }

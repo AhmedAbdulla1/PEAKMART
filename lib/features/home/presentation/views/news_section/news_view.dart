@@ -79,8 +79,6 @@ class _AnimatedNewsContainerState extends State<AnimatedNewsContainer>
                     child: Center(
                       child: InkWell(
                         onTap: () {
-                          print("wjfbjwbf");
-                          print(widget.newsModel.link);
                           Navigator.pushNamed(context, ProductDetails.routeName,
                               arguments: widget.newsModel.id);
                         },
@@ -128,8 +126,8 @@ class _AnimatedNewsContainerState extends State<AnimatedNewsContainer>
                       }
                     },
                     decoration: const BoxDecoration(
-                      image: const DecorationImage(
-                        image: const Svg('assets/images/news_badge.svg'),
+                      image: DecorationImage(
+                        image: Svg('assets/images/news_badge.svg'),
                         fit: BoxFit.fill,
                       ),
                     ),

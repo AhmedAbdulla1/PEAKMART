@@ -1,17 +1,15 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:peakmart/features/products/presentation/views/product_details/widgets/web_view_payment.dart';
 
-// Placeholder routes for navigation (replace with your actual routes)
+// Placeholder routes (replace with your actual routes)
 const String bidRulesRoute = '/bid_rules';
 const String contactUsRoute = '/contact_us';
-
-// Placeholder Tap Payments configuration (replace with your actual values)
-const String tapPublicKey =
-    'pk_test_your_public_key'; // Replace with your Tap public key
 
 class BidDialog extends StatefulWidget {
   final double higherPrice;
@@ -29,10 +27,8 @@ class _BidDialogState extends State<BidDialog> {
   final TextEditingController _bidController = TextEditingController();
   String? _errorMessage;
   double? _enteredBid;
-
-  // TapCard? _tapCard;
-  String? _generatedToken;
   bool _isProcessingPayment = false;
+  DateTime? _lastButtonPress;
 
   @override
   void dispose() {
@@ -53,7 +49,7 @@ class _BidDialogState extends State<BidDialog> {
         _enteredBid = null;
       } else if (bid <= widget.higherPrice) {
         _errorMessage = 'Bid must be greater than ${widget.higherPrice}\$';
-        _enteredBid = bid;
+        _enteredBid = null;
       } else {
         _errorMessage = null;
         _enteredBid = bid;
@@ -61,96 +57,107 @@ class _BidDialogState extends State<BidDialog> {
     });
   }
 
-  Future<void> _generateToken() async {
-    try {
-      // final token = await _tapCard?.generateToken;
-      // setState(() {
-      //   _generatedToken = token;
-      // });
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error generating payment token: $e')),
-      );
-    }
-  }
-
   Future<void> _initiatePayment(BuildContext context) async {
-    if (_enteredBid == null || _generatedToken == null) return;
+    final now = DateTime.now();
+    if (_lastButtonPress != null &&
+        now.difference(_lastButtonPress!).inMilliseconds < 1000) {
+      log('Button press ignored: too soon');
+      return;
+    }
+    _lastButtonPress = now;
+
+    log('Initiating payment...');
+    if (_enteredBid == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter a valid bid')),
+      );
+      return;
+    }
 
     setState(() {
       _isProcessingPayment = true;
     });
 
     try {
-      // Calculate total amount including 5% tax fee
-      final double taxFee = _enteredBid! * 0.05;
-      final double totalAmount = _enteredBid! + taxFee;
+// Construct payment URL with bid amount
+      final paymentUrl =
+          'https://hk.herova.net/payment/pay4new.php?name=astron&price=$_enteredBid';
+      log('Opening WebView with URL: $paymentUrl');
 
-      // Call your backend to process the payment with the token
-      final paymentResult = await _processPaymentWithTap(
-        token: _generatedToken!,
-        amount: totalAmount,
-        currency: 'USD',
-        description: 'Bid Payment',
+// Navigate to WebView screen
+      final result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PaymentWebViewScreen(paymentUrl: paymentUrl),
+        ),
       );
 
-      if (paymentResult['status'] == 'success') {
-        Navigator.pop(context, {
-          'bid': _enteredBid,
-          'payment_status': 'success',
-          'transaction_id': paymentResult['transaction_id'],
-        });
-      } else {
-        Navigator.pop(context, {
-          'bid': _enteredBid,
-          'payment_status': 'failed',
-        });
-      }
-    } catch (e) {
+// Handle payment result
+      setState(() {
+        _isProcessingPayment = false;
+        if (result != null && result is Map) {
+          final paymentStatus = result['payment_status'] ?? 'unknown';
+          switch (paymentStatus) {
+            case 'success':
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Payment successful!')),
+              );
+              Navigator.pop(context, {
+                'bid': _enteredBid,
+                'payment_status': 'success',
+              });
+              break;
+            case 'failed':
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                    content: Text('Payment failed. Please try again.')),
+              );
+              Navigator.pop(context, {
+                'bid': _enteredBid,
+                'payment_status': 'failed',
+              });
+              break;
+            case 'cancelled':
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Payment cancelled by user.')),
+              );
+              Navigator.pop(context, {
+                'bid': _enteredBid,
+                'payment_status': 'cancelled',
+              });
+              break;
+            default:
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Unknown payment result.')),
+              );
+              Navigator.pop(context, {
+                'bid': _enteredBid,
+                'payment_status': 'failed',
+              });
+          }
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Payment cancelled or no result.')),
+          );
+          Navigator.pop(context, {
+            'bid': _enteredBid,
+            'payment_status': 'cancelled',
+          });
+        }
+      });
+    } catch (e, stack) {
+      log('Payment error: $e', stackTrace: stack);
+      setState(() {
+        _isProcessingPayment = false;
+      });
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Payment failed: $e')),
+        SnackBar(content: Text('Payment error: $e')),
       );
       Navigator.pop(context, {
         'bid': _enteredBid,
         'payment_status': 'failed',
       });
-    } finally {
-      setState(() {
-        _isProcessingPayment = false;
-      });
     }
-  }
-
-  // Placeholder method to process payment via backend
-  Future<Map<String, dynamic>> _processPaymentWithTap({
-    required String token,
-    required double amount,
-    required String currency,
-    required String description,
-  }) async {
-    // Implement this method to call your backend API
-    // Example backend request (Node.js example):
-    /*
-    const axios = require('axios');
-    const response = await axios.post('https://api.tap.company/v2/charges', {
-      amount: amount,
-      currency: currency,
-      source: { id: token },
-      description: description,
-    }, {
-      headers: { Authorization: `Bearer sk_test_your_secret_key` },
-    });
-    return {
-      'status': response.data.status === 'CAPTURED' ? 'success' : 'failed',
-      'transaction_id': response.data.id,
-    };
-    */
-    // For now, return a mock response
-    await Future.delayed(const Duration(seconds: 2)); // Simulate API call
-    return {
-      'status': 'success',
-      'transaction_id': 'mock_transaction_123',
-    };
   }
 
   @override
@@ -165,8 +172,7 @@ class _BidDialogState extends State<BidDialog> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header with Close Button
-
+// Header
             RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
@@ -175,7 +181,9 @@ class _BidDialogState extends State<BidDialog> {
                     text: 'The highest bid for this product currently is ',
                     style: getBoldStyle(
                       fontSize: FontSize.s16,
-                      color: context.isDarkMode ? ColorManager.white : ColorManager.black,
+                      color: context.isDarkMode
+                          ? ColorManager.white
+                          : ColorManager.black,
                     ),
                   ),
                   TextSpan(
@@ -190,10 +198,10 @@ class _BidDialogState extends State<BidDialog> {
             ),
             SizedBox(height: 8.h),
             // Rules List
-            const BulletText(
+            const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const BulletText(
                 'You MUST enter a number larger than the highlighted number'),
-            const BulletText('A tax fee of 5% will be added to the number you enter'),
-            const BulletText(
+            const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const BulletText('A tax fee of 5% will be added to the number you enter'),
+            const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const BulletText(
                 'In case you are the highest bidder and want to cancel 20% of the money won\'t be refunded'),
             BulletTextWithLink(
               text: 'For more details check the ',
@@ -210,7 +218,7 @@ class _BidDialogState extends State<BidDialog> {
               },
             ),
             SizedBox(height: 12.h),
-            // Bid Input
+// Bid Input
             TextField(
               controller: _bidController,
               keyboardType: TextInputType.number,
@@ -221,41 +229,14 @@ class _BidDialogState extends State<BidDialog> {
               ),
               onChanged: _validateBid,
             ),
-            // Tap Card Input
-            // TapCardViewWidget(
-            //
-            //   tapCardCallBack: (TapCard tapCard) {
-            //     _tapCard = tapCard;
-            //   },
-            //   cardCallBack: (CardCallBack cardCallBack) {
-            //     // Optional: Handle card validation status
-            //     print('Card validation: ${cardCallBack.toJson()}');
-            //   },
-            //   apiKey: tapPublicKey,
-            //   style: CardStyle(
-            //     backgroundColor: ColorManager.white,
-            //     borderColor: ColorManager.grey,
-            //     borderRadius: 8.r,
-            //     borderWidth: 1,
-            //     textStyle: getRegularStyle(
-            //       fontSize: FontSize.s14,
-            //       color: ColorManager.black,
-            //     ),
-            //   ),
-            // ),
             SizedBox(height: 12.h),
-            // Bid Button
+// Bid Button
             Center(
               child: ElevatedButton(
                 onPressed: (_enteredBid != null &&
                         _enteredBid! > widget.higherPrice &&
                         !_isProcessingPayment)
-                    ? () async {
-                        await _generateToken();
-                        if (_generatedToken != null) {
-                          await _initiatePayment(context);
-                        }
-                      }
+                    ? () => _initiatePayment(context)
                     : null,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: ColorManager.primary,
@@ -283,7 +264,7 @@ class _BidDialogState extends State<BidDialog> {
   }
 }
 
-// Custom widget for bullet points
+// Bullet point widget
 class BulletText extends StatelessWidget {
   final String text;
 
@@ -296,16 +277,12 @@ class BulletText extends StatelessWidget {
       children: [
         Text(
           '• ',
-          style: getRegularStyle(
-            fontSize: FontSize.s14,
-          ),
+          style: getRegularStyle(fontSize: FontSize.s14),
         ),
         Expanded(
           child: Text(
             text,
-            style: getRegularStyle(
-              fontSize: FontSize.s14,
-            ),
+            style: getRegularStyle(fontSize: FontSize.s14),
           ),
         ),
       ],
@@ -313,7 +290,7 @@ class BulletText extends StatelessWidget {
   }
 }
 
-// Custom widget for bullet points with a clickable link
+// Bullet point with link
 class BulletTextWithLink extends StatelessWidget {
   final String text;
   final String linkText;
@@ -333,18 +310,14 @@ class BulletTextWithLink extends StatelessWidget {
       children: [
         Text(
           '• ',
-          style: getRegularStyle(
-            fontSize: FontSize.s14,
-          ),
+          style: getRegularStyle(fontSize: FontSize.s14),
         ),
         Expanded(
           child: Row(
             children: [
               Text(
                 text,
-                style: getRegularStyle(
-                  fontSize: FontSize.s14,
-                ),
+                style: getRegularStyle(fontSize: FontSize.s14),
               ),
               TextButton(
                 onPressed: onTap,

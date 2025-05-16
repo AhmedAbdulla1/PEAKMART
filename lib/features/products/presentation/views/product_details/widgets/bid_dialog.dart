@@ -198,10 +198,10 @@ class _BidDialogState extends State<BidDialog> {
             ),
             SizedBox(height: 8.h),
             // Rules List
-            const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const BulletText(
+            const  BulletText(
                 'You MUST enter a number larger than the highlighted number'),
-            const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const BulletText('A tax fee of 5% will be added to the number you enter'),
-            const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const const BulletText(
+            const  BulletText('A tax fee of 5% will be added to the number you enter'),
+            const  BulletText(
                 'In case you are the highest bidder and want to cancel 20% of the money won\'t be refunded'),
             BulletTextWithLink(
               text: 'For more details check the ',

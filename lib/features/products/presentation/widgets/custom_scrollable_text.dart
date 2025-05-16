@@ -20,15 +20,15 @@ class CustomScrollableText extends StatelessWidget {
                 color: ColorManager.darkGrey.withOpacity(.1),
                 borderRadius: BorderRadius.circular(AppSize.s12),
               ),
-              child:  Scrollbar(
+              child: Scrollbar(
                 thumbVisibility: true,
                 child: SingleChildScrollView(
                   child: Text(
                     text,
                     textAlign: TextAlign.start,
                     style: getRegularStyle(
-                        fontSize: FontSize.s17,
-                        color: ColorManager.black.withOpacity(.8)),
+                      fontSize: FontSize.s17,
+                    ),
                   ),
                 ),
               )),

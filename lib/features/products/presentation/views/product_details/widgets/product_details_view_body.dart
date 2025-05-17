@@ -76,12 +76,12 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                       8.vGap,
                       CustomRichText(
                         title: "Start Bid: ",
-                        description: widget.product.price.toString(),
+                        description: '${widget.product.price}\$',
                       ),
                       8.vGap,
                       CustomRichText(
                         title: "Current Price: ",
-                        description: widget.product.price.toString(),
+                        description: '${widget.product.price}\$',
                       ),
                       8.vGap,
                       CustomRichText(

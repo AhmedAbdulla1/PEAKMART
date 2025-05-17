@@ -6,23 +6,21 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
-import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/home/presentation/state_m/home_cubits/states.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/widgets/bids_slider.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/widgets/custom_bid_item.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 final ProductEntity fakeProduct = ProductEntity(
-  id: 1,
-  name: 'Product Name',
-  imageUrl: [],
-  description: 'Product Description',
-  endDate: DateTime.now().toString(),
-  peopleRolledIn: 0,
-  price: 0,
-  isEnded: false,
-  startDate: "9999"
-);
+    id: 1,
+    name: 'Product Name',
+    imageUrl: [],
+    description: 'Product Description',
+    endDate: DateTime.now().toString(),
+    peopleRolledIn: 0,
+    price: 0,
+    isEnded: false,
+    startDate: "9999");
 
 class TitledBidSection<C extends Cubit<BidsState>> extends StatelessWidget {
   const TitledBidSection({

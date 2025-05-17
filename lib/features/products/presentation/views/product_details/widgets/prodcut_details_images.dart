@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class ProductDetailsImages extends StatefulWidget {
   final List<String> imageUrls;
 
-  ProductDetailsImages({required this.imageUrls});
+  const ProductDetailsImages({super.key, required this.imageUrls});
 
   @override
   _ProductDetailsImagesState createState() => _ProductDetailsImagesState();
@@ -39,7 +39,6 @@ class _ProductDetailsImagesState extends State<ProductDetailsImages> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Big Image Section
         Container(
           height: 300,
           width: double.infinity,
@@ -47,7 +46,7 @@ class _ProductDetailsImagesState extends State<ProductDetailsImages> {
             color: Colors.grey[200],
           ),
           child: selectedImageUrl.isEmpty
-              ? Center(child: Text('No Image Available'))
+              ? const Center(child: const Text('No Image Available'))
               : CachedNetworkImage(
                   imageUrl: selectedImageUrl,
                   fit: BoxFit.cover,
@@ -57,59 +56,58 @@ class _ProductDetailsImagesState extends State<ProductDetailsImages> {
                       color: Colors.grey[200],
                     ),
                   ),
-                  errorWidget: (context, url, error) => Center(
-                    child: Icon(Icons.error, color: Colors.red),
+                  errorWidget: (context, url, error) => const Center(
+                    child: const Icon(Icons.error, color: Colors.red),
                   ),
                 ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
 
         // Thumbnail List Section
-        if (imageUrls.isNotEmpty && imageUrls.length > 1)
-          Container(
-            height: 80,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: imageUrls.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedImageUrl =
-                          imageUrls[index]; // Update the big image
-                    });
-                  },
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 5),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: selectedImageUrl == imageUrls[index]
-                            ? Colors.blue
-                            : Colors.grey,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
+        Container(
+          height: 80,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: imageUrls.length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedImageUrl = imageUrls[index]; // Update the big image
+                  });
+                },
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 5),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: selectedImageUrl == imageUrls[index]
+                          ? Colors.blue
+                          : Colors.grey,
+                      width: 2,
                     ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(6),
-                      child: CachedNetworkImage(
-                        imageUrl: imageUrls[index],
-                        width: 80,
-                        fit: BoxFit.cover,
-                        placeholder: (context, url) => Skeletonizer(
-                          enabled: true,
-                          child: Container(
-                            color: Colors.white,
-                          ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(6),
+                    child: CachedNetworkImage(
+                      imageUrl: imageUrls[index],
+                      width: 80,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => Skeletonizer(
+                        enabled: true,
+                        child: Container(
+                          color: Colors.white,
                         ),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
+        ),
       ],
     );
   }

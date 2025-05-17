@@ -14,12 +14,12 @@ class SignInWithSocialCubit extends Cubit<SignInWithSocialState> {
   SignInWithSocialCubit() : super(SignInWithSocialInitialState());
 
   final AppPreferences appPreferences = instance<AppPreferences>();
-  final GoogleSignIn googleSignIn = GoogleSignIn(); 
+  final GoogleSignIn googleSignIn = GoogleSignIn();
 
   Future<void> signInWithGoogle() async {
     emit(SignInWithSocialLoadingState());
     try {
-      await googleSignIn.signOut(); 
+      await googleSignIn.signOut();
       final googleUser = await googleSignIn.signIn();
 
       if (googleUser == null) {
@@ -57,9 +57,11 @@ class SignInWithSocialCubit extends Cubit<SignInWithSocialState> {
     }
   }
 
-  Future<UserCredential> _loginWithGoogleSuccessfully(GoogleSignInAccount googleUser) async {
-    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-    
+  Future<UserCredential> _loginWithGoogleSuccessfully(
+      GoogleSignInAccount googleUser) async {
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+
     if (googleAuth.accessToken == null || googleAuth.idToken == null) {
       throw Exception(AppStrings.googleAuthFailed);
     }

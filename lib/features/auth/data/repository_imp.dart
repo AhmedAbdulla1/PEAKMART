@@ -16,11 +16,9 @@ import 'package:peakmart/features/auth/data/model/request/verfiy_otp_request.dar
 import 'package:peakmart/features/auth/data/model/response/login_response.dart';
 import 'package:peakmart/features/auth/data/model/response/register_response.dart';
 import 'package:peakmart/features/auth/data/model/response/send_otp_response.dart';
-import 'package:peakmart/features/auth/data/model/response/user_info.dart';
 import 'package:peakmart/features/auth/domain/entity/login_entity.dart';
 import 'package:peakmart/features/auth/domain/entity/register_entity.dart';
 import 'package:peakmart/features/auth/domain/entity/send_otp_entity.dart';
-import 'package:peakmart/features/auth/domain/entity/user_info_entity.dart';
 import 'package:peakmart/features/auth/domain/repository/auth_repo.dart';
 
 class AuthRepositoryImp implements AuthRepo {

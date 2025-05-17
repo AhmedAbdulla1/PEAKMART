@@ -13,8 +13,8 @@ class BidWorkNowResponse extends BaseResponse<BidWorkNowEntity> {
 
   factory BidWorkNowResponse.fromJson(Map<String, dynamic> json) {
     return BidWorkNowResponse(
-      data: List<ProductResponse>.from(json["data"].map(
-          (bidWorkNowData) => ProductResponse.fromJson(bidWorkNowData))),
+      data: List<ProductResponse>.from(json["data"]
+          .map((bidWorkNowData) => ProductResponse.fromJson(bidWorkNowData))),
       message: json["message"],
       status: json["status"],
       code: 200,

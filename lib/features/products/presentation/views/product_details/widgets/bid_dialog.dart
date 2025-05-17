@@ -7,7 +7,6 @@ import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/widgets/web_view_payment.dart';
 
-// Placeholder routes (replace with your actual routes)
 const String bidRulesRoute = '/bid_rules';
 const String contactUsRoute = '/contact_us';
 
@@ -50,6 +49,9 @@ class _BidDialogState extends State<BidDialog> {
       } else if (bid <= widget.higherPrice) {
         _errorMessage = 'Bid must be greater than ${widget.higherPrice}\$';
         _enteredBid = null;
+      } else if (bid > 10000) {
+        _errorMessage = 'Bid cannot exceed \$10,000';
+        _enteredBid = null;
       } else {
         _errorMessage = null;
         _enteredBid = bid;
@@ -79,12 +81,10 @@ class _BidDialogState extends State<BidDialog> {
     });
 
     try {
-// Construct payment URL with bid amount
       final paymentUrl =
           'https://hk.herova.net/payment/pay4new.php?name=astron&price=$_enteredBid';
       log('Opening WebView with URL: $paymentUrl');
 
-// Navigate to WebView screen
       final result = await Navigator.push(
         context,
         MaterialPageRoute(
@@ -92,59 +92,71 @@ class _BidDialogState extends State<BidDialog> {
         ),
       );
 
-// Handle payment result
       setState(() {
         _isProcessingPayment = false;
-        if (result != null && result is Map) {
-          final paymentStatus = result['payment_status'] ?? 'unknown';
-          switch (paymentStatus) {
-            case 'success':
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Payment successful!')),
-              );
-              Navigator.pop(context, {
-                'bid': _enteredBid,
-                'payment_status': 'success',
-              });
-              break;
-            case 'failed':
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                    content: Text('Payment failed. Please try again.')),
-              );
-              Navigator.pop(context, {
-                'bid': _enteredBid,
-                'payment_status': 'failed',
-              });
-              break;
-            case 'cancelled':
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Payment cancelled by user.')),
-              );
-              Navigator.pop(context, {
-                'bid': _enteredBid,
-                'payment_status': 'cancelled',
-              });
-              break;
-            default:
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Unknown payment result.')),
-              );
-              Navigator.pop(context, {
-                'bid': _enteredBid,
-                'payment_status': 'failed',
-              });
-          }
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Payment cancelled or no result.')),
-          );
-          Navigator.pop(context, {
-            'bid': _enteredBid,
-            'payment_status': 'cancelled',
-          });
-        }
       });
+
+      log('Returned to BidDialog with result: $result');
+      if (result != null && result is Map) {
+        final paymentStatus = result['payment_status'] ?? 'unknown';
+        switch (paymentStatus) {
+          case 'failed':
+            final error = result['error'] ?? 'Unknown error';
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Payment failed: $error')),
+            );
+            Navigator.pop(context, {
+              'bid': _enteredBid,
+              'payment_status': 'failed',
+            });
+            break;
+          case 'cancelled':
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Payment cancelled by user.')),
+            );
+            Navigator.pop(context, {
+              'bid': _enteredBid,
+              'payment_status': 'cancelled',
+            });
+            break;
+          case 'navigated_away':
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Navigated to another page.')),
+            );
+            Navigator.pop(context, {
+              'bid': _enteredBid,
+              'payment_status': 'navigated_away',
+            });
+            break;
+          case 'success':
+            // Do nothing, let the user stay on BidDialog or handle success UI
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Payment completed successfully.')),
+            );
+            Navigator.pop(context, {
+              'bid': _enteredBid,
+              'payment_status': 'success',
+            });
+            break;
+          default:
+            // Treat unknown status as success or do nothing
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Payment completed or cancelled.')),
+            );
+            break;
+        }
+      } else {
+        // If result is null, treat it as cancelled (should not happen with new code)
+        log('Unexpected null result from PaymentWebViewScreen, treating as cancelled.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Payment cancelled.')),
+        );
+        log('Navigating to BidDialog with cancelled payment status.');
+        // Navigator.pop(context, {
+        //   'bid': _enteredBid,
+        //   'payment_status': 'cancelled',
+        // });
+      }
     } catch (e, stack) {
       log('Payment error: $e', stackTrace: stack);
       setState(() {
@@ -172,7 +184,6 @@ class _BidDialogState extends State<BidDialog> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-// Header
             RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
@@ -197,7 +208,6 @@ class _BidDialogState extends State<BidDialog> {
               ),
             ),
             SizedBox(height: 8.h),
-// Rules
             const BulletText(
                 'You MUST enter a number larger than the highlighted number'),
             const BulletText(
@@ -219,7 +229,6 @@ class _BidDialogState extends State<BidDialog> {
               },
             ),
             SizedBox(height: 12.h),
-// Bid Input
             TextField(
               controller: _bidController,
               keyboardType: TextInputType.number,
@@ -231,7 +240,6 @@ class _BidDialogState extends State<BidDialog> {
               onChanged: _validateBid,
             ),
             SizedBox(height: 12.h),
-// Bid Button
             Center(
               child: ElevatedButton(
                 onPressed: (_enteredBid != null &&
@@ -265,7 +273,6 @@ class _BidDialogState extends State<BidDialog> {
   }
 }
 
-// Bullet point widget
 class BulletText extends StatelessWidget {
   final String text;
 
@@ -277,7 +284,7 @@ class BulletText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '• ',
+          '• हाथ',
           style: getRegularStyle(fontSize: FontSize.s14),
         ),
         Expanded(
@@ -291,7 +298,6 @@ class BulletText extends StatelessWidget {
   }
 }
 
-// Bullet point with link
 class BulletTextWithLink extends StatelessWidget {
   final String text;
   final String linkText;

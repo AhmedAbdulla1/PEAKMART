@@ -18,5 +18,5 @@ abstract class HomeRepository {
   Future<Result<AppErrors, TrendingBidsEntity>> getTrendingBids();
 
   Future<Result<AppErrors, ContentEntity>> getContent();
-  Future<Result<AppErrors,CategoriesEntity>> getCategory();
+  Future<Result<AppErrors, CategoriesEntity>> getCategory();
 }

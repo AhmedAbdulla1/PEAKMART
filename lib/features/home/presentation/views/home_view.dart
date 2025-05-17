@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/features/home/presentation/state_m/category_cubit/category_cubit.dart';
@@ -13,7 +12,7 @@ import 'package:peakmart/features/home/presentation/views/home_view_body.dart';
 import 'package:peakmart/features/home/presentation/views/news_section/news_view.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key , required this.onCategorySelected});
+  const HomeView({super.key, required this.onCategorySelected});
 
   static const String routeName = '/home';
   final Function(int categoryId) onCategorySelected;
@@ -35,9 +34,11 @@ class _HomeViewState extends State<HomeView> {
             create: (context) => TrendingBidsCubit()..getTrendingBids()),
         BlocProvider(create: (context) => CategoryCubit()..getCategory()),
       ],
-      child:  Stack(
+      child: Stack(
         children: [
-           HomeViewBody( onCategorySelected: widget.onCategorySelected,),
+          HomeViewBody(
+            onCategorySelected: widget.onCategorySelected,
+          ),
           BlocBuilder<NewsCubit, NewsState>(
             builder: (context, state) {
               return Column(

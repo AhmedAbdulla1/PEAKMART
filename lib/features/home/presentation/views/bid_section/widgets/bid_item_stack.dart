@@ -27,9 +27,9 @@ class BidItemStack extends StatelessWidget {
       children: [
         isEnded
             ? CustomEndedBidItem(endedBidItem: productEntity)
-                    : CustomBidItem(
-                        bidItem: productEntity,
-                      ),
+            : CustomBidItem(
+                bidItem: productEntity,
+              ),
         AnimatedOpacity(
           opacity: isCurrent ? 0.0 : 0.9,
           duration: const Duration(milliseconds: 400),

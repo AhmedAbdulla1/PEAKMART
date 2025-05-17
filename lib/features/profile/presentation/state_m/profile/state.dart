@@ -10,7 +10,8 @@ class ProfileLoading extends ProfileState {}
 
 class ProfileLoaded extends ProfileState {
   final UserInfoEntity userInfo;
-  final String? tempProfileImagePath; // Temporary path for the new profile image (if changed)
+  final String?
+      tempProfileImagePath; // Temporary path for the new profile image (if changed)
 
   const ProfileLoaded({
     required this.userInfo,

@@ -10,7 +10,8 @@ class RegisterResponse extends BaseResponse<BaseEntity> {
   RegisterResponse({
     required super.status,
     required super.message,
-    required this.data, required super.code,
+    required this.data,
+    required super.code,
   });
 
   factory RegisterResponse.fromJson(Map<String, dynamic> json) {
@@ -18,7 +19,7 @@ class RegisterResponse extends BaseResponse<BaseEntity> {
     return RegisterResponse(
       status: json['status'] ?? "",
       message: json['message'] ?? "",
-       code: json['status_code'] ?? 400,
+      code: json['status_code'] ?? 400,
       data: RegisterData(
         email: json['data']['email'],
         userId: json['data']['id'],

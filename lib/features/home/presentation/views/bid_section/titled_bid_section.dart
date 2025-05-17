@@ -11,6 +11,7 @@ import 'package:peakmart/features/home/presentation/state_m/home_cubits/states.d
 import 'package:peakmart/features/home/presentation/views/bid_section/widgets/bids_slider.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/widgets/custom_bid_item.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+
 final ProductEntity fakeProduct = ProductEntity(
   id: 1,
   name: 'Product Name',
@@ -21,6 +22,7 @@ final ProductEntity fakeProduct = ProductEntity(
   price: 0,
   isEnded: false,
 );
+
 class TitledBidSection<C extends Cubit<BidsState>> extends StatelessWidget {
   const TitledBidSection({
     super.key,
@@ -32,8 +34,6 @@ class TitledBidSection<C extends Cubit<BidsState>> extends StatelessWidget {
 
   final String title;
   final bool isEnded, isFuture, isTrending;
-
-
 
   @override
   Widget build(BuildContext context) {

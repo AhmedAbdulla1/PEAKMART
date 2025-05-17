@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/app/app_prefs.dart';
-import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/resources/assets_manager.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
@@ -14,7 +12,7 @@ import 'package:peakmart/features/main/main_view.dart';
 import 'package:timer_button/timer_button.dart';
 
 class SuccessBottomSheet extends StatelessWidget {
-  SuccessBottomSheet(
+  const SuccessBottomSheet(
       {super.key,
       this.restPassCubit,
       this.otpVerfictionCubit,
@@ -24,7 +22,6 @@ class SuccessBottomSheet extends StatelessWidget {
   final bool? isUsedWithProductDetails;
   final OtpVerfictionCubit? otpVerfictionCubit;
   final String textMessage;
-  final AppPreferences _appPreferences = instance<AppPreferences>();
   @override
   Widget build(BuildContext context) {
     return Padding(

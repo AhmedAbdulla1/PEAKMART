@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:peakmart/core/requests/base_request.dart';
 
 class LoginRequest extends BaseRequest {
-
   final String email;
   final String password;
 
@@ -15,9 +14,6 @@ class LoginRequest extends BaseRequest {
 
   @override
   Map<String, dynamic> toJson() {
-    return {
-      "email": email,
-      "password": password
-    };
+    return {"email": email, "password": password};
   }
 }

@@ -85,7 +85,7 @@ class _PersonalInformationViewState extends State<PersonalInformationView> {
                   Stack(
                     children: [
                       CircleAvatar(
-                        radius: AppSize.s55.r+AppSize.s1_5.r,
+                        radius: AppSize.s55.r + AppSize.s1_5.r,
                         child: CircleAvatar(
                           radius: AppSize.s55.r,
                           backgroundColor: Colors.purple.withOpacity(0.2),
@@ -99,7 +99,7 @@ class _PersonalInformationViewState extends State<PersonalInformationView> {
                         bottom: 0,
                         right: 0,
                         child: CircleAvatar(
-                          radius: AppSize.s15.r+AppSize.s1_5.r,
+                          radius: AppSize.s15.r + AppSize.s1_5.r,
                           backgroundColor: Colors.white,
                           child: GestureDetector(
                             onTap: () => _pickImage(context),
@@ -161,7 +161,9 @@ class _PersonalInformationViewState extends State<PersonalInformationView> {
                     },
                   ),
                   SizedBox(height: 20.h),
-                  const Spacer(flex: 2,),
+                  const Spacer(
+                    flex: 2,
+                  ),
                   // Instruction Text
                   Text(
                     "When you set up your personal information settings, you should take care to provide accurate information.",

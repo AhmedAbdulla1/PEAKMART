@@ -21,10 +21,10 @@ class _ReorderableListWithApiState extends State<ReorderableListWithApi> {
   Future<void> fetchItems() async {
     // final response = await http.get(Uri.parse('https://example.com/api/items'));
     // if (response.statusCode == 200) {
-      setState(() {
-        items = ["items",'items','items'];
-        isLoading = false;
-      });
+    setState(() {
+      items = ["items", 'items', 'items'];
+      isLoading = false;
+    });
     // } else {
     //   throw Exception('Failed to load items');
     // }
@@ -66,7 +66,7 @@ class _ReorderableListWithApiState extends State<ReorderableListWithApi> {
     return isLoading
         ? Center(child: CircularProgressIndicator())
         : ReorderableListView(
-      shrinkWrap: true,
+            shrinkWrap: true,
             onReorder: _onReorder,
             children: [
               for (int i = 0; i < items.length; i++)

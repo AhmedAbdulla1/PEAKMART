@@ -36,6 +36,7 @@ class RestPassCubit extends Cubit<ResetPassState> {
       emit(ResetPassFailureState(errors: error, onRetry: () {}));
     });
   }
+
   Future<void> resend() async {
     await authRepo.restPassword(RestPasswordRequest(
       email: email,

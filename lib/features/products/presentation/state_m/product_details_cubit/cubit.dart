@@ -9,20 +9,19 @@ class ProductDetailsCubit extends Cubit<ProductState> {
   Future<void> fetchProductData() async {
     emit(ProductLoading());
     try {
-      final products =
-        {
-          "id": 1,
-          "name": "The Luxe Houndstooth Lounge Chair",
-          "imageUrl": "assets/images/card.png",
-          "endDate": "November 1, 2024",
-          "peopleRolledIn": 15,
-          "price": 2000.0,
-          "isEnded": false
-        };
+      final products = {
+        "id": 1,
+        "name": "The Luxe Houndstooth Lounge Chair",
+        "imageUrl": "assets/images/card.png",
+        "endDate": "November 1, 2024",
+        "peopleRolledIn": 15,
+        "price": 2000.0,
+        "isEnded": false
+      };
       ProductResponse productsList = ProductResponse.fromJson(products);
 
-      Future.delayed(const Duration(milliseconds: 500))
-          .then((value) => emit(ProductLoaded(products: productsList.toEntity())));
+      Future.delayed(const Duration(milliseconds: 500)).then(
+          (value) => emit(ProductLoaded(products: productsList.toEntity())));
     } catch (e) {
       emit(ProductError(
           error: CustomError(message: e.toString()), onRetry: () {}));

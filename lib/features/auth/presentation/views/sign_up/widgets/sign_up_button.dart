@@ -19,15 +19,13 @@ class _SignUpButtonState extends State<SignUpButton> {
       onPressed: widget.onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: ColorManager.simiBlue,
-        minimumSize:  Size(double.infinity, 50.h),
+        minimumSize: Size(double.infinity, 50.h),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppPadding.p10),
         ),
       ),
-      child:  FittedBox(
-        child: Text(
-          AppStrings.signUp
-        ),
+      child: FittedBox(
+        child: Text(AppStrings.signUp),
       ),
     );
   }

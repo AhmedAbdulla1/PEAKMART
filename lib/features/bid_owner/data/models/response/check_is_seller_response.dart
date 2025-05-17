@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:peakmart/core/entities/base_entity.dart';
 import 'package:peakmart/core/models/base_model.dart';
-import 'package:peakmart/features/bid_owner/domain/entity/add_product_entity.dart';
 import 'package:peakmart/features/bid_owner/domain/entity/check_is_seller_entity.dart';
 
 class CheckIsSellerResponse extends BaseResponse<BaseEntity> {

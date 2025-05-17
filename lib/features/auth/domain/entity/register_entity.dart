@@ -7,8 +7,11 @@ class RegisterEntity extends BaseEntity {
   final String phoneNumber;
 
   const RegisterEntity(
-      { required this.phoneNumber ,required this.email, required this.userName, required this.userId});
-Map<String, dynamic> toJson() {
+      {required this.phoneNumber,
+      required this.email,
+      required this.userName,
+      required this.userId});
+  Map<String, dynamic> toJson() {
     return {
       'email': email,
       'userName': userName,

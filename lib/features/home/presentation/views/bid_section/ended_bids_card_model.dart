@@ -4,8 +4,5 @@ class EndedBidsCardModel {
   final String price;
 
   const EndedBidsCardModel(
-      {required this.image,
-      required this.title,
-  
-      required this.price});
+      {required this.image, required this.title, required this.price});
 }

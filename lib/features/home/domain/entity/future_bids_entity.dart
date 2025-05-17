@@ -9,5 +9,3 @@ class FutureBidsEntity extends BaseEntity {
   @override
   List<Object?> get props => data;
 }
-
-

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
-import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/auth/presentation/state_mang/user_info_cubit/user_info_cubit.dart';
 import 'package:peakmart/features/home/domain/entity/content_entity.dart';
 import 'package:peakmart/features/home/presentation/state_m/content_cubit/cubit.dart';

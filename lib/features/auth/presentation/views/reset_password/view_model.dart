@@ -1,17 +1,19 @@
 import 'dart:async';
 import 'package:peakmart/core/resources/string_manager.dart';
 
-class ResetPasswordViewModel extends ResetPasswordViewModelInputs with ResetPasswordViewModelOutputs {
+class ResetPasswordViewModel extends ResetPasswordViewModelInputs
+    with ResetPasswordViewModelOutputs {
   final StreamController<String> _emailIsValid =
       StreamController<String>.broadcast();
   String email = '';
   @override
-
-  Stream<String?> get emailValidationStream => _emailIsValid.stream.map((email) => _emailValidation(email));
+  Stream<String?> get emailValidationStream =>
+      _emailIsValid.stream.map((email) => _emailValidation(email));
   @override
-  Stream<bool> get isEmailValid => _emailIsValid.stream.map((email) => _emailValidation(email) == null);
+  Stream<bool> get isEmailValid =>
+      _emailIsValid.stream.map((email) => _emailValidation(email) == null);
   @override
-  void setEmail( String email) {
+  void setEmail(String email) {
     this.email = email;
     _emailIsValid.add(email);
   }
@@ -29,7 +31,6 @@ class ResetPasswordViewModel extends ResetPasswordViewModelInputs with ResetPass
   dispose() {
     _emailIsValid.close();
   }
-
 }
 
 abstract class ResetPasswordViewModelInputs {

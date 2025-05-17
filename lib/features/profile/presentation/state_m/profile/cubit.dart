@@ -107,10 +107,8 @@ class ProfileCubit extends Cubit<ProfileState> {
       // Update profile image if changed
       if (imageChanged) {
         Result<AppErrors, EmptyEntity> result =
-            await profileRepo.updateProfileImage(
-                UpdateProfileImageRequest(
-                    password: password,
-                    imagePath: tempProfileImagePath!));
+            await profileRepo.updateProfileImage(UpdateProfileImageRequest(
+                password: password, imagePath: tempProfileImagePath!));
         result.pick(
           onData: (newImageUrl) {
             // currentUserInfo = currentUserInfo.copyWith(photo: newImageUrl);
@@ -120,8 +118,7 @@ class ProfileCubit extends Cubit<ProfileState> {
           onError: (error) {
             emit(ProfileError(
               error: error,
-              onRetry:()=>saveChanges(password),
-
+              onRetry: () => saveChanges(password),
             ));
             return;
           },
@@ -134,8 +131,7 @@ class ProfileCubit extends Cubit<ProfileState> {
                 userName: currentUserInfo.userName,
                 email: currentUserInfo.email,
                 phone: currentUserInfo.phone,
-                password: password
-            ));
+                password: password));
         result.pick(
           onData: (success) {
             originalUserInfo =
@@ -144,7 +140,7 @@ class ProfileCubit extends Cubit<ProfileState> {
           onError: (error) {
             emit(ProfileError(
               error: error,
-              onRetry:()=> saveChanges(password),
+              onRetry: () => saveChanges(password),
             ));
             return;
           },
@@ -157,7 +153,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     } catch (e) {
       emit(ProfileError(
         error: const AppErrors.customError(message: 'Failed to save changes'),
-        onRetry: ()=>saveChanges(password),
+        onRetry: () => saveChanges(password),
       ));
     }
   }

@@ -13,8 +13,8 @@ class EndedBidsResponse extends BaseResponse<EndedBidsEntity> {
 
   factory EndedBidsResponse.fromJson(Map<String, dynamic> json) {
     return EndedBidsResponse(
-      data: List<ProductResponse>.from(json["data"].map(
-          (endedBidsData) => ProductResponse.fromJson(endedBidsData))),
+      data: List<ProductResponse>.from(json["data"]
+          .map((endedBidsData) => ProductResponse.fromJson(endedBidsData))),
       message: json["message"],
       status: json["status"],
       code: 200,

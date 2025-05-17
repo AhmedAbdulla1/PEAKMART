@@ -18,7 +18,7 @@ class ContentData {
   final int id;
   final SectionName sectionName;
   final String content;
-  final Map<String,dynamic> image;
+  final Map<String, dynamic> image;
   final String? subTitle;
   final String? subContent;
   final String? subHead;

@@ -4,7 +4,7 @@ import 'package:peakmart/core/entities/pagination_entity.dart';
 class NewsEntity extends BaseEntity {
   final List<NewsData> news;
   final PaginationEntity pagination;
-  const NewsEntity({required this.news , required this.pagination});
+  const NewsEntity({required this.news, required this.pagination});
 
   @override
   List<Object?> get props => news;

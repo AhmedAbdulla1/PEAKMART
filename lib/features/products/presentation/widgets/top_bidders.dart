@@ -67,7 +67,7 @@ class _TopBiddersState extends State<TopBidders> {
                         return TopBidderItem(
                           key: ValueKey(bidder.bidderId),
                           topBiddersData: bidder,
-                          rank: index + 1, 
+                          rank: index + 1,
                         );
                       },
                       enterTransition: [

@@ -1,8 +1,11 @@
 class UpdateProfileRequest {
-  final String userName, email, phone ,password;
+  final String userName, email, phone, password;
 
   UpdateProfileRequest(
-      {required this.userName, required this.email,required this.password , required this.phone});
+      {required this.userName,
+      required this.email,
+      required this.password,
+      required this.phone});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

@@ -86,9 +86,9 @@ class PlaceBidAcceptData extends StatelessWidget {
             inputType: TextInputType.number,
             isUsedWithBidOwner: true,
             inputFormatter: [
-
               FilteringTextInputFormatter.digitsOnly,
-            ],            controller: startingPriceController),
+            ],
+            controller: startingPriceController),
         23.vGap,
         CustomTextFormField(
             labelText: AppStrings.expectedPrice,
@@ -98,8 +98,7 @@ class PlaceBidAcceptData extends StatelessWidget {
             },
             isUsedWithBidOwner: true,
             inputFormatter: [
-
-                FilteringTextInputFormatter.digitsOnly,
+              FilteringTextInputFormatter.digitsOnly,
             ],
             inputType: TextInputType.number,
             controller: expectedPriceController),
@@ -128,9 +127,9 @@ class PlaceBidAcceptData extends StatelessWidget {
             hintText: AppStrings.periodOfBids,
             isUsedWithBidOwner: true,
             inputFormatter: [
-
               FilteringTextInputFormatter.digitsOnly,
-            ],            validator: (value) {
+            ],
+            validator: (value) {
               return validatePrice();
             },
             inputType: TextInputType.number,

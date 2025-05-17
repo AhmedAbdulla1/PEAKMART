@@ -7,7 +7,6 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/core/shared_widgets/buttons.dart';
 import 'package:peakmart/core/shared_widgets/image_picker.dart';
 import 'package:peakmart/features/auth/data/model/request/seller_info_request.dart';
@@ -155,7 +154,8 @@ class _AdditionalDetailsState extends State<AdditionalDetails> {
             Text(
               'National ID Info :',
               style: getMediumStyle(
-                  fontSize: FontSize.s16,),
+                fontSize: FontSize.s16,
+              ),
             ),
             20.vGap,
             CustomTextFormField(
@@ -211,7 +211,8 @@ class _AdditionalDetailsState extends State<AdditionalDetails> {
             Text(
               'Banking Info :',
               style: getMediumStyle(
-                  fontSize: FontSize.s16,),
+                fontSize: FontSize.s16,
+              ),
             ),
             20.vGap,
             CustomDropdownMenu(
@@ -227,7 +228,6 @@ class _AdditionalDetailsState extends State<AdditionalDetails> {
                 "Bank elahly 1",
                 "Bank elahly 2",
               ],
-             
               validator: _validateBankName,
               onChanged: (value) {
                 setState(() {

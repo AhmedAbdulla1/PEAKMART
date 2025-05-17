@@ -30,7 +30,7 @@ class OffersView extends StatelessWidget {
   OffersView({
     super.key,
     this.imageLink =
-    'https://www.picserver.org/highway-signs2/images/for-sale.jpg',
+        'https://www.picserver.org/highway-signs2/images/for-sale.jpg',
   });
 
   final String imageLink;
@@ -61,9 +61,9 @@ class OffersView extends StatelessWidget {
                     child: fakeContentData.image['background']!.isEmpty
                         ? SizedBox(width: double.infinity, height: 200.h)
                         : Image.network(
-                      fakeContentData.image['background']!,
-                      fit: BoxFit.fitWidth,
-                    ),
+                            fakeContentData.image['background']!,
+                            fit: BoxFit.fitWidth,
+                          ),
                   ),
                 ),
                 Positioned(
@@ -88,7 +88,7 @@ class OffersView extends StatelessWidget {
       }
       if (state is ContentLoaded) {
         _contentData = state.contentEntity.data.firstWhere(
-              (element) => element.sectionName == SectionName.Ads,
+          (element) => element.sectionName == SectionName.Ads,
           orElse: () => fakeContentData,
         );
         return Skeletonizer(
@@ -147,9 +147,9 @@ class OffersView extends StatelessWidget {
                   child: fakeContentData.image['background']!.isEmpty
                       ? SizedBox(width: double.infinity, height: 200.h)
                       : Image.network(
-                    fakeContentData.image['background']!,
-                    fit: BoxFit.fitWidth,
-                  ),
+                          fakeContentData.image['background']!,
+                          fit: BoxFit.fitWidth,
+                        ),
                 ),
               ),
               Positioned(

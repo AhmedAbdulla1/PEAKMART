@@ -15,7 +15,7 @@ class UserInfoCubit extends Cubit<UserInfoState> {
 
   UserInfoCubit() : super(UserInfoInitialState());
   late BuildContext context;
- static late UserInfoEntity entity;
+  static late UserInfoEntity entity;
   Future<void> userInfo() async {
     emit(
       UserInfoLoadingState(),

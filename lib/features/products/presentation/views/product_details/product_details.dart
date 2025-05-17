@@ -11,9 +11,16 @@ import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/features/home/presentation/state_m/home_cubits/future_bids_cubit.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/titled_bid_section.dart';
+import 'package:peakmart/features/payment/data/datasources/remote_payment_datasource.dart';
+import 'package:peakmart/features/payment/data/repositories/payment_repository_impl.dart';
+import 'package:peakmart/features/payment/domain/repositories/payment_repository.dart';
+import 'package:peakmart/features/payment/domain/usecases/fetch_payment_details.dart';
+import 'package:peakmart/features/payment/presentation/cubit/payment_cubit.dart';
+import 'package:peakmart/features/payment/presentation/views/bid_dialog.dart';
 import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/cubit.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/prodcut_details_images.dart';
-import 'package:peakmart/features/products/presentation/views/product_details/widgets/bid_dialog.dart';
+import 'package:peakmart/features/products/presentation/views/product_details/widgets/bid_dialog.dart'
+    show BidDialog;
 import 'package:peakmart/features/products/presentation/widgets/top_bidders.dart';
 
 import '../../../../../core/resources/style_manager.dart';
@@ -85,20 +92,35 @@ class ProductDetails extends StatelessWidget {
                     children: [
                       Text('*${product.peopleRolledIn} people rolled in',
                           style: getBoldStyle(
-                              fontSize: FontSize.s16, color: ColorManager.primary)),
+                              fontSize: FontSize.s16,
+                              color: ColorManager.primary)),
                       const Spacer(),
-                      ElevatedButton(onPressed:  (){
-                        showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (context) => BidDialog(higherPrice: product.price),
-                        ).then((bid) {
-                          if (bid != null) {
-                            log('User entered bid: $bid');
-                            // Handle the bid value
-                          }
-                        });
-                      }, child: const Text('Roll Now'))
+                      ElevatedButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (context) => false
+                                  ?
+                                  // her is dialog to bid
+                                  const BidDialog(higherPrice: 0)
+                                  :
+                                  // her is dialog to enroll and payment
+                                  BlocProvider(
+                                      create: (context) => PaymentCubit(
+                                          FetchPaymentDetails(
+                                              PaymentRepositoryImpl(
+                                                  RemotePaymentDataSourceImpl()))),
+                                      child: PaymentDialog(
+                                          higherPrice: product.price)),
+                            ).then((bid) {
+                              if (bid != null) {
+                                log('User entered bid: $bid');
+                                // Handle the bid value
+                              }
+                            });
+                          },
+                          child: const Text(false ? "Bid Now" : 'Enroll Now')),
                     ],
                   ),
                   SizedBox(height: 16.h),

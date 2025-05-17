@@ -1,5 +1,4 @@
 import 'package:peakmart/core/resources/string_manager.dart';
-import 'package:peakmart/features/auth/presentation/views/sign_up/widgets/sign_up_build_widgets.dart';
 
 class Validator {
   static String? validateEmail(String email) {

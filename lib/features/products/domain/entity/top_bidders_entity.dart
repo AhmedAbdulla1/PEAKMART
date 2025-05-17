@@ -17,6 +17,5 @@ class TopBiddersData {
     required this.bidderId,
     required this.bidAmount,
     required this.productId,
-
   });
 }

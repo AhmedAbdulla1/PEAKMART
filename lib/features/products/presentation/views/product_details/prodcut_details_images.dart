@@ -65,18 +65,18 @@ class _ProductDetailsImagesState extends State<ProductDetailsImages> {
         SizedBox(height: 10),
 
         // Thumbnail List Section
-        if (imageUrls.isNotEmpty&& imageUrls.length>1)
+        if (imageUrls.isNotEmpty && imageUrls.length > 1)
           Container(
             height: 80,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount:imageUrls.length,
+              itemCount: imageUrls.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
                     setState(() {
                       selectedImageUrl =
-                         imageUrls[index]; // Update the big image
+                          imageUrls[index]; // Update the big image
                     });
                   },
                   child: Container(

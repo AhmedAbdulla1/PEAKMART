@@ -19,7 +19,6 @@ class CategoryItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Padding(
       padding: const EdgeInsetsDirectional.only(start: 8.0),
       child: InkWell(
@@ -45,15 +44,19 @@ class CategoryItemWidget extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: AppSize.s8),
-                category.image.isEmpty ? const SizedBox(width: 35,) :  Image.network(
-                  category.image,
-                  width: 35,
-                  height: 35,
-                  color: context.isDarkMode
-                      ? ColorManager.grey
-                      : ColorManager.grey1,
-                  matchTextDirection: true,
-                ),
+                category.image.isEmpty
+                    ? const SizedBox(
+                        width: 35,
+                      )
+                    : Image.network(
+                        category.image,
+                        width: 35,
+                        height: 35,
+                        color: context.isDarkMode
+                            ? ColorManager.grey
+                            : ColorManager.grey1,
+                        matchTextDirection: true,
+                      ),
               ],
             ),
           ),

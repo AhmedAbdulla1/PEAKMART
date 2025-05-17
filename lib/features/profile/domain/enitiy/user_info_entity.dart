@@ -14,7 +14,8 @@ class UserInfoEntity extends BaseEntity {
   });
 
   @override
-  List<Object?> get props => [email, userName, phone, photo, sellerInfo, loyaltyPoint];
+  List<Object?> get props =>
+      [email, userName, phone, photo, sellerInfo, loyaltyPoint];
 
   // Add copyWith method
   UserInfoEntity copyWith({

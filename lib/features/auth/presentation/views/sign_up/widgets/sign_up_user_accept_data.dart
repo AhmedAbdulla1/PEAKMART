@@ -49,7 +49,6 @@ class _SignUpUserAcceptDataState extends State<SignUpUserAcceptData> {
           inputType: TextInputType.emailAddress,
         ),
         SizedBox(height: 25.h),
-
         CustomPhoneTextField(
           controller: widget.phoneController,
           onCountryChanged: widget.onCountryChanged,
@@ -72,7 +71,6 @@ class _SignUpUserAcceptDataState extends State<SignUpUserAcceptData> {
             return null;
           },
         ),
-      
       ],
     );
   }

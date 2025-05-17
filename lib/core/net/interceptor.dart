@@ -52,7 +52,6 @@ class AuthInterceptor extends Interceptor {
             true,
           );
           return;
-            break;
         default:
           handler.reject(
             DioException(

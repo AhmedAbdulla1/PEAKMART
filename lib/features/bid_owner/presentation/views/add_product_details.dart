@@ -37,7 +37,7 @@ class _AddProductDetailsState extends State<AddProductDetails> {
       create: (context) => AddProductCubit(),
       child: Scaffold(
         appBar: AppBar(
-          title:  Text(AppStrings.productDetails,
+          title: Text(AppStrings.productDetails,
               style: getBoldStyle(
                   fontSize: FontSize.s25, color: ColorManager.white)),
           backgroundColor: ColorManager.primary,

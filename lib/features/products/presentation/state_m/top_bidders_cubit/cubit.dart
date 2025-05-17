@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer' as log;
 import 'dart:math';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,8 +65,6 @@ class TopBidderCubit extends Cubit<TopBiddersState> {
     // إعادة الترتيب بناءً على السعر
     bidders.sort((a, b) => b.bidAmount.compareTo(a.bidAmount));
     productBidders[productId] = bidders;
-
-
 
     emit(TopBiddersSuccessState(topBidders: List.from(bidders)));
   }

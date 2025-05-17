@@ -30,11 +30,12 @@ class TopBiddersResponse extends BaseResponse<TopBiddersEntity> {
 
 @override
 class TopBiddersDataResponse {
-  final String userName,userPhoto;
+  final String userName, userPhoto;
 
   final int bidderId, bidAmount, productId;
   TopBiddersDataResponse(
-      {required this.userName,required this.userPhoto, 
+      {required this.userName,
+      required this.userPhoto,
       required this.bidderId,
       required this.bidAmount,
       required this.productId});

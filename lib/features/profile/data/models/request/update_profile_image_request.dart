@@ -1,7 +1,6 @@
-
 class UpdateProfileImageRequest {
   final String imagePath;
-  final String password ;
+  final String password;
   UpdateProfileImageRequest({
     required this.password,
     required this.imagePath,

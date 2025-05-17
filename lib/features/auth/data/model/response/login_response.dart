@@ -10,15 +10,16 @@ class LoginResponse extends BaseResponse<BaseEntity> {
   LoginResponse({
     required super.status,
     required super.message,
-    required this.data, required super.code,
+    required this.data,
+    required super.code,
   });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
     log('on from json');
     return LoginResponse(
-      status: json['status']??"",
-      message: json['message']??"",
-      code: json['code']??200,
+      status: json['status'] ?? "",
+      message: json['message'] ?? "",
+      code: json['code'] ?? 200,
       data: LoginData(
         email: json['data']['EMAIL'],
         userId: json['data']['USER_ID'],

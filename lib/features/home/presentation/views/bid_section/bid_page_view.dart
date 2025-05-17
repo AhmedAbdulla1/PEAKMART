@@ -57,8 +57,6 @@
 //     return 1 - (scale * 0.2); // Gradual scale decrease
 //   }
 
-
-
 //   // Function to calculate the opacity based on the scale
 //   double _calculateOpacity(int index) {
 //     // Calculate the distance from the current page
@@ -104,7 +102,6 @@
 //       ),
 //     );
 //   }
-
 
 //   void _pauseAutoScroll() {
 //     _timer?.cancel(); // Cancel the current timer

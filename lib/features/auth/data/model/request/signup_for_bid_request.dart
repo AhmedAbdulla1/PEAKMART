@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:peakmart/core/requests/base_request.dart';
 
-
 class RegisterAsSellerRequest extends BaseRequest {
   final String displayName;
   final String governmentName;
@@ -10,9 +9,12 @@ class RegisterAsSellerRequest extends BaseRequest {
   final String address;
   final String country;
 
-
   RegisterAsSellerRequest(
-      {required this.displayName, required this.governmentName, required this.cityName, required this.address, required this.country});
+      {required this.displayName,
+      required this.governmentName,
+      required this.cityName,
+      required this.address,
+      required this.country});
 
   @override
   void printRequest() {
@@ -26,7 +28,7 @@ class RegisterAsSellerRequest extends BaseRequest {
       "government_name": governmentName,
       "city_name": cityName,
       "address": address,
-      "country":country ,
+      "country": country,
     };
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/assets_manager.dart';
+import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
@@ -46,17 +47,7 @@ class _PaymentReceiptScreenState extends State<PaymentReceiptScreen> {
     final qrData = 'https://hk.herova.net/reciet.php?tap_id=$paymentId';
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Payment Receipt'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context, {
-              'payment_status': 'cancelled',
-            });
-          },
-        ),
-      ),
+      appBar: CustomAppBar(title: 'Payment Receipt',isNotShowArrowBack: true,),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),

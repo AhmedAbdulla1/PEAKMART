@@ -12,9 +12,9 @@ class TopBiddersSection extends StatefulWidget {
   const TopBiddersSection(
       {super.key,
       required this.topBiddersData,
-      required this.isBiddersAvaliable});
+      required this.isBiddersAvaliable, required this.isError});
   final List<TopBiddersData> topBiddersData;
-  final bool isBiddersAvaliable;
+  final bool isBiddersAvaliable,isError;
   @override
   State<TopBiddersSection> createState() => _TopBiddersSectionState();
 }
@@ -37,7 +37,7 @@ class _TopBiddersSectionState extends State<TopBiddersSection> {
               ),
             ),
             10.vGap,
-            widget.isBiddersAvaliable
+           widget.isBiddersAvaliable
                 ? SizedBox(
                     height: widget.topBiddersData.length * 80,
                     child: AnimatedReorderableListView(
@@ -69,7 +69,7 @@ class _TopBiddersSectionState extends State<TopBiddersSection> {
                     ),
                   )
                 : Text(
-                    "There are no bidders yet",
+                  widget.isError? "Failed to load bidding data": "There are no bidders yet",
                     style:
                         getRegularStyle(fontSize: 18, color: ColorManager.red),
                   )

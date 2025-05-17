@@ -5,7 +5,11 @@ class TopBiddersEntity extends BaseEntity {
   final int totalEnrolled, totalBidders;
   final bool userStatus;
 
- const TopBiddersEntity({required this.data, required this.totalEnrolled, required this.totalBidders, required this.userStatus});
+  const TopBiddersEntity(
+      {required this.data,
+      required this.totalEnrolled,
+      required this.totalBidders,
+      required this.userStatus});
 
   @override
   List<Object?> get props => data;
@@ -13,7 +17,8 @@ class TopBiddersEntity extends BaseEntity {
 
 class TopBiddersData {
   final String userName, userPhoto;
-  final int bidderId, bidAmount, productId;
+  final int productId;
+  final double bidderId, bidAmount;
   const TopBiddersData({
     required this.userName,
     required this.userPhoto,

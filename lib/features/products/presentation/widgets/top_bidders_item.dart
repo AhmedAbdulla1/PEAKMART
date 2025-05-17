@@ -36,8 +36,7 @@ class TopBidderItem extends StatelessWidget {
             Expanded(
               child: ListTile(
                 leading: CircleAvatar(
-                  backgroundImage: AssetImage(topBiddersData
-                      .userPhoto), // *edit by network image in future
+                  backgroundImage: NetworkImage(topBiddersData.userPhoto),
                 ),
                 title: Row(
                   children: [

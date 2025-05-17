@@ -21,9 +21,9 @@ class TopBiddersResponse extends BaseResponse<TopBiddersEntity> {
             .map((bidder) => TopBiddersDataResponse.fromJson(bidder))),
         message: json["message"],
         status: json["status"],
-        code: int.tryParse(json["status_code"])??0,
-        totalBidders: int.tryParse(json['total_bidders'].toString())??0,
-        totalEnrolled: int.tryParse(json['total_enrolled'].toString())??0,
+        code: int.tryParse(json["status_code"].toString()) ?? 0,
+        totalBidders: int.tryParse(json['total_bidders'].toString()) ?? 0,
+        totalEnrolled: int.tryParse(json['total_enrolled'].toString()) ?? 0,
         userStatus: json['user_status']);
   }
 
@@ -42,7 +42,8 @@ class TopBiddersResponse extends BaseResponse<TopBiddersEntity> {
 class TopBiddersDataResponse {
   final String userName, userPhoto;
 
-  final int bidderId, bidAmount, productId;
+  final int productId;
+  final double bidderId, bidAmount;
   TopBiddersDataResponse(
       {required this.userName,
       required this.userPhoto,
@@ -54,9 +55,15 @@ class TopBiddersDataResponse {
     return TopBiddersDataResponse(
       userName: json['USER_NAME'] ?? "",
       userPhoto: json['PHOTO'] ?? "",
-      bidderId: int.tryParse(json['BIDDER_ID']) ?? 0,
-      bidAmount: int.tryParse(json['BID_AMOUNT']) ?? 0,
-      productId: int.tryParse(json['I_ID']) ?? 0,
+      bidderId: json['BIDDER_ID'] is double
+          ? json['BIDDER_ID']
+          : double.tryParse(json['BIDDER_ID'].toString()) ?? 0,
+      bidAmount: json['BID_AMOUNT'] is double
+          ? json['BID_AMOUNT']
+          : double.tryParse(json['BID_AMOUNT'].toString())?.toDouble() ?? 0,
+      productId: json['I_ID'] is int
+          ? json['I_ID']
+          : int.tryParse(json['I_ID'].toString()) ?? 0,
     );
   }
 

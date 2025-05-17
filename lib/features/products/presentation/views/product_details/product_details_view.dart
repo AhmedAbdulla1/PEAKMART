@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
 import 'package:peakmart/features/products/presentation/state_m/product_cubit/cubit.dart';
 import 'package:peakmart/features/products/presentation/state_m/product_cubit/state.dart';
@@ -29,7 +30,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         body: BlocBuilder<ProductCubit, ProductState>(
           builder: (context, state) {
             if (state is ProductLoading) {
-              return const Center(child: CircularProgressIndicator());
+              return const WaitingWidget();
             } else if (state is ProductDetailsLoaded) {
               final product = state.product;
               return BlocProvider(
@@ -59,7 +60,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                       label: const Text("Try Again"),
                       onPressed: () {
-                        ProductCubit().getProductById(id: widget.productId);
+                        context
+                            .read<ProductCubit>()
+                            .getProductById(id: widget.productId);
                       },
                     ),
                   ],

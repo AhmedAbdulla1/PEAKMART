@@ -9,12 +9,16 @@ import 'package:peakmart/features/products/domain/entity/top_bidders_entity.dart
 import 'package:peakmart/features/products/presentation/widgets/top_bidders_item.dart';
 
 class TopBiddersSection extends StatefulWidget {
-  const TopBiddersSection(
-      {super.key,
-      required this.topBiddersData,
-      required this.isBiddersAvaliable});
+  const TopBiddersSection({
+    super.key,
+    required this.isBiddersAvaliable,
+    required this.isError,
+    required this.topBiddersData,
+  });
   final List<TopBiddersData> topBiddersData;
-  final bool isBiddersAvaliable;
+
+  final bool isBiddersAvaliable, isError;
+
   @override
   State<TopBiddersSection> createState() => _TopBiddersSectionState();
 }
@@ -39,16 +43,20 @@ class _TopBiddersSectionState extends State<TopBiddersSection> {
             10.vGap,
             widget.isBiddersAvaliable
                 ? SizedBox(
-                    height: widget.topBiddersData.length * 80,
+                    height: (widget.topBiddersData.length.clamp(0, 4)) * 80,
                     child: AnimatedReorderableListView(
                       longPressDraggable: false,
                       items: widget.topBiddersData,
                       itemBuilder: (context, index) {
+                        if (index > 3) return const SizedBox.shrink();
+
                         final bidder = widget.topBiddersData[index];
+
                         return TopBidderItem(
                           key: ValueKey(bidder.bidderId),
                           topBiddersData: bidder,
                           rank: index + 1,
+                          isFaded: index == 3,
                         );
                       },
                       enterTransition: [
@@ -69,7 +77,9 @@ class _TopBiddersSectionState extends State<TopBiddersSection> {
                     ),
                   )
                 : Text(
-                    "There are no bidders yet",
+                    widget.isError
+                        ? "Failed to load bidding data"
+                        : "There are no bidders yet",
                     style:
                         getRegularStyle(fontSize: 18, color: ColorManager.red),
                   )

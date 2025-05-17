@@ -9,6 +9,7 @@ import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/home/presentation/state_m/home_cubits/future_bids_cubit.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/titled_bid_section.dart';
 import 'package:peakmart/features/payment/presentation/cubit/payment_cubit.dart';
@@ -33,135 +34,131 @@ class ProductDetailsViewBody extends StatefulWidget {
 }
 
 class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
-  late TopBiddersEntity topBiddersEntity;
+  @override
+  void initState() {
+    BlocProvider.of<TopBidderCubit>(context)
+        .startAutoRefresh(widget.product.id);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TopBidderCubit, TopBiddersState>(
       builder: (context, state) {
-        if (state is TopBiddersLoadingState) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is TopBiddersFailureState) {
-          return Center(
-            child: Text("Error loading top bidders",
-                style: getRegularStyle(fontSize: 18)),
-          );
-        } else if (state is TopBiddersSuccessState) {
-          topBiddersEntity = state.topBidders;
+        final bool isLoading = state is TopBiddersLoadingState;
+        final bool isError = state is TopBiddersFailureState;
+        final TopBiddersEntity? topBiddersEntity =
+            state is TopBiddersSuccessState ? state.topBidders : null;
 
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                ProductDetailsImages(imageUrls: widget.product.imageUrl),
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.product.name,
-                        style: getBoldStyle(fontSize: FontSize.s24),
-                      ),
-                      16.vGap,
-                      CustomRichText(
-                        title: "Description: ",
-                        description: widget.product.description,
-                      ),
-                      8.vGap,
-                      CustomRichText(
-                        title: "Start Date: ",
-                        description: widget.product.startDate,
-                      ),
-                      8.vGap,
-                      CustomRichText(
-                        title: "Start Bid: ",
-                        description: '${widget.product.price}\$',
-                      ),
-                      8.vGap,
-                      CustomRichText(
-                        title: "Current Price: ",
-                        description: '${widget.product.price}\$',
-                      ),
-                      8.vGap,
-                      CustomRichText(
-                        title: "End Date: ",
-                        description: widget.product.endDate,
-                      ),
-                      8.vGap,
-                      Text(
-                        '*${topBiddersEntity.totalBidders} Bidding process',
-                        style: getBoldStyle(
-                          fontSize: FontSize.s16,
-                          color: ColorManager.primary,
-                        ),
-                      ),
+        final int totalBidders = topBiddersEntity?.totalBidders ?? 0;
+        final int totalEnrolled = topBiddersEntity?.totalEnrolled ?? 0;
+        final bool userStatus = topBiddersEntity?.userStatus ?? false;
 
-                      // Text(
-                      //   'Now Bid: \$1000', //* edit if found bidders topBiddersEntity.data[0].amount
-                      //   style: getBoldStyle(fontSize: FontSize.s16),
-                      // ),
-
-                      Row(
-                        children: [
-                          Text(
-                            '*${topBiddersEntity.totalEnrolled} people enrolled',
-                            style: getBoldStyle(
-                              fontSize: FontSize.s16,
-                              color: ColorManager.primary,
-                            ),
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              ProductDetailsImages(imageUrls: widget.product.imageUrl),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.product.name,
+                      style: getBoldStyle(fontSize: FontSize.s24),
+                    ),
+                    16.vGap,
+                    CustomRichText(
+                      title: "Description: ",
+                      description: widget.product.description,
+                    ),
+                    8.vGap,
+                    CustomRichText(
+                      title: "Start Date: ",
+                      description: widget.product.startDate,
+                    ),
+                    8.vGap,
+                    CustomRichText(
+                      title: "Start Bid: ",
+                      description: '${widget.product.price}\$',
+                    ),
+                    8.vGap,
+                    CustomRichText(
+                      title: "Current Price: ",
+                      description: '${widget.product.price}\$',
+                    ),
+                    8.vGap,
+                    CustomRichText(
+                      title: "End Date: ",
+                      description: widget.product.endDate,
+                    ),
+                    8.vGap,
+                    Text(
+                      '*$totalBidders Bidding process',
+                      style: getBoldStyle(
+                        fontSize: FontSize.s16,
+                        color: ColorManager.primary,
+                      ),
+                    ),
+                    8.vGap,
+                    Row(
+                      children: [
+                        Text(
+                          '*$totalEnrolled people enrolled',
+                          style: getBoldStyle(
+                            fontSize: FontSize.s16,
+                            color: ColorManager.primary,
                           ),
-                          const Spacer(),
-                          ElevatedButton(
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) =>
-                                      topBiddersEntity.userStatus == true
-                                          ? BidDialog(
-                                              higherPrice: widget.product.price,
-                                            )
-                                          // her if enroll show payment dialog
-                                          : BlocProvider(
-                                              create: (context) =>
-                                                  PaymentCubit(),
-                                              child: PaymentDialog(
-                                                  netPrice:
-                                                      widget.product.price),
-                                            ),
-                                ).then((bid) {
-                                  if (bid != null) {
-                                    log('User entered bid: $bid');
-                                    // Handle the bid value
-                                  }
-                                });
-                              },
-                              child: Text(topBiddersEntity.userStatus == true
-                                  ? 'Bid Now'
-                                  : 'Enroll Now'))
-                        ],
-                      ),
-                      16.vGap,
-                      TopBiddersSection(
-                          topBiddersData: topBiddersEntity.data,
-                          isBiddersAvaliable: topBiddersEntity.data.isNotEmpty),
-                      10.vGap,
-                      BlocProvider(
-                        create: (context) => FutureBidsCubit()..getFutureBids(),
-                        child: const TitledBidSection<FutureBidsCubit>(
-                          title: 'Recommended Bids',
-                          isTrending: true,
                         ),
+                        const Spacer(),
+                        ElevatedButton(
+                          onPressed: isError
+                              ? null
+                              : () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => userStatus
+                                        ? BidDialog(
+                                            higherPrice: widget.product.price,
+                                          )
+                                        : BlocProvider(
+                                            create: (context) => PaymentCubit(),
+                                            child: PaymentDialog(
+                                                netPrice: widget.product.price),
+                                          ),
+                                  ).then((bid) {
+                                    if (bid != null) {
+                                      log('User entered bid: $bid');
+                                    }
+                                  });
+                                },
+                          child: Text(userStatus ? 'Bid Now' : 'Enroll Now'),
+                        ),
+                      ],
+                    ),
+                    8.vGap,
+                    if (isLoading) const WaitingWidget(),
+                    16.vGap,
+                    TopBiddersSection(
+                      topBiddersData: topBiddersEntity?.data ?? [],
+                      isError: isError,
+                      isBiddersAvaliable:
+                          (topBiddersEntity?.data ?? []).isNotEmpty,
+                    ),
+                    10.vGap,
+                    BlocProvider(
+                      create: (context) => FutureBidsCubit()..getFutureBids(),
+                      child: const TitledBidSection<FutureBidsCubit>(
+                        title: 'Recommended Bids',
+                        isTrending: true,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          );
-        }
-
-        return const SizedBox.shrink(); // fallback
+              ),
+            ],
+          ),
+        );
       },
     );
   }
@@ -175,6 +172,7 @@ class CustomRichText extends StatelessWidget {
   });
 
   final String title, description;
+
   @override
   Widget build(BuildContext context) {
     return RichText(
@@ -186,7 +184,9 @@ class CustomRichText extends StatelessWidget {
         ),
         children: [
           TextSpan(
-              text: description, style: getRegularStyle(fontSize: FontSize.s16))
+            text: description,
+            style: getRegularStyle(fontSize: FontSize.s16),
+          ),
         ],
       ),
     );

@@ -12,15 +12,22 @@ class TopBidderItem extends StatelessWidget {
     super.key,
     required this.topBiddersData,
     required this.rank,
+    this.isFaded = false,
   });
 
   final TopBiddersData topBiddersData;
   final int rank;
+  final bool isFaded;
+
   @override
   Widget build(BuildContext context) {
+    final baseColor = isFaded
+        ? ColorManager.greyColor.withOpacity(0.3)
+        : context.colorScheme.surface;
+
     return Card(
-      color: context.colorScheme.surface,
-      elevation: 2,
+      color: baseColor,
+      elevation: isFaded ? 0 : 2,
       child: Padding(
         key: ValueKey(topBiddersData.bidderId),
         padding: const EdgeInsets.symmetric(
@@ -30,26 +37,33 @@ class TopBidderItem extends StatelessWidget {
             Text(
               rank.toString(),
               style: getBoldStyle(
-                  fontSize: FontSize.s20, color: ColorManager.primary),
+                  fontSize: FontSize.s20,
+                  color:
+                      isFaded ? ColorManager.greyColor : ColorManager.primary),
             ),
             SizedBox(width: 6.w),
             Expanded(
               child: ListTile(
                 leading: CircleAvatar(
-                  backgroundImage: AssetImage(topBiddersData
-                      .userPhoto), // *edit by network image in future
+                  backgroundImage: NetworkImage(topBiddersData.userPhoto),
                 ),
                 title: Row(
                   children: [
                     Text(
                       topBiddersData.userName,
-                      style: getMediumStyle(fontSize: FontSize.s14),
+                      style: getMediumStyle(
+                        fontSize: FontSize.s14,
+                      ).copyWith(
+                        color: isFaded ? Colors.grey : null,
+                      ),
                     ),
                     const Spacer(),
                     Text(
                       "\$${topBiddersData.bidAmount}",
                       style: getBoldStyle(
-                          fontSize: FontSize.s16, color: ColorManager.primary),
+                        fontSize: FontSize.s16,
+                        color: isFaded ? Colors.grey : ColorManager.primary,
+                      ),
                     ),
                   ],
                 ),

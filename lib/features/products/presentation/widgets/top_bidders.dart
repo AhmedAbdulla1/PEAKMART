@@ -7,14 +7,15 @@ import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
-import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/cubit.dart';
-import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/states.dart';
+import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_cubit.dart';
+import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_states.dart';
 import 'package:peakmart/features/products/presentation/widgets/top_bidders_item.dart';
 
 class TopBidders extends StatefulWidget {
-  const TopBidders({super.key, required this.productId});
+  const TopBidders(
+      {super.key, required this.productId, required this.returnNowBid});
   final int productId;
-
+  final Function(int nowBidAmount) returnNowBid;
   @override
   State<TopBidders> createState() => _TopBiddersState();
 }
@@ -24,7 +25,7 @@ class _TopBiddersState extends State<TopBidders> {
   void initState() {
     super.initState();
     log("productId: ${widget.productId}");
-    BlocProvider.of<TopBidderCubit>(context).startAutoRefresh(widget.productId);
+    // BlocProvider.of<TopBidderCubit>(context).startAutoRefresh(widget.productId);
   }
 
   @override
@@ -49,14 +50,20 @@ class _TopBiddersState extends State<TopBidders> {
                 if (state is TopBiddersLoadingState) {
                   return const CircularProgressIndicator();
                 } else if (state is TopBiddersFailureState) {
-                  return const Text("Error loading top bidders",
-                      style: TextStyle(color: Colors.white));
+                  return Text("Error loading top bidders",
+                      style: getRegularStyle(fontSize: 18));
                 } else if (state is TopBiddersSuccessState) {
                   final topBidders = state.topBidders;
                   if (topBidders.isEmpty) {
-                    return const Text("There are no bidders yet",
-                        style: TextStyle(color: Colors.white));
+                    return Text("There are no bidders yet",
+                        style: getRegularStyle(fontSize: 18));
                   }
+                  if (topBidders.isNotEmpty) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      widget.returnNowBid(topBidders[0].bidAmount);
+                    });
+                  }
+
                   return SizedBox(
                     height: topBidders.length * 80,
                     child: AnimatedReorderableListView(

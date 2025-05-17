@@ -9,7 +9,7 @@ import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
-import 'package:peakmart/features/products/presentation/views/product_details/product_details.dart';
+import 'package:peakmart/features/products/presentation/views/product_details/product_details_view.dart';
 
 class ProductItemWidget extends StatelessWidget {
   const ProductItemWidget({

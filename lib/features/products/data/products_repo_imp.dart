@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/app/network_info.dart';
@@ -36,6 +38,32 @@ class ProductsRepoImp extends ProductsRepo {
       result = Result(error: const AppErrors.connectionError());
     }
     return result;
+  }
+
+  @override
+  Future<Result<AppErrors, ProductsEntity>> getProductById(
+      int productId) async {
+    {
+      Result<AppErrors, ProductsEntity> result;
+      if (await _networkInfo.isConnected) {
+        try {
+          Either<AppErrors, ProductsResponse> response =
+              await _remoteDataSource.getProductById(productId);
+          result = response.fold((error) {
+            return Result(error: error);
+          }, (response) {
+            log("in repo impl ${response.toString()}");
+            return Result(data: response.toEntity());
+          });
+        } catch (error) {
+          log("in repo impl ${error.toString()}");
+          result = Result(error: const AppErrors.responseError());
+        }
+      } else {
+        result = Result(error: const AppErrors.connectionError());
+      }
+      return result;
+    }
   }
 
   @override

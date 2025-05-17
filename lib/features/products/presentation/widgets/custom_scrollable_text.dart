@@ -27,8 +27,8 @@ class CustomScrollableText extends StatelessWidget {
                     text,
                     textAlign: TextAlign.start,
                     style: getRegularStyle(
-                        fontSize: FontSize.s17,
-                        color: ColorManager.black.withOpacity(.8)),
+                      fontSize: FontSize.s17,
+                    ),
                   ),
                 ),
               )),

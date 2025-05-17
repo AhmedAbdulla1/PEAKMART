@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
-
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/features/home/domain/entity/news_entity.dart';
 import 'package:peakmart/features/home/presentation/views/news_section/animations_view_model.dart';
+import 'package:peakmart/features/products/presentation/views/product_details/product_details_view.dart';
 import 'package:text_scroll/text_scroll.dart';
 
 class AnimatedNewsContainer extends StatefulWidget {
@@ -77,20 +77,26 @@ class _AnimatedNewsContainerState extends State<AnimatedNewsContainer>
                           ),
                         ]),
                     child: Center(
-                      child: TextScroll(
-                        widget.newsModel.content,
-                        mode: TextScrollMode.endless,
-                        velocity:
-                            const Velocity(pixelsPerSecond: Offset(50, 0)),
-                        delayBefore: const Duration(seconds: 2),
-                        pauseBetween: const Duration(milliseconds: 1000),
-                        style: getBoldStyle(
-                          fontSize: FontSize.s16,
-                          color: ColorManager.black,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, ProductDetails.routeName,
+                              arguments: widget.newsModel.id);
+                        },
+                        child: TextScroll(
+                          widget.newsModel.content,
+                          mode: TextScrollMode.endless,
+                          velocity:
+                              const Velocity(pixelsPerSecond: Offset(50, 0)),
+                          delayBefore: const Duration(seconds: 2),
+                          pauseBetween: const Duration(milliseconds: 1000),
+                          style: getBoldStyle(
+                            fontSize: FontSize.s16,
+                            color: ColorManager.black,
+                          ),
+                          intervalSpaces: 20,
+                          // fadedBorder: true,
+                          textAlign: TextAlign.right,
                         ),
-                        intervalSpaces: 20,
-                        // fadedBorder: true,
-                        textAlign: TextAlign.right,
                       ),
                     ),
                   ),

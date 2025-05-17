@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/results/result.dart';
@@ -35,8 +37,19 @@ class ProductCubit extends Cubit<ProductState> {
     }
   }
 
-  Future<void> getProductById(int id) async {
+  Future<void> getProductById({required int id}) async {
     emit(ProductLoading());
+    Result<AppErrors, ProductsEntity> result =
+        await productsRepo.getProductById(id);
+    result.pick(onData: (data) {
+      log("data: ${data.data}");
+      log("show details of product id: $id");
+      emit(ProductDetailsLoaded(product: data.data[0]));
+    }, onError: (error) {
+      log("error: ${error.toString()}");
+      emit(ProductError(
+          error: CustomError(message: error.toString()), onRetry: () {}));
+    });
   }
 
   Future<void> fetchProductsByCategory(

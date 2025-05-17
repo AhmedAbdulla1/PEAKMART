@@ -7,13 +7,11 @@ import '../../domain/usecases/fetch_payment_details.dart';
 part 'payment_state.dart';
 
 class PaymentCubit extends Cubit<PaymentState> {
-  final FetchPaymentDetails fetchPaymentDetails;
-
-  PaymentCubit(this.fetchPaymentDetails) : super(PaymentInitial());
+  PaymentCubit() : super(PaymentInitial());
 
   Future<void> loadPaymentDetails(String tapId) async {
     emit(PaymentLoading());
-    final result = await fetchPaymentDetails(tapId);
+    final result = await FetchPaymentDetails().call(tapId);
     result.fold(
       (failure) => emit(PaymentError(failure.message)),
       (payment) => emit(PaymentLoaded(payment)),
@@ -22,7 +20,7 @@ class PaymentCubit extends Cubit<PaymentState> {
 
   Future<void> loadPaymentFees() async {
     emit(PaymentLoading());
-    final result = await fetchPaymentDetails.fetchFees();
+    final result = await FetchPaymentDetails().fetchFees();
     result.fold(
       (failure) => emit(PaymentError(failure.message)),
       (fees) => emit(FeesLoaded(fees)),

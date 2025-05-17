@@ -11,6 +11,8 @@ import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/features/home/presentation/state_m/home_cubits/future_bids_cubit.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/titled_bid_section.dart';
+import 'package:peakmart/features/payment/presentation/cubit/payment_cubit.dart';
+import 'package:peakmart/features/payment/presentation/views/bid_dialog.dart';
 import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_cubit.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/widgets/bid_dialog.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/widgets/prodcut_details_images.dart';
@@ -83,8 +85,18 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                         onPressed: () {
                           showDialog<double?>(
                             context: context,
-                            builder: (context) =>
-                                BidDialog(higherPrice: widget.product.price),
+                            builder: (context) => false
+                                //her if bid
+                                ? BidDialog(
+                                    higherPrice: widget.product.price,
+                                  )
+                            // her if enroll show payment dialog
+                                : BlocProvider
+                              (
+                              create:    (context)=>PaymentCubit(),
+                                  child: PaymentDialog(
+                                      higherPrice: widget.product.price),
+                                ),
                           ).then((bid) {
                             if (bid != null) {
                               log('User entered bid: $bid');
@@ -92,7 +104,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                             }
                           });
                         },
-                        child: const Text('Roll Now'))
+                        child: const Text(false ? 'Bid Now' : 'Enroll Now'))
                   ],
                 ),
                 SizedBox(height: 16.h),

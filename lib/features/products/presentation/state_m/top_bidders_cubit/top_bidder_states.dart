@@ -14,6 +14,6 @@ final class TopBiddersFailureState extends TopBiddersState {
 }
 
 final class TopBiddersSuccessState extends TopBiddersState {
-  final List<TopBiddersData> topBidders;
+  final TopBiddersEntity topBidders;
   TopBiddersSuccessState({required this.topBidders});
 }

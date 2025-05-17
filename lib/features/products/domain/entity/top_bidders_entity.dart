@@ -2,7 +2,10 @@ import 'package:peakmart/core/entities/base_entity.dart';
 
 class TopBiddersEntity extends BaseEntity {
   final List<TopBiddersData> data;
-  const TopBiddersEntity({required this.data});
+  final int totalEnrolled, totalBidders;
+  final bool userStatus;
+
+ const TopBiddersEntity({required this.data, required this.totalEnrolled, required this.totalBidders, required this.userStatus});
 
   @override
   List<Object?> get props => data;
@@ -17,6 +20,5 @@ class TopBiddersData {
     required this.bidderId,
     required this.bidAmount,
     required this.productId,
-
   });
 }

@@ -6,6 +6,7 @@ import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
 import 'package:peakmart/features/products/presentation/state_m/product_cubit/cubit.dart';
 import 'package:peakmart/features/products/presentation/state_m/product_cubit/state.dart';
+import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_cubit.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/widgets/product_details_view_body.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -31,7 +32,11 @@ class _ProductDetailsState extends State<ProductDetails> {
               return const Center(child: CircularProgressIndicator());
             } else if (state is ProductDetailsLoaded) {
               final product = state.product;
-              return ProductDetailsViewBody(product: product);
+              return BlocProvider(
+                create: (context) =>
+                    TopBidderCubit()..getTopBidders(productId: product.id),
+                child: ProductDetailsViewBody(product: product),
+              );
             } else if (state is ProductError) {
               return Center(
                 child: Column(

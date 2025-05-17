@@ -3,38 +3,48 @@ import 'package:peakmart/features/products/domain/entity/top_bidders_entity.dart
 
 class TopBiddersResponse extends BaseResponse<TopBiddersEntity> {
   final List<TopBiddersDataResponse> data;
-
+  final int totalBidders, totalEnrolled;
+  final bool userStatus;
   TopBiddersResponse(
       {required this.data,
       required super.message,
       required super.status,
-      required super.code});
+      required super.code,
+      required this.totalBidders,
+      required this.totalEnrolled,
+      required this.userStatus});
 
   factory TopBiddersResponse.fromJson(Map<String, dynamic> json) {
     return TopBiddersResponse(
-      data: List<TopBiddersDataResponse>.from(json["data"]
-          .map((bidder) => TopBiddersDataResponse.fromJson(bidder))),
-      message: json["message"],
-      status: json["status"],
-      code: 200,
-    );
+        data: List<TopBiddersDataResponse>.from(json["data"]
+            .map((bidder) => TopBiddersDataResponse.fromJson(bidder))),
+        message: json["message"],
+        status: json["status"],
+        code: json["status_code"],
+        totalBidders: json['total_bidders'],
+        totalEnrolled: json['total_enrolled'],
+        userStatus: json['user_status']);
   }
 
   @override
   TopBiddersEntity toEntity() {
     return TopBiddersEntity(
       data: data.map((bidderData) => bidderData.toEntity()).toList(),
+      totalBidders: totalBidders,
+      totalEnrolled: totalEnrolled,
+      userStatus: userStatus,
     );
   }
 }
 
 @override
 class TopBiddersDataResponse {
-  final String userName,userPhoto;
+  final String userName, userPhoto;
 
   final int bidderId, bidAmount, productId;
   TopBiddersDataResponse(
-      {required this.userName,required this.userPhoto, 
+      {required this.userName,
+      required this.userPhoto,
       required this.bidderId,
       required this.bidAmount,
       required this.productId});

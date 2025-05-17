@@ -11,8 +11,9 @@ import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubi
 
 class TopBidderCubit extends Cubit<TopBiddersState> {
   final ProductsRepo productsRepo = ProductsRepoImp();
-  final Map<int, List<TopBiddersData>> productBidders = {};
+  // final Map<int, List<TopBiddersData>> productBidders = {};
   Timer? _timer;
+  late TopBiddersEntity topBiddersEntity;
 
   TopBidderCubit() : super(TopBiddersInitialState());
 
@@ -24,14 +25,14 @@ class TopBidderCubit extends Cubit<TopBiddersState> {
 
     result.pick(
       onData: (data) {
-        final topBidders = data.data;
+        topBiddersEntity = data;
+        log.log("in top bidders cubit data is ${topBiddersEntity.data}");
+        log.log(
+            "in top bidders cubit totalBidders is ${topBiddersEntity.totalBidders}");
+        log.log(
+            "in top bidders cubit totalEnrolled is ${topBiddersEntity.totalEnrolled}");
 
-        // حفظ البيانات مؤقتاً إن احتجت لاحقاً
-        productBidders[productId] = topBidders;
-
-        log.log("✅ تم جلب المزايدين للمنتج $productId: $topBidders");
-
-        emit(TopBiddersSuccessState(topBidders: topBidders));
+        emit(TopBiddersSuccessState(topBidders: topBiddersEntity));
       },
       onError: (error) {
         log.log("❌ خطأ أثناء جلب المزايدين للمنتج $productId: $error");
@@ -50,14 +51,6 @@ class TopBidderCubit extends Cubit<TopBiddersState> {
     _timer = Timer.periodic(const Duration(seconds: 5), (_) {
       getTopBidders(productId: productId);
     });
-  }
-
-  void reorderBidders(int oldIndex, int newIndex, int productId) {
-    final bidders = List<TopBiddersData>.from(productBidders[productId] ?? []);
-    final item = bidders.removeAt(oldIndex);
-    bidders.insert(newIndex, item);
-    productBidders[productId] = bidders;
-    emit(TopBiddersSuccessState(topBidders: List.from(bidders)));
   }
 
   @override

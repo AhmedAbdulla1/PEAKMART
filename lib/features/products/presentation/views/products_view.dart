@@ -10,7 +10,6 @@ import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
-import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/home/presentation/state_m/category_cubit/category_cubit.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/widgets/custom_bid_item.dart';
 import 'package:peakmart/features/home/presentation/views/category_section/catrgory_view.dart';
@@ -227,7 +226,7 @@ class _ProductsViewState extends State<ProductsView> {
                 },
                 builder: (context, state) {
                   if (state is ProductLoading && allProducts.isEmpty) {
-                    return  Skeletonizer(child: FakeProductsGridView());
+                    return Skeletonizer(child: FakeProductsGridView());
                   }
 
                   if (state is ProductError) {
@@ -348,17 +347,18 @@ class FakeProductsGridView extends StatelessWidget {
     super.key,
   });
 
-  final List<ProductEntity> filteredProducts =
-      List.generate(10, (index) => ProductEntity(
-        id: index,
-        name: 'Product $index',
-        description: 'Description $index',
-        imageUrl: [],
-        endDate: DateTime.now().toString(),
-        peopleRolledIn: 0,
-        price: 0,
-        isEnded: false,
-      ));
+  final List<ProductEntity> filteredProducts = List.generate(
+      10,
+      (index) => ProductEntity(
+            id: index,
+            name: 'Product $index',
+            description: 'Description $index',
+            imageUrl: [],
+            endDate: DateTime.now().toString(),
+            peopleRolledIn: 0,
+            price: 0,
+            isEnded: false,
+          ));
 
   @override
   Widget build(BuildContext context) {

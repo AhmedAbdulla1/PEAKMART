@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
+import 'package:peakmart/app/app_prefs.dart' show AppPreferences;
+import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/constants/enums/http_method.dart';
 import 'package:peakmart/core/data_source/remote_data_source.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
@@ -30,6 +32,7 @@ class ProductsDataSource extends RemoteDataSource {
         method: HttpMethod.GET,
         queryParameters: {
           "id": productId,
+          "userId": 1,
         },
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
@@ -55,9 +58,12 @@ class ProductsDataSource extends RemoteDataSource {
 
   Future<Either<AppErrors, TopBiddersResponse>> getTopBidders(
       int productId) async {
+    AppPreferences appPreferences = instance<AppPreferences>();
+    String userId = appPreferences.getUserId();
+    log("userId is $userId");
     return request<TopBiddersResponse>(
         method: HttpMethod.GET,
-        queryParameters: {"id": productId},
+        queryParameters: {"id": productId, "uid": userId},
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           return TopBiddersResponse.fromJson(json);

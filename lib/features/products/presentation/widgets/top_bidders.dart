@@ -1,33 +1,21 @@
-import 'dart:developer';
-
 import 'package:animated_reorderable_list/animated_reorderable_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
-import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_cubit.dart';
-import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_states.dart';
+import 'package:peakmart/features/products/domain/entity/top_bidders_entity.dart';
 import 'package:peakmart/features/products/presentation/widgets/top_bidders_item.dart';
 
-class TopBidders extends StatefulWidget {
-  const TopBidders(
-      {super.key, required this.productId, required this.returnNowBid});
-  final int productId;
-  final Function(int nowBidAmount) returnNowBid;
+class TopBiddersSection extends StatefulWidget {
+  const TopBiddersSection({super.key, required this.topBiddersData, required this.isBiddersAvaliable});
+  final List<TopBiddersData> topBiddersData;
+  final bool isBiddersAvaliable;
   @override
-  State<TopBidders> createState() => _TopBiddersState();
+  State<TopBiddersSection> createState() => _TopBiddersSectionState();
 }
 
-class _TopBiddersState extends State<TopBidders> {
-  @override
-  void initState() {
-    super.initState();
-    log("productId: ${widget.productId}");
-    // BlocProvider.of<TopBidderCubit>(context).startAutoRefresh(widget.productId);
-  }
-
+class _TopBiddersSectionState extends State<TopBiddersSection> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -45,59 +33,39 @@ class _TopBiddersState extends State<TopBidders> {
               ),
             ),
             10.vGap,
-            BlocBuilder<TopBidderCubit, TopBiddersState>(
-              builder: (context, state) {
-                if (state is TopBiddersLoadingState) {
-                  return const CircularProgressIndicator();
-                } else if (state is TopBiddersFailureState) {
-                  return Text("Error loading top bidders",
-                      style: getRegularStyle(fontSize: 18));
-                } else if (state is TopBiddersSuccessState) {
-                  final topBidders = state.topBidders;
-                  if (topBidders.isEmpty) {
-                    return Text("There are no bidders yet",
-                        style: getRegularStyle(fontSize: 18));
-                  }
-                  if (topBidders.isNotEmpty) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      widget.returnNowBid(topBidders[0].bidAmount);
-                    });
-                  }
-
-                  return SizedBox(
-                    height: topBidders.length * 80,
-                    child: AnimatedReorderableListView(
-                      longPressDraggable: false,
-                      items: topBidders,
-                      itemBuilder: (context, index) {
-                        final bidder = topBidders[index];
-                        return TopBidderItem(
-                          key: ValueKey(bidder.bidderId),
-                          topBiddersData: bidder,
-                          rank: index + 1,
-                        );
-                      },
-                      enterTransition: [
-                        SlideInDown(duration: const Duration(seconds: 2))
-                      ],
-                      exitTransition: [
-                        SlideInUp(duration: const Duration(seconds: 2))
-                      ],
-                      insertDuration: const Duration(milliseconds: 500),
-                      removeDuration: const Duration(milliseconds: 500),
-                      onReorder: (int oldIndex, int newIndex) {
-                        setState(() {
-                          final item = topBidders.removeAt(oldIndex);
-                          topBidders.insert(newIndex, item);
-                        });
-                      },
-                      isSameItem: (a, b) => a.bidderId == b.bidderId,
-                    ),
+        widget. isBiddersAvaliable?   SizedBox(
+              height: widget.topBiddersData.length * 80,
+              child: AnimatedReorderableListView(
+                longPressDraggable: false,
+                items: widget.topBiddersData,
+                itemBuilder: (context, index) {
+                  final bidder = widget.topBiddersData[index];
+                  return TopBidderItem(
+                    key: ValueKey(bidder.bidderId),
+                    topBiddersData: bidder,
+                    rank: index + 1,
                   );
-                }
-                return const SizedBox.shrink();
-              },
-            ),
+                },
+                enterTransition: [
+                  SlideInDown(duration: const Duration(seconds: 2))
+                ],
+                exitTransition: [
+                  SlideInUp(duration: const Duration(seconds: 2))
+                ],
+                insertDuration: const Duration(milliseconds: 500),
+                removeDuration: const Duration(milliseconds: 500),
+                onReorder: (int oldIndex, int newIndex) {
+                  setState(() {
+                    final item = widget.topBiddersData.removeAt(oldIndex);
+                    widget.topBiddersData.insert(newIndex, item);
+                  });
+                },
+                isSameItem: (a, b) => a.bidderId == b.bidderId,
+              ),
+            ):Text(
+                                  "There are no bidders yet",
+                                  style: getRegularStyle(fontSize: 18),
+                                )
           ],
         ),
       ),

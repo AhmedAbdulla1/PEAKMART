@@ -12,7 +12,7 @@ import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/features/home/presentation/state_m/home_cubits/future_bids_cubit.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/titled_bid_section.dart';
 import 'package:peakmart/features/payment/presentation/cubit/payment_cubit.dart';
-import 'package:peakmart/features/payment/presentation/views/bid_dialog.dart';
+import 'package:peakmart/features/payment/presentation/views/payment_dialog.dart';
 import 'package:peakmart/features/products/domain/entity/top_bidders_entity.dart';
 import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_cubit.dart';
 import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_states.dart';
@@ -114,10 +114,10 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                           const Spacer(),
                           ElevatedButton(
                               onPressed: () {
-                                showDialog<double?>(
+                                showDialog(
                                   context: context,
                                   builder: (context) =>
-                                      topBiddersEntity.userStatus == false
+                                      topBiddersEntity.userStatus == true
                                           ? BidDialog(
                                               higherPrice: widget.product.price,
                                             )
@@ -126,7 +126,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                                               create: (context) =>
                                                   PaymentCubit(),
                                               child: PaymentDialog(
-                                                  higherPrice:
+                                                  netPrice:
                                                       widget.product.price),
                                             ),
                                 ).then((bid) {
@@ -136,7 +136,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                                   }
                                 });
                               },
-                              child: Text(topBiddersEntity.userStatus == false
+                              child: Text(topBiddersEntity.userStatus == true
                                   ? 'Bid Now'
                                   : 'Enroll Now'))
                         ],

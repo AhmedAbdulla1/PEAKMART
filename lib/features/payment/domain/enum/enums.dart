@@ -8,11 +8,11 @@ enum PaymentProcess {
   num getFee(FeesEntity fees) {
     switch (this) {
       case PaymentProcess.upload:
-        return fees.uploadFee;
+        return (fees.uploadFee+fees.payFee)/100;
       case PaymentProcess.enroll:
-        return fees.enrollFee;
+        return (fees.enrollFee+fees.payFee)/100;
       case PaymentProcess.bid:
-        return fees.bidFee;
+        return (fees.bidFee+fees.payFee)/100;
     }
   }
 }
@@ -20,4 +20,11 @@ enum PaymentProcess {
 enum PaymentType {
   binance,
   tap,
+}
+
+enum PaymentStatus {
+  pending,
+  cancelled,
+  success,
+  failed,
 }

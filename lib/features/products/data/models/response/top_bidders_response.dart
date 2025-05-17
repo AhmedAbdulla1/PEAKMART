@@ -15,14 +15,15 @@ class TopBiddersResponse extends BaseResponse<TopBiddersEntity> {
       required this.userStatus});
 
   factory TopBiddersResponse.fromJson(Map<String, dynamic> json) {
+    print('json $json');
     return TopBiddersResponse(
         data: List<TopBiddersDataResponse>.from(json["data"]
             .map((bidder) => TopBiddersDataResponse.fromJson(bidder))),
         message: json["message"],
         status: json["status"],
-        code: json["status_code"],
-        totalBidders: json['total_bidders'],
-        totalEnrolled: json['total_enrolled'],
+        code: int.tryParse(json["status_code"])??0,
+        totalBidders: int.tryParse(json['total_bidders'].toString())??0,
+        totalEnrolled: int.tryParse(json['total_enrolled'].toString())??0,
         userStatus: json['user_status']);
   }
 
@@ -53,9 +54,9 @@ class TopBiddersDataResponse {
     return TopBiddersDataResponse(
       userName: json['USER_NAME'] ?? "",
       userPhoto: json['PHOTO'] ?? "",
-      bidderId: json['BIDDER_ID'] ?? 0,
-      bidAmount: json['BID_AMOUNT'] ?? 0,
-      productId: json['I_ID'] ?? 0,
+      bidderId: int.tryParse(json['BIDDER_ID']) ?? 0,
+      bidAmount: int.tryParse(json['BID_AMOUNT']) ?? 0,
+      productId: int.tryParse(json['I_ID']) ?? 0,
     );
   }
 

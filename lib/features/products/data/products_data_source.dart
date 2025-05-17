@@ -32,7 +32,7 @@ class ProductsDataSource extends RemoteDataSource {
         method: HttpMethod.GET,
         queryParameters: {
           "id": productId,
-          "userId": 1,
+          "userId": instance<AppPreferences>().getUserId(),
         },
         responseValidator: DefaultResponseValidator(),
         converter: (json) {

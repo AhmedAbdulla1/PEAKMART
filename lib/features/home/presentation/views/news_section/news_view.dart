@@ -13,6 +13,7 @@ import 'package:text_scroll/text_scroll.dart';
 class AnimatedNewsContainer extends StatefulWidget {
   const AnimatedNewsContainer(
       {super.key, required this.newsModel, required this.windowSize});
+
   final NewsData newsModel;
   final Size windowSize;
 
@@ -23,6 +24,7 @@ class AnimatedNewsContainer extends StatefulWidget {
 class _AnimatedNewsContainerState extends State<AnimatedNewsContainer>
     with SingleTickerProviderStateMixin {
   late AnimationViewModel _viewModel;
+
   @override
   void initState() {
     super.initState();
@@ -59,29 +61,31 @@ class _AnimatedNewsContainerState extends State<AnimatedNewsContainer>
                   onEnd: () {
                     _viewModel.startExpandAnimation();
                   },
-                  child: Container(
-                    padding: const EdgeInsetsDirectional.only(
-                        start: AppPadding.p10, end: AppPadding.p10),
-                    width: parentWidth,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: ColorManager.newsBarColor,
-                        borderRadius: BorderRadius.circular(5.r),
-                        boxShadow: [
-                          BoxShadow(
-                            color: ColorManager.black.withOpacity(0.1),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: const Offset(
-                                0, 3), // changes position of shadow
-                          ),
-                        ]),
-                    child: Center(
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, ProductDetails.routeName,
-                              arguments: widget.newsModel.id);
-                        },
+                  child: InkWell(
+                    onTap: () {
+                      final url = Uri.parse(widget.newsModel.link);
+
+                      Navigator.pushNamed(context, ProductDetails.routeName,
+                          arguments: int.tryParse(url.queryParameters['id'].toString())??0);
+                    },
+                    child: Container(
+                      padding: const EdgeInsetsDirectional.only(
+                          start: AppPadding.p10, end: AppPadding.p10),
+                      width: parentWidth,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: ColorManager.newsBarColor,
+                          borderRadius: BorderRadius.circular(5.r),
+                          boxShadow: [
+                            BoxShadow(
+                              color: ColorManager.black.withOpacity(0.1),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: const Offset(
+                                  0, 3), // changes position of shadow
+                            ),
+                          ]),
+                      child: Center(
                         child: TextScroll(
                           widget.newsModel.content,
                           mode: TextScrollMode.endless,

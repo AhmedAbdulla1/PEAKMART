@@ -5,7 +5,6 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
-import 'package:peakmart/features/products/presentation/views/product_details/widgets/web_view_payment.dart';
 
 // Placeholder routes (replace with your actual routes)
 const String bidRulesRoute = '/bid_rules';
@@ -78,86 +77,6 @@ class _BidDialogState extends State<BidDialog> {
       _isProcessingPayment = true;
     });
 
-    try {
-// Construct payment URL with bid amount
-      final paymentUrl =
-          'https://hk.herova.net/payment/pay4new.php?name=astron&price=$_enteredBid';
-      log('Opening WebView with URL: $paymentUrl');
-
-// Navigate to WebView screen
-      final result = await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => PaymentWebViewScreen(paymentUrl: paymentUrl),
-        ),
-      );
-
-// Handle payment result
-      setState(() {
-        _isProcessingPayment = false;
-        if (result != null && result is Map) {
-          final paymentStatus = result['payment_status'] ?? 'unknown';
-          switch (paymentStatus) {
-            case 'success':
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Payment successful!')),
-              );
-              Navigator.pop(context, {
-                'bid': _enteredBid,
-                'payment_status': 'success',
-              });
-              break;
-            case 'failed':
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                    content: Text('Payment failed. Please try again.')),
-              );
-              Navigator.pop(context, {
-                'bid': _enteredBid,
-                'payment_status': 'failed',
-              });
-              break;
-            case 'cancelled':
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Payment cancelled by user.')),
-              );
-              Navigator.pop(context, {
-                'bid': _enteredBid,
-                'payment_status': 'cancelled',
-              });
-              break;
-            default:
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Unknown payment result.')),
-              );
-              Navigator.pop(context, {
-                'bid': _enteredBid,
-                'payment_status': 'failed',
-              });
-          }
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Payment cancelled or no result.')),
-          );
-          Navigator.pop(context, {
-            'bid': _enteredBid,
-            'payment_status': 'cancelled',
-          });
-        }
-      });
-    } catch (e, stack) {
-      log('Payment error: $e', stackTrace: stack);
-      setState(() {
-        _isProcessingPayment = false;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Payment error: $e')),
-      );
-      Navigator.pop(context, {
-        'bid': _enteredBid,
-        'payment_status': 'failed',
-      });
-    }
   }
 
   @override

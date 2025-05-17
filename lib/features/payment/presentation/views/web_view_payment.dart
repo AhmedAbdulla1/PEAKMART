@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
 import 'package:peakmart/features/payment/domain/entities/payment_entity.dart';
+import 'package:peakmart/features/payment/domain/enum/enums.dart';
 import 'package:peakmart/features/payment/presentation/cubit/payment_cubit.dart';
 import 'package:peakmart/features/payment/presentation/views/payment_receipt_screen.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -49,7 +51,6 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
             },
             onPageFinished: (String url) {
               log('WebView: Page finished loading: $url');
-              // Inject cookies here (to be implemented by you)
               _injectCookies();
               setState(() {
                 _isLoading = false;
@@ -60,8 +61,7 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
               setState(() {
                 _isLoading = false;
                 _hasError = true;
-                _errorMessage =
-                    'Error loading payment page: ${error.description}';
+                _errorMessage = 'Error loading payment page: ${error.description}';
               });
             },
             onNavigationRequest: (NavigationRequest request) async {
@@ -83,7 +83,7 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
                 }
 
                 try {
-                  final cubit = context.read<PaymentCubit>();
+                  final cubit = context.read<PaymentCubit>(); // Now should work
                   await cubit.loadPaymentDetails(tapId);
                   final state = cubit.state;
                   if (state is PaymentLoaded) {
@@ -91,8 +91,11 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
                     final result = await Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => PaymentReceiptScreen(
-                          paymentData: state.payment.toJson(),
+                        builder: (context) => BlocProvider.value(
+                          value: cubit,
+                          child: PaymentReceiptScreen(
+                            paymentData: state.payment.toJson(),
+                          ),
                         ),
                       ),
                     );
@@ -138,20 +141,7 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
     }
   }
 
-  // Placeholder for cookie injection - to be implemented by you
   void _injectCookies() {
-    // TODO: Implement cookie injection
-    // Example: Retrieve cookies from shared_preferences or another storage
-    // and inject them into the WebView using _controller.setCookie
-    // Sample code:
-    /*
-    final cookies = await _getCookiesFromLocalStorage(); // Your method to get cookies
-    for (var cookie in cookies) {
-      await _controller!.setCookie(
-        const WebViewCookie(name: 'session_id', value: 'your_cookie_value', domain: 'hk.herova.net'),
-      );
-    }
-    */
     log('Cookies injected (placeholder)');
   }
 
@@ -164,18 +154,7 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Payment'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            log('Back button pressed in PaymentWebViewScreen');
-            Navigator.pop(context, {
-              'payment_status': 'cancelled',
-            });
-          },
-        ),
-      ),
+      appBar: const CustomAppBar(title: 'Payment'),
       body: Stack(
         children: [
           if (_hasError && _errorMessage != null)
@@ -184,7 +163,7 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(_errorMessage!, textAlign: TextAlign.center),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
                       setState(() {

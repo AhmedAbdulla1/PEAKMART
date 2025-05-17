@@ -73,14 +73,13 @@ class _MainViewState extends State<MainView> {
 
   void _onTabSelected(int index) {
     setState(() {
-
       _currentPageIndex = index;
 
       if (index == 1) {
         _selectedCategoryId =
             null; // Reset category ID when manually switching to Products tab
       }
-      });
+    });
   }
 
   List<Widget> getBottomNavigationBarBody() {
@@ -107,9 +106,8 @@ class _MainViewState extends State<MainView> {
           color: context.isDarkMode
               ? ColorManager.white
               : ColorManager.bottomNavBarSecondary,
-          backgroundColor: context.isDarkMode
-              ? ColorManager.black
-              : ColorManager.white,
+          backgroundColor:
+              context.isDarkMode ? ColorManager.black : ColorManager.white,
           elevation: 5,
           activeColor: ColorManager.primary,
           items: _navBarItems,

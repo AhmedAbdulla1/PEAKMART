@@ -21,5 +21,5 @@ class SignUpDetailsSuccess extends SignUpState {}
 class SignUpDetailsFailure extends SignUpState {
   final AppErrors error;
   final Function() onRetry;
-  SignUpDetailsFailure({required this.error,required this.onRetry});
+  SignUpDetailsFailure({required this.error, required this.onRetry});
 }

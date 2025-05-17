@@ -9,8 +9,8 @@ class ProductEntity extends BaseEntity {
   final double price;
   final bool isEnded;
   final String description;
-
-  ProductEntity({
+  final String startDate;
+ const ProductEntity({
     required this.id,
     required this.name,
     required this.imageUrl,
@@ -19,6 +19,7 @@ class ProductEntity extends BaseEntity {
     required this.price,
     required this.isEnded,
     required this.description,
+    required this.startDate
   });
 
   @override

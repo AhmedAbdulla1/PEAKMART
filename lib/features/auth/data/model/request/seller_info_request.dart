@@ -3,17 +3,19 @@ import 'dart:io';
 
 import 'package:peakmart/core/requests/base_request.dart';
 
-
 class SellerInfoRequest extends BaseRequest {
-  final String fullName ;
-  final String idNumber ;
+  final String fullName;
+  final String idNumber;
   final String iban;
   final File idImage;
   final File ibanImage;
 
-
   SellerInfoRequest(
-      {required this.fullName, required this.idNumber, required this.iban, required this.idImage, required this.ibanImage});
+      {required this.fullName,
+      required this.idNumber,
+      required this.iban,
+      required this.idImage,
+      required this.ibanImage});
 
   @override
   void printRequest() {
@@ -31,11 +33,11 @@ class SellerInfoRequest extends BaseRequest {
     };
   }
 
-  List<Map<String,dynamic>> getFiles(){
+  List<Map<String, dynamic>> getFiles() {
     return [
       {
         'fieldName': 'id_img',
-        'filePath':idImage.path,
+        'filePath': idImage.path,
         'fileName': idImage.path.split('/').last,
       },
       {

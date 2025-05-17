@@ -18,5 +18,7 @@ class CategoryError extends CategoryState {
   final AppErrors errors;
   // final VoidCallback onRetry;
 
-  CategoryError(this.errors, );
+  CategoryError(
+    this.errors,
+  );
 }

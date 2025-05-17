@@ -24,6 +24,7 @@ class AnimationViewModel {
       _isExpandedController.add(_isExpanded);
     }
   }
+
   void startTextAnimation() {
     print('start text animation');
     _isStartTextController.add(true);

@@ -54,17 +54,19 @@ class _PageViewBodyState extends State<PageViewBody> {
               width: MediaQuery.of(context).size.width * .1,
             ),
             PageChangePoints(currentIndex: widget.index),
-           widget.index != 3 ?  NextTextButton(onPressed: () {
-              setState(() {
-                widget.index += 1;
-              });
-            }):
-            GetStart(
-              onPressed: () {
-                _appPreferences.setPressKeyOnBoardingScreen();
-                Navigator.pushReplacementNamed(context, LogInView.routeName);
-              },
-            ),
+            widget.index != 3
+                ? NextTextButton(onPressed: () {
+                    setState(() {
+                      widget.index += 1;
+                    });
+                  })
+                : GetStart(
+                    onPressed: () {
+                      _appPreferences.setPressKeyOnBoardingScreen();
+                      Navigator.pushReplacementNamed(
+                          context, LogInView.routeName);
+                    },
+                  ),
           ],
         ),
         SizedBox(height: 40.h),

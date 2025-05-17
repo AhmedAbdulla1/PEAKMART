@@ -11,6 +11,8 @@ import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/features/home/presentation/state_m/home_cubits/future_bids_cubit.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/titled_bid_section.dart';
+import 'package:peakmart/features/payment/presentation/cubit/payment_cubit.dart';
+import 'package:peakmart/features/payment/presentation/views/bid_dialog.dart';
 import 'package:peakmart/features/products/domain/entity/top_bidders_entity.dart';
 import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_cubit.dart';
 import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_states.dart';
@@ -61,36 +63,49 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                         widget.product.name,
                         style: getBoldStyle(fontSize: FontSize.s24),
                       ),
-                      SizedBox(height: 16.h),
-                      RichText(
-                        text: TextSpan(
-                          text: "Description: ",
-                          style: getBoldStyle(
-                            fontSize: FontSize.s16,
-                            color: context.isDarkMode
-                                ? ColorManager.white
-                                : ColorManager.black,
-                          ),
-                          children: [
-                            TextSpan(
-                                text: widget.product.description,
-                                style: getRegularStyle(fontSize: FontSize.s16))
-                          ],
+                      16.vGap,
+                      CustomRichText(
+                        title: "Description: ",
+                        description: widget.product.description,
+                      ),
+                      8.vGap,
+                      CustomRichText(
+                        title: "Start Date: ",
+                        description: widget.product.startDate,
+                      ),
+                      8.vGap,
+                      CustomRichText(
+                        title: "Start Bid: ",
+                        description: widget.product.price.toString(),
+                      ),
+                      8.vGap,
+                      CustomRichText(
+                        title: "Current Price: ",
+                        description: widget.product.price.toString(),
+                      ),
+                      8.vGap,
+                      CustomRichText(
+                        title: "End Date: ",
+                        description: widget.product.endDate,
+                      ),
+                      8.vGap,
+                      Text(
+                        '*${topBiddersEntity.totalBidders} Bidding process',
+                        style: getBoldStyle(
+                          fontSize: FontSize.s16,
+                          color: ColorManager.primary,
                         ),
                       ),
-                      SizedBox(height: 16.h),
-                      Text(
-                        'Auction End Date: ${widget.product.endDate}',
-                        maxLines: 1,
-                      ),
-                      Text(
-                        'Now Bid: \$1000', //* edit if found bidders topBiddersEntity.data[0].amount
-                        style: getBoldStyle(fontSize: FontSize.s16),
-                      ),
+
+                      // Text(
+                      //   'Now Bid: \$1000', //* edit if found bidders topBiddersEntity.data[0].amount
+                      //   style: getBoldStyle(fontSize: FontSize.s16),
+                      // ),
+
                       Row(
                         children: [
                           Text(
-                            '*${topBiddersEntity.totalEnrolled} people rolled in',
+                            '*${topBiddersEntity.totalEnrolled} people enrolled',
                             style: getBoldStyle(
                               fontSize: FontSize.s16,
                               color: ColorManager.primary,
@@ -98,21 +113,32 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                           ),
                           const Spacer(),
                           ElevatedButton(
-                            onPressed: () {
-                              showDialog<double?>(
-                                context: context,
-                                builder: (context) => BidDialog(
-                                  higherPrice: widget.product.price,
-                                ),
-                              ).then((bid) {
-                                if (bid != null) {
-                                  log('User entered bid: $bid');
-                                  // Handle the bid value here
-                                }
-                              });
-                            },
-                            child: const Text('Roll Now'),
-                          ),
+                              onPressed: () {
+                                showDialog<double?>(
+                                  context: context,
+                                  builder: (context) =>
+                                      topBiddersEntity.userStatus == false
+                                          ? BidDialog(
+                                              higherPrice: widget.product.price,
+                                            )
+                                          // her if enroll show payment dialog
+                                          : BlocProvider(
+                                              create: (context) =>
+                                                  PaymentCubit(),
+                                              child: PaymentDialog(
+                                                  higherPrice:
+                                                      widget.product.price),
+                                            ),
+                                ).then((bid) {
+                                  if (bid != null) {
+                                    log('User entered bid: $bid');
+                                    // Handle the bid value
+                                  }
+                                });
+                              },
+                              child: Text(topBiddersEntity.userStatus == false
+                                  ? 'Bid Now'
+                                  : 'Enroll Now'))
                         ],
                       ),
                       16.vGap,
@@ -137,6 +163,32 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
 
         return const SizedBox.shrink(); // fallback
       },
+    );
+  }
+}
+
+class CustomRichText extends StatelessWidget {
+  const CustomRichText({
+    super.key,
+    required this.title,
+    required this.description,
+  });
+
+  final String title, description;
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        text: title,
+        style: getBoldStyle(
+          fontSize: FontSize.s16,
+          color: context.isDarkMode ? ColorManager.white : ColorManager.black,
+        ),
+        children: [
+          TextSpan(
+              text: description, style: getRegularStyle(fontSize: FontSize.s16))
+        ],
+      ),
     );
   }
 }

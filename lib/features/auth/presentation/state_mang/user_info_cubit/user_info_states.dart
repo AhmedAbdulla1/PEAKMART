@@ -1,7 +1,5 @@
 part of 'user_info_cubit.dart';
 
-
-
 sealed class UserInfoState {}
 
 final class UserInfoInitialState extends UserInfoState {}

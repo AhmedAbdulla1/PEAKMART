@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:peakmart/core/models/base_model.dart';
-import 'package:peakmart/core/responses/pagination_response.dart';
 import 'package:peakmart/features/home/domain/entity/category_entity.dart';
 import 'package:peakmart/features/home/domain/entity/content_entity.dart';
 
@@ -37,11 +34,10 @@ class CategoryDataResponse {
   String? catName;
   String? image;
 
-  CategoryDataResponse(
-      {
-  this.catId,
-  this.catName,
-  this.image,
+  CategoryDataResponse({
+    this.catId,
+    this.catName,
+    this.image,
   });
 
   factory CategoryDataResponse.fromJson(Map<String, dynamic> json) {

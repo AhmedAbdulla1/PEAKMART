@@ -26,7 +26,6 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
           },
         );
       },
-
       itemBuilder: (context, index) {
         return Padding(
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),

@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:peakmart/core/requests/base_request.dart';
 
-
 class RegisterRequest extends BaseRequest {
   final String userName;
   final String phoneNumber;
@@ -10,7 +9,10 @@ class RegisterRequest extends BaseRequest {
   final String password;
 
   RegisterRequest(
-      {required this.userName,required this.phoneNumber,required this.email, required this.password});
+      {required this.userName,
+      required this.phoneNumber,
+      required this.email,
+      required this.password});
 
   @override
   void printRequest() {

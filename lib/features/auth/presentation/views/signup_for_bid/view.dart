@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/error_ui/dialogs/show_dialog.dart';
@@ -8,15 +6,14 @@ import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
 import 'package:peakmart/features/auth/presentation/state_mang/signup_for_bid/cubit.dart';
-import 'package:peakmart/features/auth/presentation/state_mang/user_info_cubit/user_info_cubit.dart';
 import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification.dart';
 import 'package:peakmart/features/auth/presentation/views/signup_for_bid/additional_details.dart';
 import 'package:peakmart/features/auth/presentation/views/signup_for_bid/main_info.dart';
 
 class SignUpForBidView extends StatefulWidget {
   static const String routeName = '/signUpForBid';
-  final int indexScreen  ;
-  const SignUpForBidView({super.key ,this.indexScreen = 0});
+  final int indexScreen;
+  const SignUpForBidView({super.key, this.indexScreen = 0});
 
   @override
   State<SignUpForBidView> createState() => _SignUpForBidViewState();
@@ -24,16 +21,14 @@ class SignUpForBidView extends StatefulWidget {
 
 class _SignUpForBidViewState extends State<SignUpForBidView> {
   late SignUpForBidCubit _signUpForBidCubit;
-  late  int index ;
+  late int index;
   @override
   void initState() {
-
-    index=  widget.indexScreen;
+    index = widget.indexScreen;
     _signUpForBidCubit = SignUpForBidCubit();
     _signUpForBidCubit.context = context;
     super.initState();
   }
-
 
   List<Widget> screens = [
     const MainInfo(),

@@ -16,7 +16,7 @@ class ImagePickerController extends ChangeNotifier {
       notifyListeners();
       this.pickedFiles = pickedFiles;
     }
-    return  this.pickedFiles;
+    return this.pickedFiles;
   }
 
   Future<dynamic> pickSingleImage() async {

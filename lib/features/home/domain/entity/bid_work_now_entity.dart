@@ -9,5 +9,3 @@ class BidWorkNowEntity extends BaseEntity {
   @override
   List<Object?> get props => data;
 }
-
-

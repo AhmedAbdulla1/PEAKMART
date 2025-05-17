@@ -2,7 +2,6 @@ import 'package:peakmart/core/entities/base_entity.dart';
 import 'package:peakmart/core/models/base_model.dart';
 import 'package:peakmart/features/profile/domain/enitiy/user_info_entity.dart';
 
-
 class UserInfoResponse extends BaseResponse<BaseEntity> {
   UserInfoData data;
 
@@ -23,7 +22,7 @@ class UserInfoResponse extends BaseResponse<BaseEntity> {
         email: json['data']['EMAIL'],
         phone: json['data']['PHONE'],
         photo: json['data']['PHOTO'],
-      loyaltyPoint: json['data']['LOYALTY_P']??0,
+        loyaltyPoint: json['data']['LOYALTY_P'] ?? 0,
         sellerInfo: json['data']['seller_info'],
       ),
     );

@@ -20,6 +20,8 @@ class IconsAssets {
 }
 
 class ImageAssets {
+  static const String appLogo = "$imagePath/app_logo.png";
+
   static const String landingBg = "$imagePath/landing_bg.png";
   static const String success = "$imagePath/success.png";
   static const String onBoardingPageOne = "$imagePath/onBoarding1.png";

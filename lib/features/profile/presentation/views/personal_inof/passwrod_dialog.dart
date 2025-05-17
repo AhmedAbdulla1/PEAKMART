@@ -79,7 +79,8 @@ Future<String?> showPasswordDialog(BuildContext context) async {
                   if (password.isEmpty) {
                     ErrorViewer.showError(
                       context: context,
-                      error: const AppErrors.customError(message: "Password cannot be empty"),
+                      error: const AppErrors.customError(
+                          message: "Password cannot be empty"),
                       callback: () {},
                     );
                     return;
@@ -90,7 +91,8 @@ Future<String?> showPasswordDialog(BuildContext context) async {
                     ErrorViewer.showError(
                       context: context,
                       error: const AppErrors.customError(
-                          message: "Password must be at least 8 characters long"),
+                          message:
+                              "Password must be at least 8 characters long"),
                       callback: () {},
                     );
                     return;
@@ -98,7 +100,8 @@ Future<String?> showPasswordDialog(BuildContext context) async {
                   print(password);
 
                   // If validation passes, return the password
-                  Navigator.pop(context, password); // Return the entered password
+                  Navigator.pop(
+                      context, password); // Return the entered password
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF8D5524),

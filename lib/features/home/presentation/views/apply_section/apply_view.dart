@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
@@ -21,9 +20,9 @@ class ApplyView extends StatelessWidget {
     return BlocBuilder<ContentCubit, ContentState>(builder: (context, state) {
       if (state is ContentError) {
         return SizedBox();
-          //
-          // ErrorViewer.showError(
-          //   error: state.errors, context: context, callback: () {});
+        //
+        // ErrorViewer.showError(
+        //   error: state.errors, context: context, callback: () {});
       }
       if (state is ContentLoaded) {
         _contentData = state.contentEntity.data
@@ -34,19 +33,21 @@ class ApplyView extends StatelessWidget {
             horizontal: 30.w,
           ),
           width: double.infinity,
-          decoration:  BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
-                image: NetworkImage(_contentData.image["background"],),
+                image: NetworkImage(
+                  _contentData.image["background"],
+                ),
                 fit: BoxFit.cover),
           ),
           child: Column(
             children: [
-              Text(_contentData.content ,
+              Text(_contentData.content,
                   style: getBoldStyle(
                       fontSize: FontSize.s16,
                       color: ColorManager.lightPrimary)),
               Text(
-                _contentData.subTitle??"",
+                _contentData.subTitle ?? "",
                 style: getRegularStyle(
                   fontSize: FontSize.s12,
                   color: ColorManager.white,

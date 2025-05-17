@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/features/home/domain/entity/content_entity.dart';
 
@@ -18,5 +17,7 @@ class ContentError extends ContentState {
   final AppErrors errors;
   // final VoidCallback onRetry;
 
-  ContentError(this.errors, );
+  ContentError(
+    this.errors,
+  );
 }

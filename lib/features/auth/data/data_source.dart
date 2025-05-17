@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
@@ -86,6 +84,7 @@ class AuthDataSource extends RemoteDataSource {
         },
         url: APIUrls.verfiyOtp);
   }
+
   Future<Either<AppErrors, EmptyResponse>> sendWatsAppOtp() async {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
@@ -154,16 +153,15 @@ class AuthDataSource extends RemoteDataSource {
     );
   }
 
- // Future<Either<AppErrors, UserInfoResponse>> getUserInfo() async {
- //    return request<UserInfoResponse>(
- //        method: HttpMethod.GET,
- //        responseValidator: DefaultResponseValidator(),
- //        converter: (json) {
- //          log("message done in get user info request");
- //          log("json in get user info request is $json");
- //          return UserInfoResponse.fromJson(json);
- //        },
- //        url: APIUrls.getUserInfo);
- //  }
-
+  // Future<Either<AppErrors, UserInfoResponse>> getUserInfo() async {
+  //    return request<UserInfoResponse>(
+  //        method: HttpMethod.GET,
+  //        responseValidator: DefaultResponseValidator(),
+  //        converter: (json) {
+  //          log("message done in get user info request");
+  //          log("json in get user info request is $json");
+  //          return UserInfoResponse.fromJson(json);
+  //        },
+  //        url: APIUrls.getUserInfo);
+  //  }
 }

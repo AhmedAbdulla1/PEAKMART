@@ -44,7 +44,7 @@ class OwnerDataSource extends RemoteDataSource {
     }
   }
 
-  Future<Either<AppErrors,CheckIsSellerResponse>> checkIsASeller() async {
+  Future<Either<AppErrors, CheckIsSellerResponse>> checkIsASeller() async {
     AppPreferences appPref = instance<AppPreferences>();
     print(appPref.getUserId());
     return request<CheckIsSellerResponse>(
@@ -56,20 +56,18 @@ class OwnerDataSource extends RemoteDataSource {
       converter: (json) {
         return CheckIsSellerResponse.fromJson(json);
       },
-      headers: {"cookie": appPref.getCookies().join(';') },
+      headers: {"cookie": appPref.getCookies().join(';')},
       url: APIUrls.checkIsASeller,
     );
   }
 }
 
 class CheckIsASellerValidator extends ResponseValidator {
-
-
   @override
   void processData(data) {
-      if(data["error"] != null) {
-        error = AppErrors.customError(message: data["error"]);
-        errorMessage = data["error"];
-      }
+    if (data["error"] != null) {
+      error = AppErrors.customError(message: data["error"]);
+      errorMessage = data["error"];
+    }
   }
 }

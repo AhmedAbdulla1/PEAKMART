@@ -7,7 +7,6 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
-import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/home/domain/entity/category_entity.dart';
 import 'package:peakmart/features/home/presentation/state_m/category_cubit/category_cubit.dart';
 import 'package:peakmart/features/home/presentation/state_m/category_cubit/states.dart';
@@ -16,7 +15,7 @@ import 'package:peakmart/features/home/presentation/views/category_section/categ
 // Fake CategoryEntity for skeleton loading
 List<CategoryEntity> fakeCategories = List.generate(
   5,
-      (index) => CategoryEntity(
+  (index) => CategoryEntity(
     catId: index,
     catName: 'Category $index',
     image: '',
@@ -59,7 +58,7 @@ class _CategorySectionState extends State<CategorySection> {
           isSelected = categoryEntity
               .asMap()
               .map((index, category) =>
-              MapEntry(index, category.catId == widget.selectedCategoryId))
+                  MapEntry(index, category.catId == widget.selectedCategoryId))
               .values
               .toList();
         }
@@ -83,7 +82,7 @@ class _CategorySectionState extends State<CategorySection> {
             isSelected = categoryEntity
                 .asMap()
                 .map((index, category) => MapEntry(
-                index, category.catId == widget.selectedCategoryId))
+                    index, category.catId == widget.selectedCategoryId))
                 .values
                 .toList();
           }
@@ -166,7 +165,7 @@ class _CategorySectionState extends State<CategorySection> {
             ],
           );
         }
-        return  ErrorWidget('');
+        return ErrorWidget('');
       },
     );
   }

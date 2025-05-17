@@ -16,7 +16,5 @@ String mapLanguageEnumToString(LanguagesEnum language) {
       return AppConstants.LANG_EN;
     case LanguagesEnum.arabic:
       return AppConstants.LANG_AR;
-    default:
-      return AppConstants.LANG_EN;
-  }
+    }
 }

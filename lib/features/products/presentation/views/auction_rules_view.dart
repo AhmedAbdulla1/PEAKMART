@@ -6,17 +6,16 @@ import 'package:peakmart/features/products/presentation/widgets/custom_scrollabl
 
 class AuctionRulesView extends StatelessWidget {
   const AuctionRulesView({super.key});
-static const String routeName = "/auction_rules_view";
+  static const String routeName = "/auction_rules_view";
 
   @override
   Widget build(BuildContext context) {
-    return  const Scaffold(
-      appBar:  CustomAppBar(title: AppStrings.auctionRules),
-      body:  Padding(
-        padding:  EdgeInsets.symmetric(
+    return const Scaffold(
+      appBar: CustomAppBar(title: AppStrings.auctionRules),
+      body: Padding(
+        padding: EdgeInsets.symmetric(
             horizontal: AppPadding.p16, vertical: AppPadding.p12),
-        child:
-             CustomScrollableText(text: AppStrings.auctionRulesDescription),
+        child: CustomScrollableText(text: AppStrings.auctionRulesDescription),
       ),
     );
   }

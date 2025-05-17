@@ -88,9 +88,9 @@ class ProfileRepoImpl extends ProfileRepo {
     Result<AppErrors, EmptyEntity> result;
     if (await _networkInfo.isConnected) {
       try {
-        Either<AppErrors, EmptyResponse> response =
-            await _remoteDataSource.updaterProfileImage(updateProfileImageRequest);
-          print('response: $response');
+        Either<AppErrors, EmptyResponse> response = await _remoteDataSource
+            .updaterProfileImage(updateProfileImageRequest);
+        print('response: $response');
 
         result = response.fold((error) {
           return Result(error: error);

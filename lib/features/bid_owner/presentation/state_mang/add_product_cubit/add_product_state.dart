@@ -16,8 +16,13 @@ final class AddProductSuccessState extends AddProductState {
   final AddProductEntity addProductEntity;
   AddProductSuccessState({required this.addProductEntity});
 }
+
 final class NotActivatedState extends AddProductState {}
+
 final class ActivatedState extends AddProductState {}
+
 final class NotVerifiedState extends AddProductState {}
+
 final class NotASellerState extends AddProductState {}
+
 final class NotCompleteState extends AddProductState {}

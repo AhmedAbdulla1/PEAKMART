@@ -11,7 +11,7 @@ class ProductResponse {
   final double price;
   final bool isEnded;
   final String description;
-
+final String startDate;
   ProductResponse({
     required this.id,
     required this.name,
@@ -21,12 +21,14 @@ class ProductResponse {
     required this.price,
     required this.isEnded,
     required this.description,
+    required this.startDate
   });
 
   factory ProductResponse.fromJson(Map<String, dynamic> json) {
     return ProductResponse(
       id: json['I_ID'] ?? 0,
       description: json['DESCRIPTION'] ?? "",
+      startDate: json['START_DATE'] ?? "",
       name: json['ITEM_NAME'] ?? "",
       imageUrl: json['PHOTO'],
       endDate: json['END_DATE'] ?? "",
@@ -47,6 +49,7 @@ class ProductResponse {
         peopleRolledIn: peopleRolledIn,
         price: price,
         isEnded: isEnded,
-        description: description);
+        description: description,
+        startDate:startDate );
   }
 }

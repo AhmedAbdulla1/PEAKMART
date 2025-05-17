@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/app/app.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/shared_widgets/buttons.dart';
 
 class HoldScreen extends StatelessWidget {
   static const String routeName = '/hold-screen';
-  final bool showBackButton ;
-  const HoldScreen({super.key,this.showBackButton=true});
+  final bool showBackButton;
+  const HoldScreen({super.key, this.showBackButton = true});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffFFF4E5), // Background color of the page
+      backgroundColor: const Color(0xffFFF4E5), // Background color of the page
       body: SafeArea(
         child: Column(
           children: [
-
             Expanded(
               child: Center(
                 child: Container(
@@ -43,10 +41,11 @@ class HoldScreen extends StatelessWidget {
                         style: TextStyle(
                           fontSize: FontSize.s30,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF8B4513), // Brown color for the title
+                          color: const Color(
+                              0xFF8B4513), // Brown color for the title
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Text(
                         'we are checking up your application for safety sir, we holding your auction account and soon we email you and you can bid for all products you want.\n It will be in 3 to 4 days',
                         textAlign: TextAlign.center,
@@ -94,7 +93,9 @@ class HoldScreen extends StatelessWidget {
                 ),
               ),
             ),
-          const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
           ],
         ),
       ),

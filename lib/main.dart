@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_sell_sdk_flutter/go_sell_sdk_flutter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:peakmart/app/app.dart';
 import 'package:peakmart/app/app_prefs.dart';

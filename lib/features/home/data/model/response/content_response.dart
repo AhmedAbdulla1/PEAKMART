@@ -53,28 +53,29 @@ class ContentDataResponse {
       this.subContent,
       this.subHead});
 
-  factory ContentDataResponse.fromJson(Map<String, dynamic> json){
+  factory ContentDataResponse.fromJson(Map<String, dynamic> json) {
     String incorrectJson = json["IMAGE"].toString();
     // Fixing the incorrect format
-    String fixedJson  = incorrectJson
-        .replaceAll("[", "{")  // Replace [ with {
+    String fixedJson = incorrectJson
+        .replaceAll("[", "{") // Replace [ with {
         .replaceAll("]", "}"); // Replace ] with }
 
     return ContentDataResponse(
-        id: json["ID"],
-        sectionName: json["SECTION_NAME"],
-        content: json["CONTENT"],
-        image: fixedJson,
-        subTitle: json["SUB_TITLE"],
-        subContent: json["SUB_CONTENT"],
-        subHead: json["SUB_HEAD"],
-      );}
+      id: json["ID"],
+      sectionName: json["SECTION_NAME"],
+      content: json["CONTENT"],
+      image: fixedJson,
+      subTitle: json["SUB_TITLE"],
+      subContent: json["SUB_CONTENT"],
+      subHead: json["SUB_HEAD"],
+    );
+  }
 
   ContentData toEntity() {
     return ContentData(
       id: id ?? 0,
       sectionName: sectionName.toSectionName(),
-      content: content??"",
+      content: content ?? "",
       image: jsonDecode(image!),
       subTitle: subTitle,
       subContent: subContent,

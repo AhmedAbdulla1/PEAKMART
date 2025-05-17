@@ -227,6 +227,7 @@ class _ProductsViewState extends State<ProductsView> {
                 builder: (context, state) {
                   if (state is ProductLoading && allProducts.isEmpty) {
                     return Skeletonizer(child: FakeProductsGridView());
+                    return Skeletonizer(child: FakeProductsGridView());
                   }
 
                   if (state is ProductError) {

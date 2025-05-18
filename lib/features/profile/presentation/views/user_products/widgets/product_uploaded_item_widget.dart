@@ -39,101 +39,105 @@ class ProductsUploadedItemWidget extends StatelessWidget {
         Navigator.pushNamed(context, ProductDetails.routeName,
             arguments: product.id);
       },
-      child: Container(
-        // margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.r),
-          border: Border.all(color: ColorManager.primary, width: 1.2),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(18.r),
-                topRight: Radius.circular(18.r),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          // margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 16.h),
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.r),
+            border: Border.all(color: ColorManager.primary, width: 1.2),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(18.r),
+                  topRight: Radius.circular(18.r),
+                ),
+                child: product.imageUrl.isNotEmpty
+                    ? ProductImagesSlider(imageUrls: product.imageUrl)
+                    : Image.asset(
+                        'assets/images/card.png',
+                        width: double.infinity,
+                        height: 120.h,
+                        fit: BoxFit.cover,
+                      ),
               ),
-              child: product.imageUrl.isNotEmpty
-                  ? ProductImagesSlider(imageUrls: product.imageUrl)
-                  : Image.asset(
-                      'assets/images/card.png',
-                      width: double.infinity,
-                      height: 120.h,
-                      fit: BoxFit.cover,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      product.name,
+                      style: getBoldStyle(
+                        fontSize: FontSize.s16,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    product.name,
-                    style: getBoldStyle(
-                        fontSize: FontSize.s16, color: ColorManager.black),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    product.description,
-                    style: getMediumStyle(
-                        fontSize: FontSize.s12, color: ColorManager.grey1),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  6.vGap,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomRichText(
-                          title: "End Date: ", description: getEndDate()),
-                      CustomRichText(
-                          title: "Price Now: \$",
-                          description: product.price.toString()),
-                    ],
-                  ),
-                  10.vGap,
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SizedBox(
-                          height: 40.h,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: Text(
-                              'End',
-                              style: getBoldStyle(
-                                fontSize: FontSize.s16,
-                                color: ColorManager.white,
+                    Text(
+                      product.description,
+                      style: getMediumStyle(
+                          fontSize: FontSize.s12, color: ColorManager.grey),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    6.vGap,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomRichText(
+                            title: "End Date: ", description: getEndDate()),
+                        CustomRichText(
+                            title: "Price Now: \$",
+                            description: product.price.toString()),
+                      ],
+                    ),
+                    10.vGap,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            height: 40.h,
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              child: Text(
+                                'End',
+                                style: getBoldStyle(
+                                  fontSize: FontSize.s16,
+                                  color: ColorManager.white,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      8.hGap,
-                      Expanded(
-                        child: SizedBox(
-                          height: 40.h,
-                          child: OutlinedButton(
-                            onPressed: () {},
-                            child: Text(
-                              'Cancel',
-                              style: getBoldStyle(
-                                fontSize: FontSize.s16,
-                                color: ColorManager.primary,
+                        8.hGap,
+                        Expanded(
+                          child: SizedBox(
+                            height: 40.h,
+                            child: OutlinedButton(
+                              onPressed: () {},
+                              child: Text(
+                                'Cancel',
+                                style: getBoldStyle(
+                                  fontSize: FontSize.s16,
+                                  color: ColorManager.primary,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  10.vGap,
-                ],
+                      ],
+                    ),
+                    10.vGap,
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

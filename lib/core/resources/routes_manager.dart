@@ -56,8 +56,15 @@ class RouteGenerator {
         );
       case MainView.routeName:
         initHomeModule();
+        int index = 0;
+        final arg = settings.arguments;
+        if (arg != null && arg is int && arg < 5) {
+          index = arg;
+        }
         return MaterialPageRoute(
-          builder: (_) => const MainView(),
+          builder: (_) => MainView(
+            currentPageIndex: index,
+          ),
           settings: const RouteSettings(name: MainView.routeName),
         );
       case LogInView.routeName:
@@ -119,7 +126,7 @@ class RouteGenerator {
         );
       case UserProductsView.routeName:
         return MaterialPageRoute(
-          builder: (_) =>  UserProductsView(),
+          builder: (_) => UserProductsView(),
           settings: const RouteSettings(name: UserProductsView.routeName),
         );
       case ProductDetails.routeName:

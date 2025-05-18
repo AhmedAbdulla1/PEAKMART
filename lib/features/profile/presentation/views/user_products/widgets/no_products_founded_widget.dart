@@ -19,7 +19,7 @@ class NoProductsFoundedWidget extends StatelessWidget {
       children: [
         Icon(
           Icons.error_outline,
-          size: 42,
+          size: 50,
           color: ColorManager.red,
         ),
         20.vGap,

@@ -14,12 +14,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.centerTitle,
     this.isNotShowArrowBack = false,
+    this.bottomWidget,
   });
 
   final String title;
   final List<Widget>? actions;
   final bool? centerTitle, isNotShowArrowBack;
-
+  final PreferredSizeWidget? bottomWidget;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -60,10 +61,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         centerTitle: centerTitle ?? true,
         actions: actions,
+        bottom: bottomWidget,
       ),
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(56.0);
+  Size get preferredSize =>
+      Size.fromHeight(bottomWidget != null ? 100.h : 56.h);
 }

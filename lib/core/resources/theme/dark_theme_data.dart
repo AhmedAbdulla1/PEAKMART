@@ -10,17 +10,16 @@ ThemeData getDarkTheme() {
   return ThemeData(
     extensions: [
       SkeletonizerConfigData(
-        effect: ShimmerEffect(
-          baseColor: ColorManager.lightGrey, // Dark grey for dark mode
-          highlightColor: ColorManager.black, // Lighter grey highlight
-          duration: const Duration(milliseconds: 800),
-        ),
-        enableSwitchAnimation: true,
-        switchAnimationConfig:const  SwitchAnimationConfig(
-          duration:  Duration(milliseconds: 1000),
-          switchOutCurve: Curves.easeOut,
-        )
-      ),
+          effect: ShimmerEffect(
+            baseColor: ColorManager.lightGrey, // Dark grey for dark mode
+            highlightColor: ColorManager.black, // Lighter grey highlight
+            duration: const Duration(milliseconds: 800),
+          ),
+          enableSwitchAnimation: true,
+          switchAnimationConfig: const SwitchAnimationConfig(
+            duration: Duration(milliseconds: 1000),
+            switchOutCurve: Curves.easeOut,
+          )),
     ],
     scaffoldBackgroundColor: ColorManager.simiBlack,
     primaryColor: ColorManager.darkModePrimary,
@@ -63,10 +62,10 @@ ThemeData getDarkTheme() {
         color: ColorManager.black,
       ),
     ),
-  tabBarTheme: TabBarTheme(
+    tabBarTheme: TabBarTheme(
       indicatorColor: ColorManager.primary,
       labelColor: ColorManager.primary,
-      unselectedLabelColor: ColorManager.black,
+      unselectedLabelColor: ColorManager.white,
       labelStyle: getSemiBoldStyle(fontSize: FontSize.s16),
       unselectedLabelStyle: getRegularStyle(fontSize: FontSize.s16),
       dividerHeight: 0,
@@ -89,8 +88,8 @@ ThemeData getDarkTheme() {
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
           side: BorderSide(
-            color: ColorManager.lightGreen,
-            width: 2,
+            color: ColorManager.primary,
+            width: 1,
             style: BorderStyle.solid,
           ),
           shape: RoundedRectangleBorder(

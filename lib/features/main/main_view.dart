@@ -15,17 +15,17 @@ import 'package:peakmart/features/profile/presentation/profile_view.dart';
 import 'package:peakmart/features/profile/presentation/views/profile/view.dart';
 
 class MainView extends StatefulWidget {
-  const MainView({super.key});
+  const MainView({super.key, this.currentPageIndex = 0});
 
   static const String routeName = '/main_view';
-
+  final int currentPageIndex;
   @override
   State<MainView> createState() => _MainViewState();
 }
 
 class _MainViewState extends State<MainView> {
-  int _currentPageIndex = 0;
-  int? _selectedCategoryId; // Store the selected category ID
+  int _currentIndex = 0;
+  int? _selectedCategoryId;
 
   final List<TabItem> _navBarItems = [
     const TabItem(
@@ -67,13 +67,13 @@ class _MainViewState extends State<MainView> {
   void _onCategorySelected(int categoryId) {
     setState(() {
       _selectedCategoryId = categoryId;
-      _currentPageIndex = 1; // Switch to the Products tab (index 1)
+      _currentIndex = 1; // Switch to the Products tab (index 1)
     });
   }
 
   void _onTabSelected(int index) {
     setState(() {
-      _currentPageIndex = index;
+      _currentIndex = index;
 
       if (index == 1) {
         _selectedCategoryId =
@@ -93,13 +93,19 @@ class _MainViewState extends State<MainView> {
   }
 
   @override
+  void initState() {
+    _currentIndex = widget.currentPageIndex;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: getBottomNavigationBarBody()[_currentPageIndex],
+        body: getBottomNavigationBarBody()[_currentIndex],
         bottomNavigationBar: ConvexAppBar(
-          key: ValueKey(_currentPageIndex),
-          // Force rebuild when _currentPageIndex changes
+          key: ValueKey(_currentIndex),
+          // Force rebuild when currentPageIndex changes
           height: 55,
           curve: Curves.easeInOut,
           style: TabStyle.custom,
@@ -111,7 +117,7 @@ class _MainViewState extends State<MainView> {
           elevation: 5,
           activeColor: ColorManager.primary,
           items: _navBarItems,
-          initialActiveIndex: _currentPageIndex,
+          initialActiveIndex: _currentIndex,
           // Update the selected tab
           onTap: _onTabSelected,
         ),

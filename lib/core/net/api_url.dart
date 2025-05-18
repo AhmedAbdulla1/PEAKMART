@@ -16,7 +16,8 @@ class APIUrls {
   // profile api
 
   static const getUserInfo = "${baseUrl}data/user_info.php";
-  static const getUserProducts = "${baseUrl}data/user_products.php";
+  static const getProductsUploaded = "${baseUrl}data/user_products.php";
+  static const getProductsEnrolled = "${baseUrl}data/enrolled.php";
   static const updateUserInfo = "${baseUrl}data/update_info.php";
   static const updateUserImage = "${baseUrl}data/change_photo.php";
 

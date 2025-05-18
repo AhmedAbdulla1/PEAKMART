@@ -1,7 +1,8 @@
 import 'package:peakmart/core/entities/base_entity.dart';
 
 class UserInfoEntity extends BaseEntity {
-  final String userName, phone, photo, sellerInfo, email;
+  final String userName, phone, photo,  email;
+  final Map<String, dynamic> sellerInfo;
   final int loyaltyPoint;
 
   const UserInfoEntity({
@@ -22,7 +23,7 @@ class UserInfoEntity extends BaseEntity {
     String? userName,
     String? phone,
     String? photo,
-    String? sellerInfo,
+    Map<String, dynamic>? sellerInfo,
     int? loyaltyPoint,
     String? email,
   }) {

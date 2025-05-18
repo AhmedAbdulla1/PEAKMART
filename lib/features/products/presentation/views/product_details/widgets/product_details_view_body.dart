@@ -36,8 +36,6 @@ class ProductDetailsViewBody extends StatefulWidget {
 class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
   @override
   void initState() {
-    BlocProvider.of<TopBidderCubit>(context)
-        .startAutoRefresh(widget.product.id);
     super.initState();
   }
 
@@ -75,7 +73,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                     8.vGap,
                     CustomRichText(
                       title: "Start Date: ",
-                      description: widget.product.startDate,
+                      description: widget.product.startDate ?? '',
                     ),
                     8.vGap,
                     CustomRichText(
@@ -90,7 +88,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                     8.vGap,
                     CustomRichText(
                       title: "End Date: ",
-                      description: widget.product.endDate,
+                      description: widget.product.endDate ?? '',
                     ),
                     8.vGap,
                     Text(

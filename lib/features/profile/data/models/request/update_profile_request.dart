@@ -13,6 +13,10 @@ class UpdateProfileRequest {
       'EMAIL': email,
       'PHONE': phone,
       'PASSWORD': password,
+      'COUNTRY': 'Egypt',
+      'GOV': 'eg',
+      'CITY': 'tanta',
+      'ADDRESS': 'tanta',
     };
   }
 }

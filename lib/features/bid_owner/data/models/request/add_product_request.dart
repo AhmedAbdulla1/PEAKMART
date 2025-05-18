@@ -27,7 +27,7 @@ class AddProductRequest {
     );
 
     return FormData.fromMap({
-      "photo": imageFiles,
+      "photos": imageFiles,
       "name": name,
       "description": description,
       "location": location,

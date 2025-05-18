@@ -9,9 +9,11 @@ import 'package:peakmart/features/profile/data/models/request/update_profile_ima
 import 'package:peakmart/features/profile/data/models/request/update_profile_request.dart';
 import 'package:peakmart/features/profile/data/models/response/user_info_response.dart';
 import 'package:peakmart/features/profile/data/models/response/user_product_response.dart';
+import 'package:peakmart/features/profile/data/models/response/user_products_enrolled_response.dart';
 import 'package:peakmart/features/profile/data/remote_data_source.dart';
 import 'package:peakmart/features/profile/domain/enitiy/user_info_entity.dart';
 import 'package:peakmart/features/profile/domain/enitiy/user_product_entity.dart';
+import 'package:peakmart/features/profile/domain/enitiy/user_products_enrolled_entity.dart';
 import 'package:peakmart/features/profile/domain/profile_repo.dart';
 
 class ProfileRepoImpl extends ProfileRepo {
@@ -40,12 +42,34 @@ class ProfileRepoImpl extends ProfileRepo {
   }
 
   @override
-  Future<Result<AppErrors, UserProductEntity>> getUserProducts() async {
+  Future<Result<AppErrors, UserProductEntity>> getProductsUploaded() async {
     Result<AppErrors, UserProductEntity> result;
     if (await _networkInfo.isConnected) {
       try {
         Either<AppErrors, UserProductResponse> response =
-            await _remoteDataSource.getUserProducts();
+            await _remoteDataSource.getProductsUploaded();
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          return Result(data: response.toEntity());
+        });
+      } catch (error) {
+        result = Result(error: const AppErrors.responseError());
+      }
+    } else {
+      result = Result(error: const AppErrors.connectionError());
+    }
+    return result;
+  }
+
+  @override
+  Future<Result<AppErrors, UserProductsEnrolledEntity>>
+      getProductsEnrolled() async {
+    Result<AppErrors, UserProductsEnrolledEntity> result;
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors, UserProductsEnrolledResponse> response =
+            await _remoteDataSource.getProductsEnrolled();
         result = response.fold((error) {
           return Result(error: error);
         }, (response) {

@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:peakmart/core/error_ui/dialogs/show_dialog.dart';
+import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
+import 'package:peakmart/core/error_ui/error_viewer/toast/errv_toast_options.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
@@ -63,22 +65,17 @@ class _AddProductDetailsState extends State<AddProductDetails> {
                   showSuccessBottomSheet(
                       context, AppStrings.productAddedSuccessfully);
                 } else if (state is AddProductFailureState) {
-                  showSuccessBottomSheet(
-                      context, AppStrings.productAddedSuccessfully);
+                  ErrorViewer.showError(
+                      errorViewerOptions: const ErrVToastOptions(
+                          backGroundColor: ColorManager.textFormErrorBorder,
+                          textColor: ColorManager.white),
+                      context: context,
+                      error: state.errors,
+                      callback: () {
+                        BlocProvider.of<AddProductCubit>(context).addProduct(
+                            addProductRequest: widget.addProductRequest);
+                      });
                 }
-                // ShowDialog().showElasticDialog(
-                //   context: context,
-                //   builder: (context) => AlertDialog(
-                //     title: const Text("Error"),
-                //     content: Text(state.errors.toString()),
-                //     actions: [
-                //       TextButton(
-                //         onPressed: () => Navigator.pop(context),
-                //         child: const Text("OK"),
-                //       ),
-                //     ],
-                //   ),
-                // );      //* edit in future
               }
             },
             builder: (context, state) {

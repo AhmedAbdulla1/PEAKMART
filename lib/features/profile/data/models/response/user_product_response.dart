@@ -15,7 +15,7 @@ class UserProductResponse extends BaseResponse<UserProductEntity> {
     return UserProductResponse(
       data: List<ProductResponse>.from(json["data"]
           .map((futureData) => ProductResponse.fromJson(futureData))),
-      message: json["message"],
+      message: json["message"]??'',
       status: json["status"],
       code: 200,
     );

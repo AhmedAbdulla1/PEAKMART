@@ -5,32 +5,30 @@ import 'package:peakmart/core/entities/prodcut_entity.dart';
 class ProductResponse {
   final int id;
   final String name;
-  final String? imageUrl;
-  final String endDate;
-  final int peopleRolledIn;
+  final List<String> imageUrl;
+  final String? endDate, status;
+  final String? startingPrice, expectedPrice, startDate, createdAt;
+  final int? peopleRolledIn, periodOfBid, catId, userId;
   final double price;
   final bool isEnded;
   final String description;
-final String startDate;
-  ProductResponse({
-    required this.id,
-    required this.name,
-    required this.imageUrl,
-    required this.endDate,
-    required this.peopleRolledIn,
-    required this.price,
-    required this.isEnded,
-    required this.description,
-    required this.startDate
-  });
 
   factory ProductResponse.fromJson(Map<String, dynamic> json) {
+    final photos = List<String>.from(jsonDecode(json['PHOTO']));
+
     return ProductResponse(
       id: json['I_ID'] ?? 0,
-      description: json['DESCRIPTION'] ?? "",
-      startDate: json['START_DATE'] ?? "",
       name: json['ITEM_NAME'] ?? "",
-      imageUrl: json['PHOTO'],
+      description: json['DESCRIPTION'] ?? "",
+      imageUrl: photos,
+      startingPrice: json['STARTING_PRICE'] ?? "",
+      expectedPrice: json['EXPECTED_PRICE'] ?? "",
+      startDate: json['START_DATE'] ?? "",
+      periodOfBid: json['PERIOD_OF_BID'] ?? 0,
+      status: json['STATUS'] ?? "",
+      catId: json['CAT_ID'] ?? 0,
+      userId: json['POST_BY'] ?? 0,
+      createdAt: json['CREATED_AT'] ?? "",
       endDate: json['END_DATE'] ?? "",
       peopleRolledIn: json['peopleRolledIn'] ?? 0,
       price: double.tryParse(json['STARTING_PRICE'].toString()) ?? 0.0,
@@ -38,18 +36,44 @@ final String startDate;
     );
   }
 
+  ProductResponse(
+      {required this.id,
+      required this.name,
+      required this.imageUrl,
+      required this.endDate,
+      required this.status,
+      required this.startingPrice,
+      required this.expectedPrice,
+      required this.startDate,
+      required this.createdAt,
+      required this.peopleRolledIn,
+      required this.periodOfBid,
+      required this.catId,
+      required this.userId,
+      required this.price,
+      required this.isEnded,
+      required this.description});
+
   ProductEntity toEntity() {
     return ProductEntity(
-        id: id,
-        name: name,
-        imageUrl: imageUrl != null && imageUrl!.isNotEmpty
-            ? List<String>.from(jsonDecode(imageUrl!))
-            : ["https://hk.herova.net/assets/img/product.png"],
-        endDate: endDate,
-        peopleRolledIn: peopleRolledIn,
-        price: price,
-        isEnded: isEnded,
-        description: description,
-        startDate:startDate );
+      id: id,
+      name: name,
+      imageUrl: imageUrl.isNotEmpty
+          ? imageUrl
+          : ["https://hk.herova.net/assets/img/product.png"],
+      endDate: endDate,
+      status: status,
+      startingPrice: startingPrice,
+      expectedPrice: expectedPrice,
+      startDate: startDate,
+      createdAt: createdAt,
+      peopleRolledIn: peopleRolledIn,
+      periodOfBid: periodOfBid,
+      catId: catId,
+      userId: userId,
+      price: price,
+      isEnded: isEnded,
+      description: description,
+    );
   }
 }

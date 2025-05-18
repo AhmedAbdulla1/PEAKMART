@@ -32,11 +32,15 @@ class AnimationViewModel {
 
   void startCollapseAnimation(double screenWidth) {
     _isExpanded = false;
-    _isExpandedController.add(_isExpanded);
+    !_isExpandedController.isClosed
+        ? _isExpandedController.add(_isExpanded)
+        : null;
 
     Future.delayed(const Duration(seconds: 1), () {
       _currentPosition = 2 * screenWidth; // Feed out the blue container
-      _positionController.add(_currentPosition);
+      !_positionController.isClosed
+          ? _positionController.add(_currentPosition)
+          : null;
     });
   }
 

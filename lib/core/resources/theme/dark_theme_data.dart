@@ -63,7 +63,16 @@ ThemeData getDarkTheme() {
         color: ColorManager.black,
       ),
     ),
-
+  tabBarTheme: TabBarTheme(
+      indicatorColor: ColorManager.primary,
+      labelColor: ColorManager.primary,
+      unselectedLabelColor: ColorManager.black,
+      labelStyle: getSemiBoldStyle(fontSize: FontSize.s16),
+      unselectedLabelStyle: getRegularStyle(fontSize: FontSize.s16),
+      dividerHeight: 0,
+      indicatorSize: TabBarIndicatorSize.tab,
+      splashFactory: NoSplash.splashFactory,
+    ),
     // Button theme
     buttonTheme: ButtonThemeData(
       shape: StadiumBorder(

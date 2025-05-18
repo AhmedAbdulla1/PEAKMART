@@ -9,7 +9,7 @@ import 'package:peakmart/features/profile/domain/enitiy/user_info_entity.dart';
 import 'package:peakmart/features/profile/presentation/state_m/profile/cubit.dart';
 import 'package:peakmart/features/profile/presentation/views/personal_inof/personal_inof_screen.dart';
 import 'package:peakmart/features/profile/presentation/views/settings/settings_view.dart';
-import 'package:peakmart/features/profile/presentation/views/user_products/cart_view.dart';
+import 'package:peakmart/features/profile/presentation/views/user_products/user_product_view.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key, required this.userinfo});

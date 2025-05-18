@@ -358,7 +358,14 @@ class FakeProductsGridView extends StatelessWidget {
             peopleRolledIn: 0,
             price: 0,
             isEnded: false,
-            startDate: "33"
+            startDate: "33", status: '',
+            startingPrice: '0',
+            expectedPrice: '0',
+            periodOfBid: 0,
+            catId: 0,
+            userId: 0, createdAt: '',
+  
+            
           ));
 
   @override

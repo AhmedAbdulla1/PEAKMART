@@ -13,6 +13,7 @@ class UserInfoResponse extends BaseResponse<BaseEntity> {
   });
 
   factory UserInfoResponse.fromJson(Map<String, dynamic> json) {
+    final sellerInfoData = json['data']['seller_info'];
     return UserInfoResponse(
       status: json['status'] ?? "",
       message: json['message'] ?? "",
@@ -23,7 +24,11 @@ class UserInfoResponse extends BaseResponse<BaseEntity> {
         phone: json['data']['PHONE'],
         photo: json['data']['PHOTO'],
         loyaltyPoint: json['data']['LOYALTY_P'] ?? 0,
-        sellerInfo: json['data']['seller_info'],
+        sellerInfo: sellerInfoData != null
+            ? sellerInfoData is String
+                ? {}
+                : sellerInfoData
+            : {},
       ),
     );
   }
@@ -42,7 +47,8 @@ class UserInfoResponse extends BaseResponse<BaseEntity> {
 }
 
 class UserInfoData {
-  String email, phone, photo, sellerInfo, userName;
+  String email, phone, photo, userName;
+  Map<String, dynamic> sellerInfo;
   int loyaltyPoint;
   UserInfoData({
     required this.email,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
@@ -16,6 +18,7 @@ class SummaryProfileScreen extends StatelessWidget {
       child: BlocConsumer<ProfileCubit, ProfileState>(
         listener: (context, state) {
           if (state is ProfileError) {
+            log("Error: ${state.error}");
             ErrorViewer.showError(
                 context: context, error: state.error, callback: () {});
           }
@@ -31,7 +34,7 @@ class SummaryProfileScreen extends StatelessWidget {
                     userName: "Ahmed",
                     phone: "01099409512",
                     photo: "https://picsum.photos/800/600",
-                    sellerInfo: "",
+                    sellerInfo: {},
                     loyaltyPoint: 0,
                     email: "ahmedelabassy14@gmail.com"));
           } else {

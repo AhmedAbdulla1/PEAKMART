@@ -27,6 +27,7 @@ class ColorManager {
   static Color simiBlue = const Color(0xff26225F);
   static Color darkGreen = const Color(0xff2AB381);
   static Color lightGreen = const Color(0xff2FCA91);
+  static Color green = Colors.green;
 
   // new colors
   static Color starActive = const Color(0xffF6D060);

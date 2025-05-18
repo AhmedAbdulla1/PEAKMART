@@ -20,7 +20,14 @@ final ProductEntity fakeProduct = ProductEntity(
     peopleRolledIn: 0,
     price: 0,
     isEnded: false,
-    startDate: "9999");
+    startDate: "9999",
+    status: '0',
+    startingPrice: '0',
+    expectedPrice: '0',
+    periodOfBid: 0,
+    catId: 0,
+    userId: 0,
+    createdAt: DateTime.now().toString());
 
 class TitledBidSection<C extends Cubit<BidsState>> extends StatelessWidget {
   const TitledBidSection({

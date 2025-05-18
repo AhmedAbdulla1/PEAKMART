@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
-import 'package:peakmart/core/entities/prodcut_entity.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
 import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification.dart';
@@ -18,10 +17,9 @@ import 'package:peakmart/features/onboarding/presentation/views/onboarding_view.
 import 'package:peakmart/features/products/presentation/views/auction_rules_view.dart';
 import 'package:peakmart/features/products/presentation/views/privacy_and_policy_view.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/product_details_view.dart';
-import 'package:peakmart/features/products/presentation/views/random_products/random_products_view.dart';
 import 'package:peakmart/features/profile/presentation/views/personal_inof/personal_inof_screen.dart';
 import 'package:peakmart/features/profile/presentation/views/settings/settings_view.dart';
-import 'package:peakmart/features/profile/presentation/views/user_products/cart_view.dart';
+import 'package:peakmart/features/profile/presentation/views/user_products/user_product_view.dart';
 
 final AppPreferences _appPreferences = instance<AppPreferences>();
 
@@ -108,14 +106,7 @@ class RouteGenerator {
           ),
           settings: const RouteSettings(name: AddProductDetails.routeName),
         );
-      case RandomProductsView.routeName:
-        final args = settings.arguments as List<ProductEntity>;
-        return MaterialPageRoute(
-          builder: (_) => RandomProductsView(
-            allProducts: args,
-          ),
-          settings: const RouteSettings(name: RandomProductsView.routeName),
-        );
+
       case PrivacyAndPolicyView.routeName:
         return MaterialPageRoute(
           builder: (_) => const PrivacyAndPolicyView(),
@@ -128,7 +119,7 @@ class RouteGenerator {
         );
       case UserProductsView.routeName:
         return MaterialPageRoute(
-          builder: (_) => const UserProductsView(),
+          builder: (_) =>  UserProductsView(),
           settings: const RouteSettings(name: UserProductsView.routeName),
         );
       case ProductDetails.routeName:

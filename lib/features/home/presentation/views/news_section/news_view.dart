@@ -66,7 +66,9 @@ class _AnimatedNewsContainerState extends State<AnimatedNewsContainer>
                       final url = Uri.parse(widget.newsModel.link);
 
                       Navigator.pushNamed(context, ProductDetails.routeName,
-                          arguments: int.tryParse(url.queryParameters['id'].toString())??0);
+                          arguments: int.tryParse(
+                                  url.queryParameters['id'].toString()) ??
+                              0);
                     },
                     child: Container(
                       padding: const EdgeInsetsDirectional.only(

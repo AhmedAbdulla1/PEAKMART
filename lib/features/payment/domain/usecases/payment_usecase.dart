@@ -20,6 +20,7 @@ class FetchPaymentDetails {
   }
 
   Future<Either<Failure, EmptyEntity>> confirmPayment(ConfirmPaymentRequest request) async {
+    
     return await repository.confirmPayment(request);
   }
 }

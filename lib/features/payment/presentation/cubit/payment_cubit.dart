@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
@@ -9,7 +10,6 @@ import 'package:peakmart/features/payment/domain/enum/enums.dart';
 import 'package:peakmart/features/payment/domain/failures/failures.dart';
 import 'package:peakmart/features/payment/domain/usecases/payment_usecase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
 
 part 'payment_state.dart';
 
@@ -79,25 +79,33 @@ class PaymentCubit extends Cubit<PaymentState> {
 
   Future<void> confirmPayment() async {
     emit(PaymentLoading());
+    log("payment in cubit ${payment.tapId}");
     final result = await useCase.confirmPayment(ConfirmPaymentRequest(
       amount: payment.amount,
-      reason: paymentProcess.name,
+      reason: paymentProcess.name.toUpperCase(),
       tapId: payment.tapId,
     ));
+    log("reuslt in cubit $result");
     result.fold(
       (failure) {
         String errorMessage;
+        log("failure in cubit $failure");
         if (failure is NetworkFailure) {
           errorMessage = 'Please check your internet connection.';
+          log("errorMessage1 in cubit $errorMessage");
         } else if (failure is ServerFailure) {
           errorMessage = 'Server error, try again later.';
+          log("errorMessage2 in cubit $errorMessage");
         } else {
           errorMessage = 'An error occurred: ${failure.message}';
+          log("errorMessage3 in cubit $errorMessage");
         }
+        log("errorMessage4 in cubit $errorMessage");
+
         emit(PaymentError(errorMessage));
       },
       (_) {
-        log('Payment Confirmed');
+        log('Payment Confirmed............');
         emit(PaymentSuccess());
       },
     );

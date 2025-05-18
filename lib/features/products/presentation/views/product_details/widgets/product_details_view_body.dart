@@ -12,8 +12,6 @@ import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/home/presentation/state_m/home_cubits/future_bids_cubit.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/titled_bid_section.dart';
-import 'package:peakmart/features/payment/domain/enum/enums.dart';
-import 'package:peakmart/features/payment/presentation/cubit/payment_cubit.dart';
 import 'package:peakmart/features/payment/presentation/views/payment_dialog.dart';
 import 'package:peakmart/features/products/domain/entity/top_bidders_entity.dart';
 import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_cubit.dart';
@@ -44,14 +42,6 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
   Widget build(BuildContext context) {
     return BlocBuilder<TopBidderCubit, TopBiddersState>(
       builder: (context, state) {
-        final bool isLoading = state is TopBiddersLoadingState;
-        final bool isError = state is TopBiddersFailureState;
-        final TopBiddersEntity? topBiddersEntity =
-            state is TopBiddersSuccessState ? state.topBidders : null;
-
-        final int totalBidders = topBiddersEntity?.totalBidders ?? 0;
-        final int totalEnrolled = topBiddersEntity?.totalEnrolled ?? 0;
-        final bool userStatus = topBiddersEntity?.userStatus ?? false;
         final bool isLoading = state is TopBiddersLoadingState;
         final bool isError = state is TopBiddersFailureState;
         final TopBiddersEntity? topBiddersEntity =
@@ -128,11 +118,8 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                                         ? BidDialog(
                                             higherPrice: widget.product.price,
                                           )
-                                        : BlocProvider(
-                                            create: (context) => PaymentCubit(),
-                                            child: PaymentDialog(
-                                                netPrice: widget.product.price),
-                                          ),
+                                        : PaymentDialog(
+                                            netPrice: widget.product.price),
                                   ).then((bid) {
                                     if (bid != null) {
                                       log('User entered bid: $bid');
@@ -180,7 +167,6 @@ class CustomRichText extends StatelessWidget {
 
   final String title, description;
 
-
   @override
   Widget build(BuildContext context) {
     return RichText(
@@ -192,9 +178,6 @@ class CustomRichText extends StatelessWidget {
         ),
         children: [
           TextSpan(
-            text: description,
-            style: getRegularStyle(fontSize: FontSize.s16),
-          ),
             text: description,
             style: getRegularStyle(fontSize: FontSize.s16),
           ),

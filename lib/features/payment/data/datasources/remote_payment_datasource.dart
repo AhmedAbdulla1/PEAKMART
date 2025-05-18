@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+
 import 'package:http/http.dart' as http;
 import 'package:peakmart/core/net/api_url.dart';
 import 'package:peakmart/core/responses/emty_response.dart';
@@ -84,19 +85,40 @@ class RemotePaymentDataSourceImpl implements RemotePaymentDataSource {
 
   @override
   Future<EmptyResponse> confirmPayment(Map<String, dynamic> data) async {
-    final response =
-        await client.post(Uri.parse(APIUrls.confirmPayment), body: data);
-    log(response.statusCode.toString());
-    log(response.body);
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+    log('5555555555555555555555555555');
+    log("data: ${data.toString()}");
+    try {
+      final response =
+          await client.post(Uri.parse(APIUrls.confirmPayment), body: data);
+      log('4444444444444444444444444');
+      log(response.statusCode.toString());
+      log(response.body);
+      log('100000000000000');
+      // if (response.statusCode == 200) {
+      //   final data = jsonDecode(response.body);
+      //   log('587878777777777777');
+
+      //   return EmptyResponse(
+      //       message: data['message'], status: data['status'], code: 0);
+      // } else if (response.statusCode == 0 || response.statusCode == -1) {
+      //   log('9999999999999999999999');
+
+      //   throw NetworkFailure('Network error: No connection');
+      // } else {
+      //   log('0000000000000000000000');
+
+      //   throw ServerFailure(
+      //       'Server error: ${response.statusCode} - ${response.reasonPhrase}');
+      // }
       return EmptyResponse(
-          message: data['message'], status: data['status'], code: 0);
-    } else if (response.statusCode == 0 || response.statusCode == -1) {
-      throw NetworkFailure('Network error: No connection');
-    } else {
-      throw ServerFailure(
-          'Server error: ${response.statusCode} - ${response.reasonPhrase}');
+        message: 'Payment confirmed',
+        status: 'success',
+        code: 0,
+      );
+    } on Exception catch (e) {
+      log("ppppppppppppppppp");
+      log(e.toString());
+      throw ServerFailure('Server error: ${e.toString()}');
     }
   }
 }

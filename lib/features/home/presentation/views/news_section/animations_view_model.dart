@@ -4,8 +4,11 @@ class AnimationViewModel {
   final _positionController = StreamController<double>.broadcast();
   final _isExpandedController = StreamController<bool>.broadcast();
   final _isStartTextController = StreamController<bool>.broadcast();
+
   Stream<double> get positionStream => _positionController.stream;
+
   Stream<bool> get isStartTextStream => _isStartTextController.stream;
+
   Stream<bool> get isExpandedStream => _isExpandedController.stream;
 
   double _currentPosition = 0;

@@ -51,7 +51,6 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
             },
             onPageFinished: (String url) {
               log('WebView: Page finished loading: $url');
-              _injectCookies();
               setState(() {
                 _isLoading = false;
               });
@@ -83,24 +82,36 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
                 }
 
                 try {
-                  final cubit = context.read<PaymentCubit>(); // Now should work
+                  final cubit = context.read<PaymentCubit>();
                   await cubit.loadPaymentDetails(tapId);
                   final state = cubit.state;
                   if (state is PaymentLoaded) {
-                    log('Navigating to PaymentReceiptScreen with data: ${state.payment}');
-                    final result = await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => BlocProvider.value(
-                          value: cubit,
-                          child: PaymentReceiptScreen(
-                            paymentData: state.payment.toJson(),
+                    log('Confirming payment...');
+                    await cubit.confirmPayment(); // استدعاء تأكيد الدفع
+                    final confirmState = cubit.state;
+                    if (confirmState is PaymentSuccess) {
+                      log('Navigating to PaymentReceiptScreen with data: ${state.payment}');
+                      final result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider.value(
+                            value: cubit,
+                            child: PaymentReceiptScreen(
+                              paymentData: state.payment,
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                    Navigator.pop(context, result);
-                    log('Navigation to PaymentReceiptScreen completed.');
+                      );
+                      Navigator.pop(context, result);
+                      log('Navigation to PaymentReceiptScreen completed.');
+                    } else if (confirmState is PaymentError) {
+                      log('Payment confirmation error: ${confirmState.message}');
+                      Navigator.pop(context, {
+                        'payment_status': 'failed',
+                        'url': request.url,
+                        'error': confirmState.message,
+                      });
+                    }
                   } else if (state is PaymentError) {
                     log('Payment error: ${state.message}');
                     Navigator.pop(context, {
@@ -117,6 +128,13 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
                     'error': 'API call error: $e',
                   });
                 }
+                return NavigationDecision.prevent;
+              } else if (request.url.contains('cancel') || request.url.contains('failed')) {
+                log('Payment cancelled or failed, returning to start');
+                Navigator.pop(context, {
+                  'payment_status': 'cancelled',
+                  'url': request.url,
+                });
                 return NavigationDecision.prevent;
               }
               return NavigationDecision.navigate;
@@ -141,9 +159,7 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
     }
   }
 
-  void _injectCookies() {
-    log('Cookies injected (placeholder)');
-  }
+
 
   @override
   void dispose() {
@@ -195,7 +211,7 @@ extension PaymentEntityToJson on PaymentEntity {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'status': status,
+      'status': status.toString().split('.').last,
       'amount': amount,
       'currency': currency,
       'customer': {'first_name': customerName},

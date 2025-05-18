@@ -20,6 +20,8 @@ class PaymentLoaded extends PaymentState {
   List<Object> get props => [payment];
 }
 
+class PaymentSuccess extends PaymentState {}
+
 class FeesLoaded extends PaymentState {
   final FeesEntity fees;
 

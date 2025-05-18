@@ -40,4 +40,11 @@ class APIUrls {
   // Add Product
   static const addProduct = "${baseUrl}products/new_Product.php";
   static const checkIsASeller = "${baseUrl}login_API/admin_c.php";
+
+
+  // payment api
+  static const String paymentDetails = '${baseUrl}payment/ret_pay.php';
+  static const String paymentFees = '${baseUrl}payment/paydetails.php';
+  static const String confirmPayment = '${baseUrl}payment/confirme_pay.php';
+  static const String initiatePayment = '${baseUrl}payment/pay4new.php';
 }

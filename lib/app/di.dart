@@ -10,11 +10,17 @@ import 'package:peakmart/features/bid_owner/data/owner_repo_imp.dart';
 import 'package:peakmart/features/bid_owner/domain/repository/owner_repo.dart';
 import 'package:peakmart/features/home/data/home_repo_imp.dart';
 import 'package:peakmart/features/home/domain/home_repo.dart';
+import 'package:peakmart/features/payment/data/datasources/remote_payment_datasource.dart';
+import 'package:peakmart/features/payment/data/datasources/remote_payment_datasource.dart';
+import 'package:peakmart/features/payment/data/repositories/payment_repository_impl.dart';
+import 'package:peakmart/features/payment/domain/repositories/payment_repository.dart';
+import 'package:peakmart/features/payment/domain/usecases/payment_usecase.dart';
 import 'package:peakmart/features/products/data/products_repo_imp.dart';
 import 'package:peakmart/features/products/domain/products_repo.dart';
 import 'package:peakmart/features/profile/data/profile_repo_imp.dart';
 import 'package:peakmart/features/profile/domain/profile_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 final instance = GetIt.instance;
 
@@ -81,7 +87,16 @@ Future<void> initAppModule() async {
   //   ),
   // );
 }
-
+void initPaymentModule() {
+  if (!GetIt.I.isRegistered<PaymentRepository>()) {
+    instance.registerCachedFactory<PaymentRepository>(
+            () => PaymentRepositoryImpl(RemotePaymentDataSourceImpl(http.Client())));
+  }
+  if (!GetIt.I.isRegistered<FetchPaymentDetails>()) {
+    instance.registerFactory<FetchPaymentDetails>(
+            () => FetchPaymentDetails(repository: instance<PaymentRepository>()));
+  }
+}
 initLoginModule() {
   if (!GetIt.I.isRegistered<LoginViewModel>()) {
     instance.registerCachedFactory<LoginCubit>(() => LoginCubit());

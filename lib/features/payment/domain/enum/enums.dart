@@ -1,18 +1,18 @@
 import 'package:peakmart/features/payment/domain/entities/fee_entity.dart';
 
 enum PaymentProcess {
-  upload,
-  enroll,
+  UPLOAD,
+  ENROLL,
   bid;
 
   num getFee(FeesEntity fees) {
     switch (this) {
-      case PaymentProcess.upload:
-        return (fees.uploadFee+fees.payFee)/100;
-      case PaymentProcess.enroll:
-        return (fees.enrollFee+fees.payFee)/100;
+      case PaymentProcess.UPLOAD:
+        return (fees.uploadFee + fees.payFee) / 100;
+      case PaymentProcess.ENROLL:
+        return (fees.enrollFee + fees.payFee) / 100;
       case PaymentProcess.bid:
-        return (fees.bidFee+fees.payFee)/100;
+        return (fees.bidFee + fees.payFee) / 100;
     }
   }
 }

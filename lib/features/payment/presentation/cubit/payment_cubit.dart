@@ -48,12 +48,12 @@ class PaymentCubit extends Cubit<PaymentState> {
 
   Future<void> loadPaymentFees() async {
     emit(PaymentLoading());
-    final cachedFees = await _getCachedFees();
-    if (cachedFees != null) {
-      this.fees = cachedFees;
-      emit(FeesLoaded(cachedFees));
-      return;
-    }
+    // final cachedFees = await _getCachedFees();
+    // if (cachedFees != null) {
+    //   fees = cachedFees;
+    //   emit(FeesLoaded(cachedFees));
+    //   return;
+    // }
     final result = await useCase.fetchPaymentFees();
     result.fold(
       (failure) {

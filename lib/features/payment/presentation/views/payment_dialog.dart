@@ -136,7 +136,8 @@ class _PaymentDialogState extends State<PaymentDialog> {
               const SnackBar(content: Text('Payment completed successfully.')),
             );
             Navigator.of(context, rootNavigator: true).pop({
-              'bid': _amount,
+              'fees': _amount,
+              'tap_id': result['tap_id'],
               'payment_status': 'success',
             });
             break;
@@ -202,7 +203,7 @@ class _PaymentDialogState extends State<PaymentDialog> {
             case PaymentProcess.ENROLL:
               processText = 'The Bid insurance to enroll is';
               break;
-            case PaymentProcess.bid:
+            case PaymentProcess.BID:
               processText = 'The bid insurance to enroll is ';
               break;
           }

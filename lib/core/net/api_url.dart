@@ -30,11 +30,13 @@ class APIUrls {
   static const getTrendingBids = "${baseUrl}products/fetch.php?key=3";
   static const getCategories = "${baseUrl}products/fetch.php?key=2";
 
+
+  // product api
   static const getProducts = "${baseUrl}products/cat_p.php";
   static const getTopBidders = "${baseUrl}bids/top3.php";
   static const getProductById = "${baseUrl}bids/get_product_data.php";
-
-  // static const getAllProducts = "${baseUrl}products/fetch.php?key=4";
+  static const enrollProduct = "${baseUrl}payment/Enroll.php";
+  static const bidProduct = "${baseUrl}bids/newbid.php";
 
   static const getContent = "${baseUrl}InPageApi/pageContent-api.php";
 

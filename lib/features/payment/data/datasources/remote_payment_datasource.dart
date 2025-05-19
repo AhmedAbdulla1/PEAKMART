@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:peakmart/core/net/api_url.dart';
 import 'package:peakmart/core/responses/emty_response.dart';
@@ -26,10 +27,13 @@ class RemotePaymentDataSourceImpl implements RemotePaymentDataSource {
 
     if (response.statusCode == 200) {
       try {
+        log(response.body);
         final data = jsonDecode(response.body);
         if (data['id'] == null || data['id'].toString().isEmpty) {
           throw ParsingFailure('Payment ID is missing or empty');
         }
+        log('after json decode');
+        print(data);
         return PaymentEntity(
           id: data['id'],
           status: data['status'] ?? 'CAPTURED',
@@ -41,6 +45,7 @@ class RemotePaymentDataSourceImpl implements RemotePaymentDataSource {
           tapId: tapId,
         );
       } catch (e) {
+        log(e.toString());
         throw ParsingFailure('Failed to parse payment details: $e');
       }
     } else if (response.statusCode == 0 || response.statusCode == -1) {
@@ -56,6 +61,7 @@ class RemotePaymentDataSourceImpl implements RemotePaymentDataSource {
     final response = await client.get(Uri.parse(APIUrls.paymentFees));
 
     if (response.statusCode == 200) {
+      print(response.body);
       try {
         final data = jsonDecode(response.body);
         return FeesEntity(
@@ -80,7 +86,8 @@ class RemotePaymentDataSourceImpl implements RemotePaymentDataSource {
   Future<EmptyResponse> confirmPayment(Map<String, dynamic> data) async {
     final response =
         await client.post(Uri.parse(APIUrls.confirmPayment), body: data);
-
+    log(response.statusCode.toString());
+    log(response.body);
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       return EmptyResponse(

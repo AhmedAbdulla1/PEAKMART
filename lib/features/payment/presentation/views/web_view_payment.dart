@@ -51,7 +51,6 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
             },
             onPageFinished: (String url) {
               log('WebView: Page finished loading: $url');
-              _injectCookies();
               setState(() {
                 _isLoading = false;
               });
@@ -160,9 +159,7 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
     }
   }
 
-  void _injectCookies() {
-    log('Cookies injected (placeholder)');
-  }
+
 
   @override
   void dispose() {

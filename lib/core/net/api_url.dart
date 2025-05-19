@@ -42,8 +42,8 @@ class APIUrls {
 
 
   // payment api
-  static const String paymentDetails = '${baseUrl}/payment/ret_pay.php';
-  static const String paymentFees = '${baseUrl}/payment/paydetails.php';
-  static const String confirmPayment = '${baseUrl}/payment/confirme_pay.php';
-  static const String initiatePayment = '${baseUrl}/payment/pay4new.php';
+  static const String paymentDetails = '${baseUrl}payment/ret_pay.php';
+  static const String paymentFees = '${baseUrl}payment/paydetails.php';
+  static const String confirmPayment = '${baseUrl}payment/confirme_pay.php';
+  static const String initiatePayment = '${baseUrl}payment/pay4new.php';
 }

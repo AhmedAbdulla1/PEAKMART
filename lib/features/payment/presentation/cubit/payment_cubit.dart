@@ -113,7 +113,7 @@ class PaymentCubit extends Cubit<PaymentState> {
       uploadFee: data['uploadFee'],
       enrollFee: data['enrollFee'],
       payFee: data['payFee'],
-      bidFee: data['bidFee'],
+      bidFee: data['BidFee'],
     );
   }
 
@@ -124,7 +124,7 @@ class PaymentCubit extends Cubit<PaymentState> {
       'uploadFee': fees.uploadFee,
       'enrollFee': fees.enrollFee,
       'payFee': fees.payFee,
-      'bidFee': fees.bidFee,
+      'BidFee': fees.bidFee,
     };
     await prefs.setString('cached_fees', jsonEncode(data));
   }

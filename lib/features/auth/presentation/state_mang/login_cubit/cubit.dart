@@ -31,6 +31,7 @@ class LoginCubit extends Cubit<LoginState> {
       emit(LoginSuccessState());
       appPreferences.setPressKeyLoginScreen();
       appPreferences.setUserId(data.userId);
+      appPreferences.setUserPassword(password);
     }, onError: (error) {
       Navigator.pop(context);
       emit(LoginFailureState(errors: error, onRetry: () {}));

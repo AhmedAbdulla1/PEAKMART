@@ -7,6 +7,7 @@ abstract class UserProductsStates {}
 class UserProductsInitial extends UserProductsStates {}
 
 class ProductUploadedLoading extends UserProductsStates {}
+
 class ProductsEnrolledLoading extends UserProductsStates {}
 
 class UserProductsLoaded extends UserProductsStates {
@@ -14,7 +15,8 @@ class UserProductsLoaded extends UserProductsStates {
 
   UserProductsLoaded({required this.products});
 }
-class ProductsEnrolledLoaded extends UserProductsStates{
+
+class ProductsEnrolledLoaded extends UserProductsStates {
   final List<ProductsEnrolledEntity> products;
 
   ProductsEnrolledLoaded({required this.products});
@@ -26,3 +28,12 @@ class UserProductsError extends UserProductsStates {
 
   UserProductsError({required this.error, required this.onRetry});
 }
+
+class CancelUserProductLoading extends UserProductsStates {}
+class CancelUserProductSuccess extends UserProductsStates {}
+class EndUserProductSuccess extends UserProductsStates {}
+class CancelUserProductFailed extends UserProductsStates {
+  final AppErrors error;
+  CancelUserProductFailed({required this.error});
+}
+

@@ -54,7 +54,9 @@ class _UploadedProductsTabState extends State<UploadedProductsTab>
                 )
               : RefreshIndicator(
                   onRefresh: () async {
-                    context.read<UserProductsCubit>().getUploadedProducts();
+                    await context
+                        .read<UserProductsCubit>()
+                        .getUploadedProducts();
                   },
                   child: ListView.builder(
                     padding: const EdgeInsets.all(8.0),

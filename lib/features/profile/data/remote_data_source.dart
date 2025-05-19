@@ -9,6 +9,7 @@ import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/net/api_url.dart';
 import 'package:peakmart/core/net/response_validators/default_response_validator.dart';
 import 'package:peakmart/core/responses/emty_response.dart';
+import 'package:peakmart/features/profile/data/models/request/cancle_user_product_request.dart';
 import 'package:peakmart/features/profile/data/models/request/update_profile_image_request.dart';
 import 'package:peakmart/features/profile/data/models/request/update_profile_request.dart';
 import 'package:peakmart/features/profile/data/models/response/user_info_response.dart';
@@ -32,7 +33,9 @@ class ProfileDataSource extends RemoteDataSource {
         headers: {"cookie": cookieString},
         url: APIUrls.getProductsUploaded);
   }
-    Future<Either<AppErrors, UserProductsEnrolledResponse>> getProductsEnrolled() async {
+
+  Future<Either<AppErrors, UserProductsEnrolledResponse>>
+      getProductsEnrolled() async {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
     print('cookie string $cookieString');
@@ -49,6 +52,29 @@ class ProfileDataSource extends RemoteDataSource {
         url: APIUrls.getProductsEnrolled);
   }
 
+  Future<Either<AppErrors, EmptyResponse>> cancelUserProducts(
+      CancelUserProductRequest cancleRequest) async {
+    final AppPreferences appPreferences = instance<AppPreferences>();
+    String userId = appPreferences.getUserId();
+    String cookieString = appPreferences.getCookies().join(';');
+
+    return request<EmptyResponse>(
+      method: HttpMethod.POST,
+      body: {
+        ...cancleRequest.toJson(),
+        "hkh": appPreferences.getCookie("HKH"),
+        "hk": appPreferences.getUserId(),
+        "uid": userId,
+      },
+      headers: {"cookie": cookieString},
+      responseValidator: DefaultResponseValidator(),
+      converter: (json) {
+        return EmptyResponse.fromJson(json);
+      },
+      url: APIUrls.cancleUserProduct,
+      
+    );
+  }
 
   Future<Either<AppErrors, UserInfoResponse>> getUserInfo() async {
     final AppPreferences appPreferences = instance<AppPreferences>();

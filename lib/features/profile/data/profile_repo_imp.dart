@@ -5,6 +5,7 @@ import 'package:peakmart/core/entities/empty_entity.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/responses/emty_response.dart';
 import 'package:peakmart/core/results/result.dart';
+import 'package:peakmart/features/profile/data/models/request/cancle_user_product_request.dart';
 import 'package:peakmart/features/profile/data/models/request/update_profile_image_request.dart';
 import 'package:peakmart/features/profile/data/models/request/update_profile_request.dart';
 import 'package:peakmart/features/profile/data/models/response/user_info_response.dart';
@@ -83,7 +84,27 @@ class ProfileRepoImpl extends ProfileRepo {
     }
     return result;
   }
-
+  @override
+  Future<Result<AppErrors, EmptyEntity>> cancelUserProduct(
+      CancelUserProductRequest cancleProductRequest) async {
+    Result<AppErrors, EmptyEntity> result;
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors, EmptyResponse> response =
+            await _remoteDataSource.cancelUserProducts(cancleProductRequest);
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          return Result(data: response.toEntity());
+        });
+      } catch (error) {
+        result = Result(error: const AppErrors.responseError());
+      }
+    } else {
+      result = Result(error: const AppErrors.connectionError());
+    }
+    return result;
+  }
   @override
   Future<Result<AppErrors, EmptyEntity>> updateProfile(
       UpdateProfileRequest updateProfileRequest) async {

@@ -20,6 +20,7 @@ class APIUrls {
   static const getProductsEnrolled = "${baseUrl}data/enrolled.php";
   static const updateUserInfo = "${baseUrl}data/update_info.php";
   static const updateUserImage = "${baseUrl}data/change_photo.php";
+  static const cancleUserProduct = "${baseUrl}data/p_status.php";
 
   // home api
   static const getNews = "${baseUrl}InPageApi/news-api.php";
@@ -40,7 +41,6 @@ class APIUrls {
   // Add Product
   static const addProduct = "${baseUrl}products/new_Product.php";
   static const checkIsASeller = "${baseUrl}login_API/admin_c.php";
-
 
   // payment api
   static const String paymentDetails = '${baseUrl}payment/ret_pay.php';

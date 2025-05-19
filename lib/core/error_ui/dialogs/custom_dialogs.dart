@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/extentions.dart';
+import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
+import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
+
 import 'show_dialog.dart';
 
 void showCustomMessageDialog({
@@ -16,29 +22,19 @@ void showCustomMessageDialog({
       return Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Container(
-          width: MediaQuery.of(myContext).size.width * 0.75,
-          height: MediaQuery.of(myContext).size.height * 0.30,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(
-                title ?? '',
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontSize: ScreenUtil().setSp(42),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Text(title ?? '', style: getBoldStyle(fontSize: 22)),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   content ?? '',
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
-                    fontSize: ScreenUtil().setSp(36),
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -91,7 +87,6 @@ void showCustomDialogWithIconDialog({
     barrierDismissible: isDesmissible ?? true,
     context: context,
     builder: (BuildContext context) {
-      print("showCustomDialogWithIconDialog");
       return WillPopScope(
         onWillPop: () async {
           return isBackPopped ?? true;
@@ -100,8 +95,6 @@ void showCustomDialogWithIconDialog({
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.75,
-            height: MediaQuery.of(context).size.height * 0.30,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -110,8 +103,6 @@ void showCustomDialogWithIconDialog({
               children: [
                 Center(
                   child: Container(
-                    width: ScreenUtil().setWidth(150),
-                    height: ScreenUtil().setWidth(150),
                     decoration: BoxDecoration(
                         color: iconBackColor ?? Colors.greenAccent,
                         borderRadius: BorderRadius.circular(200)),
@@ -126,14 +117,7 @@ void showCustomDialogWithIconDialog({
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    content ?? '',
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: ScreenUtil().setSp(40),
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
+                  child: Text(content ?? '', style: getBoldStyle(fontSize: 22)),
                 ),
                 if (buttonText != null)
                   MaterialButton(
@@ -168,122 +152,75 @@ void showCustomDialogWithIconDialog({
   );
 }
 
-void showCustomConfirmCancelDialog({
+void showCancelConfirmationDialog({
+  required BuildContext context,
+  IconData? icon,
   String? title,
   String? content,
-  Function(BuildContext context)? onConfirm,
-  Function(BuildContext context)? onCancel,
+  void Function()? onConfirm,
+  void Function()? onCancel,
   bool? isDismissible,
   bool? canPop,
   String? cancelText,
-  confirmText,
-  required BuildContext mainContext,
+  String? confirmText,
 }) {
-  ShowDialog().showElasticDialog(
-    context: mainContext,
-    barrierDismissible: isDismissible ?? true,
-    builder: (BuildContext context) {
-      return WillPopScope(
-        onWillPop: () => Future.value(canPop ?? true),
-        child: Dialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Container(
-            width: MediaQuery.of(mainContext).size.width * 0.75,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)),
-            padding: const EdgeInsets.symmetric(
-              vertical: 15,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  title ?? '',
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: ScreenUtil().setSp(42),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(
-                  height: ScreenUtil().setHeight(280),
-                  child: Center(
-                    child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Text(
-                          content ?? '',
-                          style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: ScreenUtil().setSp(36),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      onPressed: onCancel != null
-                          ? () => onCancel(context)
-                          : () {
-                              Navigator.of(context).pop();
-                              // Nav.pop(context);
-                            },
-                      style: TextButton.styleFrom(
-                        textStyle: TextStyle(
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 4),
-                        child: Text(
-                          cancelText ?? AppStrings.cancel,
-                          style: TextStyle(
-                            fontSize: ScreenUtil().setSp(32),
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                    MaterialButton(
-                      color: Theme.of(context).primaryColor,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15)),
-                      onPressed: onConfirm != null
-                          ? () => onConfirm(context)
-                          : () {
-                              Navigator.of(context).pop();
-                              // Nav.pop(context);
-                            },
-                      textColor: Theme.of(context).primaryColor,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 4),
-                        child: Text(
-                          confirmText ?? AppStrings.confirm,
-                          style: TextStyle(
-                            fontSize: ScreenUtil().setSp(32),
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) => AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            icon,
+            color: ColorManager.primary,
+            size: 60,
           ),
-        ),
-      );
-    },
+          16.vGap,
+          Text(
+            title ?? '',
+            textAlign: TextAlign.center,
+            style: getBoldStyle(
+                fontSize: title!.length > 20 ? FontSize.s16 : FontSize.s22),
+          ),
+          12.vGap,
+          Text(
+            content ?? '',
+            textAlign: TextAlign.center,
+            style: getRegularStyle(
+                fontSize: FontSize.s16,
+                color: context.isDarkMode
+                    ? ColorManager.greyColor
+                    : ColorManager.darkGrey),
+          ),
+          24.vGap,
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: onConfirm,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: ColorManager.primary,
+                  ),
+                  child: const Text('Continue'),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Cancel'),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
   );
 }
 

@@ -48,6 +48,7 @@ class TopBidderItem extends StatelessWidget {
                   backgroundImage: NetworkImage(topBiddersData.userPhoto),
                 ),
                 title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       topBiddersData.userName,
@@ -57,7 +58,6 @@ class TopBidderItem extends StatelessWidget {
                         color: isFaded ? Colors.grey : null,
                       ),
                     ),
-                    const Spacer(),
                     Text(
                       "\$${topBiddersData.bidAmount}",
                       style: getBoldStyle(

@@ -176,6 +176,7 @@ ThemeData getDarkTheme() {
       contentPadding: const EdgeInsets.all(
         AppPadding.p20,
       ),
+      
       errorStyle: getRegularStyle(
         fontSize: FontSize.s12,
         color: ColorManager.red,

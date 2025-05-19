@@ -2,14 +2,18 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/assets_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
+import 'package:peakmart/features/payment/domain/entities/payment_entity.dart';
+import 'package:peakmart/features/payment/domain/enum/enums.dart';
+import 'package:peakmart/features/payment/presentation/cubit/payment_cubit.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:developer';
 
 class PaymentReceiptScreen extends StatefulWidget {
-  final Map<String, dynamic> paymentData;
+  final PaymentEntity paymentData;
 
   const PaymentReceiptScreen({super.key, required this.paymentData});
 
@@ -21,33 +25,50 @@ class _PaymentReceiptScreenState extends State<PaymentReceiptScreen> {
   bool _isSaved = false;
   final ScreenshotController _screenshotController = ScreenshotController();
   bool _isSaving = false;
+  double? _fees;
+  double? _total;
 
   @override
   void initState() {
     super.initState();
     _checkIfSaved();
+    _calculateFeesAndTotal();
   }
 
   Future<void> _checkIfSaved() async {
     final prefs = await SharedPreferences.getInstance();
-    final savedPaymentId = prefs.getString('saved_receipt_${widget.paymentData['id']}');
+    final savedPaymentId = prefs.getString('saved_receipt_${widget.paymentData.id}');
     setState(() {
       _isSaved = savedPaymentId != null;
     });
   }
 
+  void _calculateFeesAndTotal() {
+    final cubit = context.read<PaymentCubit>();
+    if (cubit.state is FeesLoaded) {
+      final feesEntity = (cubit.state as FeesLoaded).fees;
+      final paymentProcess = cubit.paymentProcess;
+      final feePercentage = paymentProcess.getFee(feesEntity);
+      _fees = widget.paymentData.amount * feePercentage;
+      _total = widget.paymentData.amount + (_fees ?? 0);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final status = widget.paymentData['status'] ?? 'CAPTURED';
-    final amount = widget.paymentData['amount']?.toString() ?? '1635.9';
-    final currency = widget.paymentData['currency'] ?? 'USD';
-    final customerName = widget.paymentData['customer']?['first_name'] ?? 'Ahmed elabassy';
-    final paymentId = widget.paymentData['id'] ?? 'chg_TS07A3520251733e3OX1505661';
+    final status = widget.paymentData.status.toString().split('.').last.toUpperCase();
+    final amount = widget.paymentData.amount;
+    final currency = widget.paymentData.currency;
+    final customerName = widget.paymentData.customerName;
+    final paymentId = widget.paymentData.id;
 
     final qrData = 'https://hk.herova.net/reciet.php?tap_id=$paymentId';
 
     return Scaffold(
-      appBar: CustomAppBar(title: 'Payment Receipt',isNotShowArrowBack: true,),
+      appBar: const CustomAppBar(
+        title: 'Payment Receipt',
+        isNotShowArrowBack: true,
+      ),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
@@ -88,8 +109,8 @@ class _PaymentReceiptScreenState extends State<PaymentReceiptScreen> {
                   _buildInfoRow('User name', customerName),
                   _buildInfoRow('ID', paymentId),
                   _buildInfoRow('Amount', '$amount $currency'),
-                  _buildInfoRow('Fees', '81.795 $currency'), // 5% of 1635.9
-                  _buildInfoRow('Total', '1717.695 $currency'), // amount + fees
+                  _buildInfoRow('Fees', _fees != null ? '${_fees!.toStringAsFixed(3)} $currency' : 'N/A'),
+                  _buildInfoRow('Total', _total != null ? '${_total!.toStringAsFixed(3)} $currency' : 'N/A'),
                   const SizedBox(height: 24),
                   if (!_isSaved)
                     Row(
@@ -112,8 +133,7 @@ class _PaymentReceiptScreenState extends State<PaymentReceiptScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF8B4513),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 32, vertical: 12),
+                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -161,7 +181,6 @@ class _PaymentReceiptScreenState extends State<PaymentReceiptScreen> {
     });
 
     try {
-      // Capture only the Card widget
       final image = await _screenshotController.captureFromWidget(
         Card(
           elevation: 4,
@@ -181,7 +200,7 @@ class _PaymentReceiptScreenState extends State<PaymentReceiptScreen> {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'PAYMENT ${widget.paymentData['status'] ?? 'CAPTURED'}',
+                  'PAYMENT ${widget.paymentData.status.toString().split('.').last.toUpperCase()}',
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -190,18 +209,18 @@ class _PaymentReceiptScreenState extends State<PaymentReceiptScreen> {
                 ),
                 const SizedBox(height: 24),
                 QrImageView(
-                  data: 'https://hk.herova.net/reciet.php?tap_id=${widget.paymentData['id']}',
+                  data: 'https://hk.herova.net/reciet.php?tap_id=${widget.paymentData.id}',
                   version: QrVersions.auto,
-                  size: 200.0,
+                  size: 150.0,
                   backgroundColor: Colors.white,
                   padding: const EdgeInsets.all(8.0),
                 ),
                 const SizedBox(height: 24),
-                _buildInfoRow('User name', widget.paymentData['customer']?['first_name'] ?? 'Ahmed elabassy'),
-                _buildInfoRow('ID', widget.paymentData['id'] ?? 'chg_TS07A3520251733e3OX1505661'),
-                _buildInfoRow('Amount', '${widget.paymentData['amount'] ?? '1635.9'} ${widget.paymentData['currency'] ?? 'USD'}'),
-                _buildInfoRow('Fees', '81.795 ${widget.paymentData['currency'] ?? 'USD'}'),
-                _buildInfoRow('Total', '1717.695 ${widget.paymentData['currency'] ?? 'USD'}'),
+                _buildInfoRow('User name', widget.paymentData.customerName),
+                _buildInfoRow('ID', widget.paymentData.id),
+                _buildInfoRow('Amount', widget.paymentData.amount.toString()),
+                _buildInfoRow('Fees', _fees?.toStringAsFixed(3) ?? 'N/A'),
+                _buildInfoRow('Total', _total?.toStringAsFixed(3) ?? 'N/A'),
               ],
             ),
           ),
@@ -209,24 +228,16 @@ class _PaymentReceiptScreenState extends State<PaymentReceiptScreen> {
         delay: const Duration(milliseconds: 500),
       );
 
-      if (image == null) {
-        log('Failed to capture screenshot of card');
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Failed to capture receipt!')),
-        );
-        return;
-      }
-
       final result = await ImageGallerySaverPlus.saveImage(
         Uint8List.fromList(image),
         quality: 100,
-        name: 'receipt_${widget.paymentData['id']}',
+        name: 'receipt_${widget.paymentData.id}',
       );
 
       if (result['isSuccess']) {
         log('Receipt saved to gallery: ${result['filePath']}');
         final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('saved_receipt_${widget.paymentData['id']}', 'true');
+        await prefs.setString('saved_receipt_${widget.paymentData.id}', 'true');
         setState(() {
           _isSaved = true;
         });

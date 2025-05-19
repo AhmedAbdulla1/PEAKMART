@@ -11,3 +11,7 @@ class ServerFailure extends Failure {
 class NetworkFailure extends Failure {
   NetworkFailure(String message) : super(message);
 }
+
+class ParsingFailure extends Failure {
+  ParsingFailure(String message) : super(message);
+}

@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:peakmart/app/app_prefs.dart';
+import 'package:peakmart/core/net/api_url.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
@@ -10,6 +12,8 @@ import 'package:peakmart/features/payment/domain/enum/enums.dart';
 import 'package:peakmart/features/payment/presentation/views/web_view_payment.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/features/payment/presentation/cubit/payment_cubit.dart';
+import 'package:peakmart/app/di.dart';
+import 'package:peakmart/features/payment/domain/usecases/payment_usecase.dart';
 
 const String bidRulesRoute = '/bid_rules';
 const String contactUsRoute = '/contact_us';
@@ -20,7 +24,7 @@ class PaymentDialog extends StatefulWidget {
 
   const PaymentDialog({
     super.key,
-    this.paymentProcess = PaymentProcess.enroll,
+    this.paymentProcess = PaymentProcess.ENROLL,
     required this.netPrice,
   });
 
@@ -34,16 +38,15 @@ class _PaymentDialogState extends State<PaymentDialog> {
   DateTime? _lastButtonPress;
 
   @override
-  void dispose() {
-    _bidController.dispose();
-    super.dispose();
+  void initState() {
+    super.initState();
+    initPaymentModule();
   }
 
   @override
-  void initState() {
-    super.initState();
-    final cubit = context.read<PaymentCubit>();
-    cubit.loadPaymentFees();
+  void dispose() {
+    _bidController.dispose();
+    super.dispose();
   }
 
   double calculateFees(FeesEntity fees) {
@@ -70,20 +73,24 @@ class _PaymentDialogState extends State<PaymentDialog> {
       return;
     }
 
-
     log('Processing payment...');
 
     try {
       final paymentUrl =
-          'https://hk.herova.net/payment/pay4new.php?name=astron&price=$_amount&type=${paymentType.name}';
+          '${APIUrls.initiatePayment}?name=${instance<AppPreferences>().getCookie('USER_NAME')}&price=$_amount&type=${paymentType.name}';
       log('Opening WebView with URL: $paymentUrl');
 
-      final cubit = context.read<PaymentCubit>(); // Get existing Cubit
+      final cubit = PaymentCubit(
+        useCase: instance<FetchPaymentDetails>(),
+        paymentProcess: widget.paymentProcess,
+      );
+      cubit.loadPaymentFees();
+
       final result = await Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => BlocProvider.value(
-            value: cubit,
+          builder: (context) => BlocProvider(
+            create: (_) => cubit,
             child: PaymentWebViewScreen(
               paymentUrl: paymentUrl,
               enteredBid: _amount!,
@@ -91,8 +98,6 @@ class _PaymentDialogState extends State<PaymentDialog> {
           ),
         ),
       );
-
-
 
       log('Returned to PaymentDialog with result: $result');
       if (result != null && result is Map) {
@@ -174,136 +179,147 @@ class _PaymentDialogState extends State<PaymentDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<PaymentCubit, PaymentState>(
-      listener: (context, state) {
-        if (state is FeesLoaded) {
-          _amount = calculateFees(state.fees);
-        }
-      },
-      builder: (context, state) {
-        String processText;
-        switch (widget.paymentProcess) {
-          case PaymentProcess.upload:
-            processText = 'The upload fee is ';
-            break;
-          case PaymentProcess.enroll:
-            processText = 'The Bid insurance to enroll is';
-            break;
-          case PaymentProcess.bid:
-            processText = 'The bid insurance to enroll is ';
-            break;
-        }
+    final cubit = PaymentCubit(
+      useCase: instance<FetchPaymentDetails>(),
+      paymentProcess: widget.paymentProcess,
+    );
+    cubit.loadPaymentFees();
 
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.r),
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(16.w),
-            child: state is PaymentLoading
-                ? SizedBox(
-                    height: 150.h,
-                    child: const Center(child: CircularProgressIndicator()))
-                : Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          GestureDetector(
-                            onTap: _closeDialog,
-                            child: Container(
-                              padding: const EdgeInsets.all(3),
-                              decoration: const BoxDecoration(
-                                color: Colors.red,
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Icon(
-                                Icons.close,
-                                color: Colors.white,
-                                size: 20,
+    return BlocProvider(
+      create: (_) => cubit,
+      child: BlocConsumer<PaymentCubit, PaymentState>(
+        listener: (context, state) {
+          if (state is FeesLoaded) {
+            _amount = calculateFees(state.fees);
+          }
+        },
+        builder: (context, state) {
+          String processText;
+          switch (widget.paymentProcess) {
+            case PaymentProcess.UPLOAD:
+              processText = 'The upload fee is ';
+              break;
+            case PaymentProcess.ENROLL:
+              processText = 'The Bid insurance to enroll is';
+              break;
+            case PaymentProcess.bid:
+              processText = 'The bid insurance to enroll is ';
+              break;
+          }
+
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.r),
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(16.w),
+              child: state is PaymentLoading
+                  ? SizedBox(
+                      height: 150.h,
+                      child: const Center(child: CircularProgressIndicator()),
+                    )
+                  : Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            GestureDetector(
+                              onTap: _closeDialog,
+                              child: Container(
+                                padding: const EdgeInsets.all(3),
+                                decoration: const BoxDecoration(
+                                  color: Colors.red,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: const Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: processText,
-                                style: getBoldStyle(
-                                  fontSize: FontSize.s16,
-                                  color: context.isDarkMode
-                                      ? ColorManager.white
-                                      : ColorManager.black,
+                          ],
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: processText,
+                                  style: getBoldStyle(
+                                    fontSize: FontSize.s16,
+                                    color: context.isDarkMode
+                                        ? ColorManager.white
+                                        : ColorManager.black,
+                                  ),
                                 ),
-                              ),
-                              TextSpan(
-                                text: _amount != null
-                                    ? '$_amount\$'
-                                    : 'Calculating...',
-                                style: getBoldStyle(
-                                  fontSize: FontSize.s16,
-                                  color: ColorManager.primary,
+                                TextSpan(
+                                  text: _amount != null
+                                      ? '$_amount\$'
+                                      : 'Calculating...',
+                                  style: getBoldStyle(
+                                    fontSize: FontSize.s16,
+                                    color: ColorManager.primary,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 8.h),
-                      const BulletText('A tax fee will be added to the amount'),
-                      const BulletText(
-                          'In case of cancellation, 20% of the money won\'t be refunded'),
-                      BulletTextWithLink(
-                        text: 'For more details check the ',
-                        linkText: 'bid rules',
-                        onTap: () {
-                          Navigator.pushNamed(context, bidRulesRoute);
-                        },
-                      ),
-                      BulletTextWithLink(
-                        text: 'or ',
-                        linkText: 'contact us',
-                        onTap: () {
-                          Navigator.pushNamed(context, contactUsRoute);
-                        },
-                      ),
-                      SizedBox(height: 12.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () =>
-                                _initiatePayment(context, PaymentType.binance),
-                            child: const Text(
-                              'Pay with Binance',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 14),
+                        SizedBox(height: 8.h),
+                        const BulletText(
+                            'A tax fee will be added to the amount'),
+                        const BulletText(
+                            'In case of cancellation, 20% of the money won\'t be refunded'),
+                        BulletTextWithLink(
+                          text: 'For more details check the ',
+                          linkText: 'bid rules',
+                          onTap: () {
+                            Navigator.pushNamed(context, bidRulesRoute);
+                          },
+                        ),
+                        BulletTextWithLink(
+                          text: 'or ',
+                          linkText: 'contact us',
+                          onTap: () {
+                            Navigator.pushNamed(context, contactUsRoute);
+                          },
+                        ),
+                        SizedBox(height: 12.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () => _initiatePayment(
+                                  context, PaymentType.binance),
+                              child: const Text(
+                                'Pay with Binance',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 14),
+                              ),
                             ),
-                          ),
-                          SizedBox(width: 8.w),
-                          ElevatedButton(
-                            onPressed: () =>
-                                _initiatePayment(context, PaymentType.tap),
-                            child: const Text(
-                              'Pay with Tap',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 14),
+                            SizedBox(width: 8.w),
+                            ElevatedButton(
+                              onPressed: () =>
+                                  _initiatePayment(context, PaymentType.tap),
+                              child: const Text(
+                                'Pay with Tap',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 14),
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-          ),
-        );
-      },
+                          ],
+                        ),
+                      ],
+                    ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

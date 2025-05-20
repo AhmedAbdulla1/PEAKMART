@@ -63,7 +63,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                     TopBidderCubit()..getTopBidders(productId: product.id),
                 child: ProductDetailsViewBody(product: product),
               );
-            } else if (state is ProductError) {
+            }
+            else if (state is ProductError) {
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

@@ -135,6 +135,8 @@ class _PaymentReceiptScreenState extends State<PaymentReceiptScreen> {
                     onPressed: () {
                       Navigator.pop(context, {
                         'payment_status': 'success',
+                        "tap_id": widget.paymentData.tapId,
+                        'fees': widget.paymentData.amount
                       });
                     },
                     style: ElevatedButton.styleFrom(

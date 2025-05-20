@@ -10,6 +10,8 @@ import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/net/api_url.dart';
 import 'package:peakmart/core/net/response_validators/default_response_validator.dart';
 import 'package:peakmart/core/responses/emty_response.dart';
+import 'package:peakmart/features/products/data/models/request/bid_request.dart';
+import 'package:peakmart/features/products/data/models/request/enroll_request.dart';
 import 'package:peakmart/features/products/data/models/request/pagination_request.dart';
 import 'package:peakmart/features/products/data/models/response/products_response.dart';
 import 'package:peakmart/features/products/data/models/response/top_bidders_response.dart';
@@ -74,27 +76,27 @@ class ProductsDataSource extends RemoteDataSource {
   }
 
   Future<Either<AppErrors, EmptyResponse>> enroll(
-      int productId) async {
+      EnrollRequest enrollRequest) async {
     AppPreferences appPreferences = instance<AppPreferences>();
     String userId = appPreferences.getUserId();
     log("userId is $userId");
     return request<EmptyResponse>(
-        method: HttpMethod.GET,
-        queryParameters: {"id": productId, "uid": userId},
+        method: HttpMethod.POST,
+        body: enrollRequest.toJson(),
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           return EmptyResponse.fromJson(json);
         },
         url: APIUrls.enrollProduct);
   }
-  Future<Either<AppErrors, EmptyResponse>> bid(
-      int productId) async {
+
+  Future<Either<AppErrors, EmptyResponse>> bid(BidRequest bidRequest) async {
     AppPreferences appPreferences = instance<AppPreferences>();
     String userId = appPreferences.getUserId();
     log("userId is $userId");
     return request<EmptyResponse>(
-        method: HttpMethod.GET,
-        queryParameters: {"id": productId, "uid": userId},
+        method: HttpMethod.POST,
+        body: bidRequest.toJson(),
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           return EmptyResponse.fromJson(json);

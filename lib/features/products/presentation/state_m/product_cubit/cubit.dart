@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/entities/empty_entity.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/results/result.dart';
+import 'package:peakmart/features/products/data/models/request/bid_request.dart';
+import 'package:peakmart/features/products/data/models/request/enroll_request.dart';
 import 'package:peakmart/features/products/data/models/request/pagination_request.dart';
 import 'package:peakmart/features/products/data/products_repo_imp.dart';
 import 'package:peakmart/features/products/domain/entity/prodcuts_entity.dart';
@@ -67,9 +69,19 @@ class ProductCubit extends Cubit<ProductState> {
     });
   }
 
-  Future<void> enrollProduct(int productId) async {
+  Future<void> enrollProduct(EnrollRequest enrollRequest) async {
     Result<AppErrors, EmptyEntity> result =
-        await productsRepo.enrollProduct(productId);
+        await productsRepo.enrollProduct(enrollRequest);
+    result.pick(onData: (data) {
+      return;
+    }, onError: (error) {
+      emit(ProductError(
+          error: CustomError(message: error.toString()), onRetry: () {}));
+    });
+  }
+  Future<void> bidProduct(BidRequest bidRequest) async {
+    Result<AppErrors, EmptyEntity> result =
+    await productsRepo.bidProduct(bidRequest);
     result.pick(onData: (data) {
       return;
     }, onError: (error) {

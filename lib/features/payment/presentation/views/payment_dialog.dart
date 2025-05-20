@@ -136,7 +136,8 @@ class _PaymentDialogState extends State<PaymentDialog> {
               const SnackBar(content: Text('Payment completed successfully.')),
             );
             Navigator.of(context, rootNavigator: true).pop({
-              'bid': _amount,
+              'fees': _amount,
+              'tap_id': result['tap_id'],
               'payment_status': 'success',
             });
             break;

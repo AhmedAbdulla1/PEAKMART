@@ -20,13 +20,13 @@ class ConfirmPaymentRequest extends BaseRequest {
   }
 
   @override
-  Map<String, dynamic> toJson() {
+  Map<String, String> toJson() {
     return {
       "USER_ID": instance<AppPreferences>().getUserId(),
       "TAB_ID": tapId,
       "REASON": reason,
       "STATUS": "CAPTURED",
-      "AMOUNT": amount,
+      "AMOUNT": amount.toString(),
     };
   }
 }

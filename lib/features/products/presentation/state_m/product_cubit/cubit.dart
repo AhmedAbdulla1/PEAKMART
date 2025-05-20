@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:peakmart/core/entities/empty_entity.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/results/result.dart';
 import 'package:peakmart/features/products/data/models/request/pagination_request.dart';
@@ -60,6 +61,17 @@ class ProductCubit extends Cubit<ProductState> {
 
     result.pick(onData: (data) {
       emit(ProductLoaded(products: data.data));
+    }, onError: (error) {
+      emit(ProductError(
+          error: CustomError(message: error.toString()), onRetry: () {}));
+    });
+  }
+
+  Future<void> enrollProduct(int productId) async {
+    Result<AppErrors, EmptyEntity> result =
+        await productsRepo.enrollProduct(productId);
+    result.pick(onData: (data) {
+      return;
     }, onError: (error) {
       emit(ProductError(
           error: CustomError(message: error.toString()), onRetry: () {}));

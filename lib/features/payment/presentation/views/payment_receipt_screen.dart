@@ -25,6 +25,7 @@ class _PaymentReceiptScreenState extends State<PaymentReceiptScreen> {
   bool _isSaved = false;
   final ScreenshotController _screenshotController = ScreenshotController();
   bool _isSaving = false;
+  double? _amount;
   double? _fees;
   double? _total;
 
@@ -37,7 +38,8 @@ class _PaymentReceiptScreenState extends State<PaymentReceiptScreen> {
 
   Future<void> _checkIfSaved() async {
     final prefs = await SharedPreferences.getInstance();
-    final savedPaymentId = prefs.getString('saved_receipt_${widget.paymentData.id}');
+    final savedPaymentId =
+        prefs.getString('saved_receipt_${widget.paymentData.id}');
     setState(() {
       _isSaved = savedPaymentId != null;
     });
@@ -45,18 +47,18 @@ class _PaymentReceiptScreenState extends State<PaymentReceiptScreen> {
 
   void _calculateFeesAndTotal() {
     final cubit = context.read<PaymentCubit>();
-    if (cubit.state is FeesLoaded) {
-      final feesEntity = (cubit.state as FeesLoaded).fees;
-      final paymentProcess = cubit.paymentProcess;
-      final feePercentage = paymentProcess.getFee(feesEntity);
-      _fees = widget.paymentData.amount * feePercentage;
-      _total = widget.paymentData.amount + (_fees ?? 0);
-    }
+    final feesEntity = cubit.fees;
+    final paymentProcess = cubit.paymentProcess;
+    final feePercentage = paymentProcess.getFee(feesEntity);
+    _amount = widget.paymentData.amount * (1 - feePercentage);
+    _fees = widget.paymentData.amount - _amount!;
+    _total = widget.paymentData.amount;
   }
 
   @override
   Widget build(BuildContext context) {
-    final status = widget.paymentData.status.toString().split('.').last.toUpperCase();
+    final status =
+        widget.paymentData.status.toString().split('.').last.toUpperCase();
     final amount = widget.paymentData.amount;
     final currency = widget.paymentData.currency;
     final customerName = widget.paymentData.customerName;
@@ -109,8 +111,12 @@ class _PaymentReceiptScreenState extends State<PaymentReceiptScreen> {
                   _buildInfoRow('User name', customerName),
                   _buildInfoRow('ID', paymentId),
                   _buildInfoRow('Amount', '$amount $currency'),
-                  _buildInfoRow('Fees', _fees != null ? '${_fees!.toStringAsFixed(3)} $currency' : 'N/A'),
-                  _buildInfoRow('Total', _total != null ? '${_total!.toStringAsFixed(3)} $currency' : 'N/A'),
+                  _buildInfoRow(
+                      'Fees',
+                      _fees != null
+                          ? '${_fees!.toStringAsFixed(3)} $currency'
+                          : 'N/A'),
+                  _buildInfoRow('Total', '$amount $currency'),
                   const SizedBox(height: 24),
                   if (!_isSaved)
                     Row(
@@ -133,7 +139,8 @@ class _PaymentReceiptScreenState extends State<PaymentReceiptScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF8B4513),
-                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 32, vertical: 12),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -209,7 +216,8 @@ class _PaymentReceiptScreenState extends State<PaymentReceiptScreen> {
                 ),
                 const SizedBox(height: 24),
                 QrImageView(
-                  data: 'https://hk.herova.net/reciet.php?tap_id=${widget.paymentData.id}',
+                  data:
+                      'https://hk.herova.net/reciet.php?tap_id=${widget.paymentData.id}',
                   version: QrVersions.auto,
                   size: 150.0,
                   backgroundColor: Colors.white,

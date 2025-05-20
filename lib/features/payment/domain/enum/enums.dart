@@ -3,7 +3,7 @@ import 'package:peakmart/features/payment/domain/entities/fee_entity.dart';
 enum PaymentProcess {
   UPLOAD,
   ENROLL,
-  bid;
+  BID;
 
   num getFee(FeesEntity fees) {
     switch (this) {
@@ -11,7 +11,7 @@ enum PaymentProcess {
         return (fees.uploadFee + fees.payFee) / 100;
       case PaymentProcess.ENROLL:
         return (fees.enrollFee + fees.payFee) / 100;
-      case PaymentProcess.bid:
+      case PaymentProcess.BID:
         return (fees.bidFee + fees.payFee) / 100;
     }
   }

@@ -5,9 +5,11 @@ import 'package:peakmart/app/app_prefs.dart' show AppPreferences;
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/constants/enums/http_method.dart';
 import 'package:peakmart/core/data_source/remote_data_source.dart';
+import 'package:peakmart/core/entities/empty_entity.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/net/api_url.dart';
 import 'package:peakmart/core/net/response_validators/default_response_validator.dart';
+import 'package:peakmart/core/responses/emty_response.dart';
 import 'package:peakmart/features/products/data/models/request/pagination_request.dart';
 import 'package:peakmart/features/products/data/models/response/products_response.dart';
 import 'package:peakmart/features/products/data/models/response/top_bidders_response.dart';
@@ -69,5 +71,34 @@ class ProductsDataSource extends RemoteDataSource {
           return TopBiddersResponse.fromJson(json);
         },
         url: APIUrls.getTopBidders);
+  }
+
+  Future<Either<AppErrors, EmptyResponse>> enroll(
+      int productId) async {
+    AppPreferences appPreferences = instance<AppPreferences>();
+    String userId = appPreferences.getUserId();
+    log("userId is $userId");
+    return request<EmptyResponse>(
+        method: HttpMethod.GET,
+        queryParameters: {"id": productId, "uid": userId},
+        responseValidator: DefaultResponseValidator(),
+        converter: (json) {
+          return EmptyResponse.fromJson(json);
+        },
+        url: APIUrls.enrollProduct);
+  }
+  Future<Either<AppErrors, EmptyResponse>> bid(
+      int productId) async {
+    AppPreferences appPreferences = instance<AppPreferences>();
+    String userId = appPreferences.getUserId();
+    log("userId is $userId");
+    return request<EmptyResponse>(
+        method: HttpMethod.GET,
+        queryParameters: {"id": productId, "uid": userId},
+        responseValidator: DefaultResponseValidator(),
+        converter: (json) {
+          return EmptyResponse.fromJson(json);
+        },
+        url: APIUrls.bidProduct);
   }
 }

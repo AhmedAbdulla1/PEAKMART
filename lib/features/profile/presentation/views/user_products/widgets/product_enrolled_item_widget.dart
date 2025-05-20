@@ -111,7 +111,7 @@ class ProductEnrolledItemWidget extends StatelessWidget {
                                   builder: (context) {
                                     return PaymentDialog(
                                       netPrice: product.highestBid.toDouble(),
-                                      paymentProcess: PaymentProcess.bid,
+                                      paymentProcess: PaymentProcess.BID,
                                     );
                                   });
                             },

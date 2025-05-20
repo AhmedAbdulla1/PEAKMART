@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:peakmart/core/net/api_url.dart';
 import 'package:peakmart/core/responses/emty_response.dart';
@@ -85,40 +86,77 @@ class RemotePaymentDataSourceImpl implements RemotePaymentDataSource {
 
   @override
   Future<EmptyResponse> confirmPayment(Map<String, dynamic> data) async {
-    log('5555555555555555555555555555');
-    log("data: ${data.toString()}");
+    log('Starting confirmPayment...');
+    log("Data being sent: ${data.toString()}");
+
     try {
-      final response =
-          await client.post(Uri.parse(APIUrls.confirmPayment), body: data);
-      log('4444444444444444444444444');
-      log(response.statusCode.toString());
-      log(response.body);
-      log('100000000000000');
-      // if (response.statusCode == 200) {
-      //   final data = jsonDecode(response.body);
-      //   log('587878777777777777');
+      // التأكد من أن الـ URL صالح
+      const urlString = APIUrls.confirmPayment;
+      log('URL: $urlString');
+      if (urlString.isEmpty) {
+        throw ArgumentError('Confirm Payment URL is empty');
+      }
 
-      //   return EmptyResponse(
-      //       message: data['message'], status: data['status'], code: 0);
-      // } else if (response.statusCode == 0 || response.statusCode == -1) {
-      //   log('9999999999999999999999');
+      Uri uri;
+      try {
+        uri = Uri.parse(urlString);
+      } catch (e) {
+        log('Error parsing URL: $e');
+        throw FormatException('Invalid URL format: $urlString');
+      }
 
-      //   throw NetworkFailure('Network error: No connection');
-      // } else {
-      //   log('0000000000000000000000');
+      // التأكد من أن الـ Body صالح
+      if (data == null || data.isEmpty) {
+        log('Error: Request body is null or empty');
+        throw ArgumentError('Request body cannot be null or empty');
+      }
 
-      //   throw ServerFailure(
-      //       'Server error: ${response.statusCode} - ${response.reasonPhrase}');
-      // }
-      return EmptyResponse(
-        message: 'Payment confirmed',
-        status: 'success',
-        code: 0,
-      );
-    } on Exception catch (e) {
-      log("ppppppppppppppppp");
-      log(e.toString());
-      throw ServerFailure('Server error: ${e.toString()}');
+      log('Sending POST request to $urlString with body: $data');
+      final response = await client.post(
+        uri,
+        body: json.encode(data), // استخدام bodyFields بدل body لـ Form Data
+        headers: {
+          'Content-Type': 'application/json', // تغيير الـ Content-Type
+        },
+      ).timeout(Duration(seconds: 30), onTimeout: () {
+        log('Request timed out after 30 seconds');
+        throw NetworkFailure('Request timed out');
+      });
+
+      log('Received response with status code: ${response.statusCode}');
+      log('Response body: ${response.body}');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        try {
+          final responseData = jsonDecode(response.body);
+          log('Parsed response data: $responseData');
+          return EmptyResponse(
+            message: responseData['message'] ?? 'Payment confirmed',
+            status: responseData['status'] ?? 'success',
+            code: responseData['code'] ?? 0,
+          );
+        } catch (e) {
+          log('Error parsing response body: $e');
+          throw ParsingFailure('Failed to parse response: $e');
+        }
+      } else if (response.statusCode == 0 || response.statusCode == -1) {
+        log('Network error detected');
+        throw NetworkFailure('Network error: No connection');
+      } else {
+        log('Server error: ${response.statusCode} - ${response.reasonPhrase}');
+        throw ServerFailure('Server error: ${response.statusCode} - ${response.reasonPhrase}');
+      }
+    } catch (e, stackTrace) {
+      log('Error in confirmPayment: $e');
+      log('Stack trace: $stackTrace');
+      if (e is NetworkFailure) {
+        throw e;
+      } else if (e is ParsingFailure) {
+        throw e;
+      } else if (e is FormatException) {
+        throw ServerFailure('Invalid URL or data format: $e');
+      }
+      throw ServerFailure('Unexpected error: $e');
     }
   }
 }

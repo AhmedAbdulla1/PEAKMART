@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/app/network_info.dart';
+import 'package:peakmart/core/entities/empty_entity.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/results/result.dart';
 import 'package:peakmart/features/products/data/models/request/pagination_request.dart';
@@ -108,5 +109,12 @@ class ProductsRepoImp extends ProductsRepo {
       result = Result(error: const AppErrors.connectionError());
     }
     return result;
+  }
+
+  @override
+  Future<Result<AppErrors, EmptyEntity>> enrollProduct(int productId) {
+    print(productId);
+
+    throw UnimplementedError();
   }
 }

@@ -14,6 +14,7 @@ import 'package:peakmart/features/home/presentation/state_m/home_cubits/future_b
 import 'package:peakmart/features/home/presentation/views/bid_section/titled_bid_section.dart';
 import 'package:peakmart/features/payment/presentation/views/payment_dialog.dart';
 import 'package:peakmart/features/products/domain/entity/top_bidders_entity.dart';
+import 'package:peakmart/features/products/presentation/state_m/product_cubit/cubit.dart';
 import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_cubit.dart';
 import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_states.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/widgets/bid_dialog.dart';
@@ -120,10 +121,19 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                                           )
                                         : PaymentDialog(
                                             netPrice: widget.product.price),
-                                  ).then((bid) {
-                                    if (bid != null) {
-                                      log('User entered bid: $bid');
+                                  ).then((value) {
+                                    if (value != null &&
+                                        value is Map<String, dynamic> &&
+                                        value.containsKey('payment_status') &&
+                                        value['payment_status'] == "success") {
+                                      context
+                                          .read<ProductCubit>()
+                                          .enrollProduct(widget.product.id);
                                     }
+                                    context
+                                        .read<TopBidderCubit>()
+                                        .getTopBidders(
+                                            productId: widget.product.id);
                                   });
                                 },
                           child: Text(userStatus ? 'Bid Now' : 'Enroll Now'),

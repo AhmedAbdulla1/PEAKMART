@@ -202,7 +202,7 @@ class _PaymentDialogState extends State<PaymentDialog> {
             case PaymentProcess.ENROLL:
               processText = 'The Bid insurance to enroll is';
               break;
-            case PaymentProcess.bid:
+            case PaymentProcess.BID:
               processText = 'The bid insurance to enroll is ';
               break;
           }

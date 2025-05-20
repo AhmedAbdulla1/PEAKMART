@@ -80,6 +80,7 @@ class ProductsDataSource extends RemoteDataSource {
     AppPreferences appPreferences = instance<AppPreferences>();
     String userId = appPreferences.getUserId();
     log("userId is $userId");
+    enrollRequest.printRequest();
     return request<EmptyResponse>(
         method: HttpMethod.POST,
         body: enrollRequest.toJson(),
@@ -94,6 +95,7 @@ class ProductsDataSource extends RemoteDataSource {
     AppPreferences appPreferences = instance<AppPreferences>();
     String userId = appPreferences.getUserId();
     log("userId is $userId");
+    bidRequest.printRequest();
     return request<EmptyResponse>(
         method: HttpMethod.POST,
         body: bidRequest.toJson(),

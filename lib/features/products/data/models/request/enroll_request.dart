@@ -15,7 +15,7 @@ class EnrollRequest extends BaseRequest {
 
   @override
   void printRequest() {
-    log(toJson().toString());
+    log(toJson().toString(),name: 'EnrollRequest');
   }
 
   @override

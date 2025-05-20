@@ -13,6 +13,7 @@ import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/home/presentation/state_m/home_cubits/future_bids_cubit.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/titled_bid_section.dart';
 import 'package:peakmart/features/payment/presentation/views/payment_dialog.dart';
+import 'package:peakmart/features/products/data/models/request/bid_request.dart';
 import 'package:peakmart/features/products/data/models/request/enroll_request.dart';
 import 'package:peakmart/features/products/domain/entity/top_bidders_entity.dart';
 import 'package:peakmart/features/products/presentation/state_m/product_cubit/cubit.dart';
@@ -127,13 +128,25 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                                         value is Map<String, dynamic> &&
                                         value.containsKey('payment_status') &&
                                         value['payment_status'] == "success") {
+                                      log("value: $value", name: "payment");
                                       context
                                           .read<ProductCubit>()
                                           .enrollProduct(EnrollRequest(
                                               productId:
                                                   widget.product.id.toString(),
-                                              tapId: value['tap_id'],
-                                              fees: value['fees']));
+                                              tapId: value['tap_id'].toString(),
+                                              fees: value['fees'].toString()));
+                                    } else if (value != null &&
+                                        value is Map<String, dynamic> &&
+                                        value.containsKey('bid_status') &&
+                                        value['bid_status'] == "success") {
+                                      log("value: $value", name: "bid");
+                                      context.read<ProductCubit>().bidProduct(
+                                          BidRequest(
+                                              productId:
+                                                  widget.product.id.toString(),
+                                              amount:
+                                                  value['bid'].toString()));
                                     }
                                     context
                                         .read<TopBidderCubit>()

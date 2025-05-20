@@ -12,7 +12,6 @@ const String contactUsRoute = '/contact_us';
 
 class BidDialog extends StatefulWidget {
   final double higherPrice;
-
   const BidDialog({
     super.key,
     required this.higherPrice,
@@ -75,6 +74,10 @@ class _BidDialogState extends State<BidDialog> {
 
     setState(() {
       _isProcessingPayment = true;
+    });
+    Navigator.pop(context,{
+      'bid': _enteredBid,
+      'bid_status': "success",
     });
 
   }

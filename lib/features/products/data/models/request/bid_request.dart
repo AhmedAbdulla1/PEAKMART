@@ -6,16 +6,15 @@ import 'package:peakmart/core/requests/base_request.dart';
 
 class BidRequest extends BaseRequest {
   final String productId;
-  final String tapId;
   final String amount;
 
   BidRequest(
-      {required this.productId, required this.tapId, required this.amount})
+      {required this.productId, required this.amount})
       : super();
 
   @override
   void printRequest() {
-    log(toJson().toString());
+    log(toJson().toString(),name: "bid request");
   }
 
   @override

@@ -47,25 +47,22 @@ class TopBidderItem extends StatelessWidget {
                 leading: CircleAvatar(
                   backgroundImage: NetworkImage(topBiddersData.userPhoto),
                 ),
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      topBiddersData.userName,
-                      style: getMediumStyle(
-                        fontSize: FontSize.s14,
-                      ).copyWith(
-                        color: isFaded ? Colors.grey : null,
-                      ),
-                    ),
-                    Text(
-                      "\$${topBiddersData.bidAmount}",
-                      style: getBoldStyle(
-                        fontSize: FontSize.s16,
-                        color: isFaded ? Colors.grey : ColorManager.primary,
-                      ),
-                    ),
-                  ],
+                trailing: Text(
+                  "\$${(topBiddersData.bidAmount).toStringAsFixed(0)}",
+                  style: getBoldStyle(
+                    fontSize: FontSize.s16,
+                    color: isFaded ? Colors.grey : ColorManager.primary,
+                  ),
+                ),
+                title: Text(
+                  topBiddersData.userName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: getMediumStyle(
+                    fontSize: FontSize.s14,
+                  ).copyWith(
+                    color: isFaded ? Colors.grey : null,
+                  ),
                 ),
               ),
             ),

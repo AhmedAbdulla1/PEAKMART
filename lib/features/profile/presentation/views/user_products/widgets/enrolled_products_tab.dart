@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/main/main_view.dart';
-import 'package:peakmart/features/profile/presentation/state_m/cart/user_products_cubit.dart';
-import 'package:peakmart/features/profile/presentation/state_m/cart/user_products_states.dart';
+import 'package:peakmart/features/profile/presentation/state_m/user_products/user_products_cubit.dart';
+import 'package:peakmart/features/profile/presentation/state_m/user_products/user_products_states.dart';
 import 'package:peakmart/features/profile/presentation/views/user_products/widgets/no_products_founded_widget.dart';
 import 'package:peakmart/features/profile/presentation/views/user_products/widgets/product_enrolled_item_widget.dart';
 
@@ -55,15 +55,20 @@ class _EnrolledProductsTabState extends State<EnrolledProductsTab>
                     );
                   },
                 )
-              : ListView.builder(
-                  padding: const EdgeInsets.all(8.0),
-                  itemCount: products.length,
-                  itemBuilder: (context, index) {
-                    return ProductEnrolledItemWidget(
-                      product: products[index],
-                      index: index + 1,
-                    );
+              : RefreshIndicator(
+                  onRefresh: () async {
+                    context.read<UserProductsCubit>().getEnrolledProducts();
                   },
+                  child: ListView.builder(
+                    padding: const EdgeInsets.all(8.0),
+                    itemCount: products.length,
+                    itemBuilder: (context, index) {
+                      return ProductEnrolledItemWidget(
+                        product: products[index],
+                        index: index + 1,
+                      );
+                    },
+                  ),
                 );
         }
         return const WaitingWidget();

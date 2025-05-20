@@ -27,24 +27,19 @@ void showCustomErrorDialog({
     );
   }
   if (Platform.isAndroid) {
-    showCustomConfirmCancelDialog(
-      mainContext: context,
-      content: message ?? "",
-      title:
-          errVDialogOptions.title ?? AppStrings.defaultError,
-      onConfirm: errVDialogOptions.confirmOptions?.onBtnPressed ??
-          (dContext) {
-            Navigator.pop(dContext);
-            if (callback != null) callback();
-          },
-      // onCancel: (dContext) async => await SystemNavigator.pop(),
-      onCancel: errVDialogOptions.cancelOptions?.onBtnPressed ??
-          (dContext) async => Navigator.pop(dContext),
-      confirmText: errVDialogOptions.confirmOptions?.buttonText ??
-          AppStrings.retry,
-      cancelText: errVDialogOptions.cancelOptions?.buttonText ??
-          'cancel',
-      isDismissible: false,
-    );
+    // showCancelConfirmationDialog(
+    //   context: context,
+    //   content: message ?? "",
+    //   title:
+    //       errVDialogOptions.title ?? AppStrings.defaultError,
+    //   onConfirm: errVDialogOptions.confirmOptions?.onBtnPressed ??
+    //   // onCancel: (dContext) async => await SystemNavigator.pop(),
+    //  , onCancel:,
+    //   confirmText: errVDialogOptions.confirmOptions?.buttonText ??
+    //       AppStrings.retry,
+    //   cancelText: errVDialogOptions.cancelOptions?.buttonText ??
+    //       'cancel',
+    //   isDismissible: false,
+    // );
   }
 }

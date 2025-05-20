@@ -1,13 +1,17 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/app/di.dart';
+import 'package:peakmart/core/entities/empty_entity.dart';
 import 'package:peakmart/core/entities/prodcut_entity.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/results/result.dart';
+import 'package:peakmart/features/profile/data/models/request/cancle_user_product_request.dart';
 import 'package:peakmart/features/profile/domain/enitiy/product_enrolled_entity.dart';
 import 'package:peakmart/features/profile/domain/enitiy/user_product_entity.dart';
 import 'package:peakmart/features/profile/domain/enitiy/user_products_enrolled_entity.dart';
 import 'package:peakmart/features/profile/domain/profile_repo.dart';
-import 'package:peakmart/features/profile/presentation/state_m/cart/user_products_states.dart';
+import 'package:peakmart/features/profile/presentation/state_m/user_products/user_products_states.dart';
 
 class UserProductsCubit extends Cubit<UserProductsStates> {
   UserProductsCubit() : super(UserProductsInitial());
@@ -100,5 +104,46 @@ class UserProductsCubit extends Cubit<UserProductsStates> {
           error: const AppErrors.customError(message: 'Enroll fetch failed'),
           onRetry: getEnrolledProducts));
     }
+  }
+
+  Future<void> cancelProduct(
+      {required int productId, required String password}) async {
+    emit(CancelUserProductLoading());
+    Result<AppErrors, EmptyEntity> result =
+        await profileRepo.cancelUserProduct(CancelUserProductRequest(
+      productId: productId,
+      password: password,
+      status: "canceled",
+    ));
+    result.pick(onData: (data) {
+      log("In cancelOrEndProduct cubit data: $data");
+      log("id: $productId,password: $password, status: canceled");
+
+      emit(CancelUserProductSuccess());
+      getUploadedProducts();
+    }, onError: (error) {
+      log("In cancelOrEndProduct cubit error: $error");
+      emit(CancelUserProductFailed(error: error));
+    });
+  }
+
+  Future<void> endProduct(
+      {required int productId, required String password}) async {
+    emit(CancelUserProductLoading());
+    Result<AppErrors, EmptyEntity> result =
+        await profileRepo.cancelUserProduct(CancelUserProductRequest(
+      productId: productId,
+      password: password,
+      status: "ended",
+    ));
+    result.pick(onData: (data) {
+      log("In cancelOrEndProduct cubit data: $data");
+      log("id: $productId,password: $password, status: ended");
+      emit(EndUserProductSuccess());
+      getUploadedProducts();
+    }, onError: (error) {
+      log("In cancelOrEndProduct cubit error: $error");
+      emit(CancelUserProductFailed(error: error));
+    });
   }
 }

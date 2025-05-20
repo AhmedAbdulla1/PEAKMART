@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:peakmart/app/app_prefs.dart';
+import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
+import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 
 Future<String?> showPasswordDialog(BuildContext context) async {
   final TextEditingController passwordController = TextEditingController();
   bool obscureText = true;
+  AppPreferences appPreferences = instance<AppPreferences>();
 
   final result = await showDialog<String>(
     context: context,
@@ -18,15 +24,22 @@ Future<String?> showPasswordDialog(BuildContext context) async {
           return AlertDialog(
             title: Text(
               "Enter Password",
+              textAlign: TextAlign.center,
               style: getBoldStyle(
-                fontSize: FontSize.s18,
-                color: Colors.black,
+                fontSize: FontSize.s22,
               ),
             ),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
+                  style: getRegularStyle(
+                    color: context.isDarkMode
+                        ? ColorManager.darkModePrimary
+                        : ColorManager.primary,
+                    fontSize: FontSize.s16,
+                  ),
+                  autofocus: true,
                   controller: passwordController,
                   obscureText: obscureText,
                   decoration: InputDecoration(
@@ -47,30 +60,20 @@ Future<String?> showPasswordDialog(BuildContext context) async {
                     ),
                   ),
                 ),
-                SizedBox(height: 10.h),
+                10.vGap,
                 Text(
                   "Please enter your password to confirm changes.",
                   style: getRegularStyle(
-                    fontSize: FontSize.s14,
-                    color: Colors.grey,
+                    fontSize: FontSize.s15,
+                    color: context.isDarkMode
+                        ? ColorManager.greyColor
+                        : ColorManager.darkGrey,
                   ),
                   textAlign: TextAlign.center,
                 ),
               ],
             ),
             actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context, null); // Return null if canceled
-                },
-                child: Text(
-                  "Cancel",
-                  style: getRegularStyle(
-                    fontSize: FontSize.s16,
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
               ElevatedButton(
                 onPressed: () {
                   final password = passwordController.text.trim();
@@ -97,23 +100,39 @@ Future<String?> showPasswordDialog(BuildContext context) async {
                     );
                     return;
                   }
+                  if (password != appPreferences.getUserPassword()) {
+                    ErrorViewer.showError(
+                      context: context,
+                      error: const AppErrors.customError(
+                          message: "Password is incorrect"),
+                      callback: () {},
+                    );
+                    return;
+                  }
                   print(password);
 
                   // If validation passes, return the password
                   Navigator.pop(
                       context, password); // Return the entered password
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF8D5524),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                ),
                 child: Text(
                   "Confirm",
                   style: getBoldStyle(
                     fontSize: FontSize.s16,
-                    color: Colors.white,
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context, null); // Return null if canceled
+                },
+                child: Text(
+                  "Cancel",
+                  style: getRegularStyle(
+                    fontSize: FontSize.s16,
+                    color: context.isDarkMode
+                        ? ColorManager.greyColor
+                        : ColorManager.darkGrey,
                   ),
                 ),
               ),

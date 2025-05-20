@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/main/main_view.dart';
-import 'package:peakmart/features/profile/presentation/state_m/cart/user_products_cubit.dart';
-import 'package:peakmart/features/profile/presentation/state_m/cart/user_products_states.dart';
+import 'package:peakmart/features/profile/presentation/state_m/user_products/user_products_cubit.dart';
+import 'package:peakmart/features/profile/presentation/state_m/user_products/user_products_states.dart';
 import 'package:peakmart/features/profile/presentation/views/user_products/widgets/no_products_founded_widget.dart';
 import 'package:peakmart/features/profile/presentation/views/user_products/widgets/product_uploaded_item_widget.dart';
 
@@ -52,15 +52,22 @@ class _UploadedProductsTabState extends State<UploadedProductsTab>
                         arguments: 3);
                   },
                 )
-              : ListView.builder(
-                  padding: const EdgeInsets.all(8.0),
-                  itemCount: products.length,
-                  itemBuilder: (context, index) {
-                    return ProductsUploadedItemWidget(
-                      product: products[index],
-                      index: index + 1,
-                    );
+              : RefreshIndicator(
+                  onRefresh: () async {
+                    await context
+                        .read<UserProductsCubit>()
+                        .getUploadedProducts();
                   },
+                  child: ListView.builder(
+                    padding: const EdgeInsets.all(8.0),
+                    itemCount: products.length,
+                    itemBuilder: (context, index) {
+                      return ProductsUploadedItemWidget(
+                        product: products[index],
+                        index: index + 1,
+                      );
+                    },
+                  ),
                 );
         }
         return const WaitingWidget(); // fallback

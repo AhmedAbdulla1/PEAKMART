@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 
 class CustomDateField extends StatefulWidget {
   final TextEditingController controller;
@@ -85,7 +87,12 @@ class _CustomDateFieldState extends State<CustomDateField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: getRegularStyle(fontSize: 14, color: ColorManager.primary),
+      style: getRegularStyle(
+        color: context.isDarkMode
+            ? ColorManager.darkModePrimary
+            : ColorManager.primary,
+        fontSize: FontSize.s16,
+      ),
       controller: widget.controller,
       keyboardType: TextInputType.datetime,
       inputFormatters: [

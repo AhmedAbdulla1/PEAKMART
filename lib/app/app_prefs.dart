@@ -10,6 +10,7 @@ const String cookiesKey = 'cookiesKey';
 const String pressKeyLoginScreen = 'PressKeyLoginScreen';
 const String locationKey = 'locationKey';
 const String userIdKey = 'userIdKey';
+const String userPasswordKey = 'userPasswordKey';
 const String pushNotificationKey = 'pushNotificationKey';
 const arabicLocale = Locale('ar', 'SA');
 const englishLocale = Locale('en', 'US');
@@ -87,6 +88,14 @@ class AppPreferences {
     return _sharedPreferences.getString(userIdKey) ?? '';
   }
 
+  Future<void> setUserPassword(String value) async {
+    _sharedPreferences.setString(userPasswordKey, value);
+  }
+
+  String getUserPassword() {
+    return _sharedPreferences.getString(userPasswordKey) ?? '';
+  }
+
   Future<void> setNotificationEnabled(bool value) async {
     _sharedPreferences.setBool(pushNotificationKey, value);
   }
@@ -111,12 +120,14 @@ class AppPreferences {
   Future<void> remove(String key) async {
     _sharedPreferences.remove(key);
   }
+
   Future<void> removeAllCookies() async {
     List<String> keys = getCookiesKey();
     for (String key in keys) {
       await _sharedPreferences.remove(key);
     }
   }
+
   Future<void> setCookies(Map<String, String> value) async {
     await removeAllCookies();
     for (String key in value.keys) {
@@ -143,6 +154,6 @@ class AppPreferences {
       String cookie = "$key=${getCookie(key)}";
       cookies.add(cookie);
     }
-    return  cookies;
+    return cookies;
   }
 }

@@ -34,20 +34,33 @@ class PlaceBidAcceptData extends StatelessWidget {
         expectedPriceController.text.isEmpty) {
       return "Both prices are required";
     }
-    int? starting = int.tryParse(startingPriceController.text);
-    int? expected = int.tryParse(expectedPriceController.text);
-    if (starting == null || expected == null) return "Enter valid numbers";
-    if (starting < 0 || expected < 0) return "Price cannot be negative";
-    if (starting >= expected) return "Expected must be > starting";
+    int? startingPrice = int.tryParse(startingPriceController.text);
+    int? expectedPrice = int.tryParse(expectedPriceController.text);
+
+    if (startingPrice == null || expectedPrice == null) {
+      return "Please enter valid numeric values";
+    }
+    if (startingPrice < 0 || expectedPrice < 0) {
+      return "Price cannot be negative";
+    }
+    if (startingPrice >= expectedPrice) {
+      return "Expected price must be greater than starting price";
+    }
     return null;
   }
 
   String? validatePeriod() {
-    final input = periodOfBidsController.text.trim();
-    final value = int.tryParse(input);
-    if (input.isEmpty) return "Enter period of bids";
-    if (value == null) return "Must be a number";
-    if (value <= 0) return "Must be > 0";
+    String input = periodOfBidsController.text.trim();
+    if (input.isEmpty) {
+      return "Please enter period of bids";
+    }
+    int? period = int.tryParse(input);
+    if (period == null) {
+      return "Please enter a valid number";
+    }
+    if (period < 5) {
+      return "Period of bid must be at least 5 days";
+    }
     return null;
   }
 
@@ -60,9 +73,6 @@ class PlaceBidAcceptData extends StatelessWidget {
       final address = result['address'];
       final location = result['location'];
       if (address is String && location is LatLng) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Selected Address: $address')),
-        );
         locationController.text = address;
       }
     }
@@ -121,15 +131,15 @@ class PlaceBidAcceptData extends StatelessWidget {
         ),
         23.vGap,
         CustomDateField(
-          controller: startDateController,
-          labelText: AppStrings.startDate,
-          isStartDate: true,
+          controller: arrivalDateController,
+          labelText: AppStrings.deliveryDate,
+          startDateController: startDateController,
         ),
         23.vGap,
         CustomDateField(
-          controller: arrivalDateController,
-          labelText: AppStrings.arrivalDate,
-          startDateController: startDateController,
+          controller: startDateController,
+          labelText: AppStrings.startDate,
+          isStartDate: true,
         ),
         23.vGap,
         CustomTextFormField(

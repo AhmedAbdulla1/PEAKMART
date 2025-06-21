@@ -196,7 +196,7 @@ ThemeData getDarkTheme() {
         borderSide: BorderSide(color: ColorManager.darkGrey),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: ColorManager.darkGrey),
+        borderSide: BorderSide(color: ColorManager.primary),
         borderRadius: BorderRadius.circular(
           AppSize.s12,
         ),

@@ -56,6 +56,7 @@ class _CustomDateFieldState extends State<CustomDateField> {
     if (value == null || value.trim().isEmpty) {
       return "Please enter a date";
     }
+
     try {
       DateTime parsedDate = _dateFormat.parseStrict(value.trim());
       DateTime today = DateTime.now();
@@ -65,22 +66,42 @@ class _CustomDateFieldState extends State<CustomDateField> {
         if (parsedDate.isBefore(todayOnlyDate)) {
           return "Start date must be today or in the future";
         }
+
+        if (widget.startDateController != null &&
+            widget.startDateController!.text.isNotEmpty) {
+          DateTime arrivalDate =
+              _dateFormat.parseStrict(widget.startDateController!.text);
+          if (parsedDate.isAfter(arrivalDate)) {
+            return "Start date can't be after delivery date";
+          }
+
+          if (arrivalDate.difference(parsedDate).inDays < 3) {
+            return "There must be at least 3 days between delivery and start date";
+          }
+        }
       } else {
         if (parsedDate.isBefore(todayOnlyDate)) {
           return "Arrival date must be today or in the future";
         }
+
         if (widget.startDateController != null &&
             widget.startDateController!.text.isNotEmpty) {
           DateTime startDate =
               _dateFormat.parseStrict(widget.startDateController!.text);
-          if (parsedDate.isBefore(startDate)) {
-            return "Arrival date must be after or equal to start date";
+
+          if (parsedDate.isAfter(startDate)) {
+            return "Start date must be after delivery date";
+          }
+
+          if (startDate.difference(parsedDate).inDays < 3) {
+            return "There must be at least 3 days between delivery and start date";
           }
         }
       }
     } catch (e) {
       return "Invalid format (DD-MM-YYYY)";
     }
+
     return null;
   }
 

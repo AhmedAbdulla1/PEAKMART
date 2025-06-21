@@ -17,7 +17,7 @@ part 'add_product_state.dart';
 class AddProductCubit extends Cubit<AddProductState> {
   OwnerRepo ownerRepo = OwnerRepoImp();
   AppPreferences appPreferences = instance<AppPreferences>();
-
+  bool isSeller = false;
   AddProductCubit() : super(AddProductInitialState());
 
   // late BuildContext context;
@@ -90,10 +90,15 @@ class AddProductCubit extends Cubit<AddProductState> {
       Result<AppErrors, CheckIsSellerEntity> result =
           await ownerRepo.checkIsASeller();
       result.pick(
-          onData: (data) {
+          onData: (data) async {
             if (data.isSeller) {
+              isSeller = true;
+              await appPreferences.setIsSeller(true);
+              log("User Status is Seller, isSeller:$isSeller");
               emit(ActivatedState());
             } else {
+              log("User Status is not Seller, isSeller:$isSeller");
+
               emit(NotActivatedState());
             }
           },

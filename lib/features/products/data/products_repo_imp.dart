@@ -122,6 +122,8 @@ class ProductsRepoImp extends ProductsRepo {
       try {
         Either<AppErrors, EmptyResponse> response =
             await _remoteDataSource.enroll(enroll);
+        log('in repo impl ${response.toString()}',name: 'bidProduct');
+
         result = response.fold((error) {
           return Result(error: error);
         }, (response) {
@@ -143,6 +145,7 @@ class ProductsRepoImp extends ProductsRepo {
       try {
         Either<AppErrors, EmptyResponse> response =
             await _remoteDataSource.bid(enroll);
+        log('in repo impl ${response.toString()}',name: 'bidProduct');
         result = response.fold((error) {
           return Result(error: error);
         }, (response) {

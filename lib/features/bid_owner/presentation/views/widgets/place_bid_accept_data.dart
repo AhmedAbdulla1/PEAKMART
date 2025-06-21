@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
 import 'package:peakmart/features/bid_owner/presentation/views/widgets/custom_date_field.dart';
+import 'package:peakmart/features/map_screen/view.dart';
 
 class PlaceBidAcceptData extends StatelessWidget {
   const PlaceBidAcceptData({
@@ -26,6 +28,7 @@ class PlaceBidAcceptData extends StatelessWidget {
   final TextEditingController startDateController;
   final TextEditingController arrivalDateController;
   final TextEditingController periodOfBidsController;
+
   String? validatePrice() {
     if (startingPriceController.text.isEmpty ||
         expectedPriceController.text.isEmpty) {
@@ -103,6 +106,22 @@ class PlaceBidAcceptData extends StatelessWidget {
             inputType: TextInputType.number,
             controller: expectedPriceController),
         23.vGap,
+        ElevatedButton(
+          onPressed: () async {
+            final result = await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MapLocationScreen()),
+            );
+            if (result != null) {
+              final address = result['address'] as String;
+              final location = result['location'] as LatLng;
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Selected Address: $address, Location: $location')),
+              );
+            }
+          },
+          child: const Text('Select Location'),
+        ),
         CustomTextFormField(
             labelText: AppStrings.location,
             hintText: AppStrings.location,

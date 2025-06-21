@@ -83,6 +83,9 @@ dependencies:
   qr_flutter: ^4.1.0
   screenshot: ^3.0.0
   image_gallery_saver_plus: ^4.0.1
+  google_maps_flutter: ^2.12.2
+  geolocator: ^14.0.0
+  geocoding: ^3.0.0
 
 
 dev_dependencies:

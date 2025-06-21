@@ -56,7 +56,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
-      maxLines: widget.isShowDescription == true ? null : 1,
+      maxLines: widget.isShowDescription == true ? 5 : 1,
       keyboardType: widget.inputType,
       style: getRegularStyle(
         color: context.isDarkMode
@@ -90,11 +90,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: widget.labelText,
         hintText: widget.hintText,
-        contentPadding: widget.isShowDescription == true
-            ? (_isEmpty
-                ? const EdgeInsets.symmetric(vertical: 50, horizontal: 20)
-                : const EdgeInsets.all(20))
-            : const EdgeInsets.all(20),
+        contentPadding: const EdgeInsets.all(20),
         prefixIconColor: ColorManager.lightGrey,
         prefixIcon: widget.prefixIcon != null
             ? Padding(

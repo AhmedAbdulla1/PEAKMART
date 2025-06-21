@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:peakmart/app/di.dart';
@@ -22,7 +23,7 @@ class OwnerRepoImp extends OwnerRepo {
   Future<Result<AppErrors, AddProductEntity>> addProduct(
       AddProductRequest addProductRequest) async {
     Result<AppErrors, AddProductEntity> result = Result(
-        error: const AppErrors.connectionError()); // ✅ التهيئة الافتراضية
+        error: const AppErrors.connectionError());
 
     if (await _networkInfo.isConnected) {
       try {
@@ -30,7 +31,7 @@ class OwnerRepoImp extends OwnerRepo {
             await _remoteDataSource.addProduct(addProductRequest);
 
         result = response.fold((error) {
-          print("API Error: ${error.toString()}"); // ✅ طباعة الخطأ الحقيقي
+          log("API Error: ${error.toString()}"); // ✅ طباعة الخطأ الحقيقي
           return Result(error: error);
         }, (response) {
           return Result(data: response.toEntity());

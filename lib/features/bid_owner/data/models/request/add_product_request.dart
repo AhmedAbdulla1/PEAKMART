@@ -21,13 +21,8 @@ class AddProductRequest {
     required this.expectedPrice,
   });
 
-  Future<FormData> toFormData() async {
-    List<MultipartFile> imageFiles = await Future.wait(
-      photos.map((file) async => await MultipartFile.fromFile(file.path)),
-    );
-
-    return FormData.fromMap({
-      "photos": imageFiles,
+  Map<String, dynamic> toFormData() {
+    return {
       "name": name,
       "description": description,
       "location": location,
@@ -37,6 +32,18 @@ class AddProductRequest {
       "period_of_bid": periodOfBid,
       "starting_price": startingPrice,
       "expected_price": expectedPrice,
-    });
+    };
+  }
+
+  List<Map<String, dynamic>> getFiles() {
+    return photos
+        .map<Map<String, dynamic>>(
+          (imageFile) => {
+            'fieldName':'photo',
+            'filePath': imageFile.path,
+            'fileName': imageFile.path.split('/').last,
+          },
+        )
+        .toList();
   }
 }

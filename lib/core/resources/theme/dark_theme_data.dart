@@ -42,7 +42,7 @@ ThemeData getDarkTheme() {
     ),
 
     // Card theme
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: ColorManager.darkGrey,
       elevation: AppSize.s4,
       shadowColor: ColorManager.grey2,
@@ -62,7 +62,7 @@ ThemeData getDarkTheme() {
         color: ColorManager.black,
       ),
     ),
-    tabBarTheme: TabBarTheme(
+    tabBarTheme: TabBarThemeData(
       indicatorColor: ColorManager.primary,
       labelColor: ColorManager.primary,
       unselectedLabelColor: ColorManager.white,

@@ -42,7 +42,7 @@ ThemeData getLightTheme() {
       onSurface: ColorManager.simiBlack,
     ),
     //cardView theme
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: ColorManager.white,
       elevation: AppSize.s4,
       shadowColor: ColorManager.grey1,
@@ -58,7 +58,7 @@ ThemeData getLightTheme() {
         color: ColorManager.white,
       ),
     ),
-    tabBarTheme: TabBarTheme(
+    tabBarTheme: TabBarThemeData(
       indicatorColor: ColorManager.primary,
       labelColor: ColorManager.primary,
       unselectedLabelColor: ColorManager.black,

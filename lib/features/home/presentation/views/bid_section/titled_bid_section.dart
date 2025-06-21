@@ -5,6 +5,7 @@ import 'package:peakmart/core/entities/prodcut_entity.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/features/home/presentation/state_m/home_cubits/states.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/widgets/bids_slider.dart';
@@ -77,7 +78,9 @@ class TitledBidSection<C extends Cubit<BidsState>> extends StatelessWidget {
               title,
               style: getBoldStyle(
                 fontSize: FontSize.s28,
-                color: ColorManager.primary,
+                color: context.isDarkMode
+                    ? ColorManager.darkModePrimary
+                    : ColorManager.primary,
               ),
             ),
             const SizedBox(height: AppSize.s12),

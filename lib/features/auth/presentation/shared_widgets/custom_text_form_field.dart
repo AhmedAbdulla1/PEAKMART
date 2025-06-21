@@ -11,7 +11,8 @@ import 'package:peakmart/features/auth/presentation/shared_widgets/validators.da
 class CustomTextFormField extends StatefulWidget {
   final String labelText;
   final String hintText;
-  final IconData? iconData;
+  final IconData? prefixIcon;
+  final IconButton? suffixIcon;
   final TextInputType inputType;
   final TextEditingController controller;
   final bool? isShowDescription;
@@ -23,7 +24,8 @@ class CustomTextFormField extends StatefulWidget {
     super.key,
     required this.labelText,
     required this.hintText,
-    this.iconData,
+    this.prefixIcon,
+    this.suffixIcon,
     required this.inputType,
     required this.controller,
     this.isShowDescription,
@@ -94,14 +96,19 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 : const EdgeInsets.all(20))
             : const EdgeInsets.all(20),
         prefixIconColor: ColorManager.lightGrey,
-        prefixIcon: widget.iconData != null
+        prefixIcon: widget.prefixIcon != null
             ? Padding(
                 padding: const EdgeInsets.only(left: 5.0),
                 child: Icon(
-                  widget.iconData,
+                  widget.prefixIcon,
                   size: 28.sp,
                 ),
               )
+            : null,
+        suffixIcon: widget.suffixIcon != null
+            ? Padding(
+                padding: const EdgeInsets.only(right: 5.0),
+                child: widget.suffixIcon)
             : null,
       ),
     );

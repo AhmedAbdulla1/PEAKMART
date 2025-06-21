@@ -34,34 +34,38 @@ class PlaceBidAcceptData extends StatelessWidget {
         expectedPriceController.text.isEmpty) {
       return "Both prices are required";
     }
-    int? startingPrice = int.tryParse(startingPriceController.text);
-    int? expectedPrice = int.tryParse(expectedPriceController.text);
-
-    if (startingPrice == null || expectedPrice == null) {
-      return "Please enter valid numeric values";
-    }
-    if (startingPrice < 0 || expectedPrice < 0) {
-      return "Price cannot be negative";
-    }
-    if (startingPrice >= expectedPrice) {
-      return "Expected price must be greater than starting price";
-    }
+    int? starting = int.tryParse(startingPriceController.text);
+    int? expected = int.tryParse(expectedPriceController.text);
+    if (starting == null || expected == null) return "Enter valid numbers";
+    if (starting < 0 || expected < 0) return "Price cannot be negative";
+    if (starting >= expected) return "Expected must be > starting";
     return null;
   }
 
   String? validatePeriod() {
-    String input = periodOfBidsController.text.trim();
-    if (input.isEmpty) {
-      return "Please enter period of bids";
-    }
-    int? period = int.tryParse(input);
-    if (period == null) {
-      return "Please enter a valid number";
-    }
-    if (period <= 0) {
-      return "Period of bids must be greater than 0";
-    }
+    final input = periodOfBidsController.text.trim();
+    final value = int.tryParse(input);
+    if (input.isEmpty) return "Enter period of bids";
+    if (value == null) return "Must be a number";
+    if (value <= 0) return "Must be > 0";
     return null;
+  }
+
+  void onLocationPressed(BuildContext context) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const MapLocationScreen()),
+    );
+    if (result != null && result is Map<String, dynamic>) {
+      final address = result['address'];
+      final location = result['location'];
+      if (address is String && location is LatLng) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Selected Address: $address')),
+        );
+        locationController.text = address;
+      }
+    }
   }
 
   @override
@@ -69,65 +73,52 @@ class PlaceBidAcceptData extends StatelessWidget {
     return Column(
       children: [
         CustomTextFormField(
-            labelText: AppStrings.productName,
-            hintText: AppStrings.productName,
-            isUsedWithBidOwner: true,
-            inputType: TextInputType.text,
-            controller: productNameController),
-        23.vGap,
-        CustomTextFormField(
-            labelText: AppStrings.description,
-            hintText: AppStrings.description,
-            isShowDescription: true,
-            isUsedWithBidOwner: true,
-            inputType: TextInputType.multiline,
-            controller: descriptionController),
-        23.vGap,
-        CustomTextFormField(
-            labelText: AppStrings.startingPrice,
-            hintText: AppStrings.startingPrice,
-            inputType: TextInputType.number,
-            isUsedWithBidOwner: true,
-            inputFormatter: [
-              FilteringTextInputFormatter.digitsOnly,
-            ],
-            controller: startingPriceController),
-        23.vGap,
-        CustomTextFormField(
-            labelText: AppStrings.expectedPrice,
-            hintText: AppStrings.expectedPrice,
-            validator: (value) {
-              return validatePrice();
-            },
-            isUsedWithBidOwner: true,
-            inputFormatter: [
-              FilteringTextInputFormatter.digitsOnly,
-            ],
-            inputType: TextInputType.number,
-            controller: expectedPriceController),
-        23.vGap,
-        ElevatedButton(
-          onPressed: () async {
-            final result = await Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const MapLocationScreen()),
-            );
-            if (result != null) {
-              final address = result['address'] as String;
-              final location = result['location'] as LatLng;
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Selected Address: $address, Location: $location')),
-              );
-            }
-          },
-          child: const Text('Select Location'),
+          labelText: AppStrings.productName,
+          hintText: AppStrings.productName,
+          isUsedWithBidOwner: true,
+          inputType: TextInputType.text,
+          controller: productNameController,
         ),
+        23.vGap,
         CustomTextFormField(
-            labelText: AppStrings.location,
-            hintText: AppStrings.location,
-            isUsedWithBidOwner: true,
-            inputType: TextInputType.text,
-            controller: locationController),
+          labelText: AppStrings.description,
+          hintText: AppStrings.description,
+          isShowDescription: true,
+          isUsedWithBidOwner: true,
+          inputType: TextInputType.multiline,
+          controller: descriptionController,
+        ),
+        23.vGap,
+        CustomTextFormField(
+          labelText: AppStrings.startingPrice,
+          hintText: AppStrings.startingPrice,
+          inputType: TextInputType.number,
+          isUsedWithBidOwner: true,
+          inputFormatter: [FilteringTextInputFormatter.digitsOnly],
+          controller: startingPriceController,
+        ),
+        23.vGap,
+        CustomTextFormField(
+          labelText: AppStrings.expectedPrice,
+          hintText: AppStrings.expectedPrice,
+          validator: (_) => validatePrice(),
+          isUsedWithBidOwner: true,
+          inputFormatter: [FilteringTextInputFormatter.digitsOnly],
+          inputType: TextInputType.number,
+          controller: expectedPriceController,
+        ),
+        23.vGap,
+        CustomTextFormField(
+          labelText: AppStrings.location,
+          hintText: AppStrings.location,
+          isUsedWithBidOwner: true,
+          inputType: TextInputType.text,
+          controller: locationController,
+          suffixIcon: IconButton(
+            onPressed: () => onLocationPressed(context),
+            icon: const Icon(Icons.location_on),
+          ),
+        ),
         23.vGap,
         CustomDateField(
           controller: startDateController,
@@ -142,17 +133,14 @@ class PlaceBidAcceptData extends StatelessWidget {
         ),
         23.vGap,
         CustomTextFormField(
-            labelText: AppStrings.periodOfBids,
-            hintText: AppStrings.periodOfBids,
-            isUsedWithBidOwner: true,
-            inputFormatter: [
-              FilteringTextInputFormatter.digitsOnly,
-            ],
-            validator: (value) {
-              return validatePrice();
-            },
-            inputType: TextInputType.number,
-            controller: periodOfBidsController),
+          labelText: AppStrings.periodOfBids,
+          hintText: AppStrings.periodOfBids,
+          isUsedWithBidOwner: true,
+          inputFormatter: [FilteringTextInputFormatter.digitsOnly],
+          validator: (_) => validatePeriod(),
+          inputType: TextInputType.number,
+          controller: periodOfBidsController,
+        ),
       ],
     );
   }

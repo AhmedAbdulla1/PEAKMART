@@ -36,7 +36,7 @@ class _SignUpUserAcceptDataState extends State<SignUpUserAcceptData> {
         CustomTextFormField(
           labelText: AppStrings.userName,
           hintText: AppStrings.userNameHint,
-          iconData: Icons.person,
+          prefixIcon: Icons.person,
           controller: widget.usernameController,
           inputType: TextInputType.name,
         ),
@@ -44,7 +44,7 @@ class _SignUpUserAcceptDataState extends State<SignUpUserAcceptData> {
         CustomTextFormField(
           labelText: AppStrings.email,
           hintText: AppStrings.emailHint,
-          iconData: Icons.email,
+          prefixIcon: Icons.email,
           controller: widget.emailController,
           inputType: TextInputType.emailAddress,
         ),

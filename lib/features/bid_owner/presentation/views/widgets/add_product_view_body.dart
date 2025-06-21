@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
+import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/core/shared_widgets/add_product_image_picker.dart';
 import 'package:peakmart/core/shared_widgets/buttons.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
@@ -63,9 +64,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
       appBar: const CustomAppBar(
           title: AppStrings.placeBid, isNotShowArrowBack: true),
       body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 29.sp,
-        ),
+        padding: const EdgeInsets.all(AppPadding.p20),
         child: ListView(
           children: [
             const AddProductImagePicker(title: AppStrings.addProductPhoto),

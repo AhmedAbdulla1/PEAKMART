@@ -163,7 +163,7 @@ class _AdditionalDetailsState extends State<AdditionalDetails> {
               hintText: 'Enter your full name',
               inputType: TextInputType.name,
               controller: _fullNameController,
-              iconData: Icons.person,
+              prefixIcon: Icons.person,
               validator: _validateFullName,
               inputFormatter: [
                 FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z\s]")),
@@ -181,7 +181,7 @@ class _AdditionalDetailsState extends State<AdditionalDetails> {
                 FilteringTextInputFormatter.digitsOnly,
                 LengthLimitingTextInputFormatter(16),
               ],
-              iconData: Icons.credit_card,
+              prefixIcon: Icons.credit_card,
               onChanged: (_) => _updateTouchedState('ssn'),
             ),
             20.vGap,
@@ -242,7 +242,7 @@ class _AdditionalDetailsState extends State<AdditionalDetails> {
               hintText: "Enter your IBAN",
               labelText: 'IBAN',
               validator: _validateIBAN,
-              iconData: Icons.edit_document,
+              prefixIcon: Icons.edit_document,
               inputType: TextInputType.number,
               inputFormatter: [
                 // FilteringTextInputFormatter.allow(RegExp(r"[A-Za-z0-9]")),

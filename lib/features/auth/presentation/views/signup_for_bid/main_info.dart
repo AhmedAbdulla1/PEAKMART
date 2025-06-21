@@ -162,7 +162,7 @@ class _MainInfoState extends State<MainInfo> {
             controller: _usernameController,
             labelText: "Display Name",
             hintText: "Enter your display name",
-            iconData: Icons.person_2_outlined,
+            prefixIcon: Icons.person_2_outlined,
             inputType: TextInputType.name,
             validator: _validateDisplayName,
             inputFormatter: [
@@ -200,7 +200,7 @@ class _MainInfoState extends State<MainInfo> {
                 RegExp(r'[a-zA-Z\s]'),
               )
             ],
-            iconData: Icons.account_balance_outlined,
+            prefixIcon: Icons.account_balance_outlined,
             inputType: TextInputType.text,
             validator: _validateGov,
             onChanged: (_) => _updateTouchedState('gov'),
@@ -210,7 +210,7 @@ class _MainInfoState extends State<MainInfo> {
             controller: _cityController,
             labelText: "City",
             hintText: "Enter Your City",
-            iconData: Icons.location_city_outlined,
+            prefixIcon: Icons.location_city_outlined,
             inputType: TextInputType.text,
             inputFormatter: [
               FilteringTextInputFormatter.allow(
@@ -225,7 +225,7 @@ class _MainInfoState extends State<MainInfo> {
             controller: _addressController,
             labelText: "Address",
             hintText: "Enter Your Address",
-            iconData: Icons.edit_location_alt,
+            prefixIcon: Icons.edit_location_alt,
             inputType: TextInputType.streetAddress,
             validator: _validateAddress,
             onChanged: (_) => _updateTouchedState('address'),

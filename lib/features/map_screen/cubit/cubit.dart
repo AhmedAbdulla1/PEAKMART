@@ -16,8 +16,7 @@ class ViewMapCubit extends Cubit<ViewMapState> {
   CameraPosition? get initialCameraPosition => _initialCameraPosition;
 
   Future<void> _initialize() async {
-    await _getCurrentLocation();
-    await _updateMarkerAndAddress(_selectedLatLng);
+    await _getCurrentLocation(); // فقط نجيب الموقع، والباقي جوه الوظيفة
   }
 
   Future<void> _getCurrentLocation() async {
@@ -31,26 +30,32 @@ class ViewMapCubit extends Cubit<ViewMapState> {
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
-        if (permission != LocationPermission.deniedForever) {
+        if (permission == LocationPermission.denied) {
           emit(state.copyWith(address: 'Location permissions are denied.'));
           return;
         }
       }
 
       if (permission == LocationPermission.deniedForever) {
-        emit(state.copyWith(address: 'Location permissions are permanently denied.'));
+        emit(state.copyWith(
+            address: 'Location permissions are permanently denied.'));
         return;
       }
 
       final position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
       );
+
       _selectedLatLng = LatLng(position.latitude, position.longitude);
       _initialCameraPosition = CameraPosition(
         target: _selectedLatLng,
         zoom: 15,
       );
+
       emit(state.copyWith(initialCameraPosition: _initialCameraPosition));
+
+      // هنا نحط الماركر والعنوان بعد ما اتأكدنا من الـ position
+      await _updateMarkerAndAddress(_selectedLatLng);
     } catch (e) {
       emit(state.copyWith(address: 'Error fetching location: $e'));
     }

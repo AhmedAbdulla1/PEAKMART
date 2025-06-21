@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/language_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const String prefsKeyLang = "PrefsKeyLang";
+const String isSellerKey = "isSeller";
 const String pressKeyOnBoardingScreen = 'PressKeyOnBoardingScreen';
 const String cookiesKey = 'cookiesKey';
 const String pressKeyLoginScreen = 'PressKeyLoginScreen';
@@ -57,6 +59,17 @@ class AppPreferences {
 
   bool isPressKeyOnBoardingScreen() {
     return _sharedPreferences.getBool(pressKeyOnBoardingScreen) ?? false;
+  }
+
+   Future<void> setIsSeller(bool isSeller) async {
+    await _sharedPreferences.setBool(isSellerKey, isSeller);
+    log("setIsSeller called: $isSeller");
+  }
+
+  bool getIsSeller() {
+    bool? isSeller = _sharedPreferences.getBool(isSellerKey);
+    log("getIsSeller called, returning: $isSeller");
+    return isSeller ?? false; // Default to false if not set
   }
 
   //login

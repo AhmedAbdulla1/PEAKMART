@@ -43,6 +43,9 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = context.isDarkMode;
+    final Color primaryColor =
+        isDarkMode ? ColorManager.darkModePrimary : ColorManager.primary;
     return BlocBuilder<TopBidderCubit, TopBiddersState>(
       builder: (context, state) {
         final bool isLoading = state is TopBiddersLoadingState;
@@ -97,7 +100,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                       '*$totalBidders Bidding process',
                       style: getBoldStyle(
                         fontSize: FontSize.s16,
-                        color: ColorManager.primary,
+                        color: primaryColor,
                       ),
                     ),
                     8.vGap,
@@ -107,7 +110,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                           '*$totalEnrolled people enrolled',
                           style: getBoldStyle(
                             fontSize: FontSize.s16,
-                            color: ColorManager.primary,
+                            color: primaryColor,
                           ),
                         ),
                         const Spacer(),
@@ -145,8 +148,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                                           BidRequest(
                                               productId:
                                                   widget.product.id.toString(),
-                                              amount:
-                                                  value['bid'].toString()));
+                                              amount: value['bid'].toString()));
                                     }
                                     context
                                         .read<TopBidderCubit>()

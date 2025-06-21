@@ -23,14 +23,33 @@ class ProductEnrolledItemWidget extends StatelessWidget {
   final ProductsEnrolledEntity product;
   final bool? isUsingWithRandomProducts;
 
+  void _showPaymentDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (_) => PaymentDialog(
+        netPrice: product.highestBid.toDouble(),
+        paymentProcess: PaymentProcess.BID,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final bool showCompleteButton = product.winnerStatus &&
-        product.endDate == DateTime.now().toIso8601String().split('T').first;
+    final today = DateTime.now();
+    final productEndDate = DateTime.tryParse(product.endDate);
+    final showCompleteButton = product.winnerStatus &&
+        productEndDate != null &&
+        productEndDate.year == today.year &&
+        productEndDate.month == today.month &&
+        productEndDate.day == today.day;
+
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, ProductDetails.routeName,
-            arguments: product.id);
+        Navigator.pushNamed(
+          context,
+          ProductDetails.routeName,
+          arguments: product.id,
+        );
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -44,10 +63,7 @@ class ProductEnrolledItemWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(18.r),
-                  topRight: Radius.circular(18.r),
-                ),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(18.r)),
                 child: product.imageUrl.isNotEmpty
                     ? ProductImagesSlider(imageUrls: product.imageUrl)
                     : Image.asset(
@@ -62,19 +78,22 @@ class ProductEnrolledItemWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    product.winnerStatus
-                        ? Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "*You are the winner*",
-                              style: getBoldStyle(
-                                  fontSize: FontSize.s22,
-                                  color: ColorManager.green),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          )
-                        : const SizedBox(),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        product.winnerStatus
+                            ? "*YOU ARE THE TOP BIDDER*"
+                            : "*YOU ARE NOT THE TOP BIDDER*",
+                        style: getBoldStyle(
+                          fontSize: FontSize.s17,
+                          color: product.winnerStatus
+                              ? ColorManager.green
+                              : ColorManager.red,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                     6.vGap,
                     Text(
                       product.itemName,
@@ -84,14 +103,17 @@ class ProductEnrolledItemWidget extends StatelessWidget {
                     ),
                     6.vGap,
                     CustomRichText(
-                        title: "Your Bid: \$",
-                        description: product.userBid.toString()),
+                      title: "Your Bid: \$",
+                      description: product.userBid.toString(),
+                    ),
                     6.vGap,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CustomRichText(
-                            title: "End Date: ", description: product.endDate),
+                          title: "End Date: ",
+                          description: product.endDate,
+                        ),
                         CustomRichText(
                           title: "Highest Bid: \$",
                           description: product.highestBid.toString(),
@@ -99,62 +121,14 @@ class ProductEnrolledItemWidget extends StatelessWidget {
                       ],
                     ),
                     10.vGap,
-
-                    Visibility(
-                      visible: !showCompleteButton,
-                      child: Align(
+                    if (showCompleteButton)
+                      Align(
                         alignment: Alignment.center,
                         child: ElevatedButton(
-                            onPressed: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return PaymentDialog(
-                                      netPrice: product.highestBid.toDouble(),
-                                      paymentProcess: PaymentProcess.BID,
-                                    );
-                                  });
-                            },
-                            child: const Text("Complete your bid")),
+                          onPressed: () => _showPaymentDialog(context),
+                          child: const Text("Complete your bid"),
+                        ),
                       ),
-                    )
-
-                    // Row(
-                    //   children: [
-                    //     Expanded(
-                    //       child: SizedBox(
-                    //         height: 40.h,
-                    //         child: ElevatedButton(
-                    //           onPressed: () {},
-                    //           child: Text(
-                    //             'End',
-                    //             style: getBoldStyle(
-                    //               fontSize: FontSize.s16,
-                    //               color: ColorManager.white,
-                    //             ),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     8.hGap,
-                    //     Expanded(
-                    //       child: SizedBox(
-                    //         height: 40.h,
-                    //         child: OutlinedButton(
-                    //           onPressed: () {},
-                    //           child: Text(
-                    //             'Cancel',
-                    //             style: getBoldStyle(
-                    //               fontSize: FontSize.s16,
-                    //               color: ColorManager.primary,
-                    //             ),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                    // 10.vGap,
                   ],
                 ),
               ),

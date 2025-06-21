@@ -36,7 +36,7 @@ class ProductsEnrolledResponse {
       owned: json['Owned'] == "not_ended" ? false : true,
       endStatus: json['status'] == "not_ended" ? false : true,
       enrollmentStatus: json['enrollmentStatus'] == "not_ended" ? false : true,
-      winnerStatus: json['winnerStatus'] == "not_ended" ? false : true,
+      winnerStatus: json['winnerStatus'],
     );
   }
 

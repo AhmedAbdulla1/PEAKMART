@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/main/main_view.dart';
 import 'package:peakmart/features/profile/presentation/state_m/user_products/user_products_cubit.dart';
@@ -21,6 +20,22 @@ class _EnrolledProductsTabState extends State<EnrolledProductsTab>
   bool get wantKeepAlive => true;
 
   @override
+  void initState() {
+    super.initState();
+    context.read<UserProductsCubit>().getEnrolledProducts();
+  }
+
+  Widget buildNoProductsView() {
+    return NoProductsFoundedWidget(
+      title: 'No products enrolled yet.',
+      buttonText: 'Explore products',
+      onButtonPressed: () {
+        Navigator.pushNamed(context, MainView.routeName, arguments: 1);
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
     return BlocBuilder<UserProductsCubit, UserProductsStates>(
@@ -31,30 +46,12 @@ class _EnrolledProductsTabState extends State<EnrolledProductsTab>
       builder: (context, state) {
         if (state is ProductsEnrolledLoading) {
           return const WaitingWidget();
-        }
-        if (state is UserProductsError) {
-          return ErrorViewer.showError(
-            context: context,
-            error: state.error,
-            callback: () {
-              context.read<UserProductsCubit>().getEnrolledProducts();
-            },
-          );
-        }
-        if (state is ProductsEnrolledLoaded) {
+        } else if (state is UserProductsError) {
+          return buildNoProductsView();
+        } else if (state is ProductsEnrolledLoaded) {
           final products = state.products;
           return products.isEmpty
-              ? NoProductsFoundedWidget(
-                  title: 'No products enrolled yet.',
-                  buttonText: 'Explore products',
-                  onButtonPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      MainView.routeName,
-                      arguments: 1,
-                    );
-                  },
-                )
+              ? buildNoProductsView()
               : RefreshIndicator(
                   onRefresh: () async {
                     context.read<UserProductsCubit>().getEnrolledProducts();
@@ -70,8 +67,9 @@ class _EnrolledProductsTabState extends State<EnrolledProductsTab>
                     },
                   ),
                 );
+        } else {
+          return const Center(child: Text('Unexpected state'));
         }
-        return const WaitingWidget();
       },
     );
   }

@@ -84,6 +84,7 @@ class ProfileRepoImpl extends ProfileRepo {
     }
     return result;
   }
+
   @override
   Future<Result<AppErrors, EmptyEntity>> cancelUserProduct(
       CancelUserProductRequest cancleProductRequest) async {
@@ -105,6 +106,7 @@ class ProfileRepoImpl extends ProfileRepo {
     }
     return result;
   }
+
   @override
   Future<Result<AppErrors, EmptyEntity>> updateProfile(
       UpdateProfileRequest updateProfileRequest) async {

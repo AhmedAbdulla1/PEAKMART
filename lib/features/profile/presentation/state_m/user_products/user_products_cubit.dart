@@ -95,11 +95,14 @@ class UserProductsCubit extends Cubit<UserProductsStates> {
       result.pick(onData: (data) {
         _enrolledLoaded = true;
         enrolledProducts = data.data;
+        log("In getEnrolledProducts cubit data: $enrolledProducts");
         emit(ProductsEnrolledLoaded(products: enrolledProducts));
       }, onError: (error) {
+        log("In getEnrolledProducts cubit error: $error");
         emit(UserProductsError(error: error, onRetry: getEnrolledProducts));
       });
     } catch (_) {
+      log("In getEnrolledProducts cubit error: $_");
       emit(UserProductsError(
           error: const AppErrors.customError(message: 'Enroll fetch failed'),
           onRetry: getEnrolledProducts));

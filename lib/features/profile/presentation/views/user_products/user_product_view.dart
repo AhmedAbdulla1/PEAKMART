@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/app/app_prefs.dart';
@@ -21,9 +20,7 @@ class UserProductsView extends StatelessWidget {
     log("isSeller: $isSeller");
 
     return BlocProvider(
-      create: (context) => UserProductsCubit()
-        ..getEnrolledProducts()
-        ..getUploadedProducts(),
+      create: (context) => UserProductsCubit(),
       child: DefaultTabController(
         length: isSeller ? 2 : 1,
         child: Scaffold(

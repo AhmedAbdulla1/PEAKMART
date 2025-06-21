@@ -24,7 +24,9 @@ class TopBidderItem extends StatelessWidget {
     final baseColor = isFaded
         ? ColorManager.greyColor.withOpacity(0.3)
         : context.colorScheme.surface;
-
+    final bool isDarkMode = context.isDarkMode;
+    final primaryColor =
+        isDarkMode ? ColorManager.darkModePrimary : ColorManager.primary;
     return Card(
       color: baseColor,
       elevation: isFaded ? 0 : 2,
@@ -38,8 +40,7 @@ class TopBidderItem extends StatelessWidget {
               rank.toString(),
               style: getBoldStyle(
                   fontSize: FontSize.s20,
-                  color:
-                      isFaded ? ColorManager.greyColor : ColorManager.primary),
+                  color: isFaded ? ColorManager.greyColor : primaryColor),
             ),
             SizedBox(width: 6.w),
             Expanded(
@@ -51,7 +52,7 @@ class TopBidderItem extends StatelessWidget {
                   "\$${(topBiddersData.bidAmount).toStringAsFixed(0)}",
                   style: getBoldStyle(
                     fontSize: FontSize.s16,
-                    color: isFaded ? Colors.grey : ColorManager.primary,
+                    color: isFaded ? Colors.grey : primaryColor,
                   ),
                 ),
                 title: Text(

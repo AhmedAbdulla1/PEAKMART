@@ -24,6 +24,7 @@ class UserInfoResponse extends BaseResponse<BaseEntity> {
         phone: json['data']['PHONE'],
         photo: json['data']['PHOTO'],
         loyaltyPoint: json['data']['LOYALTY_P'] ?? 0,
+        balance: json['data']['BALANCE'] ?? "0",
         sellerInfo: sellerInfoData != null
             ? sellerInfoData is String
                 ? {}
@@ -41,19 +42,21 @@ class UserInfoResponse extends BaseResponse<BaseEntity> {
       photo: data.photo,
       loyaltyPoint: data.loyaltyPoint,
       sellerInfo: data.sellerInfo,
+      balance: data.balance,
       userName: data.userName,
     );
   }
 }
 
 class UserInfoData {
-  String email, phone, photo, userName;
+  String email, phone, photo, userName,balance;
   Map<String, dynamic> sellerInfo;
   int loyaltyPoint;
   UserInfoData({
     required this.email,
     required this.phone,
     required this.loyaltyPoint,
+    required this.balance,
     required this.photo,
     required this.sellerInfo,
     required this.userName,

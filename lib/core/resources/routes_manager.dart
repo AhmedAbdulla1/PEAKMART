@@ -17,6 +17,8 @@ import 'package:peakmart/features/onboarding/presentation/views/onboarding_view.
 import 'package:peakmart/features/products/presentation/views/auction_rules_view.dart';
 import 'package:peakmart/features/products/presentation/views/privacy_and_policy_view.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/product_details_view.dart';
+import 'package:peakmart/features/profile/domain/enitiy/user_info_entity.dart';
+import 'package:peakmart/features/profile/presentation/views/balance/balance_view.dart';
 import 'package:peakmart/features/profile/presentation/views/personal_inof/personal_inof_screen.dart';
 import 'package:peakmart/features/profile/presentation/views/settings/settings_view.dart';
 import 'package:peakmart/features/profile/presentation/views/user_products/user_product_view.dart';
@@ -129,6 +131,15 @@ class RouteGenerator {
           builder: (_) => UserProductsView(),
           settings: const RouteSettings(name: UserProductsView.routeName),
         );
+
+      case BalanceView.routeName:
+        UserInfoEntity userInfo = settings.arguments as UserInfoEntity;
+        return MaterialPageRoute(
+          builder: (_) => BalanceView(
+            userInfo: userInfo,
+          ),
+        );
+
       case ProductDetails.routeName:
         int id = settings.arguments as int;
         return MaterialPageRoute(

@@ -36,6 +36,7 @@ class SummaryProfileScreen extends StatelessWidget {
                     photo: "https://picsum.photos/800/600",
                     sellerInfo: {},
                     loyaltyPoint: 0,
+                    balance: "0",
                     email: "ahmedelabassy14@gmail.com"));
           } else {
             return const Center(child: Text('No data available'));

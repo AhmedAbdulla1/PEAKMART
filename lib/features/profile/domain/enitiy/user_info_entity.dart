@@ -1,7 +1,7 @@
 import 'package:peakmart/core/entities/base_entity.dart';
 
 class UserInfoEntity extends BaseEntity {
-  final String userName, phone, photo,  email;
+  final String userName, phone, photo,  email,balance;
   final Map<String, dynamic> sellerInfo;
   final int loyaltyPoint;
 
@@ -12,11 +12,12 @@ class UserInfoEntity extends BaseEntity {
     required this.sellerInfo,
     required this.loyaltyPoint,
     required this.email,
+    required this.balance,
   });
 
   @override
   List<Object?> get props =>
-      [email, userName, phone, photo, sellerInfo, loyaltyPoint];
+      [email, userName, phone, photo, sellerInfo, loyaltyPoint, balance];
 
   // Add copyWith method
   UserInfoEntity copyWith({
@@ -24,6 +25,7 @@ class UserInfoEntity extends BaseEntity {
     String? phone,
     String? photo,
     Map<String, dynamic>? sellerInfo,
+    String? balance,
     int? loyaltyPoint,
     String? email,
   }) {
@@ -34,6 +36,7 @@ class UserInfoEntity extends BaseEntity {
       sellerInfo: sellerInfo ?? this.sellerInfo,
       loyaltyPoint: loyaltyPoint ?? this.loyaltyPoint,
       email: email ?? this.email,
+      balance: balance?? this.balance,
     );
   }
 }

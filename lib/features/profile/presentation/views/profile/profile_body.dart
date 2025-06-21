@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
@@ -7,6 +9,7 @@ import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
 import 'package:peakmart/features/profile/domain/enitiy/user_info_entity.dart';
 import 'package:peakmart/features/profile/presentation/state_m/profile/cubit.dart';
+import 'package:peakmart/features/profile/presentation/views/balance/balance_view.dart';
 import 'package:peakmart/features/profile/presentation/views/personal_inof/personal_inof_screen.dart';
 import 'package:peakmart/features/profile/presentation/views/settings/settings_view.dart';
 import 'package:peakmart/features/profile/presentation/views/user_products/user_product_view.dart';
@@ -20,7 +23,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-
+    log("user info: $userinfo");
     return SafeArea(
       child: Container(
         height: double.infinity,
@@ -142,7 +145,12 @@ class ProfileScreen extends StatelessWidget {
                               icon: Icons.payment,
                               title: 'Payment',
                               iconColor: Colors.red,
-                              onTap: () {},
+                              onTap: () {
+                                log("Navigating to BalanceView with userinfo: $userinfo");
+                                Navigator.pushNamed(
+                                    context, BalanceView.routeName,
+                                    arguments: userinfo);
+                              },
                             ),
                             SizedBox(
                               width: screenWidth * 0.75,

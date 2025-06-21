@@ -1,6 +1,6 @@
 import 'package:peakmart/core/entities/base_entity.dart';
 import 'package:peakmart/core/models/base_model.dart';
-import 'package:peakmart/features/auth/domain/entity/user_info_entity.dart';
+import 'package:peakmart/features/profile/domain/enitiy/user_info_entity.dart';
 
 class UserInfoResponse extends BaseResponse<BaseEntity> {
   UserInfoData data;
@@ -22,6 +22,7 @@ class UserInfoResponse extends BaseResponse<BaseEntity> {
         email: json['data']['EMAIL'],
         phone: json['data']['PHONE'],
         photo: json['data']['PHOTO'],
+        balance: json['data']['BALANCE'] ?? "0",
         sellerInfo: json['data']['seller_info'],
       ),
     );
@@ -30,23 +31,26 @@ class UserInfoResponse extends BaseResponse<BaseEntity> {
   @override
   UserInfoEntity toEntity() {
     return UserInfoEntity(
-      email: data.email,
-      phone: data.phone,
-      photo: data.photo,
-      sellerInfo: data.sellerInfo,
-      userName: data.userName,
-    );
+        email: data.email,
+        phone: data.phone,
+        photo: data.photo,
+        sellerInfo: data.sellerInfo,
+        userName: data.userName,
+        loyaltyPoint: 0,
+        balance: data.balance);
   }
 }
 
 class UserInfoData {
-  String email, phone, photo, sellerInfo, userName;
+  String email, phone, photo, userName, balance;
 
+  Map<String, dynamic> sellerInfo;
   UserInfoData({
     required this.email,
     required this.phone,
     required this.photo,
     required this.sellerInfo,
     required this.userName,
+    required this.balance,
   });
 }

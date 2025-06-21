@@ -63,8 +63,8 @@ ThemeData getDarkTheme() {
       ),
     ),
     tabBarTheme: TabBarThemeData(
-      indicatorColor: ColorManager.primary,
-      labelColor: ColorManager.primary,
+      indicatorColor: ColorManager.darkModePrimary,
+      labelColor: ColorManager.darkModePrimary,
       unselectedLabelColor: ColorManager.white,
       labelStyle: getSemiBoldStyle(fontSize: FontSize.s16),
       unselectedLabelStyle: getRegularStyle(fontSize: FontSize.s16),
@@ -173,10 +173,10 @@ ThemeData getDarkTheme() {
 
     // Input decoration theme
     inputDecorationTheme: InputDecorationTheme(
+      suffixIconColor: ColorManager.textFormIcon,
       contentPadding: const EdgeInsets.all(
         AppPadding.p20,
       ),
-      
       errorStyle: getRegularStyle(
         fontSize: FontSize.s12,
         color: ColorManager.red,

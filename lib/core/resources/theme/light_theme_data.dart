@@ -183,6 +183,7 @@ ThemeData getLightTheme() {
     ),
     //input decoration theme
     inputDecorationTheme: InputDecorationTheme(
+      suffixIconColor: ColorManager.textFormIcon,
       //content padding
       contentPadding: const EdgeInsets.all(
         AppPadding.p20,

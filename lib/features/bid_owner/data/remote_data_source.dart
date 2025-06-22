@@ -8,42 +8,34 @@ import 'package:peakmart/core/constants/enums/http_method.dart';
 import 'package:peakmart/core/data_source/remote_data_source.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/net/api_url.dart';
+import 'package:peakmart/core/net/response_validators/default_response_validator.dart';
 import 'package:peakmart/core/net/response_validators/response_validator.dart';
 import 'package:peakmart/features/bid_owner/data/models/request/add_product_request.dart';
 import 'package:peakmart/features/bid_owner/data/models/response/add_product_response.dart';
 import 'package:peakmart/features/bid_owner/data/models/response/check_is_seller_response.dart';
 
 class OwnerDataSource extends RemoteDataSource {
-  final Dio _dio = Dio();
-
   Future<Either<AppErrors, AddProductResponse>> addProduct(
-      AddProductRequest addProductRequest) async {
-        
-    try {
-      FormData formData = await addProductRequest.toFormData();
-
-      Response response = await _dio.post(
-        APIUrls.addProduct,
-        data: formData,
-        options: Options(
-          headers: {"Content-Type": "multipart/form-data"},
-        ),
-      );
-
-      log("Raw API Response: ${response.data}");
-
-      if (response.statusCode == 200) {
-        return Right(AddProductResponse.fromJson(response.data));
-      } else {
-        return const Left(
-            const AppErrors.responseError(message: "Failed to add product"));
-      }
-    } catch (e, stacktrace) {
-      log("Unexpected Error: $e");
-      log(stacktrace.toString());
-      return const Left(
-          const AppErrors.responseError(message: "Unexpected error occurred"));
-    }
+      AddProductRequest body) async {
+    final AppPreferences appPreferences = instance<AppPreferences>();
+    String cookieString = appPreferences.getCookies().join(';');
+    print('cookie string $cookieString');
+    return request<AddProductResponse>(
+      method: HttpMethod.POST,
+      body: body.toFormData(),
+      files: body.getFiles(),
+      responseValidator: DefaultResponseValidator(),
+      converter: (json) {
+        print('inconverter $json');
+        return AddProductResponse.fromJson(json);
+      },
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        "cookie": cookieString,
+      },
+      isFormData: true,
+      url: APIUrls.updateUserImage,
+    );
   }
 
   Future<Either<AppErrors, CheckIsSellerResponse>> checkIsASeller() async {

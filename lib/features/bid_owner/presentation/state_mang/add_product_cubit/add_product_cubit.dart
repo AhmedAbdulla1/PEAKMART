@@ -28,6 +28,16 @@ class AddProductCubit extends Cubit<AddProductState> {
     emit(
       AddProductLoadingState(),
     );
+    debugPrint('''In AddProduct Cubit photo: ${addProductRequest.photos},
+        description: ${addProductRequest.description},
+        location: ${addProductRequest.location},
+        name: ${addProductRequest.name},
+        startingPrice: ${addProductRequest.startingPrice},
+        startDate:${addProductRequest.startDate},
+        deliveryDate: ${addProductRequest.deliveryDate},
+        categoryId: ${addProductRequest.categoryId},
+        periodOfBid: ${addProductRequest.periodOfBid},
+        expectedPrice: ${addProductRequest.expectedPrice}''');
 
     Result<AppErrors, AddProductEntity> result = await ownerRepo.addProduct(
       AddProductRequest(
@@ -43,16 +53,8 @@ class AddProductCubit extends Cubit<AddProductState> {
         expectedPrice: addProductRequest.expectedPrice,
       ),
     );
-    debugPrint('''In AddProduct Cubit photo: ${addProductRequest.photos},
-        description: ${addProductRequest.description},
-        location: ${addProductRequest.location},
-        name: ${addProductRequest.name},
-        startingPrice: ${addProductRequest.startingPrice},
-        startDate:${addProductRequest.startDate},
-        deliveryDate: ${addProductRequest.deliveryDate},
-        categoryId: ${addProductRequest.categoryId},
-        periodOfBid: ${addProductRequest.periodOfBid},
-        expectedPrice: ${addProductRequest.expectedPrice}''');
+    debugPrint('result in add product cubit is $result');
+
 
     result.pick(onData: (data) {
       debugPrint(

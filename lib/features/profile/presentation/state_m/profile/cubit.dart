@@ -1,11 +1,14 @@
-import 'dart:developer';
+// Profile Cubit (profile_cubit.dart)
+// ===============================
+
 import 'dart:ui';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
-import 'package:peakmart/core/entities/empty_entity.dart';
+import 'package:peakmart/core/error_ui/toast.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
+import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/results/result.dart';
 import 'package:peakmart/features/profile/data/models/request/update_profile_image_request.dart';
 import 'package:peakmart/features/profile/data/models/request/update_profile_request.dart';
@@ -20,71 +23,71 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   ProfileCubit() : super(ProfileInitial());
 
-  // Original and current user info instances
+  static UserInfoEntity? _cachedUserInfo;
+
   late UserInfoEntity originalUserInfo;
   late UserInfoEntity currentUserInfo;
-  String? tempProfileImagePath; // Temporary path for the new profile image
+  String? tempProfileImagePath;
+  bool _hasFetchedProfile = false;
+  bool get hasChanges {
+    final changes = _detectChanges();
+    return changes.nameChanged || changes.emailChanged || changes.imageChanged;
+  }
+
+  void fetchProfileIfNeeded() {
+    if (_hasFetchedProfile) return;
+
+    if (_cachedUserInfo != null) {
+      originalUserInfo = _cachedUserInfo!;
+      currentUserInfo = _cachedUserInfo!;
+      _hasFetchedProfile = true;
+      emitLoaded();
+      return;
+    }
+
+    fetchProfile();
+  }
 
   void fetchProfile() async {
     emit(ProfileLoading());
     try {
-      Result<AppErrors, UserInfoEntity> result =
-          await profileRepo.getUserInfo();
+      final result = await profileRepo.getUserInfo();
       result.pick(
         onData: (data) {
-          // Initialize original and current user info
           originalUserInfo = data;
           currentUserInfo = data;
-
-          emit(ProfileLoaded(
-            userInfo: currentUserInfo,
-            tempProfileImagePath: tempProfileImagePath,
-          ));
+          _cachedUserInfo = data;
+          _hasFetchedProfile = true;
+          emitLoaded();
         },
         onError: (error) {
-          log(error.toString());
-          emit(ProfileError(
-            error: error,
-            onRetry: fetchProfile,
-          ));
+          emitError(error, fetchProfile);
+          emitLoaded();
         },
       );
     } catch (e) {
-      emit(ProfileError(
-        error: const AppErrors.customError(message: 'Failed to fetch profile'),
-        onRetry: fetchProfile,
-      ));
+      emitError(
+        const AppErrors.customError(message: 'Failed to fetch profile'),
+        fetchProfile,
+      );
+      emitLoaded();
     }
   }
 
-  // Update name
-  void updateName(String name) {
-    currentUserInfo = currentUserInfo.copyWith(userName: name);
-    emit(ProfileLoaded(
-      userInfo: currentUserInfo,
-      tempProfileImagePath: tempProfileImagePath,
-    ));
+  void invalidateCache() {
+    _cachedUserInfo = null;
+    _hasFetchedProfile = false;
   }
 
-  // Update email
-  void updateEmail(String email) {
-    currentUserInfo = currentUserInfo.copyWith(email: email);
-    emit(ProfileLoaded(
-      userInfo: currentUserInfo,
-      tempProfileImagePath: tempProfileImagePath,
-    ));
-  }
+  void updateName(String name) =>
+      _updateUserInfo(currentUserInfo.copyWith(userName: name));
 
-  // Update phone number
-  void updatePhoneNumber(String phoneNumber) {
-    currentUserInfo = currentUserInfo.copyWith(phone: phoneNumber);
-    emit(ProfileLoaded(
-      userInfo: currentUserInfo,
-      tempProfileImagePath: tempProfileImagePath,
-    ));
-  }
+  void updateEmail(String email) =>
+      _updateUserInfo(currentUserInfo.copyWith(email: email));
 
-  // Update profile image
+  void updatePhoneNumber(String phone) =>
+      _updateUserInfo(currentUserInfo.copyWith(phone: phone));
+
   void updateProfileImage(String imagePath) {
     tempProfileImagePath = imagePath;
     emit(ProfileLoaded(
@@ -93,71 +96,170 @@ class ProfileCubit extends Cubit<ProfileState> {
     ));
   }
 
-  // Save changes and detect which fields have changed
+  void updateCountry(String country) => _updateSellerField('COUNTRY', country);
+
+  void updateCity(String city) => _updateSellerField('CITY', city);
+
+  void updateGov(String gov) => _updateSellerField('GOV', gov);
+
+  void updateAddress(String address) => _updateSellerField('ADDRESS', address);
+
+  void _updateSellerField(String key, String value) {
+    final updatedSellerInfo = {
+      ...currentUserInfo.sellerInfo,
+      key: value,
+    };
+    _updateUserInfo(currentUserInfo.copyWith(sellerInfo: updatedSellerInfo));
+  }
+
+  void _updateUserInfo(UserInfoEntity newInfo) {
+    currentUserInfo = newInfo;
+    emit(ProfileLoaded(
+      userInfo: currentUserInfo,
+      tempProfileImagePath: tempProfileImagePath,
+    ));
+  }
+
   Future<void> saveChanges(String password) async {
     emit(ProfileLoading());
 
     try {
-      bool nameChanged = currentUserInfo.userName != originalUserInfo.userName;
-      bool emailChanged = currentUserInfo.email != originalUserInfo.email;
-      bool phoneChanged = currentUserInfo.phone != originalUserInfo.phone;
-      bool imageChanged = tempProfileImagePath != null;
+      final changes = _detectChanges();
+      final isSeller = appPreferences.getIsSeller();
 
-      // Update profile image if changed
-      if (imageChanged) {
-        Result<AppErrors, EmptyEntity> result =
-            await profileRepo.updateProfileImage(UpdateProfileImageRequest(
-                password: password, imagePath: tempProfileImagePath!));
-        result.pick(
-          onData: (newImageUrl) {
-            // currentUserInfo = currentUserInfo.copyWith(photo: newImageUrl);
-            // originalUserInfo = originalUserInfo.copyWith(photo: newImageUrl);
-            // tempProfileImagePath = null;
-          },
-          onError: (error) {
-            emit(ProfileError(
-              error: error,
-              onRetry: () => saveChanges(password),
-            ));
-            return;
-          },
-        );
+      if (!changes.any) {
+        emitLoaded();
+        return;
       }
 
-      if (nameChanged || emailChanged) {
-        Result<AppErrors, EmptyEntity> result = await profileRepo.updateProfile(
-            UpdateProfileRequest(
-                userName: currentUserInfo.userName,
-                email: currentUserInfo.email,
-                phone: currentUserInfo.phone,
-                password: password));
-        result.pick(
-          onData: (success) {
-            originalUserInfo =
-                originalUserInfo.copyWith(userName: currentUserInfo.userName);
-          },
+      if (changes.imageChanged) {
+        final imageResult = await _updateProfileImage(password);
+        bool imageSuccess = true;
+
+        imageResult.pick(
+          onData: (_) {},
           onError: (error) {
-            emit(ProfileError(
-              error: error,
-              onRetry: () => saveChanges(password),
-            ));
-            return;
+            emitError(error, () => saveChanges(password));
+            emitLoaded();
+            imageSuccess = false;
           },
         );
+
+        if (!imageSuccess) return;
       }
-      emit(ProfileLoaded(
-        userInfo: currentUserInfo,
-        tempProfileImagePath: tempProfileImagePath,
-      ));
+
+      if (changes.infoChanged) {
+        final profileResult = await _updateProfileInfo(password, isSeller);
+        profileResult.pick(
+          onData: (_) {
+            Toast.show("Profile updated successfully",
+                backgroundColor: ColorManager.green);
+            invalidateCache();
+            fetchProfile();
+          },
+          onError: (error) {
+            emitError(error, () => saveChanges(password));
+            emitLoaded();
+          },
+        );
+      } else if (changes.imageChanged) {
+        Toast.show("Profile image updated successfully",
+            backgroundColor: ColorManager.green);
+        invalidateCache();
+        fetchProfile();
+      }
     } catch (e) {
-      emit(ProfileError(
-        error: const AppErrors.customError(message: 'Failed to save changes'),
-        onRetry: () => saveChanges(password),
-      ));
+      emitError(
+        const AppErrors.customError(message: 'Failed to save changes'),
+        () => saveChanges(password),
+      );
+      emitLoaded();
     }
   }
 
-  void logout({required onSuccess}) {
-    appPreferences.logout().then((onValue) => onSuccess());
+  void logout({required VoidCallback onSuccess}) {
+    invalidateCache();
+    appPreferences.logout().then((_) => onSuccess());
   }
+
+  void emitLoaded({bool updateOriginal = false, bool fromCache = false}) {
+    if (updateOriginal) {
+      originalUserInfo = currentUserInfo;
+      tempProfileImagePath = null;
+    }
+
+    emit(ProfileLoaded(
+      userInfo: currentUserInfo,
+      tempProfileImagePath: tempProfileImagePath,
+    ));
+  }
+
+  void emitError(AppErrors error, VoidCallback onRetry) {
+    emit(ProfileError(error: error, onRetry: onRetry));
+  }
+
+  _Changes _detectChanges() {
+    final isSeller = appPreferences.getIsSeller();
+    return _Changes(
+      nameChanged: currentUserInfo.userName != originalUserInfo.userName,
+      emailChanged: currentUserInfo.email != originalUserInfo.email,
+      phoneChanged: currentUserInfo.phone != originalUserInfo.phone,
+      imageChanged: tempProfileImagePath != null,
+      sellerDataChanged: isSeller &&
+          (currentUserInfo.sellerInfo["COUNTRY"] !=
+                  originalUserInfo.sellerInfo["COUNTRY"] ||
+              currentUserInfo.sellerInfo["CITY"] !=
+                  originalUserInfo.sellerInfo["CITY"] ||
+              currentUserInfo.sellerInfo["GOV"] !=
+                  originalUserInfo.sellerInfo["GOV"] ||
+              currentUserInfo.sellerInfo["ADDRESS"] !=
+                  originalUserInfo.sellerInfo["ADDRESS"]),
+    );
+  }
+
+  Future<Result<AppErrors, void>> _updateProfileImage(String password) {
+    return profileRepo.updateProfileImage(UpdateProfileImageRequest(
+      password: password,
+      imagePath: tempProfileImagePath!,
+    ));
+  }
+
+  Future<Result<AppErrors, void>> _updateProfileInfo(
+      String password, bool isSeller) {
+    return profileRepo.updateProfile(UpdateProfileRequest(
+      userName: currentUserInfo.userName,
+      email: currentUserInfo.email,
+      phone: currentUserInfo.phone,
+      password: password,
+      country: isSeller ? currentUserInfo.sellerInfo["COUNTRY"] : null,
+      city: isSeller ? currentUserInfo.sellerInfo["CITY"] : null,
+      gov: isSeller ? currentUserInfo.sellerInfo["GOV"] : null,
+      address: isSeller ? currentUserInfo.sellerInfo["ADDRESS"] : null,
+    ));
+  }
+}
+
+class _Changes {
+  final bool nameChanged;
+  final bool emailChanged;
+  final bool phoneChanged;
+  final bool imageChanged;
+  final bool sellerDataChanged;
+
+  _Changes({
+    required this.nameChanged,
+    required this.emailChanged,
+    required this.phoneChanged,
+    required this.imageChanged,
+    required this.sellerDataChanged,
+  });
+
+  bool get any =>
+      nameChanged ||
+      emailChanged ||
+      phoneChanged ||
+      imageChanged ||
+      sellerDataChanged;
+  bool get infoChanged =>
+      nameChanged || emailChanged || phoneChanged || sellerDataChanged;
 }

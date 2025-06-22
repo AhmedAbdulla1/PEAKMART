@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
@@ -127,9 +128,17 @@ class ProfileScreen extends StatelessWidget {
                               icon: Icons.person,
                               title: 'Personal Information',
                               iconColor: Colors.blue,
-                              onTap: () {
-                                Navigator.pushNamed(context,
-                                    PersonalInformationScreen.routeName);
+                              onTap: () async {
+                                final result = await Navigator.pushNamed(
+                                    context, PersonalInformationView.routeName);
+
+                                if (result == true) {
+                                  log("Personal Information updated successfully");
+                                  BlocProvider.of<ProfileCubit>(context)
+                                      .fetchProfileIfNeeded();
+                                } else {
+                                  log("Failed to update Personal Information");
+                                }
                               },
                             ),
                             ProfileMenuItem(

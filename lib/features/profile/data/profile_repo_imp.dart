@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/app/network_info.dart';
@@ -116,8 +118,10 @@ class ProfileRepoImpl extends ProfileRepo {
         Either<AppErrors, EmptyResponse> response =
             await _remoteDataSource.updateProfile(updateProfileRequest);
         result = response.fold((error) {
+          log("Error in profile repo: $error");
           return Result(error: error);
         }, (response) {
+          log("Response in profile repo: $response");
           return Result(data: response.toEntity());
         });
       } catch (error) {

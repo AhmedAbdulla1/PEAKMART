@@ -154,11 +154,11 @@ class RouteGenerator {
           settings: const RouteSettings(name: HoldScreen.routeName),
         );
 
-      case PersonalInformationScreen.routeName:
+      case PersonalInformationView.routeName:
         return MaterialPageRoute(
-          builder: (_) => const PersonalInformationScreen(),
+          builder: (_) => const PersonalInformationView(),
           settings:
-              const RouteSettings(name: PersonalInformationScreen.routeName),
+              const RouteSettings(name: PersonalInformationView.routeName),
         );
 
       case SettingsView.routeName:

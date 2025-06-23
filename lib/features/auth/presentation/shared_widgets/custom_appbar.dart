@@ -14,9 +14,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.centerTitle,
     this.isNotShowArrowBack = false,
-    this.bottomWidget,
+    this.bottomWidget, this.onBackPressed,
   });
-
+final void Function()? onBackPressed;
   final String title;
   final List<Widget>? actions;
   final bool? centerTitle, isNotShowArrowBack;
@@ -37,7 +37,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         leading: isNotShowArrowBack!
             ? null
             : IconButton(
-                onPressed: () => Navigator.pop(context),
+                onPressed: onBackPressed??()=>Navigator.pop(context),
                 icon: SvgPicture.asset(
                   IconsAssets.arrowBack,
                   color: context.colorScheme.onBackground,

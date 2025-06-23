@@ -14,7 +14,7 @@ class SummaryProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ProfileCubit()..fetchProfile(),
+      create: (context) => ProfileCubit()..fetchProfileIfNeeded(),
       child: BlocConsumer<ProfileCubit, ProfileState>(
         listener: (context, state) {
           if (state is ProfileError) {
@@ -31,13 +31,13 @@ class SummaryProfileScreen extends StatelessWidget {
           } else if (state is ProfileError) {
             return const ProfileScreen(
                 userinfo: UserInfoEntity(
-                    userName: "Ahmed",
-                    phone: "01099409512",
+                    userName: "Uer",
+                    phone: "01111111111",
                     photo: "https://picsum.photos/800/600",
                     sellerInfo: {},
                     loyaltyPoint: 0,
                     balance: "0",
-                    email: "ahmedelabassy14@gmail.com"));
+                    email: "user12@gmail.com"));
           } else {
             return const Center(child: Text('No data available'));
           }

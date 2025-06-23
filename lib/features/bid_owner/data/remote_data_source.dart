@@ -14,17 +14,28 @@ import 'package:peakmart/features/bid_owner/data/models/request/add_product_requ
 import 'package:peakmart/features/bid_owner/data/models/response/add_product_response.dart';
 import 'package:peakmart/features/bid_owner/data/models/response/check_is_seller_response.dart';
 
+class AddProductValidator extends ResponseValidator {
+  @override
+  void processData(data) {
+    if (!(data["status"] =="success")) {
+      error = AppErrors.customError(message: data["errors"][0]?? "");
+      errorMessage = data["errors"][0]?? "";
+    }
+  }
+}
+
 class OwnerDataSource extends RemoteDataSource {
   Future<Either<AppErrors, AddProductResponse>> addProduct(
       AddProductRequest body) async {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
     print('cookie string $cookieString');
+    print('body ${body.toJson()}');
     return request<AddProductResponse>(
       method: HttpMethod.POST,
-      body: body.toFormData(),
+      body: body.toJson(),
       files: body.getFiles(),
-      responseValidator: DefaultResponseValidator(),
+      responseValidator: AddProductValidator(),
       converter: (json) {
         print('inconverter $json');
         return AddProductResponse.fromJson(json);
@@ -34,7 +45,7 @@ class OwnerDataSource extends RemoteDataSource {
         "cookie": cookieString,
       },
       isFormData: true,
-      url: APIUrls.updateUserImage,
+      url: APIUrls.addProduct,
     );
   }
 

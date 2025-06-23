@@ -108,6 +108,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                               AddProductDetails.routeName,
                               arguments: addProductRequest,
                             );
+                            log(addProductRequest.toFormData().toString());
                           },
                     text: AppStrings.placeBid,
                   ),

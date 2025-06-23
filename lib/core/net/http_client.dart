@@ -504,7 +504,8 @@ class HttpClient extends BaseHttpClient {
         switch (error.response!.statusCode) {
           case 400:
             print(error.response!.statusCode);
-            return BadRequestError(message: error.response!.data["message"]);
+            print(error.response!.data);
+            return BadRequestError(message: error.response!.data["message"]??"");
           case 401:
             return UnauthorizedError(message: error.response!.data["message"]);
           case 403:

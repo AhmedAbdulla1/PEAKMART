@@ -1,8 +1,10 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:peakmart/core/requests/base_request.dart';
 
-class AddProductRequest {
+class AddProductRequest extends BaseRequest {
   final String name, description, location, startDate, deliveryDate;
   final List<File> photos;
   final int categoryId, periodOfBid;
@@ -21,7 +23,8 @@ class AddProductRequest {
     required this.expectedPrice,
   });
 
-  Map<String, dynamic> toFormData() {
+  @override
+  Map<String, dynamic> toJson() {
     return {
       "name": name,
       "description": description,
@@ -32,6 +35,8 @@ class AddProductRequest {
       "period_of_bid": periodOfBid,
       "starting_price": startingPrice,
       "expected_price": expectedPrice,
+      "TAB_ID": "chg_TS02A5120251923b3HF2106556",
+      "AMOUNT": "150",
     };
   }
 
@@ -39,11 +44,16 @@ class AddProductRequest {
     return photos
         .map<Map<String, dynamic>>(
           (imageFile) => {
-            'fieldName':'photo',
+            'fieldName': 'photo',
             'filePath': imageFile.path,
             'fileName': imageFile.path.split('/').last,
           },
         )
         .toList();
+  }
+
+  @override
+  void printRequest() {
+    log(toJson().toString());
   }
 }

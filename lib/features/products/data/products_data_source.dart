@@ -9,6 +9,7 @@ import 'package:peakmart/core/entities/empty_entity.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/net/api_url.dart';
 import 'package:peakmart/core/net/response_validators/default_response_validator.dart';
+import 'package:peakmart/core/net/response_validators/response_validator.dart';
 import 'package:peakmart/core/responses/emty_response.dart';
 import 'package:peakmart/features/products/data/models/request/bid_request.dart';
 import 'package:peakmart/features/products/data/models/request/enroll_request.dart';
@@ -84,7 +85,7 @@ class ProductsDataSource extends RemoteDataSource {
     return request<EmptyResponse>(
         method: HttpMethod.POST,
         body: enrollRequest.toJson(),
-        responseValidator: DefaultResponseValidator(),
+        responseValidator: EnrollValidator(),
         converter: (json) {
           return EmptyResponse.fromJson(json);
         },
@@ -92,17 +93,22 @@ class ProductsDataSource extends RemoteDataSource {
   }
 
   Future<Either<AppErrors, EmptyResponse>> bid(BidRequest bidRequest) async {
-    AppPreferences appPreferences = instance<AppPreferences>();
-    String userId = appPreferences.getUserId();
-    log("userId is $userId");
     bidRequest.printRequest();
     return request<EmptyResponse>(
         method: HttpMethod.POST,
         body: bidRequest.toJson(),
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
+          log('json is $json',name: "bid response");
           return EmptyResponse.fromJson(json);
         },
-        url: APIUrls.bidProduct);
+        url: APIUrls.bidProduct);}
+}
+class EnrollValidator extends ResponseValidator{
+  @override
+  void processData(data) {
+    if (data["enrollment_id"] == null) {
+      errorMessage = data["message"] ?? "";
+    }
   }
 }

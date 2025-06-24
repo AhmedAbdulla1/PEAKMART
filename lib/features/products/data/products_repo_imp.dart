@@ -139,13 +139,13 @@ class ProductsRepoImp extends ProductsRepo {
   }
 
   @override
-  Future<Result<AppErrors, EmptyEntity>> bidProduct(BidRequest enroll) async {
+  Future<Result<AppErrors, EmptyEntity>> bidProduct(BidRequest bid) async {
     Result<AppErrors, EmptyEntity> result;
     if (await _networkInfo.isConnected) {
       try {
         Either<AppErrors, EmptyResponse> response =
-            await _remoteDataSource.bid(enroll);
-        log('in repo impl ${response.toString()}',name: 'bidProduct');
+            await _remoteDataSource.bid(bid);
+        log('after get res  ${response.toString()}',name: 'bidProductRepo');
         result = response.fold((error) {
           return Result(error: error);
         }, (response) {

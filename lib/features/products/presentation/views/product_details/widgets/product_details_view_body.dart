@@ -27,10 +27,12 @@ class ProductDetailsViewBody extends StatefulWidget {
   const ProductDetailsViewBody({
     super.key,
     required this.product,
+    // required this.topBiddersData,
   });
 
   final ProductEntity product;
 
+  // final TopBiddersEntity topBiddersData;
   @override
   State<ProductDetailsViewBody> createState() => _ProductDetailsViewBodyState();
 }
@@ -118,11 +120,15 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                           onPressed: isError
                               ? null
                               : () {
+                                  double price = topBiddersEntity != null &&
+                                          topBiddersEntity.data.isNotEmpty
+                                      ? topBiddersEntity.data[0].bidAmount
+                                      : widget.product.price;
                                   showDialog(
                                     context: context,
                                     builder: (context) => userStatus
                                         ? BidDialog(
-                                            higherPrice: widget.product.price,
+                                            higherPrice: price
                                           )
                                         : PaymentDialog(
                                             netPrice: widget.product.price),

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class AddProductImagePicker extends StatelessWidget {
                 title: const Text('Choose from Gallery'),
                 onTap: () {
                   Navigator.pop(context);
-                  controller.pickMultipleImages();
+                  controller.addImage();
                 },
               ),
             ],
@@ -93,7 +94,7 @@ class AddProductImagePicker extends StatelessWidget {
                     : ClipRRect(
                         borderRadius: BorderRadius.circular(10.r),
                         child: Image.file(
-                          controller.images.first,
+                          controller.getImages()[0],
                           fit: BoxFit.cover,
                           width: double.infinity,
                           height: double.infinity,
@@ -101,26 +102,68 @@ class AddProductImagePicker extends StatelessWidget {
                       ),
               ),
             ),
-            if (controller.images.length > 1)
+            if (controller.images.length != 0)
               Padding(
                 padding: EdgeInsets.only(top: 10.h),
                 child: SizedBox(
                   height: 80.h,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: controller.images.length - 1,
+                    itemCount: controller.images.length,
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5.w),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.r),
-                          child: Image.file(
-                            controller.images[index + 1],
-                            fit: BoxFit.cover,
+                      log("index: $index, images length: ${controller.images.length}");
+                      if (index == controller.images.length - 1)
+                        return GestureDetector(
+                          onTap: () {
+                            controller.addImage();
+                          },
+                          child: Container(
                             width: 80.w,
                             height: 80.h,
+                            decoration: BoxDecoration(
+                              color: context.isDarkMode
+                                  ? ColorManager.grey1
+                                  : ColorManager.greyColor,
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
+                            child: Icon(
+                              Icons.add,
+                              color: Colors.white,
+                              size: 30.sp,
+                            ),
                           ),
-                        ),
+                        );
+                      return Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 5.w),
+                        child: Stack(children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10.r),
+                            child: Image.file(
+                              controller.getImages()[index + 1],
+                              fit: BoxFit.cover,
+                              width: 80.w,
+                              height: 80.h,
+                            ),
+                          ),
+                          Positioned(
+                            right: 0,
+                            top: 0,
+                            child: CircleAvatar(
+                              backgroundColor: ColorManager.grey,
+                              maxRadius: 15,
+                              child: IconButton(
+                                padding: EdgeInsets.zero,
+                                icon: const Icon(
+                                  Icons.close,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () {
+                                  controller.removeImage(index: index);
+                                },
+                              ),
+                            ),
+                          ),
+                        ]),
                       );
                     },
                   ),

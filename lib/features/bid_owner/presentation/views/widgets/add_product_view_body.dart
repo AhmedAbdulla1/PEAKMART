@@ -91,7 +91,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                         ? null
                         : () {
                             final addProductRequest = AddProductRequest(
-                              photos: imageController.images,
+                              photos: imageController.getImages(),
                               name: productNameController.text,
                               description: descriptionController.text,
                               startingPrice:
@@ -104,8 +104,6 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                               periodOfBid:
                                   int.parse(periodOfBidsController.text),
                               categoryId: 20,
-                              tabId: "",
-                              amount: ""
                             );
                             Navigator.pushNamed(
                               context,

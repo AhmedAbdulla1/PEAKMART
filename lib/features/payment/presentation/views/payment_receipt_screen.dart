@@ -1,16 +1,18 @@
+import 'dart:developer';
 import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
+import 'package:peakmart/core/error_ui/toast.dart';
 import 'package:peakmart/core/resources/assets_manager.dart';
+import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
 import 'package:peakmart/features/payment/domain/entities/payment_entity.dart';
-import 'package:peakmart/features/payment/domain/enum/enums.dart';
 import 'package:peakmart/features/payment/presentation/cubit/payment_cubit.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'dart:developer';
 
 class PaymentReceiptScreen extends StatefulWidget {
   final PaymentEntity paymentData;
@@ -251,20 +253,16 @@ class _PaymentReceiptScreenState extends State<PaymentReceiptScreen> {
         setState(() {
           _isSaved = true;
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Receipt saved successfully!')),
-        );
+        Toast.show("Receipt saved successfully!",
+            backgroundColor: ColorManager.green);
       } else {
         log('Failed to save receipt to gallery');
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Failed to save receipt!')),
-        );
+        Toast.show("Failed to save receipt.",
+            backgroundColor: ColorManager.red);
       }
     } catch (e) {
       log('Error saving receipt: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error saving receipt: $e')),
-      );
+      Toast.show("Error saving receipt: $e", backgroundColor: ColorManager.red);
     } finally {
       setState(() {
         _isSaving = false;

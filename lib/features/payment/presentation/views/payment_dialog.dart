@@ -1,7 +1,11 @@
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/app/app_prefs.dart';
+import 'package:peakmart/app/di.dart';
+import 'package:peakmart/core/error_ui/toast.dart';
 import 'package:peakmart/core/net/api_url.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
@@ -9,11 +13,9 @@ import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/features/payment/domain/entities/fee_entity.dart';
 import 'package:peakmart/features/payment/domain/enum/enums.dart';
-import 'package:peakmart/features/payment/presentation/views/web_view_payment.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/features/payment/presentation/cubit/payment_cubit.dart';
-import 'package:peakmart/app/di.dart';
 import 'package:peakmart/features/payment/domain/usecases/payment_usecase.dart';
+import 'package:peakmart/features/payment/presentation/cubit/payment_cubit.dart';
+import 'package:peakmart/features/payment/presentation/views/web_view_payment.dart';
 
 const String bidRulesRoute = '/bid_rules';
 const String contactUsRoute = '/contact_us';
@@ -67,9 +69,8 @@ class _PaymentDialogState extends State<PaymentDialog> {
     log('Entered amount: $_amount');
 
     if (_amount == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Amount calculation failed')),
-      );
+      Toast.show("Amount calculation failed",
+          backgroundColor: ColorManager.red);
       return;
     }
 
@@ -105,36 +106,32 @@ class _PaymentDialogState extends State<PaymentDialog> {
         switch (paymentStatus) {
           case 'failed':
             final error = result['error'] ?? 'Unknown error';
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Payment failed: $error')),
-            );
+            Toast.show("Payment failed: $error",
+                backgroundColor: ColorManager.red);
             Navigator.of(context, rootNavigator: true).pop({
               'bid': _amount,
               'payment_status': 'failed',
             });
             break;
           case 'cancelled':
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Payment cancelled by user.')),
-            );
+            Toast.show("Payment cancelled by user.",
+                backgroundColor: ColorManager.red);
             Navigator.of(context, rootNavigator: true).pop({
               'bid': _amount,
               'payment_status': 'cancelled',
             });
             break;
           case 'navigated_away':
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Navigated to another page.')),
-            );
+            Toast.show("Payment navigated away from.",
+                backgroundColor: ColorManager.red);
             Navigator.of(context, rootNavigator: true).pop({
               'bid': _amount,
               'payment_status': 'navigated_away',
             });
             break;
           case 'success':
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Payment completed successfully.')),
-            );
+            Toast.show("Payment successful.",
+                backgroundColor: ColorManager.green);
             Navigator.of(context, rootNavigator: true).pop({
               'fees': _amount,
               'tap_id': result['tap_id'],
@@ -142,9 +139,8 @@ class _PaymentDialogState extends State<PaymentDialog> {
             });
             break;
           default:
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Payment completed or cancelled.')),
-            );
+            Toast.show("Payment completed or cancelled.",
+                backgroundColor: ColorManager.red);
             Navigator.of(context, rootNavigator: true).pop({
               'bid': _amount,
               'payment_status': 'unknown',
@@ -153,9 +149,7 @@ class _PaymentDialogState extends State<PaymentDialog> {
         }
       } else {
         log('Unexpected null result from PaymentWebViewScreen, treating as cancelled.');
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Payment cancelled.')),
-        );
+        Toast.show("Payment cancelled", backgroundColor: ColorManager.red);
         Navigator.of(context, rootNavigator: true).pop({
           'bid': _amount,
           'payment_status': 'cancelled',
@@ -164,9 +158,7 @@ class _PaymentDialogState extends State<PaymentDialog> {
     } catch (e, stack) {
       log('Payment error: $e', stackTrace: stack);
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Payment error: $e')),
-      );
+      Toast.show("Payment error: $e", backgroundColor: ColorManager.red);
       Navigator.of(context, rootNavigator: true).pop({
         'bid': _amount,
         'payment_status': 'failed',

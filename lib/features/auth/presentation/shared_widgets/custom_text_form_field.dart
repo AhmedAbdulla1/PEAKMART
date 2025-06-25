@@ -18,6 +18,7 @@ class CustomTextFormField extends StatefulWidget {
   final bool? isShowDescription;
   final bool? isUsedWithBidOwner;
   final String? Function(String?)? validator;
+  final Function()? onTap;
   final Function(String)? onChanged;
   final List<TextInputFormatter>? inputFormatter;
   const CustomTextFormField({
@@ -33,6 +34,7 @@ class CustomTextFormField extends StatefulWidget {
     this.validator,
     this.onChanged,
     this.inputFormatter,
+    this.onTap,
   });
 
   @override
@@ -55,6 +57,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTap: widget.onTap,
       controller: widget.controller,
       maxLines: widget.isShowDescription == true ? 5 : 1,
       keyboardType: widget.inputType,

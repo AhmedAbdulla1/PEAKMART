@@ -111,8 +111,13 @@ class _AddProductDetailsState extends State<AddProductDetails> {
                           if (value.containsKey('payment_status') &&
                               value['payment_status'] == 'success') {
                             log('Payment successful: $value', name: 'payment');
+
                             context.read<AddProductCubit>().addProduct(
-                                  addProductRequest: widget.addProductRequest,
+                                  addProductRequest:
+                                      widget.addProductRequest.copyWith(
+                                    tabId: value['tab_id'],
+                                    amount: value['fees'],
+                                  ),
                                 );
 
                             Toast.show("Product successfully Uploaded",

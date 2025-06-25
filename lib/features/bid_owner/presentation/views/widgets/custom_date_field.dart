@@ -12,8 +12,8 @@ class CustomDateField extends StatefulWidget {
   final DateTime? firstDate;
   final DateTime? lastDate;
   final bool allowFutureDates;
+  final DateTimeType dateTimeType;
   final bool isStartDate;
-  final TextEditingController? startDateController;
 
   const CustomDateField({
     super.key,
@@ -23,7 +23,7 @@ class CustomDateField extends StatefulWidget {
     this.lastDate,
     this.allowFutureDates = true,
     this.isStartDate = false,
-    this.startDateController,
+    this.dateTimeType = DateTimeType.generalDate,
   });
 
   @override
@@ -34,9 +34,26 @@ class _CustomDateFieldState extends State<CustomDateField> {
   final DateFormat _dateFormat = DateFormat('dd-MM-yyyy');
 
   Future<void> _selectDate(BuildContext context) async {
-    DateTime initialDate = DateTime.now();
-    DateTime firstDate = widget.firstDate ?? DateTime(1900);
-    DateTime lastDate = widget.lastDate ?? DateTime(2050);
+    late DateTime initialDate;
+    late DateTime firstDate;
+    late DateTime lastDate;
+    switch (widget.dateTimeType) {
+      case DateTimeType.startDate:
+        initialDate = widget.firstDate!.add(const Duration(days: 3));
+        firstDate = widget.firstDate!.add(const Duration(days: 3));
+        lastDate = widget.lastDate ?? DateTime(2100);
+        break;
+      case DateTimeType.deliveryDate:
+        initialDate = DateTime.now();
+        firstDate = DateTime.now();
+        lastDate = widget.lastDate ?? DateTime(2100);
+        break;
+      case DateTimeType.generalDate:
+      default:
+        initialDate = DateTime.now();
+        firstDate = widget.firstDate ?? DateTime(1900);
+        lastDate = widget.lastDate ?? DateTime(2100);
+    }
 
     DateTime? picked = await showDatePicker(
       context: context,
@@ -52,62 +69,10 @@ class _CustomDateFieldState extends State<CustomDateField> {
     }
   }
 
-  String? _validateDate(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return "Please enter a date";
-    }
-
-    try {
-      DateTime parsedDate = _dateFormat.parseStrict(value.trim());
-      DateTime today = DateTime.now();
-      DateTime todayOnlyDate = DateTime(today.year, today.month, today.day);
-
-      if (widget.isStartDate) {
-        if (parsedDate.isBefore(todayOnlyDate)) {
-          return "Start date must be today or in the future";
-        }
-
-        if (widget.startDateController != null &&
-            widget.startDateController!.text.isNotEmpty) {
-          DateTime arrivalDate =
-              _dateFormat.parseStrict(widget.startDateController!.text);
-          if (parsedDate.isAfter(arrivalDate)) {
-            return "Start date can't be after delivery date";
-          }
-
-          if (arrivalDate.difference(parsedDate).inDays < 3) {
-            return "There must be at least 3 days between delivery and start date";
-          }
-        }
-      } else {
-        if (parsedDate.isBefore(todayOnlyDate)) {
-          return "Arrival date must be today or in the future";
-        }
-
-        if (widget.startDateController != null &&
-            widget.startDateController!.text.isNotEmpty) {
-          DateTime startDate =
-              _dateFormat.parseStrict(widget.startDateController!.text);
-
-          if (parsedDate.isAfter(startDate)) {
-            return "Start date must be after delivery date";
-          }
-
-          if (startDate.difference(parsedDate).inDays < 3) {
-            return "There must be at least 3 days between delivery and start date";
-          }
-        }
-      }
-    } catch (e) {
-      return "Invalid format (DD-MM-YYYY)";
-    }
-
-    return null;
-  }
-
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTap: () => _selectDate(context),
       style: getRegularStyle(
         color: context.isDarkMode
             ? ColorManager.darkModePrimary
@@ -118,7 +83,6 @@ class _CustomDateFieldState extends State<CustomDateField> {
       keyboardType: TextInputType.datetime,
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
-        _DateInputFormatter(),
       ],
       decoration: InputDecoration(
         labelText: widget.labelText,
@@ -137,31 +101,8 @@ class _CustomDateFieldState extends State<CustomDateField> {
         ),
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      validator: _validateDate,
     );
   }
 }
 
-class _DateInputFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    String text = newValue.text.replaceAll(RegExp(r'\D'), '');
-    String formattedText = '';
-    if (text.length > 2) {
-      formattedText =
-          '${text.substring(0, 2)}-${text.substring(2, text.length > 4 ? 4 : text.length)}';
-    } else {
-      formattedText = text;
-    }
-    if (text.length > 4) {
-      formattedText +=
-          '-${text.substring(4, text.length > 8 ? 8 : text.length)}';
-    }
-
-    return TextEditingValue(
-      text: formattedText,
-      selection: TextSelection.collapsed(offset: formattedText.length),
-    );
-  }
-}
+enum DateTimeType { startDate, deliveryDate, generalDate }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -29,7 +30,7 @@ class PlaceBidAcceptData extends StatelessWidget {
   final TextEditingController startDateController;
   final TextEditingController arrivalDateController;
   final TextEditingController periodOfBidsController;
-  final TextEditingController addressController ;
+  final TextEditingController addressController;
   String? validatePrice() {
     if (startingPriceController.text.isEmpty ||
         expectedPriceController.text.isEmpty) {
@@ -46,6 +47,9 @@ class PlaceBidAcceptData extends StatelessWidget {
     }
     if (startingPrice >= expectedPrice) {
       return "Expected price must be greater than starting price";
+    }
+    if (expectedPrice > 3 * startingPrice) {
+      return "Expected price must be less than 3 times of the starting price";
     }
     return null;
   }
@@ -125,25 +129,54 @@ class PlaceBidAcceptData extends StatelessWidget {
           hintText: AppStrings.location,
           isUsedWithBidOwner: true,
           inputType: TextInputType.text,
-          controller: locationController,
-          suffixIcon: IconButton(
-            onPressed: () => onLocationPressed(context),
-            icon: const Icon(Icons.location_on),
+          controller: addressController,
+          onTap: () => onLocationPressed(context),
+          suffixIcon: const IconButton(
+            onPressed: null,
+            icon: Icon(Icons.location_on),
           ),
         ),
         23.vGap,
         CustomDateField(
           controller: arrivalDateController,
           labelText: AppStrings.deliveryDate,
-          startDateController: startDateController,
+          dateTimeType: DateTimeType.deliveryDate,
         ),
         23.vGap,
-        CustomDateField(
-          controller: startDateController,
-          labelText: AppStrings.startDate,
-          isStartDate: true,
+        ValueListenableBuilder<TextEditingValue>(
+          valueListenable: arrivalDateController,
+          builder: (context, arrivalDateTextValue, child) {
+            DateTime? parsedArrivalDate;
+            try {
+              if (arrivalDateTextValue.text.isNotEmpty) {
+                parsedArrivalDate = DateFormat('dd-MM-yyyy')
+                    .parseStrict(arrivalDateTextValue.text);
+              }
+            } catch (e) {
+              parsedArrivalDate = null;
+            }
+
+            // Calculate the minimum allowed start date
+            DateTime? startDateMinDate;
+            if (parsedArrivalDate != null) {
+              startDateMinDate = parsedArrivalDate;
+            }
+            return Visibility(
+              visible: arrivalDateTextValue.text.isNotEmpty,
+              child: Column(
+                children: [
+                  CustomDateField(
+                    controller: startDateController,
+                    labelText: AppStrings.startDate,
+                    dateTimeType: DateTimeType.startDate,
+                    firstDate: startDateMinDate,
+                  ),
+                  23.vGap,
+                ],
+              ),
+            );
+          },
         ),
-        23.vGap,
         CustomTextFormField(
           labelText: AppStrings.periodOfBids,
           hintText: AppStrings.periodOfBids,

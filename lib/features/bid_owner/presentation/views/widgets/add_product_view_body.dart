@@ -31,6 +31,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
   late TextEditingController startDateController;
   late TextEditingController arrivalDateController;
   late TextEditingController periodOfBidsController;
+  late TextEditingController addressController;
 
   @override
   void initState() {
@@ -43,6 +44,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
     startDateController = TextEditingController();
     arrivalDateController = TextEditingController();
     periodOfBidsController = TextEditingController();
+    addressController = TextEditingController();
   }
 
   @override
@@ -55,6 +57,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
     startDateController.dispose();
     arrivalDateController.dispose();
     periodOfBidsController.dispose();
+    addressController.dispose();
     super.dispose();
   }
 
@@ -78,6 +81,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
               startDateController: startDateController,
               arrivalDateController: arrivalDateController,
               periodOfBidsController: periodOfBidsController,
+              addressController: addressController,
             ),
             23.verticalSpace,
             Consumer<ImagePickerController>(

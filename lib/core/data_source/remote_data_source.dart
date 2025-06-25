@@ -100,7 +100,7 @@ class RemoteDataSource {
       createModelInterceptor,
     );
 
-    print('url for request $queryParameters');
+    print('url for request $url');
 
     /// Send the request.
     final response = await HttpClient().sendRequest<T>(

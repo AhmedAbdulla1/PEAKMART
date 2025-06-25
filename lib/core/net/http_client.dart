@@ -213,9 +213,10 @@ class HttpClient extends BaseHttpClient {
       }
 
       // Process the response
-      print(response.data);
+      print('Response status code: ${response.statusCode}');
+      print('Response data: ${response.data}');
       responseValidator.processData(response.data);
-
+      print("isValid ${responseValidator.isValid}");
       if (responseValidator.isValid) {
         if (response.statusCode == 401) {
           return const Left(UnauthorizedError());
@@ -504,7 +505,8 @@ class HttpClient extends BaseHttpClient {
         switch (error.response!.statusCode) {
           case 400:
             print(error.response!.statusCode);
-            return BadRequestError(message: error.response!.data["message"]);
+            print(error.response!.data);
+            return BadRequestError(message: error.response!.data["message"]??"");
           case 401:
             return UnauthorizedError(message: error.response!.data["message"]);
           case 403:

@@ -27,10 +27,12 @@ class ProductDetailsViewBody extends StatefulWidget {
   const ProductDetailsViewBody({
     super.key,
     required this.product,
+    // required this.topBiddersData,
   });
 
   final ProductEntity product;
 
+  // final TopBiddersEntity topBiddersData;
   @override
   State<ProductDetailsViewBody> createState() => _ProductDetailsViewBodyState();
 }
@@ -39,6 +41,61 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
   @override
   void initState() {
     super.initState();
+  }
+
+  bool get _isBiddingAllowed {
+    try {
+      final startDate = widget.product.startDate != null
+          ? DateTime.parse(widget.product.startDate!)
+          : DateTime.now();
+      final now = DateTime.now();
+      return startDate.isBefore(now) || startDate.isAtSameMomentAs(now);
+    } catch (e) {
+      log('Error parsing startDate: $e', name: 'date_parsing');
+      return false;
+    }
+  }
+
+  double _getInitialPrice(TopBiddersEntity? topBiddersEntity) {
+    return topBiddersEntity != null && topBiddersEntity.data.isNotEmpty
+        ? topBiddersEntity.data[0].bidAmount
+        : widget.product.price;
+  }
+
+  void _handleDialogResult(BuildContext context, dynamic value) {
+    if (value == null || value is! Map<String, dynamic>) return;
+
+    if (value.containsKey('payment_status') &&
+        value['payment_status'] == 'success') {
+      log('Payment successful: $value', name: 'payment');
+      context.read<ProductCubit>().enrollProduct(
+            EnrollRequest(
+              productId: widget.product.id.toString(),
+              tapId: value['tap_id'].toString(),
+              fees: value['fees'].toString(),
+            ),
+          );
+      // إظهار رسالة نجاح للإنرول
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Successfully enrolled in the product!')),
+      );
+    } else if (value.containsKey('bid_status') &&
+        value['bid_status'] == 'success') {
+      log('Bid successful: $value', name: 'bid');
+      context.read<ProductCubit>().bidProduct(
+            BidRequest(
+              productId: widget.product.id.toString(),
+              amount: value['bid'].toString(),
+            ),
+          );
+      // إظهار رسالة نجاح للبيد
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Bid placed successfully!')),
+      );
+    }
+
+    // تحديث قائمة أعلى المزايدين ليعكس التغييرات في userStatus
+    context.read<TopBidderCubit>().getTopBidders(productId: widget.product.id);
   }
 
   @override
@@ -114,50 +171,80 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                           ),
                         ),
                         const Spacer(),
-                        ElevatedButton(
-                          onPressed: isError
-                              ? null
-                              : () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => userStatus
-                                        ? BidDialog(
-                                            higherPrice: widget.product.price,
-                                          )
-                                        : PaymentDialog(
-                                            netPrice: widget.product.price),
-                                  ).then((value) {
-                                    if (value != null &&
-                                        value is Map<String, dynamic> &&
-                                        value.containsKey('payment_status') &&
-                                        value['payment_status'] == "success") {
-                                      log("value: $value", name: "payment");
-                                      context
-                                          .read<ProductCubit>()
-                                          .enrollProduct(EnrollRequest(
-                                              productId:
-                                                  widget.product.id.toString(),
-                                              tapId: value['tap_id'].toString(),
-                                              fees: value['fees'].toString()));
-                                    } else if (value != null &&
-                                        value is Map<String, dynamic> &&
-                                        value.containsKey('bid_status') &&
-                                        value['bid_status'] == "success") {
-                                      log("value: $value", name: "bid");
-                                      context.read<ProductCubit>().bidProduct(
-                                          BidRequest(
-                                              productId:
-                                                  widget.product.id.toString(),
-                                              amount: value['bid'].toString()));
-                                    }
-                                    context
-                                        .read<TopBidderCubit>()
-                                        .getTopBidders(
-                                            productId: widget.product.id);
-                                  });
-                                },
-                          child: Text(userStatus ? 'Bid Now' : 'Enroll Now'),
+                        Visibility(
+                          visible:
+                              !userStatus || (userStatus && _isBiddingAllowed),
+                          child: ElevatedButton(
+                            onPressed: isError
+                                ? null
+                                : () {
+                                    final price =
+                                        _getInitialPrice(topBiddersEntity);
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => userStatus &&
+                                              _isBiddingAllowed
+                                          ? BidDialog(higherPrice: price)
+                                          : PaymentDialog(
+                                              netPrice: widget.product.price),
+                                    ).then((value) =>
+                                        _handleDialogResult(context, value));
+                                  },
+                            child: Text(userStatus && _isBiddingAllowed
+                                ? 'Bid Now'
+                                : 'Enroll Now'),
+                          ),
                         ),
+                        // ProductActionButton(
+                        //     product: widget.product,
+                        //     userStatus: userStatus,
+                        //     isError: isError),
+                        // ElevatedButton(
+                        //   onPressed: isError
+                        //       ? null
+                        //       : () {
+                        //           double price = topBiddersEntity != null &&
+                        //                   topBiddersEntity.data.isNotEmpty
+                        //               ? topBiddersEntity.data[0].bidAmount
+                        //               : widget.product.price;
+                        //           showDialog(
+                        //             context: context,
+                        //             builder: (context) => userStatus
+                        //                 ? BidDialog(higherPrice: price)
+                        //                 : PaymentDialog(
+                        //                     netPrice: widget.product.price),
+                        //           ).then((value) {
+                        //             if (value != null &&
+                        //                 value is Map<String, dynamic> &&
+                        //                 value.containsKey('payment_status') &&
+                        //                 value['payment_status'] == "success") {
+                        //               log("value: $value", name: "payment");
+                        //               context
+                        //                   .read<ProductCubit>()
+                        //                   .enrollProduct(EnrollRequest(
+                        //                       productId:
+                        //                           widget.product.id.toString(),
+                        //                       tapId: value['tap_id'].toString(),
+                        //                       fees: value['fees'].toString()));
+                        //             } else if (value != null &&
+                        //                 value is Map<String, dynamic> &&
+                        //                 value.containsKey('bid_status') &&
+                        //                 value['bid_status'] == "success") {
+                        //               log("value: $value", name: "bid");
+                        //               context.read<ProductCubit>().bidProduct(
+                        //                   BidRequest(
+                        //                       productId:
+                        //                           widget.product.id.toString(),
+                        //                       amount: value['bid'].toString()));
+                        //             }
+                        //             context
+                        //                 .read<TopBidderCubit>()
+                        //                 .getTopBidders(
+                        //                     productId: widget.product.id);
+                        //           });
+                        //         },
+                        //   child: Text(userStatus ? 'Bid Now' : 'Enroll Now'),
+                        // ),
                       ],
                     ),
                     8.vGap,

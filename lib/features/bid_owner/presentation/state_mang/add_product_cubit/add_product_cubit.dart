@@ -11,6 +11,7 @@ import 'package:peakmart/features/bid_owner/data/owner_repo_imp.dart';
 import 'package:peakmart/features/bid_owner/domain/entity/add_product_entity.dart';
 import 'package:peakmart/features/bid_owner/domain/entity/check_is_seller_entity.dart';
 import 'package:peakmart/features/bid_owner/domain/repository/owner_repo.dart';
+import 'package:peakmart/features/home/domain/entity/category_entity.dart';
 
 part 'add_product_state.dart';
 
@@ -18,6 +19,7 @@ class AddProductCubit extends Cubit<AddProductState> {
   OwnerRepo ownerRepo = OwnerRepoImp();
   AppPreferences appPreferences = instance<AppPreferences>();
   bool isSeller = false;
+
   AddProductCubit() : super(AddProductInitialState());
 
   // late BuildContext context;
@@ -56,7 +58,6 @@ class AddProductCubit extends Cubit<AddProductState> {
       ),
     );
     debugPrint('result in add product cubit is $result');
-
 
     result.pick(onData: (data) {
       debugPrint(
@@ -113,5 +114,16 @@ class AddProductCubit extends Cubit<AddProductState> {
     } else {
       emit(NotASellerState());
     }
+  }
+
+  Future getCategories() async {
+    emit(AddProductLoadingState());
+    Result<AppErrors, CategoriesEntity> result =
+        await ownerRepo.getCategories();
+    result.pick(onData: (data) {
+      emit(CategoryLoaded(categoriesEntity: data));
+    }, onError: (error) {
+      emit(AddProductFailureState(errors: error, onRetry: () {}));
+    });
   }
 }

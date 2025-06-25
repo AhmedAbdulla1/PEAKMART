@@ -12,6 +12,8 @@ import 'package:peakmart/features/bid_owner/data/models/response/check_is_seller
 import 'package:peakmart/features/bid_owner/domain/entity/add_product_entity.dart';
 import 'package:peakmart/features/bid_owner/domain/entity/check_is_seller_entity.dart';
 import 'package:peakmart/features/bid_owner/domain/repository/owner_repo.dart';
+import 'package:peakmart/features/home/data/model/response/category_response.dart';
+import 'package:peakmart/features/home/domain/entity/category_entity.dart';
 
 import 'remote_data_source.dart';
 
@@ -67,6 +69,27 @@ class OwnerRepoImp extends OwnerRepo {
         result = Result(
             error: const AppErrors.responseError(
                 message: "Unexpected error occurred"));
+      }
+    } else {
+      result = Result(error: const AppErrors.connectionError());
+    }
+    return result;
+  }
+
+  @override
+  Future<Result<AppErrors, CategoriesEntity>> getCategories()async {
+    Result<AppErrors, CategoriesEntity> result;
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors, CategoriesResponse> response =
+            await _remoteDataSource.getCategories();
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          return Result(data: response.toEntity());
+        });
+      } catch (error) {
+        result = Result(error: const AppErrors.responseError());
       }
     } else {
       result = Result(error: const AppErrors.connectionError());

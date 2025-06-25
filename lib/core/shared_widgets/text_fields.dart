@@ -210,6 +210,7 @@ class _PasswordTextFieldWithStreamState
           errorText: snapshot.data,
         ),
         obscureText: obscureText,
+        textInputAction: TextInputAction.done,
       ),
     );
   }

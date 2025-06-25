@@ -105,6 +105,7 @@ class _LogInViewState extends State<LogInView> {
                 prefixIcon: Icons.person,
                 textEditingController: _emailController,
                 hintText: AppStrings.email,
+                textInputAction: TextInputAction.next,
               ),
               25.vGap,
               PasswordTextFieldWithStream(

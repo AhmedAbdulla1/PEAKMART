@@ -104,7 +104,8 @@ class AppStrings {
   static const String endedBids = 'Ended Bids';
   static const String myProduct = 'MyProduct';
   static const String auctionStart = 'Auction Start: ';
-  static const String deliveryDate = 'Delivery: ';
+  static const String delivery = 'Delivery: ';
+  static const String deliveryDate = 'Delivery date';
   static const String bidDuration = 'Bid Duration: ';
   static const String category = 'Category ID: ';
   static const String biddingPeriod = "Bidding Period";

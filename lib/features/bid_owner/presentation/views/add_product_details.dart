@@ -227,22 +227,25 @@ class _AddProductDetailsState extends State<AddProductDetails> {
   Widget _buildLocationItem() {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 6.h),
-      child: Wrap(
-        children: [
-          Icon(FontAwesomeIcons.mapMarkerAlt,
-              color: ColorManager.primary, size: 20),
-          16.hGap,
-          Text("Location: ", style: getBoldStyle(fontSize: FontSize.s16)),
-          const Spacer(),
-          Text(widget.addProductRequest.location,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: getRegularStyle(
-                  fontSize: FontSize.s16,
-                  color: context.isDarkMode
-                      ? ColorManager.grey
-                      : Colors.grey[800]!)),
-        ],
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Wrap(
+          children: [
+            Icon(FontAwesomeIcons.mapMarkerAlt,
+                color: ColorManager.primary, size: 20),
+            16.hGap,
+            Text("Location: ", style: getBoldStyle(fontSize: FontSize.s16)),
+            const Spacer(),
+            Text(widget.addProductRequest.location,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: getRegularStyle(
+                    fontSize: FontSize.s16,
+                    color: context.isDarkMode
+                        ? ColorManager.grey
+                        : Colors.grey[800]!)),
+          ],
+        ),
       ),
     );
   }

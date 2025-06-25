@@ -76,16 +76,16 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           return Validator.validateUserName(value!);
         }
         if (value == null || value.isEmpty) {
-          if (value == null || value.trim().isEmpty) {
-            return AppStrings.fieldRequired;
-          }
-          if (widget.validator != null) {
-            return widget.validator!(value);
-          }
+          return AppStrings.fieldRequired;
         }
         return null;
       },
       inputFormatters: widget.inputFormatter,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) {
+        FocusScope.of(context).nextFocus();
+      },
+      onChanged: widget.onChanged,
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: widget.labelText,
@@ -104,7 +104,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         suffixIcon: widget.suffixIcon != null
             ? Padding(
                 padding: const EdgeInsets.only(right: 5.0),
-                child: widget.suffixIcon)
+                child: widget.suffixIcon,
+              )
             : null,
       ),
     );

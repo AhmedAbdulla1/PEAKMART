@@ -7,11 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
-import 'package:peakmart/core/resources/assets_manager.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/extentions.dart';
-import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/core/shared_widgets/buttons.dart';
+import 'package:peakmart/core/shared_widgets/select_country_widget.dart';
 import 'package:peakmart/features/auth/data/model/request/signup_for_bid_request.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
 import 'package:peakmart/features/auth/presentation/state_mang/signup_for_bid/cubit.dart';
@@ -27,6 +25,7 @@ class MainInfo extends StatefulWidget {
 
 class _MainInfoState extends State<MainInfo> {
   final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _countryController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _govController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
@@ -35,7 +34,6 @@ class _MainInfoState extends State<MainInfo> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String? _selectedCountry;
-  final List<String> countries = ['Egypt', 'Saudi Arabia'];
 
   // Track touched state for each field
   final Map<String, bool> _fieldTouchedState = {
@@ -173,22 +171,8 @@ class _MainInfoState extends State<MainInfo> {
             onChanged: (_) => _updateTouchedState('username'),
           ),
           20.vGap,
-          CustomDropdownMenu(
-            onChanged: (selectedItem) {
-              setState(() {
-                _selectedCountry = selectedItem;
-                _fieldTouchedState['country'] = true; // Mark as touched
-              });
-            },
-            items: countries,
-            label: "",
-            icon: Image.asset(
-              IconsAssets.countryIcon,
-              color: context.isDarkMode
-                  ? ColorManager.greyColor
-                  : ColorManager.darkGrey,
-            ),
-            validator: _validateCountry,
+          SelectCountryWidget(
+            controller: _countryController,
           ),
           20.vGap,
           CustomTextFormField(

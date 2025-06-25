@@ -26,9 +26,7 @@ class CustomDropdownMenu extends StatelessWidget {
       iconEnabledColor:
           context.isDarkMode ? ColorManager.white : ColorManager.black,
       iconDisabledColor: ColorManager.grey,
-      onTap: () {
-        print("onTap");
-      },
+      onTap: () {},
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: validator,
       value: label.isEmpty ? items[0] : _selectedCountry,

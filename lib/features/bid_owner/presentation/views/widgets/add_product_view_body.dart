@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -105,7 +103,9 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                               deliveryDate: arrivalDateController.text,
                               periodOfBid:
                                   int.parse(periodOfBidsController.text),
-                              categoryId: 1,
+                              categoryId: 20,
+                              tabId: "",
+                              amount: ""
                             );
                             Navigator.pushNamed(
                               context,

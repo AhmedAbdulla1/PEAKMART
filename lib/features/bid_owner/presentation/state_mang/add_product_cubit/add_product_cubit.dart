@@ -51,6 +51,8 @@ class AddProductCubit extends Cubit<AddProductState> {
         categoryId: addProductRequest.categoryId,
         periodOfBid: addProductRequest.periodOfBid,
         expectedPrice: addProductRequest.expectedPrice,
+        tabId: addProductRequest.tabId,
+        amount: addProductRequest.amount,
       ),
     );
     debugPrint('result in add product cubit is $result');

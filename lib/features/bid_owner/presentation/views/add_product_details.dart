@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:peakmart/core/error_ui/dialogs/show_dialog.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/error_ui/error_viewer/toast/errv_toast_options.dart';
+import 'package:peakmart/core/error_ui/toast.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
@@ -100,14 +101,24 @@ class _AddProductDetailsState extends State<AddProductDetails> {
                     child: ElevatedButton(
                       onPressed: () {
                         log("on Pressed add product button");
-                        BlocProvider.of<AddProductCubit>(context).addProduct(
-                            addProductRequest: widget.addProductRequest);
+
                         showDialog(
                           context: context,
                           builder: (context) => PaymentDialog(
                               netPrice: widget.addProductRequest.startingPrice,
                               paymentProcess: PaymentProcess.UPLOAD),
-                        );
+                        ).then((value) {
+                          if (value.containsKey('payment_status') &&
+                              value['payment_status'] == 'success') {
+                            log('Payment successful: $value', name: 'payment');
+                            context.read<AddProductCubit>().addProduct(
+                                  addProductRequest: widget.addProductRequest,
+                                );
+
+                            Toast.show("Product successfully Uploaded",
+                                backgroundColor: ColorManager.green);
+                          }
+                        });
                       },
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size(double.infinity, 50),

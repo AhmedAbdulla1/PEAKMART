@@ -1,11 +1,16 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:peakmart/core/requests/base_request.dart';
 
 class AddProductRequest extends BaseRequest {
-  final String name, description, location, startDate, deliveryDate;
+  final String name,
+      description,
+      location,
+      startDate,
+      deliveryDate,
+      tabId,
+      amount;
   final List<File> photos;
   final int categoryId, periodOfBid;
   final double startingPrice, expectedPrice;
@@ -21,6 +26,8 @@ class AddProductRequest extends BaseRequest {
     required this.periodOfBid,
     required this.startingPrice,
     required this.expectedPrice,
+    required this.tabId,
+    required this.amount,
   });
 
   @override
@@ -35,8 +42,8 @@ class AddProductRequest extends BaseRequest {
       "period_of_bid": periodOfBid,
       "starting_price": startingPrice,
       "expected_price": expectedPrice,
-      "TAB_ID": "chg_TS02A5120251923b3HF2106556",
-      "AMOUNT": "150",
+      "TAB_ID": tabId,
+      "AMOUNT": amount,
     };
   }
 

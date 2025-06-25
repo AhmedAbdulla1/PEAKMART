@@ -13,6 +13,7 @@ import 'package:peakmart/core/net/response_validators/response_validator.dart';
 import 'package:peakmart/features/bid_owner/data/models/request/add_product_request.dart';
 import 'package:peakmart/features/bid_owner/data/models/response/add_product_response.dart';
 import 'package:peakmart/features/bid_owner/data/models/response/check_is_seller_response.dart';
+import 'package:peakmart/features/home/data/model/response/category_response.dart';
 
 class AddProductValidator extends ResponseValidator {
   @override
@@ -64,6 +65,17 @@ class OwnerDataSource extends RemoteDataSource {
       headers: {"cookie": appPref.getCookies().join(';')},
       url: APIUrls.checkIsASeller,
     );
+  }
+
+  Future<Either<AppErrors, CategoriesResponse>> getCategories() async {
+    return request<CategoriesResponse>(
+        method: HttpMethod.GET,
+        responseValidator: DefaultResponseValidator(),
+        converter: (json) {
+          log("message done in Trending bids request");
+          return CategoriesResponse.fromJson(json);
+        },
+        url: APIUrls.getCategories);
   }
 }
 

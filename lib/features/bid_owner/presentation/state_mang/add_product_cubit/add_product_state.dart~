@@ -17,11 +17,6 @@ final class AddProductSuccessState extends AddProductState {
   AddProductSuccessState({required this.addProductEntity});
 }
 
-final class CategoryLoaded extends AddProductState {
-  final CategoriesEntity categoriesEntity;
-  CategoryLoaded({required this.categoriesEntity});
-}
-
 final class NotActivatedState extends AddProductState {}
 
 final class ActivatedState extends AddProductState {}

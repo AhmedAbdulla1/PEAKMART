@@ -8,7 +8,7 @@ import 'package:peakmart/features/bid_owner/presentation/views/widgets/custom_da
 import 'package:peakmart/features/map_screen/view.dart';
 
 class PlaceBidAcceptData extends StatelessWidget {
-  const PlaceBidAcceptData({
+   PlaceBidAcceptData({
     super.key,
     required this.productNameController,
     required this.descriptionController,
@@ -29,7 +29,8 @@ class PlaceBidAcceptData extends StatelessWidget {
   final TextEditingController startDateController;
   final TextEditingController arrivalDateController;
   final TextEditingController periodOfBidsController;
-  final TextEditingController addressController ;
+  final TextEditingController addressController;
+
   String? validatePrice() {
     if (startingPriceController.text.isEmpty ||
         expectedPriceController.text.isEmpty) {
@@ -79,6 +80,8 @@ class PlaceBidAcceptData extends StatelessWidget {
       }
     }
   }
+
+  final ValueNotifier<String?> selectedValue = ValueNotifier(null);
 
   @override
   Widget build(BuildContext context) {
@@ -153,6 +156,28 @@ class PlaceBidAcceptData extends StatelessWidget {
           inputType: TextInputType.number,
           controller: periodOfBidsController,
         ),
+        ValueListenableBuilder<String?>(
+          valueListenable: selectedValue,
+          builder: (context, value, _) {
+            return DropdownButtonFormField<String>(
+              value: value,
+              decoration: const InputDecoration(
+                labelText: 'اختر قيمة',
+                border: OutlineInputBorder(),
+              ),
+              onChanged: (newValue) {
+                selectedValue.value = newValue;
+              },
+              items: ['خيار 1', 'خيار 2', 'خيار 3'].map((String item) {
+                return DropdownMenuItem<String>(
+                  value: item,
+                  child: Text(item),
+                );
+              }).toList(),
+            );
+          },
+        )
+
       ],
     );
   }

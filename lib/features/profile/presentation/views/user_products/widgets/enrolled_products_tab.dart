@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
-import 'package:peakmart/features/main/main_view.dart';
 import 'package:peakmart/features/profile/presentation/state_m/user_products/user_products_cubit.dart';
 import 'package:peakmart/features/profile/presentation/state_m/user_products/user_products_states.dart';
 import 'package:peakmart/features/profile/presentation/views/user_products/widgets/no_products_founded_widget.dart';
@@ -22,15 +21,22 @@ class _EnrolledProductsTabState extends State<EnrolledProductsTab>
   @override
   void initState() {
     super.initState();
-    context.read<UserProductsCubit>().getEnrolledProducts();
+    final cubit = context.read<UserProductsCubit>();
+    if (cubit.enrolledProducts.isNotEmpty) {
+      cubit.emit(ProductsEnrolledLoaded(products: cubit.enrolledProducts));
+    } else {
+      cubit.getEnrolledProducts();
+    }
   }
 
   Widget buildNoProductsView() {
     return NoProductsFoundedWidget(
       title: 'No products enrolled yet.',
-      buttonText: 'Explore products',
+      buttonText: 'Retry',
       onButtonPressed: () {
-        Navigator.pushNamed(context, MainView.routeName, arguments: 1);
+        // Navigator.pushNamed(context, MainView.routeName, arguments: 1);
+        final cubit = context.read<UserProductsCubit>();
+        cubit.getEnrolledProducts();
       },
     );
   }
@@ -54,7 +60,9 @@ class _EnrolledProductsTabState extends State<EnrolledProductsTab>
               ? buildNoProductsView()
               : RefreshIndicator(
                   onRefresh: () async {
-                    context.read<UserProductsCubit>().getEnrolledProducts();
+                    final cubit = context.read<UserProductsCubit>();
+                    cubit.resetEnrolledProducts();
+                    await cubit.getEnrolledProducts();
                   },
                   child: ListView.builder(
                     padding: const EdgeInsets.all(8.0),

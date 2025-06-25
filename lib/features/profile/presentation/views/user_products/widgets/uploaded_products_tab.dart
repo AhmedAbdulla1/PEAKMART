@@ -22,7 +22,12 @@ class _UploadedProductsTabState extends State<UploadedProductsTab>
   @override
   void initState() {
     super.initState();
-    context.read<UserProductsCubit>().getUploadedProducts();
+    final cubit = context.read<UserProductsCubit>();
+    if (cubit.uploadedProducts.isNotEmpty) {
+      cubit.emit(UserProductsLoaded(products: cubit.uploadedProducts));
+    } else {
+      cubit.getUploadedProducts();
+    }
   }
 
   Widget buildNoProductsView() {
@@ -54,9 +59,9 @@ class _UploadedProductsTabState extends State<UploadedProductsTab>
               ? buildNoProductsView()
               : RefreshIndicator(
                   onRefresh: () async {
-                    await context
-                        .read<UserProductsCubit>()
-                        .getUploadedProducts();
+                    final cubit = context.read<UserProductsCubit>();
+                    cubit.resetUploadedProducts();
+                    await cubit.getUploadedProducts();
                   },
                   child: ListView.builder(
                     padding: const EdgeInsets.all(8.0),

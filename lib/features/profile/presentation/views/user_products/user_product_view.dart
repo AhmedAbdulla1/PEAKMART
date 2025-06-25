@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/app/app_prefs.dart';
@@ -8,40 +7,78 @@ import 'package:peakmart/features/profile/presentation/state_m/user_products/use
 import 'package:peakmart/features/profile/presentation/views/user_products/widgets/enrolled_products_tab.dart';
 import 'package:peakmart/features/profile/presentation/views/user_products/widgets/uploaded_products_tab.dart';
 
-class UserProductsView extends StatelessWidget {
+class UserProductsView extends StatefulWidget {
   static const String routeName = '/userProductsView';
 
-  UserProductsView({super.key});
+  const UserProductsView({super.key});
 
+  @override
+  State<UserProductsView> createState() => _UserProductsViewState();
+}
+
+class _UserProductsViewState extends State<UserProductsView>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
   final bool isSeller = instance<AppPreferences>().getCookie("HKH").isNotEmpty;
+  late UserProductsCubit _userProductsCubit;
+  bool _enrolledFetched = false;
+  bool _uploadedFetched = false;
+
+  @override
+  void initState() {
+    super.initState();
+    initProfileModule();
+    _tabController = TabController(length: isSeller ? 2 : 1, vsync: this);
+    _tabController.addListener(_handleTabSelection);
+    _userProductsCubit = instance<UserProductsCubit>();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && !_enrolledFetched) {
+        _enrolledFetched = true;
+        _userProductsCubit.getEnrolledProducts();
+      }
+    });
+  }
+
+  void _handleTabSelection() {
+    if (_tabController.indexIsChanging) return;
+
+    if (_tabController.index == 1 && isSeller && !_uploadedFetched) {
+      _uploadedFetched = true;
+      _userProductsCubit.getUploadedProducts();
+    }
+  }
+
+  @override
+  void dispose() {
+    _tabController.removeListener(_handleTabSelection);
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    log("isSeller: $isSeller");
-
-    return BlocProvider(
-      create: (context) => UserProductsCubit(),
-      child: DefaultTabController(
-        length: isSeller ? 2 : 1,
-        child: Scaffold(
-          appBar: CustomAppBar(
-            title: 'Your Products',
-            bottomWidget: TabBar(
-              indicatorWeight: 2,
-              indicatorPadding: const EdgeInsets.symmetric(horizontal: 40),
-              splashBorderRadius: BorderRadius.circular(15),
-              tabs: [
-                const Tab(text: 'Enrolled'),
-                if (isSeller) const Tab(text: 'Uploaded'),
-              ],
-            ),
-          ),
-          body: TabBarView(
-            children: [
-              const EnrolledProductsTab(),
-              if (isSeller) const UploadedProductsTab(),
+    return BlocProvider.value(
+      value: _userProductsCubit,
+      child: Scaffold(
+        appBar: CustomAppBar(
+          title: 'Your Products',
+          bottomWidget: TabBar(
+            controller: _tabController,
+            indicatorWeight: 2,
+            indicatorPadding: const EdgeInsets.symmetric(horizontal: 40),
+            splashBorderRadius: BorderRadius.circular(15),
+            tabs: [
+              const Tab(text: 'Enrolled'),
+              if (isSeller) const Tab(text: 'Uploaded'),
             ],
           ),
+        ),
+        body: TabBarView(
+          controller: _tabController,
+          children: [
+            const EnrolledProductsTab(),
+            if (isSeller) const UploadedProductsTab(),
+          ],
         ),
       ),
     );

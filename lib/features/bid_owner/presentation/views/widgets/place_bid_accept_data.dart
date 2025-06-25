@@ -18,6 +18,7 @@ class PlaceBidAcceptData extends StatelessWidget {
     required this.startDateController,
     required this.arrivalDateController,
     required this.periodOfBidsController,
+    required this.addressController,
   });
 
   final TextEditingController productNameController;
@@ -28,7 +29,7 @@ class PlaceBidAcceptData extends StatelessWidget {
   final TextEditingController startDateController;
   final TextEditingController arrivalDateController;
   final TextEditingController periodOfBidsController;
-
+  final TextEditingController addressController ;
   String? validatePrice() {
     if (startingPriceController.text.isEmpty ||
         expectedPriceController.text.isEmpty) {
@@ -73,7 +74,8 @@ class PlaceBidAcceptData extends StatelessWidget {
       final address = result['address'];
       final location = result['location'];
       if (address is String && location is LatLng) {
-        locationController.text = address;
+        locationController.text = location.toJson().toString();
+        addressController.text = address;
       }
     }
   }

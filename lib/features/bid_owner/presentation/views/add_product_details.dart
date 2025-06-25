@@ -18,6 +18,8 @@ import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar
 import 'package:peakmart/features/auth/presentation/views/reset_password/widgets/success_bottom_sheet.dart';
 import 'package:peakmart/features/bid_owner/data/models/request/add_product_request.dart';
 import 'package:peakmart/features/bid_owner/presentation/state_mang/add_product_cubit/add_product_cubit.dart';
+import 'package:peakmart/features/payment/domain/enum/enums.dart';
+import 'package:peakmart/features/payment/presentation/views/payment_dialog.dart';
 
 import '../../../../core/resources/style_manager.dart';
 
@@ -100,6 +102,12 @@ class _AddProductDetailsState extends State<AddProductDetails> {
                         log("on Pressed add product button");
                         BlocProvider.of<AddProductCubit>(context).addProduct(
                             addProductRequest: widget.addProductRequest);
+                        showDialog(
+                          context: context,
+                          builder: (context) => PaymentDialog(
+                              netPrice: widget.addProductRequest.startingPrice,
+                              paymentProcess: PaymentProcess.UPLOAD),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size(double.infinity, 50),

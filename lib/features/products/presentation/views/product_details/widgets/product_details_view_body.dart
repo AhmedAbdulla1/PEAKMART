@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/entities/prodcut_entity.dart';
+import 'package:peakmart/core/error_ui/toast.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
@@ -68,34 +69,45 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
     if (value.containsKey('payment_status') &&
         value['payment_status'] == 'success') {
       log('Payment successful: $value', name: 'payment');
-      context.read<ProductCubit>().enrollProduct(
+      context
+          .read<ProductCubit>()
+          .enrollProduct(
             EnrollRequest(
               productId: widget.product.id.toString(),
               tapId: value['tap_id'].toString(),
               fees: value['fees'].toString(),
             ),
-          );
-      // إظهار رسالة نجاح للإنرول
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Successfully enrolled in the product!')),
-      );
+          )
+          .then((_) {
+        context.read<ProductCubit>().getProductById(id: widget.product.id);
+        context
+            .read<TopBidderCubit>()
+            .getTopBidders(productId: widget.product.id);
+      });
+
+      Toast.show("Successfully enrolled in the product!",
+          backgroundColor: ColorManager.green);
     } else if (value.containsKey('bid_status') &&
         value['bid_status'] == 'success') {
       log('Bid successful: $value', name: 'bid');
-      context.read<ProductCubit>().bidProduct(
+      context
+          .read<ProductCubit>()
+          .bidProduct(
             BidRequest(
               productId: widget.product.id.toString(),
               amount: value['bid'].toString(),
             ),
-          );
-      // إظهار رسالة نجاح للبيد
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Bid placed successfully!')),
-      );
-    }
+          )
+          .then((_) {
+        context.read<ProductCubit>().getProductById(id: widget.product.id);
+        context
+            .read<TopBidderCubit>()
+            .getTopBidders(productId: widget.product.id);
+      });
 
-    // تحديث قائمة أعلى المزايدين ليعكس التغييرات في userStatus
-    context.read<TopBidderCubit>().getTopBidders(productId: widget.product.id);
+      Toast.show("Bid placed successfully!",
+          backgroundColor: ColorManager.green);
+    }
   }
 
   @override
@@ -113,6 +125,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
         final int totalBidders = topBiddersEntity?.totalBidders ?? 0;
         final int totalEnrolled = topBiddersEntity?.totalEnrolled ?? 0;
         final bool userStatus = topBiddersEntity?.userStatus ?? false;
+        final double currentPrice = _getInitialPrice(topBiddersEntity);
 
         return SingleChildScrollView(
           child: Column(
@@ -145,7 +158,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                     8.vGap,
                     CustomRichText(
                       title: "Current Price: ",
-                      description: '${widget.product.price}\$',
+                      description: '$currentPrice\$',
                     ),
                     8.vGap,
                     CustomRichText(
@@ -172,19 +185,16 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                         ),
                         const Spacer(),
                         Visibility(
-                          visible:
-                              !userStatus || (userStatus && _isBiddingAllowed),
+                          visible: !userStatus || _isBiddingAllowed,
                           child: ElevatedButton(
                             onPressed: isError
                                 ? null
                                 : () {
-                                    final price =
-                                        _getInitialPrice(topBiddersEntity);
                                     showDialog(
                                       context: context,
                                       builder: (context) => userStatus &&
                                               _isBiddingAllowed
-                                          ? BidDialog(higherPrice: price)
+                                          ? BidDialog(higherPrice: currentPrice)
                                           : PaymentDialog(
                                               netPrice: widget.product.price),
                                     ).then((value) =>
@@ -195,56 +205,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                                 : 'Enroll Now'),
                           ),
                         ),
-                        // ProductActionButton(
-                        //     product: widget.product,
-                        //     userStatus: userStatus,
-                        //     isError: isError),
-                        // ElevatedButton(
-                        //   onPressed: isError
-                        //       ? null
-                        //       : () {
-                        //           double price = topBiddersEntity != null &&
-                        //                   topBiddersEntity.data.isNotEmpty
-                        //               ? topBiddersEntity.data[0].bidAmount
-                        //               : widget.product.price;
-                        //           showDialog(
-                        //             context: context,
-                        //             builder: (context) => userStatus
-                        //                 ? BidDialog(higherPrice: price)
-                        //                 : PaymentDialog(
-                        //                     netPrice: widget.product.price),
-                        //           ).then((value) {
-                        //             if (value != null &&
-                        //                 value is Map<String, dynamic> &&
-                        //                 value.containsKey('payment_status') &&
-                        //                 value['payment_status'] == "success") {
-                        //               log("value: $value", name: "payment");
-                        //               context
-                        //                   .read<ProductCubit>()
-                        //                   .enrollProduct(EnrollRequest(
-                        //                       productId:
-                        //                           widget.product.id.toString(),
-                        //                       tapId: value['tap_id'].toString(),
-                        //                       fees: value['fees'].toString()));
-                        //             } else if (value != null &&
-                        //                 value is Map<String, dynamic> &&
-                        //                 value.containsKey('bid_status') &&
-                        //                 value['bid_status'] == "success") {
-                        //               log("value: $value", name: "bid");
-                        //               context.read<ProductCubit>().bidProduct(
-                        //                   BidRequest(
-                        //                       productId:
-                        //                           widget.product.id.toString(),
-                        //                       amount: value['bid'].toString()));
-                        //             }
-                        //             context
-                        //                 .read<TopBidderCubit>()
-                        //                 .getTopBidders(
-                        //                     productId: widget.product.id);
-                        //           });
-                        //         },
-                        //   child: Text(userStatus ? 'Bid Now' : 'Enroll Now'),
-                        // ),
+                   
                       ],
                     ),
                     8.vGap,

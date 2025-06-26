@@ -37,7 +37,7 @@ class PartnersView extends StatelessWidget {
               Text(
                 _contentData.content,
                 style: getBoldStyle(
-                    fontSize: FontSize.s16, color: ColorManager.primary),
+                    fontSize: FontSize.s16, color: context.primaryColor),
               ),
               6.vGap,
               Text(

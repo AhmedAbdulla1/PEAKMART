@@ -100,7 +100,6 @@ class _AddProductDetailsState extends State<AddProductDetails> {
                   child: Center(
                     child: ElevatedButton(
                       onPressed: () {
-                        log("on Pressed add product button");
 
                         showDialog(
                           context: context,
@@ -110,8 +109,7 @@ class _AddProductDetailsState extends State<AddProductDetails> {
                         ).then((value) {
                           if (value.containsKey('payment_status') &&
                               value['payment_status'] == 'success') {
-                            log('Payment successful: $value', name: 'payment');
-                            log("value ${value.runtimeType}");
+                           
 
                             context.read<AddProductCubit>().addProduct(
                                   addProductRequest:
@@ -120,7 +118,7 @@ class _AddProductDetailsState extends State<AddProductDetails> {
                                     amount: value['fees'].toString(),
                                   ),
                                 );
-                            log("iiiiiiiiiiiiiii: ${value['tap_id']}");
+                            
                             Toast.show("Product successfully Uploaded",
                                 backgroundColor: ColorManager.green);
                           }

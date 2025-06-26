@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 
 class WaitingWidget extends StatelessWidget {
   const WaitingWidget({super.key});
@@ -9,7 +9,7 @@ class WaitingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation(ColorManager.primary),
+        valueColor: AlwaysStoppedAnimation(context.primaryColor),
       ),
     );
   }

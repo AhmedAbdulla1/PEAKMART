@@ -12,8 +12,10 @@ import 'package:skeletonizer/skeletonizer.dart';
 class ProductDetails extends StatefulWidget {
   static const String routeName = '/product-details';
   final int productId;
-
-  const ProductDetails({super.key, required this.productId});
+  const ProductDetails(
+      {super.key,
+      required this.productId,
+      });
 
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
@@ -53,7 +55,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                 child: BlocProvider.value(
                   value: _topBidderCubit,
                   child: ProductDetailsViewBody(
-                      product: dummyProduct(widget.productId)),
+                    product: dummyProduct(widget.productId),
+                  ),
                 ),
               );
             } else if (state is ProductDetailsLoaded) {

@@ -179,6 +179,8 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   void logout({required VoidCallback onSuccess}) {
     invalidateCache();
+    appPreferences.setIsSeller(false);
+
     appPreferences.logout().then((_) => onSuccess());
   }
 

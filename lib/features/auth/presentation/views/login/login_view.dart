@@ -18,6 +18,7 @@ import 'package:peakmart/features/auth/presentation/state_mang/social_sign_in_cu
 import 'package:peakmart/features/auth/presentation/views/login/login_view_model.dart';
 import 'package:peakmart/features/auth/presentation/views/login/widgets/other_login_ways.dart';
 import 'package:peakmart/features/auth/presentation/views/reset_password/forget_password_view.dart';
+import 'package:peakmart/features/bid_owner/presentation/state_mang/add_product_cubit/add_product_cubit.dart';
 import 'package:peakmart/features/main/main_view.dart';
 
 class LogInView extends StatefulWidget {
@@ -64,9 +65,14 @@ class _LogInViewState extends State<LogInView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // resizeToAvoidBottomInset: false,
-        body: BlocProvider<LoginCubit>(
-            create: (context) => _loginCubit, child: _getContent()),
+        body: MultiBlocProvider(
+          providers: [
+            BlocProvider<LoginCubit>(create: (context) => _loginCubit),
+            BlocProvider<AddProductCubit>(
+                create: (context) => AddProductCubit()),
+          ],
+          child: _getContent(),
+        ),
       ),
     );
   }
@@ -87,6 +93,8 @@ class _LogInViewState extends State<LogInView> {
                 callback: () {});
           }
           if (state is LoginSuccessState) {
+            context.read<AddProductCubit>().checkIsASeller();
+
             Navigator.pushReplacementNamed(context, MainView.routeName);
           }
         }, builder: (context, state) {

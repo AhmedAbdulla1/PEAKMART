@@ -82,30 +82,38 @@ class AddProductCubit extends Cubit<AddProductState> {
   }
 
   Future checkIsASeller() async {
-    print('${appPreferences.getCookie("HKH") != ' '}');
-    if (appPreferences.getCookie("HKH") != '') {
-      print('in check fun');
+    final cookie = appPreferences.getCookie("HKH");
+    final phone = appPreferences.getCookie("PHONE");
+    final hkhn = appPreferences.getCookie("HKHN");
+
+    if (cookie != '') {
       emit(AddProductLoadingState());
+
       Result<AppErrors, CheckIsSellerEntity> result =
           await ownerRepo.checkIsASeller();
-      result.pick(
-          onData: (data) async {
-            if (data.isSeller) {
-              isSeller = true;
-              await appPreferences.setIsSeller(true);
-              log("User Status is Seller, isSeller:$isSeller");
-              emit(ActivatedState(categoriesEntity: category));
-            } else {
-              log("User Status is not Seller, isSeller:$isSeller");
 
-              emit(NotActivatedState());
-            }
-          },
-          onError: (error) {});
-    } else if (instance<AppPreferences>().getCookie("PHONE") != '') {
-      print('not verified');
+      result.pick(
+        onData: (data) async {
+          if (data.isSeller) {
+            isSeller = true;
+            await appPreferences.setIsSeller(true);
+            log("User Status is Seller, isSeller:$isSeller");
+            emit(ActivatedState(categoriesEntity: category));
+          } else {
+            isSeller = false;
+            await appPreferences.setIsSeller(false); 
+            log("User is not a seller anymore, isSeller:$isSeller");
+            emit(NotActivatedState());
+          }
+        },
+        onError: (error) {
+          log("Error checking seller status: $error");
+          emit(AddProductFailureState(errors: error, onRetry: checkIsASeller));
+        },
+      );
+    } else if (phone != '') {
       emit(NotVerifiedState());
-    } else if (appPreferences.getCookie("HKHN") != '') {
+    } else if (hkhn != '') {
       emit(NotCompleteState());
     } else {
       emit(NotASellerState());

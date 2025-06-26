@@ -69,7 +69,7 @@ class AppPreferences {
   bool getIsSeller() {
     bool? isSeller = _sharedPreferences.getBool(isSellerKey);
     log("getIsSeller called, returning: $isSeller");
-    return isSeller ?? false; // Default to false if not set
+    return isSeller ?? false; 
   }
 
   //login

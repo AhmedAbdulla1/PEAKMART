@@ -31,13 +31,11 @@ class _PersonalInformationViewBodyState
   final TextEditingController govController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
 
-  bool isSeller = false;
-  final AppPreferences appPreferences = instance<AppPreferences>();
+  bool isSeller = instance<AppPreferences>().getIsSeller();
 
   @override
   void initState() {
     super.initState();
-    isSeller = appPreferences.getIsSeller();
     final state = context.read<ProfileCubit>().state;
     if (state is ProfileLoaded) {
       _setUserData(state);

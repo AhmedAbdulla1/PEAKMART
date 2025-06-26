@@ -91,6 +91,7 @@ dependencies:
   hive_generator: ^2.0.1
   build_runner: ^2.5.3
   skeletonizer: ^2.0.1
+  flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:
   flutter_test:

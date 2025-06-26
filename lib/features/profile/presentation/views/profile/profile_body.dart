@@ -266,7 +266,7 @@ class ProfileMenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      splashColor: ColorManager.grey,
+      splashColor: context.isDarkMode ? ColorManager.black : ColorManager.white,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       leading: Container(
         padding: const EdgeInsets.all(8),

@@ -4,6 +4,7 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/features/payment/domain/enum/enums.dart';
 import 'package:peakmart/features/payment/presentation/views/payment_dialog.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/product_details_view.dart';
@@ -44,6 +45,7 @@ class ProductEnrolledItemWidget extends StatelessWidget {
         productEndDate.day == today.day;
 
     return InkWell(
+      splashColor: context.isDarkMode ? ColorManager.black : ColorManager.white,
       onTap: () {
         Navigator.pushNamed(
           context,
@@ -107,19 +109,22 @@ class ProductEnrolledItemWidget extends StatelessWidget {
                       description: product.userBid.toString(),
                     ),
                     6.vGap,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CustomRichText(
-                          title: "End Date: ",
-                          description: product.endDate,
-                        ),
-                        CustomRichText(
-                          title: "Highest Bid: \$",
-                          description: product.highestBid.toString(),
-                        ),
-                      ],
-                    ),
+                    Wrap(
+                        alignment: WrapAlignment.spaceBetween,
+                        runAlignment: WrapAlignment.spaceBetween,
+                        // crossAxisAlignment: WrapCrossAlignment.end,
+                        spacing: 10,
+                        runSpacing: 10,
+                        children: [
+                          CustomRichText(
+                            title: "End Date: ",
+                            description: product.endDate,
+                          ),
+                          CustomRichText(
+                            title: "Highest Bid: \$",
+                            description: product.highestBid.toString(),
+                          ),
+                        ]),
                     10.vGap,
                     if (showCompleteButton)
                       Align(

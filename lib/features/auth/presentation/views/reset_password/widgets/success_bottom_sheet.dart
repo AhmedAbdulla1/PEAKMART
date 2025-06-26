@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/assets_manager.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/core/shared_widgets/buttons.dart';
 import 'package:peakmart/features/auth/presentation/state_mang/otp_verfication_cubit/otp_verfication_cubit.dart';
 import 'package:peakmart/features/auth/presentation/state_mang/reset_pass_cubit/cubit.dart';
@@ -33,20 +35,22 @@ class SuccessBottomSheet extends StatelessWidget {
           Image.asset(
             ImageAssets.success,
           ),
-          const SizedBox(height: 10),
+          10.vGap,
           const Text(
             AppStrings.success,
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 10),
+          10.vGap,
           Text(
             textMessage,
             textAlign: TextAlign.center,
             style: getRegularStyle(
-                fontSize: FontSize.s14, color: ColorManager.grey1),
+                fontSize: FontSize.s14,
+                color: context.isDarkMode
+                    ? ColorManager.grey
+                    : ColorManager.grey1),
           ),
-          const SizedBox(height: 20),
-
+          20.vGap,
           // Resend button with TimerButton
           (otpVerfictionCubit != null || isUsedWithProductDetails == true)
               ? Container()
@@ -65,8 +69,7 @@ class SuccessBottomSheet extends StatelessWidget {
                   buttonType: ButtonType.textButton,
                 ),
 
-          const SizedBox(height: 20),
-
+          20.vGap,
           // Login button
           (otpVerfictionCubit == null && isUsedWithProductDetails == false)
               ? CustomElevatedButtonWithoutStream(

@@ -6,6 +6,17 @@ class ColorManager {
   static Color darkModePrimary = const Color.fromARGB(255, 255, 128, 0);
   static Color textPrimary = const Color(0xFF575757);
   static Color blue = const Color(0xFF1051A8);
+  static const Color blueLight = Color(0xFF3D74C2); // أفتح شوي
+  static const Color blueLighter = Color(0xFF6B95D4); // أفتح أكثر
+  static const Color blueLightest = Color(0xFFA9C1EB); // أنسب للخلفيات الفاتحة
+
+  static const Color blueDark = Color(0xFF0C3E85); // أغمق شوي
+  static const Color blueDarker = Color(0xFF072A5E); // أغمق أكثر
+  static const Color blueDarkest =
+      Color(0xFF031837); // يصلح للنصوص الداكنة أو خلفية
+
+  // For example use in light theme
+  static const Color blueAccentLight = Color(0xFFE5EEF9); // فاتح جدًا لخلفيات
   static Color darkGrey = const Color(0xFF444444);
   static Color red = Colors.red;
   static Color lightPrimary = const Color(0xFfFFDC91);

@@ -8,6 +8,7 @@ import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/error_ui/toast.dart';
 import 'package:peakmart/core/net/api_url.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
@@ -193,7 +194,7 @@ class _PaymentDialogState extends State<PaymentDialog> {
               processText = 'The upload fee is ';
               break;
             case PaymentProcess.ENROLL:
-              processText = 'The Bid insurance to enroll is';
+              processText = 'The Bid insurance to enroll is ';
               break;
             case PaymentProcess.BID:
               processText = 'The bid insurance to enroll is ';
@@ -235,6 +236,7 @@ class _PaymentDialogState extends State<PaymentDialog> {
                             ),
                           ],
                         ),
+                        8.vGap,
                         Align(
                           alignment: Alignment.center,
                           child: RichText(
@@ -256,7 +258,9 @@ class _PaymentDialogState extends State<PaymentDialog> {
                                       : 'Calculating...',
                                   style: getBoldStyle(
                                     fontSize: FontSize.s16,
-                                    color: ColorManager.primary,
+                                    color: context.isDarkMode
+                                        ? ColorManager.darkModePrimary
+                                        : ColorManager.primary,
                                   ),
                                 ),
                               ],
@@ -380,8 +384,10 @@ class BulletTextWithLink extends StatelessWidget {
                 child: Text(
                   linkText,
                   style: getRegularStyle(
-                    fontSize: FontSize.s14,
-                    color: ColorManager.blue,
+                    fontSize: FontSize.s15,
+                    color: context.isDarkMode
+                        ? ColorManager.blueLightest
+                        : ColorManager.blue,
                   ),
                 ),
               ),

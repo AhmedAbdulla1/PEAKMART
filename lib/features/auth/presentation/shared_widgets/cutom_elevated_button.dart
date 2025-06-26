@@ -8,9 +8,11 @@ class CustomElevatedButton extends StatelessWidget {
     super.key,
     required this.textButton,
     this.onPressed,
+    this.minimumSize,
   });
   final String textButton;
   final void Function()? onPressed;
+  final Size? minimumSize;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -21,7 +23,7 @@ class CustomElevatedButton extends StatelessWidget {
             Radius.circular(15),
           ),
         ),
-        // minimumSize: Size(double.infinity, 55.h),
+        minimumSize: minimumSize,
       ),
       child: Text(
         textButton,

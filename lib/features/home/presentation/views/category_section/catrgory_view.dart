@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
@@ -11,6 +10,7 @@ import 'package:peakmart/features/home/domain/entity/category_entity.dart';
 import 'package:peakmart/features/home/presentation/state_m/category_cubit/category_cubit.dart';
 import 'package:peakmart/features/home/presentation/state_m/category_cubit/states.dart';
 import 'package:peakmart/features/home/presentation/views/category_section/category_item_widget.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 // Fake CategoryEntity for skeleton loading
 List<CategoryEntity> fakeCategories = List.generate(
@@ -103,10 +103,7 @@ class _CategorySectionState extends State<CategorySection> {
                     child: Text(
                       "Categories",
                       style: getBoldStyle(
-                          fontSize: FontSize.s20,
-                          color: context.isDarkMode
-                              ? ColorManager.primary
-                              : ColorManager.black),
+                          fontSize: FontSize.s20, color: context.primaryColor),
                     ),
                   ),
                 ),

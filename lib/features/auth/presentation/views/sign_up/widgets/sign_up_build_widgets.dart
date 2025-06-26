@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
@@ -110,6 +111,7 @@ class _SignUpBuildWidgetsState extends State<SignUpBuildWidgets> {
               valueListenable: isButtonActive,
               builder: (context, isActive, child) {
                 return CustomElevatedButton(
+                  minimumSize: Size(double.infinity, 55.h),
                   textButton: AppStrings.signUp,
                   onPressed: !isActive
                       ? null

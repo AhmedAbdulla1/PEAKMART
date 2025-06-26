@@ -12,6 +12,7 @@ import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/features/profile/presentation/state_m/user_products/user_products_cubit.dart';
 import 'package:peakmart/features/profile/presentation/state_m/user_products/user_products_states.dart';
 import 'package:peakmart/features/profile/presentation/views/personal_inof/passwrod_dialog.dart';
@@ -140,7 +141,7 @@ class CancelAndEndButtonsWidget extends StatelessWidget {
                             'Cancel',
                             style: getBoldStyle(
                               fontSize: FontSize.s16,
-                              color: ColorManager.primary,
+                              color: context.primaryColor,
                             ),
                           ),
                         ),

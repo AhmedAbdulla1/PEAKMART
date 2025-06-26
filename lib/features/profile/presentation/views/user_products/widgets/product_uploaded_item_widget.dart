@@ -37,13 +37,13 @@ class ProductsUploadedItemWidget extends StatelessWidget {
     final status = product.status ?? "";
     switch (status) {
       case "ended":
-        return _statusText("Ended", ColorManager.primary);
+        return _statusText("Ended", context.primaryColor);
       case "canceled":
         return _statusText("Canceled", ColorManager.red);
       default:
         return BlocProvider(
           create: (context) => UserProductsCubit(),
-          child:  CancelAndEndButtonsWidget(productId:product.id),
+          child: CancelAndEndButtonsWidget(productId: product.id),
         );
     }
   }
@@ -64,6 +64,7 @@ class ProductsUploadedItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      splashColor: context.isDarkMode ? ColorManager.black : ColorManager.white,
       onTap: () => Navigator.pushNamed(
         context,
         ProductDetails.routeName,
@@ -75,7 +76,7 @@ class ProductsUploadedItemWidget extends StatelessWidget {
           clipBehavior: Clip.antiAliasWithSaveLayer,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.r),
-            border: Border.all(color: ColorManager.primary, width: 1.2),
+            border: Border.all(color: context.primaryColor, width: 1.2),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

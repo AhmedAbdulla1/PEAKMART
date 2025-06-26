@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
@@ -75,11 +76,10 @@ class _BidDialogState extends State<BidDialog> {
     setState(() {
       _isProcessingPayment = true;
     });
-    Navigator.pop(context,{
+    Navigator.pop(context, {
       'bid': _enteredBid,
       'bid_status': "success",
     });
-
   }
 
   @override
@@ -112,7 +112,9 @@ class _BidDialogState extends State<BidDialog> {
                     text: '${widget.higherPrice}\$',
                     style: getBoldStyle(
                       fontSize: FontSize.s16,
-                      color: ColorManager.primary,
+                      color: context.isDarkMode
+                          ? ColorManager.darkModePrimary
+                          : ColorManager.primary,
                     ),
                   ),
                 ],
@@ -121,7 +123,7 @@ class _BidDialogState extends State<BidDialog> {
             SizedBox(height: 8.h),
 // Rules
             const BulletText(
-                'You MUST enter a number larger than the highlighted number'),
+                'You must enter a number larger than the highlighted number'),
             const BulletText(
                 'A tax fee of 5% will be added to the number you enter'),
             const BulletText(
@@ -143,6 +145,12 @@ class _BidDialogState extends State<BidDialog> {
             SizedBox(height: 12.h),
 // Bid Input
             TextField(
+              style: getRegularStyle(
+                fontSize: FontSize.s14,
+                color: context.isDarkMode
+                    ? ColorManager.darkModePrimary
+                    : ColorManager.primary,
+              ),
               controller: _bidController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
@@ -252,8 +260,10 @@ class BulletTextWithLink extends StatelessWidget {
                 child: Text(
                   linkText,
                   style: getRegularStyle(
-                    fontSize: FontSize.s14,
-                    color: ColorManager.blue,
+                    fontSize: FontSize.s15,
+                    color: context.isDarkMode
+                        ? ColorManager.blueLightest
+                        : ColorManager.blue,
                   ),
                 ),
               ),

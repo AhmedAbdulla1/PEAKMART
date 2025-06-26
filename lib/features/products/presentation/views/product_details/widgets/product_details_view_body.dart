@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'dart:developer' as log;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,12 +28,10 @@ class ProductDetailsViewBody extends StatefulWidget {
   const ProductDetailsViewBody({
     super.key,
     required this.product,
-    // required this.topBiddersData,
   });
 
   final ProductEntity product;
 
-  // final TopBiddersEntity topBiddersData;
   @override
   State<ProductDetailsViewBody> createState() => _ProductDetailsViewBodyState();
 }
@@ -52,7 +50,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
       final now = DateTime.now();
       return startDate.isBefore(now) || startDate.isAtSameMomentAs(now);
     } catch (e) {
-      log('Error parsing startDate: $e', name: 'date_parsing');
+      log.log('Error parsing startDate: $e', name: 'date_parsing');
       return false;
     }
   }
@@ -68,7 +66,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
 
     if (value.containsKey('payment_status') &&
         value['payment_status'] == 'success') {
-      log('Payment successful: $value', name: 'payment');
+      log.log('Payment successful: $value', name: 'payment');
       context
           .read<ProductCubit>()
           .enrollProduct(
@@ -80,16 +78,14 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
           )
           .then((_) {
         context.read<ProductCubit>().getProductById(id: widget.product.id);
-        context
-            .read<TopBidderCubit>()
-            .getTopBidders(productId: widget.product.id);
+        context.read<TopBidderCubit>().getTopBidders(productId: widget.product.id);
       });
 
       Toast.show("Successfully enrolled in the product!",
           backgroundColor: ColorManager.green);
     } else if (value.containsKey('bid_status') &&
         value['bid_status'] == 'success') {
-      log('Bid successful: $value', name: 'bid');
+      log.log('Bid successful: $value', name: 'bid');
       context
           .read<ProductCubit>()
           .bidProduct(
@@ -100,9 +96,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
           )
           .then((_) {
         context.read<ProductCubit>().getProductById(id: widget.product.id);
-        context
-            .read<TopBidderCubit>()
-            .getTopBidders(productId: widget.product.id);
+        context.read<TopBidderCubit>().getTopBidders(productId: widget.product.id);
       });
 
       Toast.show("Bid placed successfully!",
@@ -117,8 +111,6 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
         isDarkMode ? ColorManager.darkModePrimary : ColorManager.primary;
     return BlocBuilder<TopBidderCubit, TopBiddersState>(
       builder: (context, state) {
-        final bool isLoading = state is TopBiddersLoadingState;
-        final bool isError = state is TopBiddersFailureState;
         final TopBiddersEntity? topBiddersEntity =
             state is TopBiddersSuccessState ? state.topBidders : null;
 
@@ -187,9 +179,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                         Visibility(
                           visible: !userStatus || _isBiddingAllowed,
                           child: ElevatedButton(
-                            onPressed: isError
-                                ? null
-                                : () {
+                            onPressed: () {
                                     showDialog(
                                       context: context,
                                       builder: (context) => userStatus &&
@@ -205,17 +195,11 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                                 : 'Enroll Now'),
                           ),
                         ),
-                   
                       ],
                     ),
-                    8.vGap,
-                    if (isLoading) const WaitingWidget(),
                     16.vGap,
                     TopBiddersSection(
-                      topBiddersData: topBiddersEntity?.data ?? [],
-                      isError: isError,
-                      isBiddersAvaliable:
-                          (topBiddersEntity?.data ?? []).isNotEmpty,
+                      state: state,
                     ),
                     10.vGap,
                     BlocProvider(

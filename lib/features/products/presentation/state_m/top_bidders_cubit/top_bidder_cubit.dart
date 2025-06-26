@@ -11,8 +11,6 @@ import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubi
 
 class TopBidderCubit extends Cubit<TopBiddersState> {
   final ProductsRepo productsRepo = ProductsRepoImp();
-  // final Map<int, List<TopBiddersData>> productBidders = {};
-  Timer? _timer;
   late TopBiddersEntity topBiddersEntity;
 
   TopBidderCubit() : super(TopBiddersInitialState());
@@ -45,17 +43,8 @@ class TopBidderCubit extends Cubit<TopBiddersState> {
     );
   }
 
-  void startAutoRefresh(int productId) {
-    getTopBidders(productId: productId);
-    _timer?.cancel();
-    _timer = Timer.periodic(const Duration(seconds: 5), (_) {
-      getTopBidders(productId: productId);
-    });
-  }
-
   @override
   Future<void> close() {
-    _timer?.cancel();
     return super.close();
   }
 }

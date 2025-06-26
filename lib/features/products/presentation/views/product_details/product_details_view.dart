@@ -20,40 +20,67 @@ class ProductDetails extends StatefulWidget {
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
+  late ProductCubit _productCubit;
+  late TopBidderCubit _topBidderCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    _productCubit = ProductCubit()..getProductById(id: widget.productId);
+
+    _topBidderCubit = TopBidderCubit();
+  }
+
+  @override
+  void dispose() {
+    _productCubit.close();
+    _topBidderCubit.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ProductCubit()..getProductById(id: widget.productId),
+    return BlocProvider.value(
+      value: _productCubit,
       child: Scaffold(
         appBar: const CustomAppBar(title: "Product Details"),
         body: BlocBuilder<ProductCubit, ProductState>(
           builder: (context, state) {
             if (state is ProductLoading) {
               return Skeletonizer(
-                  enabled: true,
-                  enableSwitchAnimation: true,
-                  child: BlocProvider(
-                    create: (context) =>
-                        TopBidderCubit()..getTopBidders(productId: 1),
-                    child: ProductDetailsViewBody(product: dummyProduct(1)),
-                  ));
+                enabled: true,
+                enableSwitchAnimation: true,
+                child: BlocProvider.value(
+                  value: _topBidderCubit,
+                  child: ProductDetailsViewBody(
+                      product: dummyProduct(widget.productId)),
+                ),
+              );
             } else if (state is ProductDetailsLoaded) {
               final product = state.product;
-              return BlocProvider(
-                create: (context) =>
-                    TopBidderCubit()..getTopBidders(productId: product.id),
-                child: ProductDetailsViewBody(product: product),
+              _topBidderCubit.getTopBidders(productId: product.id);
+
+              return BlocProvider.value(
+                value: _topBidderCubit,
+                child: RefreshIndicator(
+                    onRefresh: () {
+                      return context
+                          .read<ProductCubit>()
+                          .getProductById(id: widget.productId);
+                    },
+                    child: ProductDetailsViewBody(product: product)),
               );
             } else if (state is ProductError) {
               return FullScreenUnknownError(
-                  message: 'Failed to load product details',
-                  onRetry: () {
-                    context
-                        .read<ProductCubit>()
-                        .getProductById(id: widget.productId);
-                  });
+                message: 'Failed to load product details',
+                onRetry: () {
+                  context
+                      .read<ProductCubit>()
+                      .getProductById(id: widget.productId);
+                },
+              );
             } else {
-              return const SizedBox(); // fallback
+              return const SizedBox();
             }
           },
         ),
@@ -62,10 +89,10 @@ class _ProductDetailsState extends State<ProductDetails> {
   }
 }
 
-ProductEntity dummyProduct(int id) => const ProductEntity(
-      id: 0,
+ProductEntity dummyProduct(int id) => ProductEntity(
+      id: id,
       name: 'Loading...',
-      imageUrl: [''],
+      imageUrl: const [''],
       endDate: '',
       status: '',
       startingPrice: '',

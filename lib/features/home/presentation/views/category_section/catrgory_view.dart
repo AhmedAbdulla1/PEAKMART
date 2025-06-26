@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
@@ -133,11 +132,7 @@ class _CategorySectionState extends State<CategorySection> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     "Categories",
-                    style: getBoldStyle(
-                        fontSize: FontSize.s20,
-                        color: context.isDarkMode
-                            ? ColorManager.primary
-                            : ColorManager.black),
+                    style: getBoldStyle(fontSize: FontSize.s20),
                   ),
                 ),
               ),

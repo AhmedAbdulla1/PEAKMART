@@ -128,7 +128,7 @@ class RouteGenerator {
         );
       case UserProductsView.routeName:
         return MaterialPageRoute(
-          builder: (_) => UserProductsView(),
+          builder: (_) => const UserProductsView(),
           settings: const RouteSettings(name: UserProductsView.routeName),
         );
 
@@ -142,6 +142,7 @@ class RouteGenerator {
 
       case ProductDetails.routeName:
         int id = settings.arguments as int;
+
         return MaterialPageRoute(
           builder: (_) => ProductDetails(
             productId: id,

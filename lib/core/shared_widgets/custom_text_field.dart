@@ -34,9 +34,8 @@ class CustomTextField extends StatelessWidget {
         maxLines: isMultiLine == true ? 2 : 1,
         style: getRegularStyle(
           fontSize: FontSize.s14,
-          color: context.isDarkMode
-              ? ColorManager.darkModePrimary
-              : ColorManager.primary,
+          color: context.primaryColor
+             
         ),
         controller: controller,
         decoration: InputDecoration(

@@ -5,7 +5,7 @@ import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
 import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification.dart';
-import 'package:peakmart/features/auth/presentation/views/reset_password/view.dart';
+import 'package:peakmart/features/auth/presentation/views/reset_password/forget_password_view.dart';
 import 'package:peakmart/features/auth/presentation/views/sign_up/sign_up_view.dart';
 import 'package:peakmart/features/auth/presentation/views/signup_for_bid/hold_screen.dart';
 import 'package:peakmart/features/auth/presentation/views/signup_for_bid/view.dart';

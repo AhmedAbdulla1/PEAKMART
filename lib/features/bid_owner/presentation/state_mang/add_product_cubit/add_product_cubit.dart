@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
+import 'package:peakmart/core/entities/empty_entity.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/results/result.dart';
 import 'package:peakmart/features/bid_owner/data/models/request/add_product_request.dart';
 import 'package:peakmart/features/bid_owner/data/owner_repo_imp.dart';
-import 'package:peakmart/features/bid_owner/domain/entity/add_product_entity.dart';
 import 'package:peakmart/features/bid_owner/domain/entity/check_is_seller_entity.dart';
 import 'package:peakmart/features/bid_owner/domain/repository/owner_repo.dart';
 import 'package:peakmart/features/home/domain/entity/category_entity.dart';
@@ -19,7 +19,7 @@ class AddProductCubit extends Cubit<AddProductState> {
   OwnerRepo ownerRepo = OwnerRepoImp();
   AppPreferences appPreferences = instance<AppPreferences>();
   bool isSeller = false;
-
+  CategoriesEntity category = const CategoriesEntity(categories: []);
   AddProductCubit() : super(AddProductInitialState());
 
   // late BuildContext context;
@@ -41,7 +41,7 @@ class AddProductCubit extends Cubit<AddProductState> {
         periodOfBid: ${addProductRequest.periodOfBid},
         expectedPrice: ${addProductRequest.expectedPrice}''');
 
-    Result<AppErrors, AddProductEntity> result = await ownerRepo.addProduct(
+    Result<AppErrors, EmptyEntity> result = await ownerRepo.addProduct(
       AddProductRequest(
         photos: addProductRequest.photos,
         description: addProductRequest.description,
@@ -65,11 +65,7 @@ class AddProductCubit extends Cubit<AddProductState> {
       );
       // Navigator.pop(context);
       emit(
-        AddProductSuccessState(
-            addProductEntity: AddProductEntity(
-          productId: data.productId,
-          productPhotos: data.productPhotos,
-        )),
+        AddProductSuccessState(),
       );
     }, onError: (error) {
       log(
@@ -98,7 +94,7 @@ class AddProductCubit extends Cubit<AddProductState> {
               isSeller = true;
               await appPreferences.setIsSeller(true);
               log("User Status is Seller, isSeller:$isSeller");
-              emit(ActivatedState());
+              emit(ActivatedState(categoriesEntity: category));
             } else {
               log("User Status is not Seller, isSeller:$isSeller");
 
@@ -117,11 +113,11 @@ class AddProductCubit extends Cubit<AddProductState> {
   }
 
   Future getCategories() async {
-    emit(AddProductLoadingState());
     Result<AppErrors, CategoriesEntity> result =
         await ownerRepo.getCategories();
     result.pick(onData: (data) {
-      emit(CategoryLoaded(categoriesEntity: data));
+      category = data;
+      log("Categories loaded: ${data.categories.length}");
     }, onError: (error) {
       emit(AddProductFailureState(errors: error, onRetry: () {}));
     });

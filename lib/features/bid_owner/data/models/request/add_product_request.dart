@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:image_picker/image_picker.dart';
 import 'package:peakmart/core/requests/base_request.dart';
 
 class AddProductRequest extends BaseRequest {
@@ -11,7 +10,7 @@ class AddProductRequest extends BaseRequest {
   final String? tabId, amount;
   final int categoryId, periodOfBid;
   final double startingPrice, expectedPrice;
-
+  final String? address, categoryName;
   AddProductRequest({
     required this.photos,
     required this.name,
@@ -23,6 +22,8 @@ class AddProductRequest extends BaseRequest {
     required this.periodOfBid,
     required this.startingPrice,
     required this.expectedPrice,
+    this.address,
+    this.categoryName,
     this.tabId,
     this.amount,
   });
@@ -71,10 +72,13 @@ class AddProductRequest extends BaseRequest {
     String? tabId,
     String? amount,
     int? categoryId,
+    String? address,
+    String? categoryName,
     int? periodOfBid,
     double? startingPrice,
     double? expectedPrice,
   }) {
+    log("Tap id $tabId");
     return AddProductRequest(
       name: name ?? this.name,
       description: description ?? this.description,

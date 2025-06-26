@@ -27,7 +27,9 @@ class _BidOwnerViewState extends State<BidOwnerView> {
       create: (context) => ImagePickerController(),
       child: SafeArea(
         child: BlocProvider(
-          create: (context) => AddProductCubit()..checkIsASeller(),
+          create: (context) => AddProductCubit()
+            ..getCategories()
+            ..checkIsASeller(),
           child: BlocBuilder<AddProductCubit, AddProductState>(
               builder: (context, state) {
             switch (state.runtimeType) {

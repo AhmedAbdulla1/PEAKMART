@@ -1,15 +1,20 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
+import 'package:peakmart/features/bid_owner/presentation/state_mang/add_product_cubit/add_product_cubit.dart';
 import 'package:peakmart/features/bid_owner/presentation/views/widgets/custom_date_field.dart';
+import 'package:peakmart/features/home/domain/entity/category_entity.dart';
 import 'package:peakmart/features/map_screen/view.dart';
 
 class PlaceBidAcceptData extends StatelessWidget {
-   PlaceBidAcceptData({
+  PlaceBidAcceptData({
     super.key,
     required this.productNameController,
     required this.descriptionController,
@@ -20,6 +25,7 @@ class PlaceBidAcceptData extends StatelessWidget {
     required this.arrivalDateController,
     required this.periodOfBidsController,
     required this.addressController,
+    required this.category,
   });
 
   final TextEditingController productNameController;
@@ -31,6 +37,9 @@ class PlaceBidAcceptData extends StatelessWidget {
   final TextEditingController arrivalDateController;
   final TextEditingController periodOfBidsController;
   final TextEditingController addressController;
+  // final TextEditingController categoryIdController;
+  // final TextEditingController categoryNameController;
+  final Function(CategoryEntity) category;
   String? validatePrice() {
     if (startingPriceController.text.isEmpty ||
         expectedPriceController.text.isEmpty) {
@@ -84,7 +93,7 @@ class PlaceBidAcceptData extends StatelessWidget {
     }
   }
 
-  final ValueNotifier<String?> selectedValue = ValueNotifier(null);
+  final ValueNotifier<CategoryEntity?> selectedValue = ValueNotifier(null);
 
   @override
   Widget build(BuildContext context) {
@@ -188,28 +197,46 @@ class PlaceBidAcceptData extends StatelessWidget {
           inputType: TextInputType.number,
           controller: periodOfBidsController,
         ),
-        ValueListenableBuilder<String?>(
+        23.vGap,
+        ValueListenableBuilder<CategoryEntity?>(
           valueListenable: selectedValue,
           builder: (context, value, _) {
-            return DropdownButtonFormField<String>(
+            return DropdownButtonFormField<CategoryEntity>(
+              iconEnabledColor: ColorManager.greyColor,
               value: value,
               decoration: const InputDecoration(
-                labelText: 'اختر قيمة',
+                labelText: "Select Category",
                 border: OutlineInputBorder(),
               ),
               onChanged: (newValue) {
                 selectedValue.value = newValue;
+                category(newValue!);
               },
-              items: ['خيار 1', 'خيار 2', 'خيار 3'].map((String item) {
-                return DropdownMenuItem<String>(
+              items: context
+                  .read<AddProductCubit>()
+                  .category
+                  .categories
+                  .map((CategoryEntity item) {
+                return DropdownMenuItem<CategoryEntity>(
                   value: item,
-                  child: Text(item),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CachedNetworkImage(
+                        imageUrl: item.image,
+                        width: 40,
+                        height: 40,
+                        color: ColorManager.greyColor,
+                      ),
+                      const SizedBox(width: 10),
+                      Text(item.catName),
+                    ],
+                  ),
                 );
               }).toList(),
             );
           },
         )
-
       ],
     );
   }

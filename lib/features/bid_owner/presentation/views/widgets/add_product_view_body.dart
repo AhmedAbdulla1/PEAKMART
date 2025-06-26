@@ -11,11 +11,11 @@ import 'package:peakmart/features/bid_owner/presentation/state_mang/add_product_
 import 'package:peakmart/features/bid_owner/presentation/state_mang/add_product_cubit/image_picker_controller.dart';
 import 'package:peakmart/features/bid_owner/presentation/views/add_product_details.dart';
 import 'package:peakmart/features/bid_owner/presentation/views/widgets/place_bid_accept_data.dart';
+import 'package:peakmart/features/home/domain/entity/category_entity.dart';
 import 'package:provider/provider.dart';
 
 class AddProductViewBody extends StatefulWidget {
   const AddProductViewBody({super.key});
-
   @override
   State<AddProductViewBody> createState() => _AddProductViewBodyState();
 }
@@ -30,7 +30,10 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
   late TextEditingController arrivalDateController;
   late TextEditingController periodOfBidsController;
   late TextEditingController addressController;
-
+  late TextEditingController categoryIdController;
+  late TextEditingController categoryNameController;
+  CategoryEntity selectedCategory =
+      CategoryEntity(catId: 1, catName: "General", image: "");
   @override
   void initState() {
     super.initState();
@@ -43,6 +46,8 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
     arrivalDateController = TextEditingController();
     periodOfBidsController = TextEditingController();
     addressController = TextEditingController();
+    categoryIdController = TextEditingController();
+    categoryNameController = TextEditingController();
   }
 
   @override
@@ -56,6 +61,8 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
     arrivalDateController.dispose();
     periodOfBidsController.dispose();
     addressController.dispose();
+    categoryIdController.dispose();
+    categoryNameController.dispose();
     super.dispose();
   }
 
@@ -80,6 +87,11 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
               arrivalDateController: arrivalDateController,
               periodOfBidsController: periodOfBidsController,
               addressController: addressController,
+              category: (category) {
+                setState(() {
+                  selectedCategory = category;
+                });
+              },
             ),
             23.verticalSpace,
             Consumer<ImagePickerController>(
@@ -99,11 +111,15 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                               expectedPrice:
                                   double.parse(expectedPriceController.text),
                               location: locationController.text,
+                              address: addressController.text,
                               startDate: startDateController.text,
                               deliveryDate: arrivalDateController.text,
                               periodOfBid:
                                   int.parse(periodOfBidsController.text),
-                              categoryId: 20,
+                              categoryId: int.parse(
+                                selectedCategory.catId.toString(),
+                              ),
+                              categoryName: selectedCategory.catName,
                             );
                             Navigator.pushNamed(
                               context,

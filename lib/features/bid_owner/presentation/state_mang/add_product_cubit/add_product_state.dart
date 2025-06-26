@@ -13,8 +13,7 @@ final class AddProductFailureState extends AddProductState {
 }
 
 final class AddProductSuccessState extends AddProductState {
-  final AddProductEntity addProductEntity;
-  AddProductSuccessState({required this.addProductEntity});
+  AddProductSuccessState();
 }
 
 final class CategoryLoaded extends AddProductState {
@@ -24,7 +23,12 @@ final class CategoryLoaded extends AddProductState {
 
 final class NotActivatedState extends AddProductState {}
 
-final class ActivatedState extends AddProductState {}
+final class ActivatedState extends AddProductState {
+    final CategoriesEntity categoriesEntity;
+
+  ActivatedState({required this.categoriesEntity});
+
+}
 
 final class NotVerifiedState extends AddProductState {}
 

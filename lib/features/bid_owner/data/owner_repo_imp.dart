@@ -4,12 +4,12 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/app/network_info.dart';
+import 'package:peakmart/core/entities/empty_entity.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
+import 'package:peakmart/core/responses/emty_response.dart';
 import 'package:peakmart/core/results/result.dart';
 import 'package:peakmart/features/bid_owner/data/models/request/add_product_request.dart';
-import 'package:peakmart/features/bid_owner/data/models/response/add_product_response.dart';
 import 'package:peakmart/features/bid_owner/data/models/response/check_is_seller_response.dart';
-import 'package:peakmart/features/bid_owner/domain/entity/add_product_entity.dart';
 import 'package:peakmart/features/bid_owner/domain/entity/check_is_seller_entity.dart';
 import 'package:peakmart/features/bid_owner/domain/repository/owner_repo.dart';
 import 'package:peakmart/features/home/data/model/response/category_response.dart';
@@ -22,14 +22,14 @@ class OwnerRepoImp extends OwnerRepo {
   final NetWorkInfo _networkInfo = instance<NetWorkInfo>();
 
   @override
-  Future<Result<AppErrors, AddProductEntity>> addProduct(
+  Future<Result<AppErrors, EmptyEntity>> addProduct(
       AddProductRequest addProductRequest) async {
-    Result<AppErrors, AddProductEntity> result = Result(
-        error: const AppErrors.connectionError());
+    Result<AppErrors, EmptyEntity> result =
+        Result(error: const AppErrors.connectionError());
 
     if (await _networkInfo.isConnected) {
       try {
-        Either<AppErrors, AddProductResponse> response =
+        Either<AppErrors, EmptyResponse> response =
             await _remoteDataSource.addProduct(addProductRequest);
 
         result = response.fold((error) {
@@ -47,7 +47,7 @@ class OwnerRepoImp extends OwnerRepo {
       }
     }
 
-    return result; // ✅ الآن `result` سيكون لديه قيمة في جميع الحالات
+    return result; 
   }
 
   @override
@@ -77,7 +77,7 @@ class OwnerRepoImp extends OwnerRepo {
   }
 
   @override
-  Future<Result<AppErrors, CategoriesEntity>> getCategories()async {
+  Future<Result<AppErrors, CategoriesEntity>> getCategories() async {
     Result<AppErrors, CategoriesEntity> result;
     if (await _networkInfo.isConnected) {
       try {

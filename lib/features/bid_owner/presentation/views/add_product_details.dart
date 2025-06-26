@@ -111,15 +111,16 @@ class _AddProductDetailsState extends State<AddProductDetails> {
                           if (value.containsKey('payment_status') &&
                               value['payment_status'] == 'success') {
                             log('Payment successful: $value', name: 'payment');
+                            log("value ${value.runtimeType}");
 
                             context.read<AddProductCubit>().addProduct(
                                   addProductRequest:
                                       widget.addProductRequest.copyWith(
-                                    tabId: value['tab_id'],
-                                    amount: value['fees'],
+                                    tabId: value['tap_id'],
+                                    amount: value['fees'].toString(),
                                   ),
                                 );
-
+                            log("iiiiiiiiiiiiiii: ${value['tap_id']}");
                             Toast.show("Product successfully Uploaded",
                                 backgroundColor: ColorManager.green);
                           }
@@ -260,7 +261,7 @@ class _AddProductDetailsState extends State<AddProductDetails> {
             16.hGap,
             Text("Location: ", style: getBoldStyle(fontSize: FontSize.s16)),
             const Spacer(),
-            Text(widget.addProductRequest.location,
+            Text(widget.addProductRequest.address!,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: getRegularStyle(
@@ -296,7 +297,9 @@ class _AddProductDetailsState extends State<AddProductDetails> {
             AppStrings.biddingPeriod,
             "${widget.addProductRequest.periodOfBid} days",
             FontAwesomeIcons.hourglassHalf),
-        _buildInfoRow(AppStrings.category, AppStrings.electronics,
+        _buildInfoRow(
+            AppStrings.category,
+            widget.addProductRequest.categoryName!,
             FontAwesomeIcons.layerGroup),
       ],
     );

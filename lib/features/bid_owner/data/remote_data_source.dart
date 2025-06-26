@@ -10,6 +10,7 @@ import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/net/api_url.dart';
 import 'package:peakmart/core/net/response_validators/default_response_validator.dart';
 import 'package:peakmart/core/net/response_validators/response_validator.dart';
+import 'package:peakmart/core/responses/emty_response.dart';
 import 'package:peakmart/features/bid_owner/data/models/request/add_product_request.dart';
 import 'package:peakmart/features/bid_owner/data/models/response/add_product_response.dart';
 import 'package:peakmart/features/bid_owner/data/models/response/check_is_seller_response.dart';
@@ -26,20 +27,20 @@ class AddProductValidator extends ResponseValidator {
 }
 
 class OwnerDataSource extends RemoteDataSource {
-  Future<Either<AppErrors, AddProductResponse>> addProduct(
+  Future<Either<AppErrors, EmptyResponse>> addProduct(
       AddProductRequest body) async {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
     print('cookie string $cookieString');
     print('body ${body.toJson()}');
-    return request<AddProductResponse>(
+    return request<EmptyResponse>(
       method: HttpMethod.POST,
       body: body.toJson(),
       files: body.getFiles(),
       responseValidator: AddProductValidator(),
       converter: (json) {
         print('inconverter $json');
-        return AddProductResponse.fromJson(json);
+        return EmptyResponse.fromJson(json);
       },
       headers: {
         'Content-Type': 'multipart/form-data',

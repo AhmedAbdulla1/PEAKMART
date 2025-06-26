@@ -10,7 +10,6 @@ import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
-import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/home/presentation/state_m/home_cubits/future_bids_cubit.dart';
 import 'package:peakmart/features/home/presentation/views/bid_section/titled_bid_section.dart';
 import 'package:peakmart/features/payment/presentation/views/payment_dialog.dart';
@@ -40,6 +39,26 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
   @override
   void initState() {
     super.initState();
+  }
+
+  bool get _isProductEnded {
+    final now = DateTime.now();
+
+    final hasEndedDatePassed = () {
+      try {
+        if (widget.product.endDate == null) return false;
+        final endDate = DateTime.parse(widget.product.endDate!);
+        return endDate.isBefore(now);
+      } catch (e) {
+        return false;
+      }
+    }();
+    log.log(
+      ' hasEndedDatePassed: $hasEndedDatePassed',
+      name: 'product_end_date_check',
+    );
+    return hasEndedDatePassed || widget.product.status == 'ended' ||
+        widget.product.status == 'canceled';
   }
 
   bool get _isBiddingAllowed {
@@ -78,7 +97,9 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
           )
           .then((_) {
         context.read<ProductCubit>().getProductById(id: widget.product.id);
-        context.read<TopBidderCubit>().getTopBidders(productId: widget.product.id);
+        context
+            .read<TopBidderCubit>()
+            .getTopBidders(productId: widget.product.id);
       });
 
       Toast.show("Successfully enrolled in the product!",
@@ -96,7 +117,9 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
           )
           .then((_) {
         context.read<ProductCubit>().getProductById(id: widget.product.id);
-        context.read<TopBidderCubit>().getTopBidders(productId: widget.product.id);
+        context
+            .read<TopBidderCubit>()
+            .getTopBidders(productId: widget.product.id);
       });
 
       Toast.show("Bid placed successfully!",
@@ -113,6 +136,8 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
       builder: (context, state) {
         final TopBiddersEntity? topBiddersEntity =
             state is TopBiddersSuccessState ? state.topBidders : null;
+        log.log("product: ${widget.product.isEnded}");
+        log.log("product : ${widget.product.status}");
 
         final int totalBidders = topBiddersEntity?.totalBidders ?? 0;
         final int totalEnrolled = topBiddersEntity?.totalEnrolled ?? 0;
@@ -176,25 +201,37 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                           ),
                         ),
                         const Spacer(),
-                        Visibility(
-                          visible: !userStatus || _isBiddingAllowed,
-                          child: ElevatedButton(
-                            onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) => userStatus &&
-                                              _isBiddingAllowed
-                                          ? BidDialog(higherPrice: currentPrice)
-                                          : PaymentDialog(
-                                              netPrice: widget.product.price),
-                                    ).then((value) =>
-                                        _handleDialogResult(context, value));
-                                  },
-                            child: Text(userStatus && _isBiddingAllowed
-                                ? 'Bid Now'
-                                : 'Enroll Now'),
-                          ),
-                        ),
+                        if (state is TopBiddersSuccessState)
+                          !_isProductEnded
+                              ? Visibility(
+                                  visible: !userStatus || _isBiddingAllowed,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => userStatus &&
+                                                _isBiddingAllowed
+                                            ? BidDialog(
+                                                higherPrice: currentPrice)
+                                            : PaymentDialog(
+                                                netPrice: widget.product.price),
+                                      ).then((value) =>
+                                          _handleDialogResult(context, value));
+                                    },
+                                    child: Text(
+                                      userStatus && _isBiddingAllowed
+                                          ? 'Bid Now'
+                                          : 'Enroll Now',
+                                    ),
+                                  ),
+                                )
+                              : Text(
+                                  'Ended',
+                                  style: getBoldStyle(
+                                    fontSize: FontSize.s20,
+                                    color: ColorManager.red,
+                                  ),
+                                )
                       ],
                     ),
                     16.vGap,
@@ -248,3 +285,5 @@ class CustomRichText extends StatelessWidget {
     );
   }
 }
+
+enum ProductDetailsState { endedProduct, sellerProduct, defaultProduct }

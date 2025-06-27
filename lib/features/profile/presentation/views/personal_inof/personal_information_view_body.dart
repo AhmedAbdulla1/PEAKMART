@@ -7,7 +7,7 @@ import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/core/shared_widgets/buttons.dart';
-import 'package:peakmart/features/auth/presentation/views/reset_password/forget_password_view.dart';
+import 'package:peakmart/features/auth/presentation/views/reset_password/view.dart';
 import 'package:peakmart/features/profile/presentation/state_m/profile/cubit.dart';
 import 'package:peakmart/features/profile/presentation/views/personal_inof/passwrod_dialog.dart';
 import 'package:peakmart/features/profile/presentation/views/personal_inof/personal_info_form.dart';

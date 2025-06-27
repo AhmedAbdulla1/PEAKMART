@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:developer';
 
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -171,9 +173,11 @@ class _MainInfoState extends State<MainInfo> {
             onChanged: (_) => _updateTouchedState('username'),
           ),
           20.vGap,
-          SelectCountryWidget(
-            controller: _countryController,
-          ),
+          SelectCountryWidget(onSelect: (Country country) {
+            _updateTouchedState('country');
+            _selectedCountry = country.name;
+            log('Selected country: ${country.name}');
+          }),
           20.vGap,
           CustomTextFormField(
             controller: _govController,

@@ -81,6 +81,7 @@ class ContentLoadedWidget extends StatelessWidget {
                 SizedBox(height: AppSize.s40.h),
                 ElevatedButton(
                   onPressed: () {
+                    print('${instance<AppPreferences>().getCookie("HKHN")}');
                     if (instance<AppPreferences>().getCookie("HKH") != '') {
                       Navigator.pushNamed(context, HoldScreen.routeName);
                     } else if (instance<AppPreferences>().getCookie("HKHN") !=

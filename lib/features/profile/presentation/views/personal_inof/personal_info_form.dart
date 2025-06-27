@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/resources/extentions.dart';
@@ -64,7 +67,11 @@ class _PersonalInfoFormState extends State<PersonalInfoForm> {
             children: [
               16.vGap,
               SelectCountryWidget(
-                controller: widget.countryController,
+                  onSelect: (Country country) {
+                    log('Selected country: ${country.name}');
+                    widget.countryController.text = country.name;
+                    context.read<ProfileCubit>().updateCountry(country.name);
+                  },
               ),
               16.vGap,
               Row(

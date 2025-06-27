@@ -115,7 +115,7 @@ class _MainViewState extends State<MainView> {
           backgroundColor:
               context.isDarkMode ? ColorManager.black : ColorManager.white,
           elevation: 5,
-          activeColor: ColorManager.primary,
+          activeColor: context.primaryColor,
           items: _navBarItems,
           initialActiveIndex: _currentIndex,
           // Update the selected tab

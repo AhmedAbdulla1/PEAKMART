@@ -1,51 +1,26 @@
 {
   "project_info": {
-    "project_number": "501474854854",
-    "project_id": "peakmart-5cb45",
-    "storage_bucket": "peakmart-5cb45.firebasestorage.app"
+    "project_number": "392698229136",
+    "project_id": "bidmart-a26d2",
+    "storage_bucket": "bidmart-a26d2.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:501474854854:android:cbd8ec93b54200881754c7",
+        "mobilesdk_app_id": "1:392698229136:android:57a80699548afabc354315",
         "android_client_info": {
           "package_name": "com.example.peakmart"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "501474854854-tphkl9kgmsuujdqh8oq4j3vsipaebbvs.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.peakmart",
-            "certificate_hash": "e1d94b000798ed99ce4d98b737c7f3c30d4dc56f"
-          }
-        },
-        {
-          "client_id": "501474854854-ah2e8klcmdigcjb87oatcv3og1fusk8h.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBfPcy6_tcUh05Rrg9eLtmU0XMaOGhEKEo"
+          "current_key": "AIzaSyA8BtfYGgrWzsU7L8ZaoRxkuwuZ7vXRQ2w"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "501474854854-ah2e8klcmdigcjb87oatcv3og1fusk8h.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "501474854854-f1btg0nvurtlh01qdfbpi66phhvuhbl5.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.peakmart"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

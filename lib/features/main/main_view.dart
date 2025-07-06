@@ -10,8 +10,8 @@ import 'package:peakmart/features/auth/presentation/views/signup_for_bid/hold_sc
 import 'package:peakmart/features/auth/presentation/views/signup_for_bid/view.dart';
 import 'package:peakmart/features/bid_owner/presentation/views/bid_owner_view.dart';
 import 'package:peakmart/features/home/presentation/views/home_view.dart';
+import 'package:peakmart/features/notifications/presentation/view/notifications_view.dart';
 import 'package:peakmart/features/products/presentation/views/products_view.dart';
-import 'package:peakmart/features/profile/presentation/profile_view.dart';
 import 'package:peakmart/features/profile/presentation/views/profile/view.dart';
 
 class MainView extends StatefulWidget {
@@ -86,7 +86,7 @@ class _MainViewState extends State<MainView> {
     return [
       HomeView(onCategorySelected: _onCategorySelected),
       ProductsView(categoryId: _selectedCategoryId),
-      const ProfileView(),
+      NotificationsView(),
       const BidOwnerView(),
       const SummaryProfileScreen(),
     ];

@@ -1,22 +1,19 @@
-import 'dart:async';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart' as di;
 import 'package:peakmart/core/resources/routes_manager.dart';
 import 'package:peakmart/core/resources/theme/app_theming_cubit/app_theme_cubit.dart';
 import 'package:peakmart/core/resources/theme/dark_theme_data.dart';
 import 'package:peakmart/core/resources/theme/light_theme_data.dart';
+import 'package:peakmart/features/notifications/data/notifications_service.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();
 
   static MyApp instance = const MyApp._internal();
-
   factory MyApp() => instance;
 
   @override
@@ -25,13 +22,19 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final AppPreferences _appPreferences = di.instance<AppPreferences>();
-
+  static final navigatorKey = GlobalKey<NavigatorState>();
   @override
   void didChangeDependencies() {
     _appPreferences.getLocale().then((value) {
       context.setLocale(value);
     });
     super.didChangeDependencies();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    OneSignalService.onNotificationClicked(navigatorKey: navigatorKey);
   }
 
   @override
@@ -47,6 +50,7 @@ class _MyAppState extends State<MyApp> {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               locale: context.locale,
+              navigatorKey: navigatorKey,
               supportedLocales: context.supportedLocales,
               localizationsDelegates: context.localizationDelegates,
               themeMode: themeMode,

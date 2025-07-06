@@ -12,6 +12,7 @@ import 'package:peakmart/app/app.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/resources/language_manager.dart';
+import 'package:peakmart/features/notifications/data/notifications_service.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 
@@ -25,6 +26,9 @@ void main() async {
   );
 
   await Firebase.initializeApp();
+  OneSignalService oneSignalService = OneSignalService();
+  oneSignalService.initialize();
+
   await initAppModule();
   await EasyLocalization.ensureInitialized();
   await ScreenUtil.ensureScreenSize();

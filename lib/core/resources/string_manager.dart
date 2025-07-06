@@ -297,6 +297,7 @@ The platform reserves the right to change these rules at any time. Users will be
   static const photoCamera = "Photo From Camera";
   static const home = 'Home';
   static const notification = 'Notification';
+  static const notifications = 'Notifications';
   static const setting = 'Setting';
   static const services = 'Services';
   static const stores = 'Stores';

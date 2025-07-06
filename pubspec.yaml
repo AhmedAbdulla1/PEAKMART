@@ -92,6 +92,7 @@ dependencies:
   build_runner: ^2.5.3
   skeletonizer: ^1.4.3
   flutter_launcher_icons: ^0.14.4
+  onesignal_flutter: ^5.3.4
 
 dev_dependencies:
   flutter_test:

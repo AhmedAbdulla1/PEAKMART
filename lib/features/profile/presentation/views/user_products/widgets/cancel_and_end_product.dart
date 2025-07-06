@@ -64,13 +64,15 @@ class CancelAndEndButtonsWidget extends StatelessWidget {
         if (state is CancelUserProductSuccess) {
           context.read<UserProductsCubit>().getUploadedProducts();
 
-          Toast.show("Product canceled successfully");
+          Toast.show("Product canceled successfully",
+              backgroundColor: ColorManager.green);
 
           log(" cancel success");
         } else if (state is EndUserProductSuccess) {
           context.read<UserProductsCubit>().getUploadedProducts();
 
-          Toast.show("Product ended successfully");
+          Toast.show("Product ended successfully",
+              backgroundColor: ColorManager.green);
 
           log(" end success");
         } else if (state is CancelUserProductFailed) {

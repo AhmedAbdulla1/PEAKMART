@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -100,7 +98,6 @@ class _AddProductDetailsState extends State<AddProductDetails> {
                   child: Center(
                     child: ElevatedButton(
                       onPressed: () {
-
                         showDialog(
                           context: context,
                           builder: (context) => PaymentDialog(
@@ -109,8 +106,6 @@ class _AddProductDetailsState extends State<AddProductDetails> {
                         ).then((value) {
                           if (value.containsKey('payment_status') &&
                               value['payment_status'] == 'success') {
-                           
-
                             context.read<AddProductCubit>().addProduct(
                                   addProductRequest:
                                       widget.addProductRequest.copyWith(
@@ -118,7 +113,7 @@ class _AddProductDetailsState extends State<AddProductDetails> {
                                     amount: value['fees'].toString(),
                                   ),
                                 );
-                            
+
                             Toast.show("Product successfully Uploaded",
                                 backgroundColor: ColorManager.green);
                           }
@@ -230,7 +225,7 @@ class _AddProductDetailsState extends State<AddProductDetails> {
       padding: EdgeInsets.symmetric(vertical: 6.h),
       child: Row(
         children: [
-          Icon(icon, color: ColorManager.primary, size: 20),
+          Icon(icon, color: context.primaryColor, size: 20),
           SizedBox(width: 16.w),
           Text(title, style: getBoldStyle(fontSize: FontSize.s16)),
           const Spacer(),

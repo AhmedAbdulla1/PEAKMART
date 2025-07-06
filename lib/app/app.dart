@@ -1,14 +1,16 @@
+import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart' as di;
 import 'package:peakmart/core/resources/routes_manager.dart';
 import 'package:peakmart/core/resources/theme/app_theming_cubit/app_theme_cubit.dart';
 import 'package:peakmart/core/resources/theme/dark_theme_data.dart';
 import 'package:peakmart/core/resources/theme/light_theme_data.dart';
-import 'package:peakmart/features/main/main_view.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();
@@ -48,7 +50,6 @@ class _MyAppState extends State<MyApp> {
               supportedLocales: context.supportedLocales,
               localizationsDelegates: context.localizationDelegates,
               themeMode: themeMode,
-
               theme: getLightTheme(),
               darkTheme: getDarkTheme(),
               title: 'Peakmart',

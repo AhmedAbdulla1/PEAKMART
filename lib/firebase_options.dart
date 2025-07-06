@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBfPcy6_tcUh05Rrg9eLtmU0XMaOGhEKEo',
-    appId: '1:501474854854:android:cbd8ec93b54200881754c7',
-    messagingSenderId: '501474854854',
-    projectId: 'peakmart-5cb45',
-    storageBucket: 'peakmart-5cb45.firebasestorage.app',
+    apiKey: 'AIzaSyA8BtfYGgrWzsU7L8ZaoRxkuwuZ7vXRQ2w',
+    appId: '1:392698229136:android:57a80699548afabc354315',
+    messagingSenderId: '392698229136',
+    projectId: 'bidmart-a26d2',
+    storageBucket: 'bidmart-a26d2.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDtlKyDxqHD5TPt6q7tWDQFZ27lZDEYXS4',
-    appId: '1:501474854854:ios:6e7c51fe988738fa1754c7',
-    messagingSenderId: '501474854854',
-    projectId: 'peakmart-5cb45',
-    storageBucket: 'peakmart-5cb45.firebasestorage.app',
+    apiKey: 'AIzaSyCJqHn-OzQZ19148vQ97GbiAnrOlN1glfQ',
+    appId: '1:392698229136:ios:d0864a9723f57776354315',
+    messagingSenderId: '392698229136',
+    projectId: 'bidmart-a26d2',
+    storageBucket: 'bidmart-a26d2.firebasestorage.app',
     iosBundleId: 'com.example.peakmart',
   );
 }

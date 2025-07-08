@@ -33,7 +33,21 @@ class ProfileDataSource extends RemoteDataSource {
         headers: {"cookie": cookieString},
         url: APIUrls.getProductsUploaded);
   }
-
+  Future<Either<AppErrors, UserProductResponse>> getWishlistProducts() async {
+    final AppPreferences appPreferences = instance<AppPreferences>();
+    String cookieString = appPreferences.getCookies().join(';');
+    return request<UserProductResponse>(
+        method: HttpMethod.GET,
+        responseValidator: DefaultResponseValidator(),
+        converter: (json) {
+          return UserProductResponse.fromJson(json);
+        },
+        queryParameters: {
+          'uid':appPreferences.getUserId()
+        },
+        headers: {"cookie": cookieString},
+        url: APIUrls.getProductsWishlist);
+  }
   Future<Either<AppErrors, UserProductsEnrolledResponse>>
       getProductsEnrolled() async {
     final AppPreferences appPreferences = instance<AppPreferences>();

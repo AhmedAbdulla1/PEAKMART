@@ -6,6 +6,7 @@ import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar
 import 'package:peakmart/features/profile/presentation/state_m/user_products/user_products_cubit.dart';
 import 'package:peakmart/features/profile/presentation/views/user_products/widgets/enrolled_products_tab.dart';
 import 'package:peakmart/features/profile/presentation/views/user_products/widgets/uploaded_products_tab.dart';
+import 'package:peakmart/features/profile/presentation/views/user_products/widgets/wishList_tab.dart';
 
 class UserProductsView extends StatefulWidget {
   static const String routeName = '/userProductsView';
@@ -23,12 +24,13 @@ class _UserProductsViewState extends State<UserProductsView>
   late UserProductsCubit _userProductsCubit;
   bool _enrolledFetched = false;
   bool _uploadedFetched = false;
+  bool _wishListFetched = false;
 
   @override
   void initState() {
     super.initState();
     initProfileModule();
-    _tabController = TabController(length: isSeller ? 2 : 1, vsync: this);
+    _tabController = TabController(length: isSeller ? 3 : 2, vsync: this);
     _tabController.addListener(_handleTabSelection);
     _userProductsCubit = instance<UserProductsCubit>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -42,7 +44,7 @@ class _UserProductsViewState extends State<UserProductsView>
   void _handleTabSelection() {
     if (_tabController.indexIsChanging) return;
 
-    if (_tabController.index == 1 && isSeller && !_uploadedFetched) {
+    if (_tabController.index == 2 && isSeller && !_uploadedFetched) {
       _uploadedFetched = true;
       _userProductsCubit.getUploadedProducts();
     }
@@ -69,6 +71,7 @@ class _UserProductsViewState extends State<UserProductsView>
             splashBorderRadius: BorderRadius.circular(15),
             tabs: [
               const Tab(text: 'Enrolled'),
+              const Tab(text: 'WishList',),
               if (isSeller) const Tab(text: 'Uploaded'),
             ],
           ),
@@ -77,6 +80,7 @@ class _UserProductsViewState extends State<UserProductsView>
           controller: _tabController,
           children: [
             const EnrolledProductsTab(),
+            const WishListTap(),
             if (isSeller) const UploadedProductsTab(),
           ],
         ),

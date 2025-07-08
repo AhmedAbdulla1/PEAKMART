@@ -14,8 +14,8 @@ class ProductLoaded extends ProductState {
 }
 class ProductDetailsLoaded extends ProductState {
   final ProductEntity product;
-
-  ProductDetailsLoaded({required this.product});
+  final bool isFav ;
+  ProductDetailsLoaded({required this.product,required this.isFav});
 }
 class ProductError extends ProductState {
   final AppErrors error;

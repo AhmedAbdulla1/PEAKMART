@@ -15,6 +15,8 @@ abstract class ProductsRepo {
   });
   Future<Result<AppErrors, ProductsEntity>> getProductById(int productId);
   Future<Result<AppErrors, CheckWishlistEntity>> checkProductInWishList(int productId);
+  Future<Result<AppErrors,EmptyEntity>>addToWishlist(int productId);
+  Future<Result<AppErrors,EmptyEntity>>removeFromWishlist(int productId);
   Future<Result<AppErrors, ProductsEntity>> getProductsByCategory(
       int catId, PaginationRequest getProductsPaginationRequest);
   Future<Result<AppErrors, TopBiddersEntity>> getTopBidders(int productId);

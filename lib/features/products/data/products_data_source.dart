@@ -59,12 +59,42 @@ class ProductsDataSource extends RemoteDataSource {
         },
         responseValidator: CheckWishlistValidator(),
         converter: (json) {
-
-
           print('json check in wich list');
           return CheckWishlistResponse.fromJson(json);
         },
         url: APIUrls.checkInWishlist);
+  }
+
+  Future<Either<AppErrors, EmptyResponse>> addProductInWishlist(
+      int productId) async {
+    return request<EmptyResponse>(
+        method: HttpMethod.GET,
+        queryParameters: {
+          "pid": productId,
+          "uid": instance<AppPreferences>().getUserId(),
+        },
+        responseValidator: CheckWishlistValidator(),
+        converter: (json) {
+          print('json check in wich list');
+          return EmptyResponse.fromJson(json);
+        },
+        url: APIUrls.addToWishlist);
+  }
+
+  Future<Either<AppErrors, EmptyResponse>> removeProductFromWishlist(
+      int productId) async {
+    return request<EmptyResponse>(
+        method: HttpMethod.GET,
+        queryParameters: {
+          "pid": productId,
+          "uid": instance<AppPreferences>().getUserId(),
+        },
+        responseValidator: CheckWishlistValidator(),
+        converter: (json) {
+          print('json check in wich list');
+          return EmptyResponse.fromJson(json);
+        },
+        url: APIUrls.removeFromWishlist);
   }
 
   Future<Either<AppErrors, ProductsResponse>> getProductsByCategory(

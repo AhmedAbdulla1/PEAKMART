@@ -13,7 +13,9 @@ abstract class ProfileRepo {
 
   Future<Result<AppErrors, UserProductEntity>> getProductsUploaded();
   Future<Result<AppErrors, UserProductsEnrolledEntity>> getProductsEnrolled();
-    Future<Result<AppErrors, EmptyEntity>> cancelUserProduct(CancelUserProductRequest cancelProductRequest);
+  Future<Result<AppErrors, UserProductEntity>> getWishListProducts();
+
+  Future<Result<AppErrors, EmptyEntity>> cancelUserProduct(CancelUserProductRequest cancelProductRequest);
 
   Future<Result<AppErrors, EmptyEntity>> updateProfileImage(
       UpdateProfileImageRequest updateProfileImageRequest);

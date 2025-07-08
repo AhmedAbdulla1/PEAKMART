@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
@@ -27,7 +28,8 @@ enum NotificationType {
 }
 
 class NotificationsView extends StatelessWidget {
-  NotificationsView({super.key});
+  NotificationsView({super.key, required this.message});
+  final RemoteMessage message;
   static const routeName = '/notificationsView';
   IconData _getIcon(NotificationType type) {
     switch (type) {

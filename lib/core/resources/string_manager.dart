@@ -296,6 +296,7 @@ The platform reserves the right to change these rules at any time. Users will be
   static const photoGallery = "Photo From Galley";
   static const photoCamera = "Photo From Camera";
   static const home = 'Home';
+  static const add = 'Add';
   static const notification = 'Notification';
   static const notifications = 'Notifications';
   static const setting = 'Setting';

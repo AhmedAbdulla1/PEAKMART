@@ -9,6 +9,7 @@ import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/auth/data/model/request/login_request.dart';
 import 'package:peakmart/features/auth/domain/entity/login_entity.dart';
 import 'package:peakmart/features/auth/domain/repository/auth_repo.dart';
+import 'package:peakmart/features/notifications/data/firebase_cloud_messaging_service.dart';
 
 part 'state.dart';
 
@@ -19,13 +20,15 @@ class LoginCubit extends Cubit<LoginState> {
   late BuildContext context;
 
   Future<void> login({required String email, required String password}) async {
+    final String? token = FirebaseCloudMessagingService.token;
     emit(LoginLoadingState());
     ShowDialog().showElasticDialog(
         context: context,
         builder: (context) => const WaitingWidget(),
         barrierDismissible: true);
-    Result<AppErrors, LoginEntity> result =
-        await authRepo.login(LoginRequest(email: email, password: password));
+
+    Result<AppErrors, LoginEntity> result = await authRepo.login(
+        LoginRequest(email: email, password: password, fCMToken: token!));
     result.pick(onData: (data) {
       Navigator.pop(context);
       emit(LoginSuccessState());

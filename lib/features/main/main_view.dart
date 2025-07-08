@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
@@ -10,92 +13,186 @@ import 'package:peakmart/features/auth/presentation/views/signup_for_bid/hold_sc
 import 'package:peakmart/features/auth/presentation/views/signup_for_bid/view.dart';
 import 'package:peakmart/features/bid_owner/presentation/views/bid_owner_view.dart';
 import 'package:peakmart/features/home/presentation/views/home_view.dart';
+import 'package:peakmart/features/notifications/data/firebase_cloud_messaging_service.dart';
 import 'package:peakmart/features/notifications/presentation/view/notifications_view.dart';
 import 'package:peakmart/features/products/presentation/views/products_view.dart';
 import 'package:peakmart/features/profile/presentation/views/profile/view.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key, this.currentPageIndex = 0});
-
   static const String routeName = '/main_view';
   final int currentPageIndex;
+
   @override
   State<MainView> createState() => _MainViewState();
 }
 
-class _MainViewState extends State<MainView> {
+class _MainViewState extends State<MainView> with TickerProviderStateMixin {
   int _currentIndex = 0;
   int? _selectedCategoryId;
+  int notificationCount = 0;
 
-  final List<TabItem> _navBarItems = [
-    const TabItem(
-      icon: Icons.home_outlined,
-      title: AppStrings.home,
-    ),
-    const TabItem(
-        icon: Icons.shopping_cart_outlined, title: AppStrings.product),
-    const TabItem(
-        icon: Icons.notifications_active_outlined,
-        title: AppStrings.notification),
-    const TabItem(icon: Icons.add, title: 'add'),
-    const TabItem(icon: Icons.person_2_outlined, title: AppStrings.profile),
-  ];
+  late final AnimationController _animationController;
+  late final Animation<double> _shakeAnimation;
 
-  void addProductSelection() {
-    if (instance<AppPreferences>().getCookie("HKH") != '') {
-      // هو هنا ي اما منتظر التفعيل من الادمن ي اما متفعل خلاص ف يدخل علي صفحه الadd prododcut
-      Navigator.pushNamed(
-        context,
-        HoldScreen.routeName,
-      );
-    } else if (instance<AppPreferences>().getCookie("HKHN") != '') {
-      // هنا هو مش مكمل بياناته
-      Navigator.pushNamed(context, SignUpForBidView.routeName, arguments: 1);
-    } else if (instance<AppPreferences>().getCookie("PHONE") != '') {
-      Navigator.pushNamed(
-        context,
-        OtpVerification.routeName,
-        arguments: {
-          'verificationType': VerificationType.watsApp,
-        },
-      );
-    } else {
-      Navigator.pushNamed(context, SignUpForBidView.routeName, arguments: 0);
-    }
-  }
+  bool _isNotificationAnimating = false;
 
-  void _onCategorySelected(int categoryId) {
-    setState(() {
-      _selectedCategoryId = categoryId;
-      _currentIndex = 1; // Switch to the Products tab (index 1)
-    });
-  }
+  void listenNotificationStream() {
+    FirebaseCloudMessagingService.streamController.stream
+        .listen((notificationMessage) async {
+      log('Notification Received: ${notificationMessage.notification?.body}');
+      setState(() {
+        notificationCount++;
+        _isNotificationAnimating = true;
+      });
 
-  void _onTabSelected(int index) {
-    setState(() {
-      _currentIndex = index;
-
-      if (index == 1) {
-        _selectedCategoryId =
-            null; // Reset category ID when manually switching to Products tab
+      _animationController.forward(from: 0);
+      await Future.delayed(const Duration(seconds: 1));
+      if (mounted) {
+        setState(() => _isNotificationAnimating = false);
       }
-    });
-  }
 
-  List<Widget> getBottomNavigationBarBody() {
-    return [
-      HomeView(onCategorySelected: _onCategorySelected),
-      ProductsView(categoryId: _selectedCategoryId),
-      NotificationsView(),
-      const BidOwnerView(),
-      const SummaryProfileScreen(),
-    ];
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => NotificationsView(message: notificationMessage),
+      //   ),
+      // );
+    });
   }
 
   @override
   void initState() {
     _currentIndex = widget.currentPageIndex;
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+
+    _shakeAnimation = Tween<double>(begin: 0, end: 8).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.elasticOut),
+    )..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          _animationController.reverse();
+        }
+      });
+
+    listenNotificationStream();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    FirebaseCloudMessagingService.streamController.close();
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  void _onTabSelected(int index) {
+    setState(() {
+      _currentIndex = index;
+      if (index == 1) _selectedCategoryId = null;
+      if (index == 3) notificationCount = 0;
+    });
+  }
+
+  void _onCategorySelected(int categoryId) {
+    setState(() {
+      _selectedCategoryId = categoryId;
+      _currentIndex = 1;
+    });
+  }
+
+  void addProductSelection() {
+    final prefs = instance<AppPreferences>();
+    if (prefs.getCookie("HKH") != '') {
+      Navigator.pushNamed(context, HoldScreen.routeName);
+    } else if (prefs.getCookie("HKHN") != '') {
+      Navigator.pushNamed(context, SignUpForBidView.routeName, arguments: 1);
+    } else if (prefs.getCookie("PHONE") != '') {
+      Navigator.pushNamed(context, OtpVerification.routeName, arguments: {
+        'verificationType': VerificationType.watsApp,
+      });
+    } else {
+      Navigator.pushNamed(context, SignUpForBidView.routeName, arguments: 0);
+    }
+  }
+
+  Widget _buildNotificationIcon() {
+    final isSelected = _currentIndex == 3;
+
+    Widget icon = Icon(
+      notificationCount == 0
+          ? Icons.notifications_off_outlined
+          : Icons.notifications_active_outlined,
+      size: 28,
+      color: isSelected
+          ? context.isDarkMode
+              ? ColorManager.black
+              : ColorManager.white
+          : context.isDarkMode
+              ? ColorManager.white
+              : ColorManager.black,
+    );
+
+    if (_isNotificationAnimating) {
+      icon = AnimatedBuilder(
+        animation: _shakeAnimation,
+        builder: (context, child) {
+          return Transform.translate(
+            offset: Offset(_shakeAnimation.value, 0),
+            child: child,
+          );
+        },
+        child: icon,
+      );
+    }
+
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Center(child: icon),
+        if (notificationCount > 0 && !isSelected)
+          Positioned(
+            right: -6,
+            top: -4,
+            child: Container(
+              padding: const EdgeInsets.all(3),
+              decoration: const BoxDecoration(
+                color: Colors.red,
+                shape: BoxShape.circle,
+              ),
+              child: Text(
+                '$notificationCount',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+
+  List<TabItem> get _navBarItems => [
+        const TabItem(icon: Icons.home_outlined, title: AppStrings.home),
+        const TabItem(
+            icon: Icons.shopping_cart_outlined, title: AppStrings.product),
+        const TabItem(icon: Icons.add, title: AppStrings.add),
+        TabItem(icon: _buildNotificationIcon(), title: AppStrings.notification),
+        const TabItem(icon: Icons.person_2_outlined, title: AppStrings.profile),
+      ];
+
+  List<Widget> getBottomNavigationBarBody() {
+    return [
+      HomeView(onCategorySelected: _onCategorySelected),
+      ProductsView(categoryId: _selectedCategoryId),
+      const BidOwnerView(),
+      NotificationsView(message: const RemoteMessage()),
+      const SummaryProfileScreen(),
+    ];
   }
 
   @override
@@ -105,7 +202,6 @@ class _MainViewState extends State<MainView> {
         body: getBottomNavigationBarBody()[_currentIndex],
         bottomNavigationBar: ConvexAppBar(
           key: ValueKey(_currentIndex),
-          // Force rebuild when currentPageIndex changes
           height: 55,
           curve: Curves.easeInOut,
           style: TabStyle.custom,
@@ -118,7 +214,6 @@ class _MainViewState extends State<MainView> {
           activeColor: context.primaryColor,
           items: _navBarItems,
           initialActiveIndex: _currentIndex,
-          // Update the selected tab
           onTap: _onTabSelected,
         ),
       ),

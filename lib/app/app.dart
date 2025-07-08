@@ -8,7 +8,6 @@ import 'package:peakmart/core/resources/routes_manager.dart';
 import 'package:peakmart/core/resources/theme/app_theming_cubit/app_theme_cubit.dart';
 import 'package:peakmart/core/resources/theme/dark_theme_data.dart';
 import 'package:peakmart/core/resources/theme/light_theme_data.dart';
-import 'package:peakmart/features/notifications/data/notifications_service.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();
@@ -30,13 +29,6 @@ class _MyAppState extends State<MyApp> {
     });
     super.didChangeDependencies();
   }
-
-  @override
-  void initState() {
-    super.initState();
-    OneSignalService.onNotificationClicked(navigatorKey: navigatorKey);
-  }
-
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(

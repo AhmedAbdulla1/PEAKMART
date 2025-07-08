@@ -1,4 +1,5 @@
 //
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
@@ -118,7 +119,9 @@ class RouteGenerator {
         );
       case NotificationsView.routeName:
         return MaterialPageRoute(
-          builder: (_) => NotificationsView(),
+          builder: (_) => NotificationsView(
+            message: const RemoteMessage(),
+          ),
           settings: const RouteSettings(name: NotificationsView.routeName),
         );
 

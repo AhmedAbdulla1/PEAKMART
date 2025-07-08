@@ -32,7 +32,7 @@ class ProductsResponse extends BaseResponse<ProductsEntity> {
     return ProductsResponse(
       data: products,
       message: json["message"] ?? "",
-      status: json["status"] ?? false,
+      status: json["status"] ?? '',
       code: 200,
       paginationResponse: json["pagination"] != null
           ? PaginationResponse.fromJson(

@@ -185,4 +185,50 @@ class ProductsRepoImp extends ProductsRepo {
     }
     return result;
   }
+  @override
+  Future<Result<AppErrors, EmptyEntity>> addToWishlist(int productId) async {
+    Result<AppErrors,EmptyEntity> result;
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors,EmptyResponse> response =
+        await _remoteDataSource.addProductInWishlist(productId);
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          log("in repo impl ${response.toString()}");
+          return Result(data: response.toEntity());
+        });
+      } catch (error ,st) {
+        print(st);
+        log("in repo impl ${error.toString()}");
+        result = Result(error: const AppErrors.responseError());
+      }
+    } else {
+      result = Result(error: const AppErrors.connectionError());
+    }
+    return result;
+  }
+  @override
+  Future<Result<AppErrors, EmptyEntity>> removeFromWishlist(int productId) async {
+    Result<AppErrors,EmptyEntity> result;
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors,EmptyResponse> response =
+        await _remoteDataSource.removeProductFromWishlist(productId);
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          log("in repo impl ${response.toString()}");
+          return Result(data: response.toEntity());
+        });
+      } catch (error ,st) {
+        print(st);
+        log("in repo impl ${error.toString()}");
+        result = Result(error: const AppErrors.responseError());
+      }
+    } else {
+      result = Result(error: const AppErrors.connectionError());
+    }
+    return result;
+  }
 }

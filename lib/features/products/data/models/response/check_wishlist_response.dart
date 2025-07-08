@@ -10,7 +10,6 @@ class CheckWishlistResponse extends BaseResponse<CheckWishlistEntity> {
         required super.code});
 
   factory CheckWishlistResponse.fromJson(Map<String, dynamic> json) {
-    print(json['in_wishlist'].runtimeType );
     return CheckWishlistResponse(
       inWishlist: json['in_wishlist'],
       message: json["message"] ?? "",

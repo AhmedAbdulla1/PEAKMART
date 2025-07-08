@@ -8,6 +8,7 @@ import 'package:peakmart/features/products/data/models/request/bid_request.dart'
 import 'package:peakmart/features/products/data/models/request/enroll_request.dart';
 import 'package:peakmart/features/products/data/models/request/pagination_request.dart';
 import 'package:peakmart/features/products/data/products_repo_imp.dart';
+import 'package:peakmart/features/products/domain/entity/in_wishlist_entity.dart';
 import 'package:peakmart/features/products/domain/entity/prodcuts_entity.dart';
 import 'package:peakmart/features/products/domain/products_repo.dart';
 import 'package:peakmart/features/products/presentation/state_m/product_cubit/state.dart';
@@ -46,19 +47,33 @@ class ProductCubit extends Cubit<ProductState> {
       productsRepo.getProductById(id),
       productsRepo.checkProductInWishList(id)
     ]);
+    Result<AppErrors, CheckWishlistEntity> isFavResult =
+        results[1] as Result<AppErrors, CheckWishlistEntity>;
+    late bool isFav;
+    isFavResult.pick(onData: (data) {
+      isFav = data.inWishlist;
+    }, onError: (error) {
+      isFav = false;
+    });
     Result<AppErrors, ProductsEntity> result =
         results[0] as Result<AppErrors, ProductsEntity>;
     result.pick(onData: (data) {
       log("data: ${data.data}");
       log("show details of product id: $id");
-      emit(ProductDetailsLoaded(product: data.data[0]));
+      emit(ProductDetailsLoaded(product: data.data[0], isFav: isFav));
     }, onError: (error) {
       log("error: ${error.toString()}");
       emit(ProductError(
           error: CustomError(message: error.toString()), onRetry: () {}));
     });
   }
-
+  Future<void> toggleFav(bool currentStatus,int productId)async{
+    if(currentStatus){
+      productsRepo.removeFromWishlist(productId);
+    }else{
+      productsRepo.addToWishlist(productId);
+    }
+  }
   Future<void> fetchProductsByCategory(
       {required int catId, required int page}) async {
     emit(ProductLoading());

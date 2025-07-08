@@ -156,4 +156,25 @@ class ProfileRepoImpl extends ProfileRepo {
     }
     return result;
   }
+
+  @override
+  Future<Result<AppErrors, UserProductEntity>> getWishListProducts() async{
+    Result<AppErrors, UserProductEntity> result;
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors, UserProductResponse> response =
+            await _remoteDataSource.getWishlistProducts();
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          return Result(data: response.toEntity());
+        });
+      } catch (error) {
+        result = Result(error: const AppErrors.responseError());
+      }
+    } else {
+      result = Result(error: const AppErrors.connectionError());
+    }
+    return result;
+  }
 }

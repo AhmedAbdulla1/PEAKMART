@@ -25,12 +25,11 @@ import 'package:peakmart/features/products/presentation/views/product_details/wi
 import 'package:peakmart/features/products/presentation/widgets/top_bidders.dart';
 
 class ProductDetailsViewBody extends StatefulWidget {
-  const ProductDetailsViewBody({
-    super.key,
-    required this.product,
-  });
+  const ProductDetailsViewBody(
+      {super.key, required this.product, required this.isFav});
 
   final ProductEntity product;
+  final bool isFav;
 
   @override
   State<ProductDetailsViewBody> createState() => _ProductDetailsViewBodyState();
@@ -39,7 +38,14 @@ class ProductDetailsViewBody extends StatefulWidget {
 class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
   @override
   void initState() {
+    _isFav = ValueNotifier<bool>(widget.isFav);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _isFav.dispose();
   }
 
   bool get _isProductEnded {
@@ -129,12 +135,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
     }
   }
 
-  final ValueNotifier<bool> _isFav = ValueNotifier<bool>(false);
-
-  @override
-  void dispose() {
-    _isFav.dispose();
-  }
+  late final ValueNotifier<bool> _isFav;
 
   @override
   Widget build(BuildContext context) {
@@ -177,12 +178,15 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                                 true, // Ensure wrapping (optional, as it’s true by default)
                           ),
                         ),
-                        SizedBox(width: 8),
+                        8.hGap,
                         // Replace 8.hGap with SizedBox if not using a custom extension
                         ValueListenableBuilder<bool>(
                           valueListenable: _isFav,
                           builder: (context, isFav, _) => IconButton(
                             onPressed: () {
+                              context
+                                  .read<ProductCubit>()
+                                  .toggleFav(isFav, widget.product.id);
                               _isFav.value = !isFav;
                             },
                             icon: CircleAvatar(

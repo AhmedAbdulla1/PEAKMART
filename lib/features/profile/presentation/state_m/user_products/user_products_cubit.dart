@@ -18,13 +18,19 @@ class UserProductsCubit extends Cubit<UserProductsStates> {
 
   bool _uploadedLoaded = false;
   bool _enrolledLoaded = false;
+  bool _wishlistLoaded = false;
 
   List<ProductEntity> uploadedProducts = [];
   List<ProductsEnrolledEntity> enrolledProducts = [];
+  List<ProductEntity> wishListProducts = [];
 
   void resetEnrolledProducts() {
     _enrolledLoaded = false;
     enrolledProducts = [];
+  }
+
+  void restWishListPram() {
+    _wishlistLoaded = false;
   }
 
   void resetUploadedProducts() {
@@ -72,12 +78,35 @@ class UserProductsCubit extends Cubit<UserProductsStates> {
         enrolledProducts = data.data;
         emit(ProductsEnrolledLoaded(products: enrolledProducts));
       }, onError: (error) {
-        emit(UserProductsError(error: error, onRetry: getEnrolledProducts));
+        emit(ProductEnrolledError(error: error, onRetry: getEnrolledProducts));
       });
     } catch (_) {
-      emit(UserProductsError(
+      emit(ProductEnrolledError(
         error: const AppErrors.customError(message: 'Enroll fetch failed'),
         onRetry: getEnrolledProducts,
+      ));
+    }
+  }
+
+  Future<void> getWishListProducts() async {
+    if (_wishlistLoaded) {
+      return;
+    }
+
+    emit(WishListLoading());
+    try {
+      Result<AppErrors, UserProductEntity> result =
+          await profileRepo.getWishListProducts();
+      result.pick(onData: (data) {
+        _wishlistLoaded = true;
+        emit(WishListLoaded(products: data.data));
+      }, onError: (error) {
+        emit(WishlistError(error: error, onRetry: getWishListProducts));
+      });
+    } catch (_) {
+      emit(WishlistError(
+        error: const AppErrors.customError(message: 'Wishlist fetch failed'),
+        onRetry: getWishListProducts,
       ));
     }
   }

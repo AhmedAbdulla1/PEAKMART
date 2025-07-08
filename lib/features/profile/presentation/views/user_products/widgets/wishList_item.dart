@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/core/entities/prodcut_entity.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
@@ -9,8 +8,6 @@ import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/product_details_view.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/widgets/product_details_view_body.dart';
-import 'package:peakmart/features/profile/presentation/state_m/user_products/user_products_cubit.dart';
-import 'package:peakmart/features/profile/presentation/views/user_products/widgets/cancel_and_end_product.dart';
 import 'package:peakmart/features/profile/presentation/views/user_products/widgets/product_images_slider.dart';
 
 class WishlistItemWidget extends StatelessWidget {
@@ -29,34 +26,6 @@ class WishlistItemWidget extends StatelessWidget {
     return "${endDate.year.toString().padLeft(4, '0')}-"
         "${endDate.month.toString().padLeft(2, '0')}-"
         "${endDate.day.toString().padLeft(2, '0')}";
-  }
-
-  Widget _buildStatusWidget(BuildContext context) {
-    final status = product.status ?? "";
-    switch (status) {
-      case "ended":
-        return _statusText("Ended", context.primaryColor);
-      case "canceled":
-        return _statusText("Canceled", ColorManager.red);
-      default:
-        return BlocProvider(
-          create: (context) => UserProductsCubit(),
-          child: CancelAndEndButtonsWidget(productId: product.id),
-        );
-    }
-  }
-
-  Widget _statusText(String text, Color color) {
-    return Align(
-      alignment: Alignment.center,
-      child: Text(
-        text,
-        style: getMediumStyle(
-          color: color,
-          fontSize: 22,
-        ),
-      ),
-    );
   }
 
   @override
@@ -88,11 +57,11 @@ class WishlistItemWidget extends StatelessWidget {
                 child: product.imageUrl.isNotEmpty
                     ? ProductImagesSlider(imageUrls: product.imageUrl)
                     : Image.asset(
-                  'assets/images/card.png',
-                  width: double.infinity,
-                  height: 120.h,
-                  fit: BoxFit.cover,
-                ),
+                        'assets/images/card.png',
+                        width: double.infinity,
+                        height: 120.h,
+                        fit: BoxFit.cover,
+                      ),
               ),
 
               // Product details
@@ -136,8 +105,7 @@ class WishlistItemWidget extends StatelessWidget {
                     ),
                     10.vGap,
 
-                    // Status or buttons
-                    _buildStatusWidget(context),
+                    //* Remove from fav
                   ],
                 ),
               ),

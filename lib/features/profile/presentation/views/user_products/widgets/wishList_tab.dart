@@ -5,17 +5,16 @@ import 'package:peakmart/features/main/main_view.dart';
 import 'package:peakmart/features/profile/presentation/state_m/user_products/user_products_cubit.dart';
 import 'package:peakmart/features/profile/presentation/state_m/user_products/user_products_states.dart';
 import 'package:peakmart/features/profile/presentation/views/user_products/widgets/no_products_founded_widget.dart';
-import 'package:peakmart/features/profile/presentation/views/user_products/widgets/product_uploaded_item_widget.dart';
 import 'package:peakmart/features/profile/presentation/views/user_products/widgets/wishList_item.dart';
 
-class WishListTap extends StatefulWidget {
-  const WishListTap({super.key});
+class WishListTab extends StatefulWidget {
+  const WishListTab({super.key});
 
   @override
-  State<WishListTap> createState() => _UploadedProductsTabState();
+  State<WishListTab> createState() => _UploadedProductsTabState();
 }
 
-class _UploadedProductsTabState extends State<WishListTap>
+class _UploadedProductsTabState extends State<WishListTab>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
@@ -24,28 +23,33 @@ class _UploadedProductsTabState extends State<WishListTap>
   void initState() {
     super.initState();
     final cubit = context.read<UserProductsCubit>();
-    cubit.getWishListProducts();
+    if (cubit.wishListProducts.isNotEmpty) {
+      cubit.emit(WishListLoaded(products: cubit.wishListProducts));
+    } else {
+      cubit.getWishListProducts();
+    }
   }
 
   Widget buildNoProductsView() {
     return NoProductsFoundedWidget(
-      title: 'No products uploaded yet.',
-      buttonText: 'Upload a product',
+      title: 'No products in wishlist',
+      buttonText: 'Explore products',
       onButtonPressed: () {
-        Navigator.pushNamed(context, MainView.routeName, arguments: 3);
+        Navigator.pushNamed(context, MainView.routeName, arguments: 1);
       },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return BlocBuilder<UserProductsCubit, UserProductsStates>(
       buildWhen: (previous, current) =>
           current is WishListLoading ||
           current is WishListLoaded ||
           current is WishlistError,
       builder: (context, state) {
+        final cubit = context.read<UserProductsCubit>();
+
         if (state is WishListLoading) {
           return const WaitingWidget();
         } else if (state is WishlistError) {
@@ -56,7 +60,6 @@ class _UploadedProductsTabState extends State<WishListTap>
               ? buildNoProductsView()
               : RefreshIndicator(
                   onRefresh: () async {
-                    final cubit = context.read<UserProductsCubit>();
                     cubit.restWishListPram();
                     await cubit.getWishListProducts();
                   },
@@ -71,9 +74,30 @@ class _UploadedProductsTabState extends State<WishListTap>
                     },
                   ),
                 );
-        } else {
-          return const Center(child: Text('Unexpected state'));
         }
+
+        /// ➕ هنا الحل الأهم: تعامل مع الحالة غير المتوقعة بحكمة
+        if (cubit.wishListProducts.isNotEmpty) {
+          // في حالة رجعت والشاشة كانت مبنية فعليًا
+          return RefreshIndicator(
+            onRefresh: () async {
+              cubit.restWishListPram();
+              await cubit.getWishListProducts();
+            },
+            child: ListView.builder(
+              padding: const EdgeInsets.all(8.0),
+              itemCount: cubit.wishListProducts.length,
+              itemBuilder: (context, index) {
+                return WishlistItemWidget(
+                  product: cubit.wishListProducts[index],
+                  index: index + 1,
+                );
+              },
+            ),
+          );
+        }
+
+        return buildNoProductsView();
       },
     );
   }

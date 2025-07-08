@@ -71,7 +71,9 @@ class _UserProductsViewState extends State<UserProductsView>
             splashBorderRadius: BorderRadius.circular(15),
             tabs: [
               const Tab(text: 'Enrolled'),
-              const Tab(text: 'WishList',),
+              const Tab(
+                text: 'WishList',
+              ),
               if (isSeller) const Tab(text: 'Uploaded'),
             ],
           ),
@@ -80,7 +82,7 @@ class _UserProductsViewState extends State<UserProductsView>
           controller: _tabController,
           children: [
             const EnrolledProductsTab(),
-            const WishListTap(),
+            const WishListTab(),
             if (isSeller) const UploadedProductsTab(),
           ],
         ),

@@ -8,7 +8,7 @@ class AppStrings {
   static String googleAuthFailed = tr('Google Auth Failed');
   static String networkError = tr('Network Error, Please Try Again');
   static String unexpectedError = tr('Unexpected Error');
-  static const String product = "product";
+  static const String product = "Product";
   static String settings = tr("Settings");
   static String darkTheme = tr("Dark theme");
   static String recommendedProducts = tr('Recommended Products');

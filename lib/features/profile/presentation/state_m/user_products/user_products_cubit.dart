@@ -31,6 +31,7 @@ class UserProductsCubit extends Cubit<UserProductsStates> {
 
   void restWishListPram() {
     _wishlistLoaded = false;
+    wishListProducts = [];
   }
 
   void resetUploadedProducts() {
@@ -90,6 +91,7 @@ class UserProductsCubit extends Cubit<UserProductsStates> {
 
   Future<void> getWishListProducts() async {
     if (_wishlistLoaded) {
+      emit(WishListLoaded(products: wishListProducts));
       return;
     }
 
@@ -99,6 +101,7 @@ class UserProductsCubit extends Cubit<UserProductsStates> {
           await profileRepo.getWishListProducts();
       result.pick(onData: (data) {
         _wishlistLoaded = true;
+        wishListProducts = data.data;
         emit(WishListLoaded(products: data.data));
       }, onError: (error) {
         emit(WishlistError(error: error, onRetry: getWishListProducts));

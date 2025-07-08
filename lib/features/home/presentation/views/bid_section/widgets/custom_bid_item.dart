@@ -149,23 +149,24 @@ class CustomBidItem extends StatelessWidget {
                 ),
               ],
             ),
-            if (!bidItem.isEnded)
-              Positioned(
-                right: 15,
-                top: 15,
-                child: CircleAvatar(
-                  backgroundColor: ColorManager.white,
-                  maxRadius: 15,
-                  child: IconButton(
-                    padding: EdgeInsets.zero,
-                    icon: const Icon(
-                      Icons.favorite_border,
-                      color: Colors.red,
-                    ),
-                    onPressed: () {},
-                  ),
-                ),
-              ),
+            //todo , remove this from item widget and move it to details screen
+            // if (!bidItem.isEnded)
+            //   Positioned(
+            //     right: 15,
+            //     top: 15,
+            //     child: CircleAvatar(
+            //       backgroundColor: ColorManager.white,
+            //       maxRadius: 15,
+            //       child: IconButton(
+            //         padding: EdgeInsets.zero,
+            //         icon: const Icon(
+            //           Icons.favorite_border,
+            //           color: Colors.red,
+            //         ),
+            //         onPressed: () {},
+            //       ),
+            //     ),
+            //   ),
           ]),
         ),
       ),

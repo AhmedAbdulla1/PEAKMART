@@ -17,6 +17,9 @@ import 'package:peakmart/features/products/data/models/request/pagination_reques
 import 'package:peakmart/features/products/data/models/response/products_response.dart';
 import 'package:peakmart/features/products/data/models/response/top_bidders_response.dart';
 
+import 'models/response/check_wishlist_response.dart'
+    show CheckWishlistResponse;
+
 class ProductsDataSource extends RemoteDataSource {
   Future<Either<AppErrors, ProductsResponse>> getProducts(
       PaginationRequest getProductsPaginationRequest) async {
@@ -44,6 +47,24 @@ class ProductsDataSource extends RemoteDataSource {
           return ProductsResponse.fromJson(json);
         },
         url: APIUrls.getProductById);
+  }
+
+  Future<Either<AppErrors, CheckWishlistResponse>> checkProductInWishlist(
+      int productId) async {
+    return request<CheckWishlistResponse>(
+        method: HttpMethod.GET,
+        queryParameters: {
+          "pid": productId,
+          "uid": instance<AppPreferences>().getUserId(),
+        },
+        responseValidator: CheckWishlistValidator(),
+        converter: (json) {
+
+
+          print('json check in wich list');
+          return CheckWishlistResponse.fromJson(json);
+        },
+        url: APIUrls.checkInWishlist);
   }
 
   Future<Either<AppErrors, ProductsResponse>> getProductsByCategory(
@@ -99,16 +120,27 @@ class ProductsDataSource extends RemoteDataSource {
         body: bidRequest.toJson(),
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
-          log('json is $json',name: "bid response");
+          log('json is $json', name: "bid response");
           return EmptyResponse.fromJson(json);
         },
-        url: APIUrls.bidProduct);}
+        url: APIUrls.bidProduct);
+  }
 }
-class EnrollValidator extends ResponseValidator{
+
+class EnrollValidator extends ResponseValidator {
   @override
   void processData(data) {
     if (data["enrollment_id"] == null) {
       errorMessage = data["message"] ?? "";
+    }
+  }
+}
+
+class CheckWishlistValidator extends ResponseValidator {
+  @override
+  void processData(data) {
+    if (data["error"] != null) {
+      errorMessage = data["error"] ?? "";
     }
   }
 }

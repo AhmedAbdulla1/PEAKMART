@@ -42,8 +42,12 @@ class ProductCubit extends Cubit<ProductState> {
 
   Future<void> getProductById({required int id}) async {
     emit(ProductLoading());
+    final results = await Future.wait([
+      productsRepo.getProductById(id),
+      productsRepo.checkProductInWishList(id)
+    ]);
     Result<AppErrors, ProductsEntity> result =
-        await productsRepo.getProductById(id);
+        results[0] as Result<AppErrors, ProductsEntity>;
     result.pick(onData: (data) {
       log("data: ${data.data}");
       log("show details of product id: $id");
@@ -79,9 +83,10 @@ class ProductCubit extends Cubit<ProductState> {
           error: CustomError(message: error.toString()), onRetry: () {}));
     });
   }
+
   Future<void> bidProduct(BidRequest bidRequest) async {
     Result<AppErrors, EmptyEntity> result =
-    await productsRepo.bidProduct(bidRequest);
+        await productsRepo.bidProduct(bidRequest);
     result.pick(onData: (data) {
       return;
     }, onError: (error) {

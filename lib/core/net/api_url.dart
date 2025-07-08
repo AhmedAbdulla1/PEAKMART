@@ -18,6 +18,7 @@ class APIUrls {
   static const getUserInfo = "${baseUrl}data/user_info.php";
   static const getProductsUploaded = "${baseUrl}data/user_products.php";
   static const getProductsEnrolled = "${baseUrl}data/enrolled.php";
+  static const getProductsWishlist = "${baseUrl}wishList/get.php";
   static const updateUserInfo = "${baseUrl}data/update_info.php";
   static const updateUserImage = "${baseUrl}data/change_photo.php";
   static const cancleUserProduct = "${baseUrl}data/p_status.php";
@@ -30,15 +31,16 @@ class APIUrls {
   static const getTrendingBids = "${baseUrl}products/fetch.php?key=3";
   static const getCategories = "${baseUrl}products/fetch.php?key=2";
 
-
   // product api
   static const getProducts = "${baseUrl}products/cat_p.php";
   static const getTopBidders = "${baseUrl}bids/top3.php";
   static const getProductById = "${baseUrl}bids/get_product_data.php";
   static const enrollProduct = "${baseUrl}payment/Enroll.php";
   static const bidProduct = "${baseUrl}bids/newbid.php";
-
   static const getContent = "${baseUrl}InPageApi/pageContent-api.php";
+  static const checkInWishlist = "${baseUrl}wishList/check.php";
+  static const addToWishlist = '${baseUrl}wishList/set.php';
+  static const removeFromWishlist = '${baseUrl}wishList/remove.php';
 
   // Add Product
   static const addProduct = "${baseUrl}products/new_Product.php";

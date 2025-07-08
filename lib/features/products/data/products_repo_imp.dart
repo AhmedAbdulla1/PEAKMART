@@ -10,9 +10,11 @@ import 'package:peakmart/core/results/result.dart';
 import 'package:peakmart/features/products/data/models/request/bid_request.dart';
 import 'package:peakmart/features/products/data/models/request/enroll_request.dart';
 import 'package:peakmart/features/products/data/models/request/pagination_request.dart';
+import 'package:peakmart/features/products/data/models/response/check_wishlist_response.dart';
 import 'package:peakmart/features/products/data/models/response/products_response.dart';
 import 'package:peakmart/features/products/data/models/response/top_bidders_response.dart';
 import 'package:peakmart/features/products/data/products_data_source.dart';
+import 'package:peakmart/features/products/domain/entity/in_wishlist_entity.dart';
 import 'package:peakmart/features/products/domain/entity/prodcuts_entity.dart';
 import 'package:peakmart/features/products/domain/entity/top_bidders_entity.dart';
 import 'package:peakmart/features/products/domain/products_repo.dart';
@@ -122,7 +124,7 @@ class ProductsRepoImp extends ProductsRepo {
       try {
         Either<AppErrors, EmptyResponse> response =
             await _remoteDataSource.enroll(enroll);
-        log('in repo impl ${response.toString()}',name: 'bidProduct');
+        log('in repo impl ${response.toString()}', name: 'bidProduct');
 
         result = response.fold((error) {
           return Result(error: error);
@@ -145,13 +147,37 @@ class ProductsRepoImp extends ProductsRepo {
       try {
         Either<AppErrors, EmptyResponse> response =
             await _remoteDataSource.bid(bid);
-        log('after get res  ${response.toString()}',name: 'bidProductRepo');
+        log('after get res  ${response.toString()}', name: 'bidProductRepo');
         result = response.fold((error) {
           return Result(error: error);
         }, (response) {
           return Result(data: response.toEntity());
         });
       } catch (error) {
+        result = Result(error: const AppErrors.responseError());
+      }
+    } else {
+      result = Result(error: const AppErrors.connectionError());
+    }
+    return result;
+  }
+
+  @override
+  Future<Result<AppErrors, CheckWishlistEntity>> checkProductInWishList(int productId) async {
+    Result<AppErrors, CheckWishlistEntity> result;
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors,CheckWishlistResponse> response =
+            await _remoteDataSource.checkProductInWishlist(productId);
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          log("in repo impl ${response.toString()}");
+          return Result(data: response.toEntity());
+        });
+      } catch (error ,st) {
+        print(st);
+        log("in repo impl ${error.toString()}");
         result = Result(error: const AppErrors.responseError());
       }
     } else {

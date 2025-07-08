@@ -1,5 +1,6 @@
 import 'dart:developer' as log;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -57,7 +58,8 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
       ' hasEndedDatePassed: $hasEndedDatePassed',
       name: 'product_end_date_check',
     );
-    return hasEndedDatePassed || widget.product.status == 'ended' ||
+    return hasEndedDatePassed ||
+        widget.product.status == 'ended' ||
         widget.product.status == 'canceled';
   }
 
@@ -127,6 +129,13 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
     }
   }
 
+  final ValueNotifier<bool> _isFav = ValueNotifier<bool>(false);
+
+  @override
+  void dispose() {
+    _isFav.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final bool isDarkMode = context.isDarkMode;
@@ -153,9 +162,39 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      widget.product.name,
-                      style: getBoldStyle(fontSize: FontSize.s24),
+                    Row(
+                      // crossAxisAlignment: CrossAxisAlignment.c,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            widget.product.name, // Use the actual product name
+                            style: getBoldStyle(fontSize: FontSize.s24),
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            // Use ellipsis for overflow
+                            softWrap:
+                                true, // Ensure wrapping (optional, as it’s true by default)
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        // Replace 8.hGap with SizedBox if not using a custom extension
+                        ValueListenableBuilder<bool>(
+                          valueListenable: _isFav,
+                          builder: (context, isFav, _) => IconButton(
+                            onPressed: () {
+                              _isFav.value = !isFav;
+                            },
+                            icon: CircleAvatar(
+                              backgroundColor: ColorManager.white,
+                              child: Icon(
+                                isFav ? Icons.favorite : Icons.favorite_border,
+                                color: ColorManager.red,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     16.vGap,
                     CustomRichText(
@@ -231,7 +270,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                                     fontSize: FontSize.s20,
                                     color: ColorManager.red,
                                   ),
-                                )
+                                ),
                       ],
                     ),
                     16.vGap,

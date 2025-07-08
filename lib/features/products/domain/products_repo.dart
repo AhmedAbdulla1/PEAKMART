@@ -5,6 +5,7 @@ import 'package:peakmart/core/results/result.dart';
 import 'package:peakmart/features/products/data/models/request/bid_request.dart';
 import 'package:peakmart/features/products/data/models/request/enroll_request.dart';
 import 'package:peakmart/features/products/data/models/request/pagination_request.dart';
+import 'package:peakmart/features/products/domain/entity/in_wishlist_entity.dart';
 import 'package:peakmart/features/products/domain/entity/prodcuts_entity.dart';
 import 'package:peakmart/features/products/domain/entity/top_bidders_entity.dart';
 
@@ -13,6 +14,7 @@ abstract class ProductsRepo {
     required PaginationRequest getProductsPaginationRequest,
   });
   Future<Result<AppErrors, ProductsEntity>> getProductById(int productId);
+  Future<Result<AppErrors, CheckWishlistEntity>> checkProductInWishList(int productId);
   Future<Result<AppErrors, ProductsEntity>> getProductsByCategory(
       int catId, PaginationRequest getProductsPaginationRequest);
   Future<Result<AppErrors, TopBiddersEntity>> getTopBidders(int productId);

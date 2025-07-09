@@ -1,3 +1,4 @@
+// features/profile/presentation/views/settings/settings_view.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/resources/extentions.dart';
@@ -5,6 +6,7 @@ import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/theme/app_theming_cubit/app_theme_cubit.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
+import 'package:peakmart/features/notifications/presentation/state_mang/notifications_cubit.dart';
 import 'package:peakmart/features/profile/presentation/views/settings/custom_switch_list_tile.dart';
 
 class SettingsView extends StatefulWidget {
@@ -16,52 +18,47 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
-  bool isNotificationsActive = false;
-  bool isDarkThemeActive = false;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final themeMode = context.watch<AppThemeCubit>().state;
-    isDarkThemeActive = themeMode == ThemeMode.dark ||
-        (themeMode == ThemeMode.system &&
-            MediaQuery.of(context).platformBrightness == Brightness.dark);
-  }
-
   @override
   Widget build(BuildContext context) {
+    final notificationsCubit = context.read<NotificationsCubit>();
+    final appThemeCubit = context.read<AppThemeCubit>();
+
     return Scaffold(
       appBar: CustomAppBar(title: AppStrings.settings),
       body: Padding(
         padding: const EdgeInsets.all(AppPadding.p16),
         child: Column(
           children: [
-            CustomSwitchListTile(
-              title: AppStrings.notification,
-              leadingIcon: isNotificationsActive
-                  ? Icons.notifications_on_outlined
-                  : Icons.notifications_off_outlined,
-              isActive: isNotificationsActive,
-              onNotificationsChanged: (value) {
-                setState(() {
-                  isNotificationsActive = value;
-                });
+            BlocBuilder<NotificationsCubit, bool>(
+              builder: (context, isNotificationsActive) {
+                return CustomSwitchListTile(
+                  title: AppStrings.notification,
+                  leadingIcon: isNotificationsActive
+                      ? Icons.notifications_on_outlined
+                      : Icons.notifications_off_outlined,
+                  isActive: isNotificationsActive,
+                  onNotificationsChanged: (value) {
+                    notificationsCubit.activeNotifications(value);
+                  },
+                );
               },
             ),
             16.vGap,
             BlocBuilder<AppThemeCubit, ThemeMode>(
               builder: (context, themeMode) {
+                final bool isDarkThemeActive = themeMode == ThemeMode.dark ||
+                    (themeMode == ThemeMode.system &&
+                        MediaQuery.of(context).platformBrightness ==
+                            Brightness.dark);
+
                 return CustomSwitchListTile(
                   title: AppStrings.darkTheme,
                   leadingIcon: Icons.dark_mode_outlined,
                   isActive: isDarkThemeActive,
                   onNotificationsChanged: (value) {
-                    setState(() {
-                      isDarkThemeActive = value;
-                    });
-                    context.read<AppThemeCubit>().changeTheme(
-                          value ? ThemeMode.dark : ThemeMode.light,
-                        );
+                    appThemeCubit.changeTheme(
+                      value ? ThemeMode.dark : ThemeMode.light,
+                    );
                   },
                 );
               },

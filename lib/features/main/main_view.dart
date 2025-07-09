@@ -3,8 +3,10 @@ import 'dart:developer';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
+import 'package:peakmart/core/error_ui/toast.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
@@ -14,6 +16,7 @@ import 'package:peakmart/features/auth/presentation/views/signup_for_bid/view.da
 import 'package:peakmart/features/bid_owner/presentation/views/bid_owner_view.dart';
 import 'package:peakmart/features/home/presentation/views/home_view.dart';
 import 'package:peakmart/features/notifications/data/firebase_cloud_messaging_service.dart';
+import 'package:peakmart/features/notifications/presentation/state_mang/notifications_cubit.dart';
 import 'package:peakmart/features/notifications/presentation/view/notifications_view.dart';
 import 'package:peakmart/features/products/presentation/views/products_view.dart';
 import 'package:peakmart/features/profile/presentation/views/profile/view.dart';
@@ -38,27 +41,32 @@ class _MainViewState extends State<MainView> with TickerProviderStateMixin {
   bool _isNotificationAnimating = false;
 
   void listenNotificationStream() {
-    FirebaseCloudMessagingService.streamController.stream
-        .listen((notificationMessage) async {
-      log('Notification Received: ${notificationMessage.notification?.body}');
-      setState(() {
-        notificationCount++;
-        _isNotificationAnimating = true;
-      });
+    FirebaseCloudMessagingService.streamController.stream.listen(
+      (notificationMessage) async {
+        final isNotificationsActive = context.read<NotificationsCubit>().state;
+        if (!isNotificationsActive) {
+          if (mounted) {
+            Toast.show("Notifications are disabled.",
+                backgroundColor: ColorManager.primary);
+          }
+          return;
+        }
 
-      _animationController.forward(from: 0);
-      await Future.delayed(const Duration(seconds: 1));
-      if (mounted) {
-        setState(() => _isNotificationAnimating = false);
-      }
+        log('Notification Received: ${notificationMessage.notification?.body}');
 
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => NotificationsView(message: notificationMessage),
-      //   ),
-      // );
-    });
+        setState(() {
+          notificationCount++;
+          _isNotificationAnimating = true;
+        });
+
+        _animationController.forward(from: 0);
+        await Future.delayed(const Duration(seconds: 1));
+
+        if (mounted) {
+          setState(() => _isNotificationAnimating = false);
+        }
+      },
+    );
   }
 
   @override
@@ -120,11 +128,12 @@ class _MainViewState extends State<MainView> with TickerProviderStateMixin {
 
   Widget _buildNotificationIcon() {
     final isSelected = _currentIndex == 3;
+    final isNotificationsActive = context.watch<NotificationsCubit>().state;
 
     Widget icon = Icon(
-      notificationCount == 0
-          ? Icons.notifications_off_outlined
-          : Icons.notifications_active_outlined,
+      isNotificationsActive
+          ? Icons.notifications_active_outlined
+          : Icons.notifications_off_outlined,
       size: 28,
       color: isSelected
           ? context.isDarkMode

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
@@ -12,7 +11,7 @@ class CustomSwitchListTile extends StatelessWidget {
     required this.leadingIcon,
     required this.title,
   });
-  final String title;
+  final String? title;
   final IconData leadingIcon;
   final bool isActive;
   final void Function(bool)? onNotificationsChanged;
@@ -23,11 +22,11 @@ class CustomSwitchListTile extends StatelessWidget {
       shadowColor: context.colorScheme.surface,
       elevation: 1,
       child: SwitchListTile(
-          activeColor: ColorManager.primary,
+          activeColor: context.primaryColor,
           splashRadius: 30,
           secondary: Icon(leadingIcon),
           title: Text(
-            title,
+            title ?? "",
             style: getMediumStyle(fontSize: FontSize.s20),
           ),
           value: isActive,

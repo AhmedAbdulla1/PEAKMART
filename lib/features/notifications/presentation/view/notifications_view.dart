@@ -4,7 +4,9 @@ import 'package:peakmart/core/resources/extentions.dart';
 import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
+import 'package:peakmart/features/profile/presentation/views/settings/notification_switch_widget.dart';
 
 class NotificationItem {
   final String title;
@@ -102,6 +104,13 @@ class NotificationsView extends StatelessWidget {
       appBar: const CustomAppBar(
         title: AppStrings.notifications,
         isNotShowArrowBack: true,
+        centerTitle: false,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: NotificationSwitchIconOnly(),
+          ),
+        ],
       ),
       body: ListView.separated(
         padding: const EdgeInsets.all(16),
@@ -112,7 +121,7 @@ class NotificationsView extends StatelessWidget {
           return Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: context.isDarkMode ? Colors.black : Colors.white,
               borderRadius: BorderRadius.circular(16),
               boxShadow: const [
                 BoxShadow(

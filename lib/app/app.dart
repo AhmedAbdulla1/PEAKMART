@@ -8,6 +8,7 @@ import 'package:peakmart/core/resources/routes_manager.dart';
 import 'package:peakmart/core/resources/theme/app_theming_cubit/app_theme_cubit.dart';
 import 'package:peakmart/core/resources/theme/dark_theme_data.dart';
 import 'package:peakmart/core/resources/theme/light_theme_data.dart';
+import 'package:peakmart/features/notifications/presentation/state_mang/notifications_cubit.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();
@@ -29,14 +30,18 @@ class _MyAppState extends State<MyApp> {
     });
     super.didChangeDependencies();
   }
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(390, 844),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context, child) => BlocProvider(
-        create: (context) => AppThemeCubit(),
+      builder: (context, child) => MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => AppThemeCubit()),
+          BlocProvider(create: (context) => NotificationsCubit()),
+        ],
         child: BlocBuilder<AppThemeCubit, ThemeMode>(
           builder: (context, themeMode) {
             return MaterialApp(

@@ -51,4 +51,10 @@ class APIUrls {
   static const String paymentFees = '${baseUrl}payment/paydetails.php';
   static const String confirmPayment = '${baseUrl}payment/confirme_pay.php';
   static const String initiatePayment = '${baseUrl}payment/pay4new.php';
+
+  // notification api
+  static const String getNotifications = '${baseUrl}notifications_service/allnotifications.php';
+  static const String updateNotification = '${baseUrl}notifications_service/update.php';
+  static const String deleteNotification =
+      '${baseUrl}notifications_service/delete.php';
 }

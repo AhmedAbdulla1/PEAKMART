@@ -9,7 +9,7 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   log('Background message: ${message.notification?.title}');
   log('Body : ${message.notification?.body}');
-  log('Payload : ${message.data}');
+  log('notifdction : ${message.toMap()}');
 }
 
 class FirebaseCloudMessagingService {
@@ -38,6 +38,7 @@ class FirebaseCloudMessagingService {
     // Handle foreground messages
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       log('Foreground message: ${message.notification?.title}');
+      log('foreground ${message.toMap()}');
       log("Notification: ${message.data}");
       streamController.add(message);
     //* increase the icon by 1
@@ -60,12 +61,12 @@ class FirebaseCloudMessagingService {
     RemoteMessage? initialMessage = await messaging.getInitialMessage();
     if (initialMessage != null) {
       log(
-        'App opened from terminated state: ${initialMessage.notification?.title}',
+        'App opened from terminated state: ${initialMessage.notification?.title}',name: 'from terminated'
       );
     }
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      log('App opened from background: ${message.notification?.title}');
+      log('App opened from background: ${message.notification?.title}',name: '');
     });
   }
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/features/notifications/presentation/state_mang/notifications_cubit.dart';
+import 'package:peakmart/features/notifications/presentation/state_m/notifications_cubit.dart';
 import 'package:peakmart/features/profile/presentation/views/settings/custom_switch_list_tile.dart';
 
 // tile with icon and title

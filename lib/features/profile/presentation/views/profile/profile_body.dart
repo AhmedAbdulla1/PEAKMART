@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
@@ -7,6 +8,7 @@ import 'package:peakmart/core/resources/font_manager.dart';
 import 'package:peakmart/core/resources/style_manager.dart';
 import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
+import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
 import 'package:peakmart/features/profile/domain/enitiy/user_info_entity.dart';
 import 'package:peakmart/features/profile/presentation/state_m/profile/cubit.dart';
@@ -185,14 +187,26 @@ class ProfileScreen extends StatelessWidget {
                   Positioned(
                     top: 0,
                     child: CircleAvatar(
-                      radius: screenWidth * 0.15,
-                      backgroundColor: ColorManager.white,
-                      child: CircleAvatar(
-                        radius: screenWidth * 0.15 - 5,
-                        backgroundImage: NetworkImage(userinfo.photo),
-                        backgroundColor: ColorManager.primary,
-                      ),
-                    ),
+                        radius: screenWidth * 0.15,
+                        backgroundColor: ColorManager.white,
+                        child: CircleAvatar(
+                          radius: screenWidth * 0.15 - 5,
+                          backgroundColor: ColorManager.primary,
+                          child: ClipOval(
+                            child: CachedNetworkImage(
+                              imageUrl: userinfo.photo,
+                              placeholder: (context, url) =>const  WaitingWidget(),
+                              errorWidget: (context, url, error) => Icon(
+                                Icons.person,
+                                size: screenWidth * 0.15,
+                                color: Colors.white,
+                              ),
+                              fit: BoxFit.cover,
+                              width: screenWidth * 0.3,
+                              height: screenWidth * 0.3,
+                            ),
+                          ),
+                        )),
                   ),
                 ],
               ),

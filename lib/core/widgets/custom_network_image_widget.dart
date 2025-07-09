@@ -1,7 +1,6 @@
 // import 'package:cached_network_image/cached_network_image.dart';
 // import 'package:flutter/material.dart';
 // import 'package:peakmart/core/resources/color_manager.dart';
-// import 'package:shimmer/shimmer.dart';
 //
 // class CustomNetworkImageWidget extends StatelessWidget {
 //   final String? imgPath;

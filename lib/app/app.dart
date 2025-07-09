@@ -8,7 +8,7 @@ import 'package:peakmart/core/resources/routes_manager.dart';
 import 'package:peakmart/core/resources/theme/app_theming_cubit/app_theme_cubit.dart';
 import 'package:peakmart/core/resources/theme/dark_theme_data.dart';
 import 'package:peakmart/core/resources/theme/light_theme_data.dart';
-import 'package:peakmart/features/notifications/presentation/state_mang/notifications_cubit.dart';
+import 'package:peakmart/features/notifications/presentation/state_m/notifications_cubit.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();

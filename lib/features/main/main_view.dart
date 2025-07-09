@@ -16,7 +16,7 @@ import 'package:peakmart/features/auth/presentation/views/signup_for_bid/view.da
 import 'package:peakmart/features/bid_owner/presentation/views/bid_owner_view.dart';
 import 'package:peakmart/features/home/presentation/views/home_view.dart';
 import 'package:peakmart/features/notifications/data/firebase_cloud_messaging_service.dart';
-import 'package:peakmart/features/notifications/presentation/state_mang/notifications_cubit.dart';
+import 'package:peakmart/features/notifications/presentation/state_m/notifications_cubit.dart';
 import 'package:peakmart/features/notifications/presentation/view/notifications_view.dart';
 import 'package:peakmart/features/products/presentation/views/products_view.dart';
 import 'package:peakmart/features/profile/presentation/views/profile/view.dart';

@@ -35,7 +35,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDySfX1lMgwJqgptq44BrdwEAuUOsGj_jQ"/>
-
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_launcher" />
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />

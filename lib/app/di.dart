@@ -11,6 +11,8 @@ import 'package:peakmart/features/bid_owner/data/owner_repo_imp.dart';
 import 'package:peakmart/features/bid_owner/domain/repository/owner_repo.dart';
 import 'package:peakmart/features/home/data/home_repo_imp.dart';
 import 'package:peakmart/features/home/domain/home_repo.dart';
+import 'package:peakmart/features/notifications/data/notification_repo_imp.dart';
+import 'package:peakmart/features/notifications/domain/notification_repository.dart';
 import 'package:peakmart/features/payment/data/datasources/remote_payment_datasource.dart';
 import 'package:peakmart/features/payment/data/repositories/payment_repository_impl.dart';
 import 'package:peakmart/features/payment/domain/repositories/payment_repository.dart';
@@ -86,6 +88,12 @@ Future<void> initAppModule() async {
   //     instance<NotificationRepository>(),
   //   ),
   // );
+}
+void intNotificationModule() {
+  if (!GetIt.I.isRegistered<NotificationRepo>()) {
+    instance.registerLazySingleton<NotificationRepo>(
+        () => NotificationRepoImp());
+  }
 }
 
 void initPaymentModule() {

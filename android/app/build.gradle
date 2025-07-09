@@ -45,3 +45,7 @@ android {
 flutter {
     source = "../.."
 }
+dependencies {
+    implementation 'com.google.firebase:firebase-messaging:24.0.3' // Use the latest version
+    implementation 'com.google.firebase:firebase-installations:17.2.0' // Ensure FIS is included
+}

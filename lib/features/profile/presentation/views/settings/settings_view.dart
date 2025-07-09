@@ -6,7 +6,7 @@ import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/theme/app_theming_cubit/app_theme_cubit.dart';
 import 'package:peakmart/core/resources/values_manager.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
-import 'package:peakmart/features/notifications/presentation/state_mang/notifications_cubit.dart';
+import 'package:peakmart/features/notifications/presentation/state_m/notifications_cubit.dart';
 import 'package:peakmart/features/profile/presentation/views/settings/custom_switch_list_tile.dart';
 
 class SettingsView extends StatefulWidget {

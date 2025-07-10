@@ -7,6 +7,7 @@ import 'package:peakmart/core/error_ui/toast.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/widgets/waiting_widget.dart';
 import 'package:peakmart/features/notifications/data/firebase_cloud_messaging_service.dart';
+import 'package:peakmart/features/notifications/data/local_notification_service.dart';
 import 'package:peakmart/features/notifications/domain/notification_enitity.dart';
 import 'package:peakmart/features/notifications/presentation/state_m/notification_cubit.dart';
 import 'package:peakmart/features/notifications/presentation/state_m/notification_state.dart';
@@ -53,6 +54,11 @@ class _NotificationsViewState extends State<NotificationsView>
           _fcmNotifications.insert(0, notificationMessage);
           log("📥 New notification added: ${notificationMessage.title}");
         });
+        LocalNotificationService.showBasicNotification(
+          id: 0,
+          title: notificationMessage.title ?? 'Notification',
+          body: notificationMessage.description ?? '',
+        );
       },
     );
   }

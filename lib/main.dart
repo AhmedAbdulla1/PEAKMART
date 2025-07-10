@@ -14,6 +14,7 @@ import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/resources/language_manager.dart';
 import 'package:peakmart/features/notifications/data/firebase_cloud_messaging_service.dart';
+import 'package:peakmart/features/notifications/data/local_notification_service.dart';
 import 'package:peakmart/firebase_options.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
@@ -29,6 +30,8 @@ void main() async {
   );
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await FirebaseCloudMessagingService.initialize();
+  await LocalNotificationService.initLocalNotifications();
+
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await initAppModule();
   await EasyLocalization.ensureInitialized();

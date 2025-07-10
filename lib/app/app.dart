@@ -58,7 +58,7 @@ class _MyAppState extends State<MyApp> {
               themeMode: themeMode,
               theme: getLightTheme(),
               darkTheme: getDarkTheme(),
-              title: 'Peakmart',
+              title: 'Bid Mart',
               initialRoute: Routes.root,
               onGenerateRoute: RouteGenerator.getRoute,
             );

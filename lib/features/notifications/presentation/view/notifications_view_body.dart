@@ -31,12 +31,9 @@ class NotificationsViewBody extends StatelessWidget {
       ),
       body: notifications.isEmpty
           ? Center(
-              child: Text(
-                "You don't have any notifications currently.",
-                textAlign: TextAlign.center,
-                style: getBoldStyle(fontSize: FontSize.s18).copyWith(
-                    color: Theme.of(context).textTheme.bodyLarge?.color),
-              ),
+              child: Text("You don't have any notifications currently.",
+                  textAlign: TextAlign.center,
+                  style: getBoldStyle(fontSize: FontSize.s22)),
             )
           : RefreshIndicator(
               onRefresh: () {
@@ -46,8 +43,7 @@ class NotificationsViewBody extends StatelessWidget {
               child: ListView.separated(
                 padding: const EdgeInsets.all(16),
                 itemCount: notifications.length,
-                separatorBuilder: (_, __) =>
-                    const SizedBox(height: 10),
+                separatorBuilder: (_, __) => const SizedBox(height: 10),
                 itemBuilder: (context, index) {
                   final item = notifications[index];
                   final isSeen = item.seen == "1";

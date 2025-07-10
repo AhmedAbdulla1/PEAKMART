@@ -115,11 +115,9 @@ class _MainViewState extends State<MainView> {
                 ),
                 child: Text(
                   '$_unseenCount',
-                
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 14,
-                  
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -143,7 +141,6 @@ class _MainViewState extends State<MainView> {
       HomeView(onCategorySelected: _onCategorySelected),
       ProductsView(categoryId: _selectedCategoryId),
       const BidOwnerView(),
-      const NotificationsView(),
       const NotificationsView(),
       const SummaryProfileScreen(),
     ];

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -20,52 +21,77 @@ class NotificationsView extends StatefulWidget {
   State<NotificationsView> createState() => _NotificationsViewState();
 }
 
-class _NotificationsViewState extends State<NotificationsView> {
-  List<NotificationEntity> notifications = [];
+class _NotificationsViewState extends State<NotificationsView>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
 
-  void listenNotificationStream() {
-    FirebaseCloudMessagingService.streamController.stream.listen(
-      (notificationMessage) async {
+  final List<NotificationEntity> _apiNotifications = [];
+  final List<NotificationEntity> _fcmNotifications = [];
+
+  late final StreamSubscription<NotificationEntity> _fcmSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<NotificationCubit>().fetchNotifications();
+
+    // Listen to FCM stream
+    _fcmSubscription =
+        FirebaseCloudMessagingService.streamController.stream.listen(
+      (notificationMessage) {
         final isNotificationsActive = context.read<NotificationsCubit>().state;
+
         if (!isNotificationsActive) {
-          if (mounted) {
-            Toast.show("Notifications are disabled.",
-                backgroundColor: ColorManager.primary);
-          }
+          Toast.show("Notifications are disabled.",
+              backgroundColor: ColorManager.primary);
           return;
         }
 
-        log('Notification Received: ${notificationMessage.notification?.body}');
-
         setState(() {
-          notifications.add(notificationMessage);
+          _fcmNotifications.insert(0, notificationMessage);
+          log("📥 New notification added: ${notificationMessage.title}");
         });
       },
     );
   }
 
   @override
-  Widget build(BuildContext context) {
-    context.read<NotificationCubit>().fetchNotifications();
+  void dispose() {
+    _fcmSubscription.cancel();
+    super.dispose();
+  }
 
+  List<NotificationEntity> get allNotifications => [
+        ..._fcmNotifications,
+        ..._apiNotifications.where(
+          (api) => !_fcmNotifications.any((fcm) => fcm.id == api.id),
+        ),
+      ];
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
     return BlocConsumer<NotificationCubit, NotificationsState>(
       listener: (context, state) {
-        if (state is NotificationsError) {
-          Toast.show("Failed to load notifications");
-        }
         if (state is NotificationsLoaded) {
-          log("Unseen Count in listener: ${state.unseenCount}");
+          setState(() {
+            _apiNotifications
+              ..clear()
+              ..addAll(state.notifications);
+          });
+        } else if (state is NotificationsError) {
+          Toast.show("Failed to load notifications");
         }
       },
       builder: (context, state) {
-        if (state is NotificationsLoading) {
+        if (state is NotificationsLoading && allNotifications.isEmpty) {
           return const WaitingWidget();
-        } else if (state is NotificationsLoaded) {
-          notifications = state.notifications;
-          log("In Notification View Notifications list: $notifications");
-          return NotificationsViewBody(notifications: state.notifications);
+        } else if (allNotifications.isNotEmpty) {
+          return NotificationsViewBody(notifications: allNotifications);
         } else if (state is NotificationsError) {
-          return const Center(child: const Text("Something went wrong 😢"));
+          return const Center(child: Text("Something went wrong 😢"));
         } else {
           return const SizedBox.shrink();
         }

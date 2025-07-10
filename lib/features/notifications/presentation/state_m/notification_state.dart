@@ -2,13 +2,13 @@
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/features/notifications/domain/notification_enitity.dart';
 
-abstract class NotificationState {}
+abstract class NotificationsState {}
 
-class NotificationInitial extends NotificationState {}
+class NotificationsInitial extends NotificationsState {}
 
-class NotificationLoading extends NotificationState {}
+class NotificationsLoading extends NotificationsState {}
 
-class NotificationsLoaded extends NotificationState {
+class NotificationsLoaded extends NotificationsState {
   final List<NotificationEntity> notifications;
   final int unseenCount;
 
@@ -18,15 +18,15 @@ class NotificationsLoaded extends NotificationState {
   });
 }
 
-class NotificationActionSuccess extends NotificationState {
+class NotificationsActionSuccess extends NotificationsState {
   final String message;
 
-  NotificationActionSuccess({required this.message});
+  NotificationsActionSuccess({required this.message});
 }
 
-class NotificationError extends NotificationState {
+class NotificationsError extends NotificationsState {
   final CustomError error;
   final Function()? onRetry;
 
-  NotificationError({required this.error, this.onRetry});
+  NotificationsError({required this.error, this.onRetry});
 }

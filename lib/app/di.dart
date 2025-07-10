@@ -13,6 +13,7 @@ import 'package:peakmart/features/home/data/home_repo_imp.dart';
 import 'package:peakmart/features/home/domain/home_repo.dart';
 import 'package:peakmart/features/notifications/data/notification_repo_imp.dart';
 import 'package:peakmart/features/notifications/domain/notification_repository.dart';
+import 'package:peakmart/features/notifications/presentation/state_m/notification_cubit.dart';
 import 'package:peakmart/features/payment/data/datasources/remote_payment_datasource.dart';
 import 'package:peakmart/features/payment/data/repositories/payment_repository_impl.dart';
 import 'package:peakmart/features/payment/domain/repositories/payment_repository.dart';
@@ -91,10 +92,16 @@ Future<void> initAppModule() async {
 }
 void intNotificationModule() {
   if (!GetIt.I.isRegistered<NotificationRepo>()) {
-    instance.registerLazySingleton<NotificationRepo>(
-        () => NotificationRepoImp());
+    instance.registerLazySingleton<NotificationRepo>(() => NotificationRepoImp());
+  }
+
+  if (!GetIt.I.isRegistered<NotificationCubit>()) {
+    instance.registerFactory<NotificationCubit>(
+      () => NotificationCubit(instance<NotificationRepo>()),
+    );
   }
 }
+
 
 void initPaymentModule() {
   if (!GetIt.I.isRegistered<PaymentRepository>()) {

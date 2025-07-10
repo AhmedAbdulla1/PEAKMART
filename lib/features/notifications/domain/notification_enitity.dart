@@ -7,7 +7,7 @@ class NotificationEntity extends BaseEntity {
   final String? icon;
   final int userId;
   final String description;
-  bool seen;
+  String seen;
   final String? url;
   final String createdAt;
 

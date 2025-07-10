@@ -1,12 +1,8 @@
-import 'dart:developer';
-
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
-import 'package:peakmart/core/error_ui/toast.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
 import 'package:peakmart/core/resources/string_manager.dart';
 import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
@@ -15,9 +11,9 @@ import 'package:peakmart/features/auth/presentation/views/signup_for_bid/hold_sc
 import 'package:peakmart/features/auth/presentation/views/signup_for_bid/view.dart';
 import 'package:peakmart/features/bid_owner/presentation/views/bid_owner_view.dart';
 import 'package:peakmart/features/home/presentation/views/home_view.dart';
-import 'package:peakmart/features/notifications/data/firebase_cloud_messaging_service.dart';
+import 'package:peakmart/features/notifications/presentation/state_m/notification_cubit.dart';
 import 'package:peakmart/features/notifications/presentation/state_m/notifications_cubit.dart';
-import 'package:peakmart/features/notifications/presentation/view/notifications_view.dart';
+import 'package:peakmart/features/notifications/presentation/view/notification_view.dart';
 import 'package:peakmart/features/products/presentation/views/products_view.dart';
 import 'package:peakmart/features/profile/presentation/views/profile/view.dart';
 
@@ -33,74 +29,22 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> with TickerProviderStateMixin {
   int _currentIndex = 0;
   int? _selectedCategoryId;
-  int notificationCount = 0;
-
-  late final AnimationController _animationController;
-  late final Animation<double> _shakeAnimation;
-
-  bool _isNotificationAnimating = false;
-
-  void listenNotificationStream() {
-    FirebaseCloudMessagingService.streamController.stream.listen(
-      (notificationMessage) async {
-        final isNotificationsActive = context.read<NotificationsCubit>().state;
-        if (!isNotificationsActive) {
-          if (mounted) {
-            Toast.show("Notifications are disabled.",
-                backgroundColor: ColorManager.primary);
-          }
-          return;
-        }
-
-        log('Notification Received: ${notificationMessage.notification?.body}');
-
-        setState(() {
-          notificationCount++;
-          _isNotificationAnimating = true;
-        });
-
-        _animationController.forward(from: 0);
-        await Future.delayed(const Duration(seconds: 1));
-
-        if (mounted) {
-          setState(() => _isNotificationAnimating = false);
-        }
-      },
-    );
-  }
+  final int _unseenCount = 0;
 
   @override
   void initState() {
-    _currentIndex = widget.currentPageIndex;
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 800),
-    );
-
-    _shakeAnimation = Tween<double>(begin: 0, end: 8).animate(
-      CurvedAnimation(parent: _animationController, curve: Curves.elasticOut),
-    )..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          _animationController.reverse();
-        }
-      });
-
-    listenNotificationStream();
     super.initState();
-  }
 
-  @override
-  void dispose() {
-    FirebaseCloudMessagingService.streamController.close();
-    _animationController.dispose();
-    super.dispose();
+    _currentIndex = widget.currentPageIndex;
+
+    final notificationCubit = context.read<NotificationCubit>();
+    notificationCubit.fetchNotifications();
   }
 
   void _onTabSelected(int index) {
     setState(() {
       _currentIndex = index;
       if (index == 1) _selectedCategoryId = null;
-      if (index == 3) notificationCount = 0;
     });
   }
 
@@ -144,24 +88,11 @@ class _MainViewState extends State<MainView> with TickerProviderStateMixin {
               : ColorManager.black,
     );
 
-    if (_isNotificationAnimating) {
-      icon = AnimatedBuilder(
-        animation: _shakeAnimation,
-        builder: (context, child) {
-          return Transform.translate(
-            offset: Offset(_shakeAnimation.value, 0),
-            child: child,
-          );
-        },
-        child: icon,
-      );
-    }
-
     return Stack(
       clipBehavior: Clip.none,
       children: [
         Center(child: icon),
-        if (notificationCount > 0 && !isSelected)
+        if (_unseenCount > 0 && !isSelected)
           Positioned(
             right: -6,
             top: -4,
@@ -172,10 +103,10 @@ class _MainViewState extends State<MainView> with TickerProviderStateMixin {
                 shape: BoxShape.circle,
               ),
               child: Text(
-                '$notificationCount',
+                '$_unseenCount',
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 10,
+                  fontSize: 14,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -199,7 +130,7 @@ class _MainViewState extends State<MainView> with TickerProviderStateMixin {
       HomeView(onCategorySelected: _onCategorySelected),
       ProductsView(categoryId: _selectedCategoryId),
       const BidOwnerView(),
-      NotificationsView(message: const RemoteMessage()),
+      const NotificationsView(),
       const SummaryProfileScreen(),
     ];
   }

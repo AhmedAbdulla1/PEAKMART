@@ -4,10 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart' as di;
+import 'package:peakmart/app/di.dart';
 import 'package:peakmart/core/resources/routes_manager.dart';
 import 'package:peakmart/core/resources/theme/app_theming_cubit/app_theme_cubit.dart';
 import 'package:peakmart/core/resources/theme/dark_theme_data.dart';
 import 'package:peakmart/core/resources/theme/light_theme_data.dart';
+import 'package:peakmart/features/notifications/presentation/state_m/notification_cubit.dart';
 import 'package:peakmart/features/notifications/presentation/state_m/notifications_cubit.dart';
 
 class MyApp extends StatefulWidget {
@@ -41,6 +43,9 @@ class _MyAppState extends State<MyApp> {
         providers: [
           BlocProvider(create: (context) => AppThemeCubit()),
           BlocProvider(create: (context) => NotificationsCubit()),
+          BlocProvider(
+            create: (context) => instance<NotificationCubit>(),
+          )
         ],
         child: BlocBuilder<AppThemeCubit, ThemeMode>(
           builder: (context, themeMode) {

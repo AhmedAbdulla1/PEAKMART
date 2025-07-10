@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:peakmart/app/app.dart';
-import 'package:peakmart/features/products/presentation/views/product_details/product_details_view.dart';
 import 'package:peakmart/features/notifications/data/local_notification_service.dart';
 import 'package:peakmart/features/notifications/domain/notification_enitity.dart';
 
@@ -94,15 +94,13 @@ class FirebaseCloudMessagingService {
     final navigator = MyApp.navigatorKey.currentState;
     if (navigator == null) return;
 
-    final productIdString = message.data['product_id'];
-    final productId = int.tryParse(productIdString ?? '') ?? 0;
+    // final routeName = message.data['route_name'];
 
     navigator.pushNamed(
-      ProductDetails.routeName,
-      arguments: productId,
+      '/signUpForBid',
+      arguments: message.data['arg'] ?? {},
     );
   }
-
 
   static Future<void> subscribeToTopic(String topic) async {
     await messaging.subscribeToTopic(topic);

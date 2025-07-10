@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
       splitScreenMode: true,
       builder: (context, child) => MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => AppThemeCubit()),
+          BlocProvider(create: (context) => AppThemeCubit(),),
           BlocProvider(create: (context) => NotificationsCubit()),
           BlocProvider(
             create: (context) => instance<NotificationCubit>(),

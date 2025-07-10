@@ -11,8 +11,6 @@ import 'package:peakmart/features/auth/data/model/request/register_request.dart'
 import 'package:peakmart/features/auth/presentation/shared_widgets/account_creation_or_login_prompt.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/cutom_elevated_button.dart';
 import 'package:peakmart/features/auth/presentation/state_mang/register_cubit.dart/register_cubit.dart';
-import 'package:peakmart/features/auth/presentation/state_mang/social_sign_in_cubit/social_sign_in_cubit.dart';
-import 'package:peakmart/features/auth/presentation/views/login/widgets/other_login_ways.dart';
 import 'package:peakmart/features/auth/presentation/views/sign_up/sign_up_functions.dart';
 import 'package:peakmart/features/auth/presentation/views/sign_up/widgets/register_agreement_text.dart';
 import 'package:peakmart/features/auth/presentation/views/sign_up/widgets/sign_up_user_accept_data.dart';
@@ -128,12 +126,7 @@ class _SignUpBuildWidgetsState extends State<SignUpBuildWidgets> {
                 );
               },
             ),
-            60.vGap,
-            BlocProvider(
-              create: (context) => SignInWithSocialCubit(),
-              child: const OtherLoginWays(),
-            ),
-            15.vGap,
+            20.vGap,
             AccountCreationOrLoginPrompt(
               text: AppStrings.alreadyHaveAnAccount,
               textButton: AppStrings.login,

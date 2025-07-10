@@ -14,11 +14,8 @@ import 'package:peakmart/core/shared_widgets/buttons.dart';
 import 'package:peakmart/core/shared_widgets/text_fields.dart';
 import 'package:peakmart/features/auth/presentation/shared_widgets/account_creation_or_login_prompt.dart';
 import 'package:peakmart/features/auth/presentation/state_mang/login_cubit/cubit.dart';
-import 'package:peakmart/features/auth/presentation/state_mang/social_sign_in_cubit/social_sign_in_cubit.dart';
 import 'package:peakmart/features/auth/presentation/views/login/login_view_model.dart';
-import 'package:peakmart/features/auth/presentation/views/login/widgets/other_login_ways.dart';
 import 'package:peakmart/features/auth/presentation/views/reset_password/forget_password_view.dart';
-import 'package:peakmart/features/bid_owner/presentation/state_mang/add_product_cubit/add_product_cubit.dart';
 import 'package:peakmart/features/main/main_view.dart';
 
 class LogInView extends StatefulWidget {
@@ -138,11 +135,6 @@ class _LogInViewState extends State<LogInView> {
                     password: _passwordController.text.trim(),
                   );
                 },
-              ),
-              35.vGap,
-              BlocProvider(
-                create: (context) => SignInWithSocialCubit(),
-                child: const OtherLoginWays(),
               ),
               20.vGap,
               AccountCreationOrLoginPrompt(

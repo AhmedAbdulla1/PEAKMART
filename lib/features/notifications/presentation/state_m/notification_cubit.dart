@@ -10,33 +10,34 @@ import 'package:peakmart/features/notifications/domain/notification_enitity.dart
 import 'package:peakmart/features/notifications/domain/notification_repository.dart';
 import 'package:peakmart/features/notifications/presentation/state_m/notification_state.dart';
 
-class NotificationCubit extends Cubit<NotificationState> {
-  NotificationCubit(this.notificationRepo) : super(NotificationInitial());
+class NotificationCubit extends Cubit<NotificationsState> {
+  NotificationCubit(this.notificationRepo) : super(NotificationsInitial());
 
   final NotificationRepo notificationRepo;
 
   Future<void> fetchNotifications() async {
-    emit(NotificationLoading());
+    emit(NotificationsLoading());
     try {
       Result<AppErrors, NotificationsEntity> result =
           await notificationRepo.getNotifications();
 
       result.pick(
         onData: (data) {
+          log("Notifications Data in Cubit: ${data.notifications}");
           emit(NotificationsLoaded(
             notifications: data.notifications,
             unseenCount: data.unseenCount,
           ));
         },
         onError: (error) {
-          emit(NotificationError(
+          emit(NotificationsError(
             error: CustomError(message: error.toString()),
             onRetry: () => fetchNotifications(),
           ));
         },
       );
     } catch (e) {
-      emit(NotificationError(
+      emit(NotificationsError(
         error: CustomError(message: e.toString()),
         onRetry: () => fetchNotifications(),
       ));
@@ -44,7 +45,7 @@ class NotificationCubit extends Cubit<NotificationState> {
   }
 
   Future<void> markAsRead(int notificationId) async {
-    emit(NotificationLoading());
+    emit(NotificationsLoading());
     try {
       Result<AppErrors, EmptyEntity> result =
           await notificationRepo.updateNotification(
@@ -64,7 +65,7 @@ class NotificationCubit extends Cubit<NotificationState> {
                   icon: notification.icon,
                   userId: notification.userId,
                   description: notification.description,
-                  seen: true,
+                  seen: "1",
                   url: notification.url,
                   createdAt: notification.createdAt,
                 );
@@ -78,20 +79,20 @@ class NotificationCubit extends Cubit<NotificationState> {
               notifications: updatedNotifications,
               unseenCount: newUnseenCount,
             ));
-            emit(NotificationActionSuccess(message: data.message));
+            emit(NotificationsActionSuccess(message: data.message));
           } else {
             fetchNotifications();
           }
         },
         onError: (error) {
-          emit(NotificationError(
+          emit(NotificationsError(
             error: CustomError(message: error.toString()),
             onRetry: () => markAsRead(notificationId),
           ));
         },
       );
     } catch (e) {
-      emit(NotificationError(
+      emit(NotificationsError(
         error: CustomError(message: e.toString()),
         onRetry: () => markAsRead(notificationId),
       ));
@@ -99,7 +100,7 @@ class NotificationCubit extends Cubit<NotificationState> {
   }
 
   Future<void> deleteNotification(int notificationId) async {
-    emit(NotificationLoading());
+    emit(NotificationsLoading());
     try {
       Result<AppErrors, EmptyEntity> result =
           await notificationRepo.deleteNotification(
@@ -124,20 +125,20 @@ class NotificationCubit extends Cubit<NotificationState> {
               notifications: updatedNotifications,
               unseenCount: newUnseenCount,
             ));
-            emit(NotificationActionSuccess(message: data.message));
+            emit(NotificationsActionSuccess(message: data.message));
           } else {
             fetchNotifications();
           }
         },
         onError: (error) {
-          emit(NotificationError(
+          emit(NotificationsError(
             error: CustomError(message: error.toString()),
             onRetry: () => deleteNotification(notificationId),
           ));
         },
       );
     } catch (e) {
-      emit(NotificationError(
+      emit(NotificationsError(
         error: CustomError(message: e.toString()),
         onRetry: () => deleteNotification(notificationId),
       ));

@@ -1,5 +1,4 @@
 //
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
@@ -14,7 +13,7 @@ import 'package:peakmart/features/bid_owner/data/models/request/add_product_requ
 import 'package:peakmart/features/bid_owner/presentation/views/add_product_details.dart';
 import 'package:peakmart/features/bid_owner/presentation/views/bid_owner_view.dart';
 import 'package:peakmart/features/main/main_view.dart';
-import 'package:peakmart/features/notifications/presentation/view/notifications_view.dart';
+import 'package:peakmart/features/notifications/presentation/view/notification_view.dart';
 import 'package:peakmart/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:peakmart/features/products/presentation/views/auction_rules_view.dart';
 import 'package:peakmart/features/products/presentation/views/privacy_and_policy_view.dart';
@@ -119,9 +118,7 @@ class RouteGenerator {
         );
       case NotificationsView.routeName:
         return MaterialPageRoute(
-          builder: (_) => NotificationsView(
-            message: const RemoteMessage(),
-          ),
+          builder: (_) => const NotificationsView(),
           settings: const RouteSettings(name: NotificationsView.routeName),
         );
 

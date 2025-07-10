@@ -36,6 +36,8 @@ class _MainViewState extends State<MainView> {
   void initState() {
     super.initState();
 
+    super.initState();
+
     _currentIndex = widget.currentPageIndex;
 
     final notificationCubit = context.read<NotificationCubit>();
@@ -96,44 +98,33 @@ class _MainViewState extends State<MainView> {
               ? ColorManager.white
               : ColorManager.black,
     );
-
-    // if (_isNotificationAnimating) {
-    //   icon = AnimatedBuilder(
-    //     animation: _shakeAnimation,
-    //     builder: (context, child) {
-    //       return Transform.translate(
-    //         offset: Offset(_shakeAnimation.value, 0),
-    //         child: child,
-    //       );
-    //     },
-    //     child: icon,
-    //   );
-    // }
-
     return Stack(
       clipBehavior: Clip.none,
       children: [
         Center(child: icon),
         if (_unseenCount > 0 && !isSelected)
-          Positioned(
-            right: -6,
-            top: -4,
-            child: Container(
-              padding: const EdgeInsets.all(3),
-              decoration: const BoxDecoration(
-                color: Colors.red,
-                shape: BoxShape.circle,
-              ),
-              child: Text(
-                '$_unseenCount',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
+          if (_unseenCount > 0 && !isSelected)
+            Positioned(
+              right: -6,
+              top: -4,
+              child: Container(
+                padding: const EdgeInsets.all(3),
+                decoration: const BoxDecoration(
+                  color: Colors.red,
+                  shape: BoxShape.circle,
+                ),
+                child: Text(
+                  '$_unseenCount',
+                
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                  
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-          ),
       ],
     );
   }
@@ -152,6 +143,7 @@ class _MainViewState extends State<MainView> {
       HomeView(onCategorySelected: _onCategorySelected),
       ProductsView(categoryId: _selectedCategoryId),
       const BidOwnerView(),
+      const NotificationsView(),
       const NotificationsView(),
       const SummaryProfileScreen(),
     ];

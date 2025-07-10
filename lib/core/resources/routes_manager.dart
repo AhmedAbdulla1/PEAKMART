@@ -19,6 +19,10 @@ import 'package:peakmart/features/products/presentation/views/auction_rules_view
 import 'package:peakmart/features/products/presentation/views/privacy_and_policy_view.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/product_details_view.dart';
 import 'package:peakmart/features/profile/domain/enitiy/user_info_entity.dart';
+import 'package:peakmart/features/profile/presentation/views/Information%20Center/about_us_view.dart';
+import 'package:peakmart/features/profile/presentation/views/Information%20Center/contact_us_view.dart';
+import 'package:peakmart/features/profile/presentation/views/Information%20Center/exchange__return_policy_view.dart';
+import 'package:peakmart/features/profile/presentation/views/Information%20Center/privacy_policy_view.dart';
 import 'package:peakmart/features/profile/presentation/views/balance/balance_view.dart';
 import 'package:peakmart/features/profile/presentation/views/personal_inof/personal_inof_screen.dart';
 import 'package:peakmart/features/profile/presentation/views/settings/settings_view.dart';
@@ -167,7 +171,27 @@ class RouteGenerator {
           settings:
               const RouteSettings(name: PersonalInformationView.routeName),
         );
-
+      case ContactUsView.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const ContactUsView(),
+          settings: const RouteSettings(name: ContactUsView.routeName),
+        );
+      case AboutUsView.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const AboutUsView(),
+          settings: const RouteSettings(name: AboutUsView.routeName),
+        );
+      case PrivacyPolicyView.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const PrivacyPolicyView(),
+          settings: const RouteSettings(name: PrivacyPolicyView.routeName),
+        );
+      case ExchangeReturnPolicyView.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const ExchangeReturnPolicyView(),
+          settings:
+              const RouteSettings(name: ExchangeReturnPolicyView.routeName),
+        );
       case SettingsView.routeName:
         return MaterialPageRoute(
           builder: (_) => const SettingsView(),

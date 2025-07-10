@@ -195,7 +195,8 @@ class ProfileScreen extends StatelessWidget {
                           child: ClipOval(
                             child: CachedNetworkImage(
                               imageUrl: userinfo.photo,
-                              placeholder: (context, url) =>const  WaitingWidget(),
+                              placeholder: (context, url) =>
+                                  const WaitingWidget(),
                               errorWidget: (context, url, error) => Icon(
                                 Icons.person,
                                 size: screenWidth * 0.15,

@@ -85,7 +85,7 @@ class ProfileDataSource extends RemoteDataSource {
       converter: (json) {
         return EmptyResponse.fromJson(json);
       },
-      url: APIUrls.cancleUserProduct,
+      url: APIUrls.cancelUserProduct,
       
     );
   }
@@ -158,6 +158,22 @@ class ProfileDataSource extends RemoteDataSource {
       },
       isFormData: true,
       url: APIUrls.updateUserImage,
+    );
+  }
+  Future<Either<AppErrors, EmptyResponse>> logout() async {
+    final AppPreferences appPreferences = instance<AppPreferences>();
+    String cookieString = appPreferences.getCookies().join(';');
+    cookieString +="HK=290;" ;
+    print('cookie string $cookieString');
+    return request<EmptyResponse>(
+      method: HttpMethod.GET,
+      responseValidator: DefaultResponseValidator(),
+      converter: (json) {
+        print('inconverter $json');
+        return EmptyResponse.fromJson(json);
+      },
+      headers: {"cookie": cookieString},
+      url: APIUrls.logout,
     );
   }
 }

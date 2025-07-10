@@ -1,0 +1,2 @@
+C:/Users/ahmed/StudioProjects/PEAKMART/android/app/.cxx/Debug/3q3c13d1/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/ahmed/StudioProjects/PEAKMART/android/app/.cxx/Debug/3q3c13d1/arm64-v8a/CMakeFiles/rebuild_cache.dir

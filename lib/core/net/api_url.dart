@@ -21,7 +21,9 @@ class APIUrls {
   static const getProductsWishlist = "${baseUrl}wishList/get.php";
   static const updateUserInfo = "${baseUrl}data/update_info.php";
   static const updateUserImage = "${baseUrl}data/change_photo.php";
-  static const cancleUserProduct = "${baseUrl}data/p_status.php";
+  static const cancelUserProduct = "${baseUrl}data/p_status.php";
+  static const logout = "${baseUrl}login_API/logout.php";
+
 
   // home api
   static const getNews = "${baseUrl}InPageApi/news-api.php";

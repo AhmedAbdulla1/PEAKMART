@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:peakmart/app/app.dart';
+import 'package:peakmart/features/products/presentation/views/product_details/product_details_view.dart';
 import 'package:peakmart/features/notifications/data/local_notification_service.dart';
 import 'package:peakmart/features/notifications/domain/notification_enitity.dart';
 
@@ -18,6 +20,8 @@ class FirebaseCloudMessagingService {
   static final StreamController<NotificationEntity> streamController =
       StreamController.broadcast();
   static String? token;
+  static RemoteMessage? initialMessage;
+  // Initialize FCM
 
   // Initialize Firebase Cloud Messaging
   static Future<void> initialize() async {
@@ -72,16 +76,33 @@ class FirebaseCloudMessagingService {
     });
   }
 
+  // Handle notification clicks (background/terminated)
   static Future<void> setupInteractMessage() async {
-    RemoteMessage? initialMessage = await messaging.getInitialMessage();
+    // 🟠 الرسالة لو التطبيق مقفول تمامًا
+    initialMessage = await messaging.getInitialMessage();
     if (initialMessage != null) {
-      log('🟢 App opened from terminated state with: ${initialMessage.notification?.title}');
+      log('🟢 App opened from terminated state with: ${initialMessage!.notification?.title}');
     }
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      _handleNotificationNavigation(message);
       log('🔁 App opened from background with: ${message.notification?.title}');
     });
   }
+
+  static void _handleNotificationNavigation(RemoteMessage message) {
+    final navigator = MyApp.navigatorKey.currentState;
+    if (navigator == null) return;
+
+    final productIdString = message.data['product_id'];
+    final productId = int.tryParse(productIdString ?? '') ?? 0;
+
+    navigator.pushNamed(
+      ProductDetails.routeName,
+      arguments: productId,
+    );
+  }
+
 
   static Future<void> subscribeToTopic(String topic) async {
     await messaging.subscribeToTopic(topic);

@@ -10,9 +10,10 @@ import 'package:peakmart/core/resources/theme/dark_theme_data.dart';
 import 'package:peakmart/core/resources/theme/light_theme_data.dart';
 import 'package:peakmart/features/main/main_view.dart';
 import 'package:peakmart/features/notifications/data/firebase_cloud_messaging_service.dart';
+import 'package:peakmart/features/notifications/domain/notification_repository.dart';
 import 'package:peakmart/features/notifications/presentation/state_m/notifications_cubit.dart';
 import 'package:peakmart/features/products/presentation/views/product_details/product_details_view.dart';
-
+import 'package:peakmart/features/notifications/presentation/state_m/notification_cubit.dart';
 class MyApp extends StatefulWidget {
   const MyApp._internal();
   static final navigatorKey = GlobalKey<NavigatorState>();
@@ -66,6 +67,7 @@ class _MyAppState extends State<MyApp> {
         providers: [
           BlocProvider(create: (context) => AppThemeCubit()),
           BlocProvider(create: (context) => NotificationsCubit()),
+          BlocProvider(create: (context) => NotificationCubit(di.instance<NotificationRepo>() )),
         ],
         child: BlocBuilder<AppThemeCubit, ThemeMode>(
           builder: (context, themeMode) {

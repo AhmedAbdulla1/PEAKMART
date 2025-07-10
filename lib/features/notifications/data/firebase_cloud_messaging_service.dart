@@ -80,9 +80,8 @@ class FirebaseCloudMessagingService {
   static Future<void> setupInteractMessage() async {
     // 🟠 الرسالة لو التطبيق مقفول تمامًا
     initialMessage = await messaging.getInitialMessage();
-    RemoteMessage? initialMessage = await messaging.getInitialMessage();
     if (initialMessage != null) {
-      log('🟢 App opened from terminated state with: ${initialMessage.notification?.title}');
+      log('🟢 App opened from terminated state with: ${initialMessage!.notification?.title}');
     }
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {

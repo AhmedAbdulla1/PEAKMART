@@ -163,6 +163,7 @@ class ProfileDataSource extends RemoteDataSource {
   Future<Either<AppErrors, EmptyResponse>> logout() async {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
+    cookieString +="HK=290;" ;
     print('cookie string $cookieString');
     return request<EmptyResponse>(
       method: HttpMethod.GET,

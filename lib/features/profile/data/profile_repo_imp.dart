@@ -158,12 +158,33 @@ class ProfileRepoImpl extends ProfileRepo {
   }
 
   @override
-  Future<Result<AppErrors, UserProductEntity>> getWishListProducts() async{
+  Future<Result<AppErrors, UserProductEntity>> getWishListProducts() async {
     Result<AppErrors, UserProductEntity> result;
     if (await _networkInfo.isConnected) {
       try {
         Either<AppErrors, UserProductResponse> response =
             await _remoteDataSource.getWishlistProducts();
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          return Result(data: response.toEntity());
+        });
+      } catch (error) {
+        result = Result(error: const AppErrors.responseError());
+      }
+    } else {
+      result = Result(error: const AppErrors.connectionError());
+    }
+    return result;
+  }
+
+  @override
+  Future<Result<AppErrors, EmptyEntity>> logout() async {
+    Result<AppErrors, EmptyEntity> result;
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors, EmptyResponse> response =
+            await _remoteDataSource.logout();
         result = response.fold((error) {
           return Result(error: error);
         }, (response) {

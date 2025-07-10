@@ -22,4 +22,6 @@ abstract class ProfileRepo {
 
   Future<Result<AppErrors, EmptyEntity>> updateProfile(
       UpdateProfileRequest updateProfileRequest);
+
+  Future<Result<AppErrors, EmptyEntity>> logout();
 }

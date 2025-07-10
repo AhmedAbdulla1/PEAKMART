@@ -6,6 +6,7 @@ import 'dart:ui';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:peakmart/app/app_prefs.dart';
 import 'package:peakmart/app/di.dart';
+import 'package:peakmart/core/entities/empty_entity.dart';
 import 'package:peakmart/core/error_ui/toast.dart';
 import 'package:peakmart/core/errors/app_errors.dart';
 import 'package:peakmart/core/resources/color_manager.dart';
@@ -29,6 +30,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   late UserInfoEntity currentUserInfo;
   String? tempProfileImagePath;
   bool _hasFetchedProfile = false;
+
   bool get hasChanges {
     final changes = _detectChanges();
     return changes.nameChanged || changes.emailChanged || changes.imageChanged;
@@ -177,11 +179,18 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
-  void logout({required VoidCallback onSuccess}) {
-    invalidateCache();
-    appPreferences.setIsSeller(false);
-
-    appPreferences.logout().then((_) => onSuccess());
+  void logout({required VoidCallback onSuccess}) async {
+    emit(ProfileLoading());
+    Result<AppErrors, EmptyEntity> result = await profileRepo.logout();
+    result.pick(
+        onData: (data) {
+          invalidateCache();
+          appPreferences.setIsSeller(false);
+          appPreferences.logout().then((_) => onSuccess());
+        },
+        onError: (error) {
+          emitError(error, () => logout(onSuccess: onSuccess));
+        });
   }
 
   void emitLoaded({bool updateOriginal = false, bool fromCache = false}) {
@@ -262,6 +271,7 @@ class _Changes {
       phoneChanged ||
       imageChanged ||
       sellerDataChanged;
+
   bool get infoChanged =>
       nameChanged || emailChanged || phoneChanged || sellerDataChanged;
 }

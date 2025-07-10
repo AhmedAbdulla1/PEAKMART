@@ -8,11 +8,14 @@ import 'package:peakmart/core/resources/routes_manager.dart';
 import 'package:peakmart/core/resources/theme/app_theming_cubit/app_theme_cubit.dart';
 import 'package:peakmart/core/resources/theme/dark_theme_data.dart';
 import 'package:peakmart/core/resources/theme/light_theme_data.dart';
+import 'package:peakmart/features/main/main_view.dart';
+import 'package:peakmart/features/notifications/data/firebase_cloud_messaging_service.dart';
 import 'package:peakmart/features/notifications/presentation/state_m/notifications_cubit.dart';
+import 'package:peakmart/features/products/presentation/views/product_details/product_details_view.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp._internal();
-
+  static final navigatorKey = GlobalKey<NavigatorState>();
   static MyApp instance = const MyApp._internal();
   factory MyApp() => instance;
 
@@ -22,14 +25,36 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final AppPreferences _appPreferences = di.instance<AppPreferences>();
-  static final navigatorKey = GlobalKey<NavigatorState>();
   @override
   void didChangeDependencies() {
+    super.didChangeDependencies();
+
     _appPreferences.getLocale().then((value) {
       context.setLocale(value);
     });
-    super.didChangeDependencies();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final msg = FirebaseCloudMessagingService.initialMessage;
+      if (msg != null) {
+        FirebaseCloudMessagingService.initialMessage = null;
+
+        final productIdString = msg.data['product_id'];
+        final productId = int.tryParse(productIdString ?? '') ?? 0;
+
+        // أول حاجة نروح للـ MainView (لو التطبيق لسه مفتوحش)
+        MyApp.navigatorKey.currentState?.pushNamed(MainView.routeName, arguments: 0);
+
+        // بعدين نفتح صفحة التفاصيل
+        Future.delayed(const Duration(milliseconds: 300), () {
+         MyApp.navigatorKey.currentState?.pushNamed(
+            ProductDetails.routeName,
+            arguments: productId,
+          );
+        });
+      }
+    });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +72,7 @@ class _MyAppState extends State<MyApp> {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               locale: context.locale,
-              navigatorKey: navigatorKey,
+              navigatorKey:MyApp.navigatorKey,
               supportedLocales: context.supportedLocales,
               localizationsDelegates: context.localizationDelegates,
               themeMode: themeMode,

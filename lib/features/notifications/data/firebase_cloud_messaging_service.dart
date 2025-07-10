@@ -3,6 +3,8 @@ import 'dart:developer';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:peakmart/app/app.dart';
+import 'package:peakmart/features/products/presentation/views/product_details/product_details_view.dart';
 
 // c24qzZuFTje8AkLeAHGCwe:APA91bHkxSVwOiA9dqlWFZT5JtaqVT1Zodi2Ww6XzkHABbjthVqF_Kf8sNs5aqJs2S26gY4WCWAH_V92Mn8DwdE4YBKkQGRqFcPO3ksEywzzHsfSP8zGT-M
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -16,7 +18,7 @@ class FirebaseCloudMessagingService {
   static final FirebaseMessaging messaging = FirebaseMessaging.instance;
   static StreamController streamController = StreamController();
   static String? token;
-
+  static RemoteMessage? initialMessage;
   // Initialize FCM
   static Future<void> initialize() async {
     // Request permissions
@@ -58,17 +60,27 @@ class FirebaseCloudMessagingService {
 
   // Handle notification clicks (background/terminated)
   static Future<void> setupInteractMessage() async {
-    RemoteMessage? initialMessage = await messaging.getInitialMessage();
-    if (initialMessage != null) {
-      log(
-        'App opened from terminated state: ${initialMessage.notification?.title}',name: 'from terminated'
-      );
-    }
+    // 🟠 الرسالة لو التطبيق مقفول تمامًا
+    initialMessage = await messaging.getInitialMessage();
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      log('App opened from background: ${message.notification?.title}',name: '');
+      _handleNotificationNavigation(message);
     });
   }
+
+  static void _handleNotificationNavigation(RemoteMessage message) {
+    final navigator = MyApp.navigatorKey.currentState;
+    if (navigator == null) return;
+
+    final productIdString = message.data['product_id'];
+    final productId = int.tryParse(productIdString ?? '') ?? 0;
+
+    navigator.pushNamed(
+      ProductDetails.routeName,
+      arguments: productId,
+    );
+  }
+
 
   // Subscribe to a topic
   static Future<void> subscribeToTopic(String topic) async {

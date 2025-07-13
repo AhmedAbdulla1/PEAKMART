@@ -1,19 +1,19 @@
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
-import 'package:peakmart/core/constants/enums/http_method.dart';
-import 'package:peakmart/core/data_source/remote_data_source.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/net/api_url.dart';
-import 'package:peakmart/core/net/response_validators/default_response_validator.dart';
-import 'package:peakmart/features/home/data/model/request/news_request.dart';
-import 'package:peakmart/features/home/data/model/response/bid_work_now_response.dart';
-import 'package:peakmart/features/home/data/model/response/category_response.dart';
-import 'package:peakmart/features/home/data/model/response/content_response.dart';
-import 'package:peakmart/features/home/data/model/response/ended_bids_response.dart';
-import 'package:peakmart/features/home/data/model/response/future_bids_response.dart';
-import 'package:peakmart/features/home/data/model/response/news_response.dart';
-import 'package:peakmart/features/home/data/model/response/trending_bids_response.dart';
+import 'package:Bid_Mart/core/constants/enums/http_method.dart';
+import 'package:Bid_Mart/core/data_source/remote_data_source.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/net/api_url.dart';
+import 'package:Bid_Mart/core/net/response_validators/default_response_validator.dart';
+import 'package:Bid_Mart/features/home/data/model/request/news_request.dart';
+import 'package:Bid_Mart/features/home/data/model/response/bid_work_now_response.dart';
+import 'package:Bid_Mart/features/home/data/model/response/category_response.dart';
+import 'package:Bid_Mart/features/home/data/model/response/content_response.dart';
+import 'package:Bid_Mart/features/home/data/model/response/ended_bids_response.dart';
+import 'package:Bid_Mart/features/home/data/model/response/future_bids_response.dart';
+import 'package:Bid_Mart/features/home/data/model/response/news_response.dart';
+import 'package:Bid_Mart/features/home/data/model/response/trending_bids_response.dart';
 
 class HomeDataSource extends RemoteDataSource {
   Future<Either<AppErrors, NewsResponse>> getNews(

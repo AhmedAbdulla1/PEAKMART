@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/core/entities/prodcut_entity.dart';
-import 'package:peakmart/core/shared_widgets/full_screen_unknown_error.dart';
-import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
-import 'package:peakmart/features/products/presentation/state_m/product_cubit/cubit.dart';
-import 'package:peakmart/features/products/presentation/state_m/product_cubit/state.dart';
-import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_cubit.dart';
-import 'package:peakmart/features/products/presentation/views/product_details/widgets/product_details_view_body.dart';
+import 'package:Bid_Mart/core/entities/prodcut_entity.dart';
+import 'package:Bid_Mart/core/shared_widgets/full_screen_unknown_error.dart';
+import 'package:Bid_Mart/features/auth/presentation/shared_widgets/custom_appbar.dart';
+import 'package:Bid_Mart/features/products/presentation/state_m/product_cubit/cubit.dart';
+import 'package:Bid_Mart/features/products/presentation/state_m/product_cubit/state.dart';
+import 'package:Bid_Mart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_cubit.dart';
+import 'package:Bid_Mart/features/products/presentation/views/product_details/widgets/product_details_view_body.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class ProductDetails extends StatefulWidget {

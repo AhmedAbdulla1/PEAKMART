@@ -18,7 +18,7 @@ ThemeData getLightTheme() {
           ),
           enableSwitchAnimation: true,
           switchAnimationConfig: const SwitchAnimationConfig(
-            duration: const Duration(milliseconds: 1000),
+            duration: Duration(milliseconds: 1000),
             switchOutCurve: Curves.easeOut,
           )),
     ],

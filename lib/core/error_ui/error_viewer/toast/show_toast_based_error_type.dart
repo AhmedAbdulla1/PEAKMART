@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/resources/string_manager.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/resources/string_manager.dart';
 import '../error_viewer.dart';
 import 'errv_toast_options.dart';
 

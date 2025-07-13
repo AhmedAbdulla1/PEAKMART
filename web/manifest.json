@@ -1,6 +1,6 @@
 {
-    "name": "peakmart",
-    "short_name": "peakmart",
+    "name": "Bid_Mart",
+    "short_name": "Bid_Mart",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

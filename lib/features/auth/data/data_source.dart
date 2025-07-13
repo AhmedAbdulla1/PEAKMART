@@ -1,22 +1,22 @@
 import 'package:dartz/dartz.dart';
-import 'package:peakmart/app/app_prefs.dart';
-import 'package:peakmart/app/di.dart';
-import 'package:peakmart/core/constants/enums/http_method.dart';
-import 'package:peakmart/core/data_source/remote_data_source.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/net/api_url.dart';
-import 'package:peakmart/core/net/response_validators/default_response_validator.dart';
-import 'package:peakmart/core/responses/emty_response.dart';
-import 'package:peakmart/features/auth/data/model/request/login_request.dart';
-import 'package:peakmart/features/auth/data/model/request/register_request.dart';
-import 'package:peakmart/features/auth/data/model/request/rest_password_request.dart';
-import 'package:peakmart/features/auth/data/model/request/seller_info_request.dart';
-import 'package:peakmart/features/auth/data/model/request/send_otp_request.dart';
-import 'package:peakmart/features/auth/data/model/request/signup_for_bid_request.dart';
-import 'package:peakmart/features/auth/data/model/request/verfiy_otp_request.dart';
-import 'package:peakmart/features/auth/data/model/response/login_response.dart';
-import 'package:peakmart/features/auth/data/model/response/register_response.dart';
-import 'package:peakmart/features/auth/data/model/response/send_otp_response.dart';
+import 'package:Bid_Mart/app/app_prefs.dart';
+import 'package:Bid_Mart/app/di.dart';
+import 'package:Bid_Mart/core/constants/enums/http_method.dart';
+import 'package:Bid_Mart/core/data_source/remote_data_source.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/net/api_url.dart';
+import 'package:Bid_Mart/core/net/response_validators/default_response_validator.dart';
+import 'package:Bid_Mart/core/responses/emty_response.dart';
+import 'package:Bid_Mart/features/auth/data/model/request/login_request.dart';
+import 'package:Bid_Mart/features/auth/data/model/request/register_request.dart';
+import 'package:Bid_Mart/features/auth/data/model/request/rest_password_request.dart';
+import 'package:Bid_Mart/features/auth/data/model/request/seller_info_request.dart';
+import 'package:Bid_Mart/features/auth/data/model/request/send_otp_request.dart';
+import 'package:Bid_Mart/features/auth/data/model/request/signup_for_bid_request.dart';
+import 'package:Bid_Mart/features/auth/data/model/request/verfiy_otp_request.dart';
+import 'package:Bid_Mart/features/auth/data/model/response/login_response.dart';
+import 'package:Bid_Mart/features/auth/data/model/response/register_response.dart';
+import 'package:Bid_Mart/features/auth/data/model/response/send_otp_response.dart';
 
 class AuthDataSource extends RemoteDataSource {
   Future<Either<AppErrors, LoginResponse>> login(

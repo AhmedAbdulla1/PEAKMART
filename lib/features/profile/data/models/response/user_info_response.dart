@@ -1,6 +1,6 @@
-import 'package:peakmart/core/entities/base_entity.dart';
-import 'package:peakmart/core/models/base_model.dart';
-import 'package:peakmart/features/profile/domain/enitiy/user_info_entity.dart';
+import 'package:Bid_Mart/core/entities/base_entity.dart';
+import 'package:Bid_Mart/core/models/base_model.dart';
+import 'package:Bid_Mart/features/profile/domain/enitiy/user_info_entity.dart';
 
 class UserInfoResponse extends BaseResponse<BaseEntity> {
   UserInfoData data;

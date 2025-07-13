@@ -2,8 +2,8 @@
 
 // import 'package:flutter/material.dart';
 // import 'package:loop_page_view/loop_page_view.dart';
-// import 'package:peakmart/features/home/presentation/views/bid_section/bid_card_model.dart';
-// import 'package:peakmart/features/home/presentation/views/bid_section/transforming_bid_item.dart';
+// import 'package:Bid_Mart/features/home/presentation/views/bid_section/bid_card_model.dart';
+// import 'package:Bid_Mart/features/home/presentation/views/bid_section/transforming_bid_item.dart';
 
 // class BidPageView extends StatefulWidget {
 //   const BidPageView({super.key, required this.bidCards, this.isEnded = false});

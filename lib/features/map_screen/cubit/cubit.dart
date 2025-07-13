@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:peakmart/features/map_screen/cubit/states.dart';
+import 'package:Bid_Mart/features/map_screen/cubit/states.dart';
 
 class ViewMapCubit extends Cubit<ViewMapState> {
   ViewMapCubit() : super(ViewMapState.initial()) {

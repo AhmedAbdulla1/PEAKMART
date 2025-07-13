@@ -1,4 +1,4 @@
-package com.example.peakmart
+package com.example.bidmart
 
 import io.flutter.embedding.android.FlutterActivity
 

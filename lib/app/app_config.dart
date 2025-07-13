@@ -1,19 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:peakmart/core/app_options/app_options.dart';
-import 'package:peakmart/app/app_prefs.dart';
-import 'package:peakmart/core/constants/app/app_constants.dart';
-import 'package:peakmart/core/constants/enums/app_theme_enum.dart';
-import 'package:peakmart/core/constants/enums/system_type.dart';
-import 'package:peakmart/app/di.dart';
+import 'package:Bid_Mart/core/app_options/app_options.dart';
+import 'package:Bid_Mart/app/app_prefs.dart';
+import 'package:Bid_Mart/core/constants/enums/app_theme_enum.dart';
+import 'package:Bid_Mart/core/constants/enums/system_type.dart';
+import 'package:Bid_Mart/app/di.dart';
 
 
-/// This class it contain multiple core functions
-/// for get device info
-/// for get and set language
-/// for current app theme
-/// for options in application
 class AppConfig {
   static final AppConfig _instance = AppConfig._internal();
 
@@ -30,7 +24,7 @@ class AppConfig {
   String? _buildNumber;
   String? _appName;
   String? _appVersion;
-  Map? _LastCard;
+  Map? _lastCard;
   final AppThemes _appTheme = AppThemes.LIGHT;
   final AppOptions _appOptions = AppOptions();
   bool connectEnternet = true;
@@ -48,14 +42,12 @@ class AppConfig {
 
   String? get appVersion => _appVersion;
 
-  Map? get LastCard => _LastCard;
+  Map? get LastCard => _lastCard;
 
   String? get appName => _appName;
 
   AppOptions get appOptions => _appOptions;
 
-  bool get isLTR =>
-      (appLanguage?.startsWith(AppConstants.LANG_EN) ?? false) ? true : false;
 
 
   ThemeMode get themeMode =>
@@ -70,14 +62,6 @@ class AppConfig {
       _os = SystemType.Android;
     }
 
-    /// get version
-    // final packageInfo = await PackageInfo.fromPlatform();
-    // _currentVersion = packageInfo.version;
-    // _buildNumber = packageInfo.buildNumber;
-    // _appName = packageInfo.appName;
-
-    /// Get Initital App Theme
-
   }
 
   /// read authToken
@@ -90,13 +74,11 @@ class AppConfig {
   /// read fcmToken
   /// if returns null thats means there no SP instance
 
-
   /// check if hasToken or not
   Future<bool> get hasToken async {
     final prefs = instance<AppPreferences>();
-    String? token = prefs.getFcmToken();
-    return true;
-    return false;
+    String token = prefs.getFcmToken();
+    return token.isNotEmpty;
   }
 
   /// check if hasFcmToken or not
@@ -106,15 +88,5 @@ class AppConfig {
     if (token.isNotEmpty) return true;
     return false;
   }
-
-  /// Persist App Theme
-
-
-  /// Get APP Theme
-
-
   String? get appLanguage => _appLanguage;
-
-
-
 }

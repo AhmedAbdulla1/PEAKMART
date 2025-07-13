@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/string_manager.dart';
-import 'package:peakmart/core/resources/values_manager.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/string_manager.dart';
+import 'package:Bid_Mart/core/resources/values_manager.dart';
 
 class SignUpButton extends StatefulWidget {
   const SignUpButton({super.key, this.onPressed});

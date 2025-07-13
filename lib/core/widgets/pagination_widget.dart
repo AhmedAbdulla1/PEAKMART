@@ -1,7 +1,7 @@
 // import 'package:dio/dio.dart';
 // import 'package:flutter/material.dart';
-// import 'package:peakmart/core/errors/app_errors.dart';
-// import 'package:peakmart/core/results/result.dart';
+// import 'package:Bid_Mart/core/errors/app_errors.dart';
+// import 'package:Bid_Mart/core/results/result.dart';
 // import 'package:pull_to_refresh/pull_to_refresh.dart';
 // import 'package:starter_application/core/errors/app_errors.dart';
 // import 'package:starter_application/core/results/result.dart';

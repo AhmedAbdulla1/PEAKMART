@@ -1,5 +1,5 @@
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/features/home/domain/entity/news_entity.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/features/home/domain/entity/news_entity.dart';
 
 abstract class NewsState {}
 

@@ -1,5 +1,5 @@
 
-import 'package:peakmart/core/constants/enums/app_options_enum.dart';
+import 'package:Bid_Mart/core/constants/enums/app_options_enum.dart';
 
 part 'options_config.dart';
 

@@ -1,7 +1,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
-import 'package:peakmart/app/app_config.dart';
+import 'package:Bid_Mart/app/app_config.dart';
 
 
 import '../constants/app/app_constants.dart';

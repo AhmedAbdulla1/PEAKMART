@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
 
 import '../error_viewer.dart';
 import 'errv_dialog_options.dart';

@@ -1,7 +1,7 @@
 import 'dart:developer';
-import 'package:peakmart/app/app_prefs.dart';
-import 'package:peakmart/app/di.dart';
-import 'package:peakmart/core/requests/base_request.dart';
+import 'package:Bid_Mart/app/app_prefs.dart';
+import 'package:Bid_Mart/app/di.dart';
+import 'package:Bid_Mart/core/requests/base_request.dart';
 
 class ConfirmPaymentRequest extends BaseRequest {
   final double amount;

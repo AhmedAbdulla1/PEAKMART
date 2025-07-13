@@ -1,5 +1,5 @@
 // lib/features/notifications/domain/entity/notification_entity.dart
-import 'package:peakmart/core/entities/base_entity.dart';
+import 'package:Bid_Mart/core/entities/base_entity.dart';
 
 class NotificationEntity extends BaseEntity {
   final int id;

@@ -1,17 +1,16 @@
 // lib/features/notifications/data/notification_repo_imp.dart
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
-import 'package:peakmart/app/di.dart';
-import 'package:peakmart/app/network_info.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/responses/emty_response.dart';
-import 'package:peakmart/core/results/result.dart';
-import 'package:peakmart/core/entities/empty_entity.dart';
-import 'package:peakmart/features/notifications/data/models/requests/request.dart';
-import 'package:peakmart/features/notifications/data/models/responses/response.dart';
-import 'package:peakmart/features/notifications/data/notification_data_source.dart';
-import 'package:peakmart/features/notifications/domain/notification_enitity.dart';
-import 'package:peakmart/features/notifications/domain/notification_repository.dart';
+import 'package:Bid_Mart/app/di.dart';
+import 'package:Bid_Mart/app/network_info.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/responses/emty_response.dart';
+import 'package:Bid_Mart/core/results/result.dart';
+import 'package:Bid_Mart/core/entities/empty_entity.dart';
+import 'package:Bid_Mart/features/notifications/data/models/requests/request.dart';
+import 'package:Bid_Mart/features/notifications/data/models/responses/response.dart';
+import 'package:Bid_Mart/features/notifications/data/notification_data_source.dart';
+import 'package:Bid_Mart/features/notifications/domain/notification_enitity.dart';
+import 'package:Bid_Mart/features/notifications/domain/notification_repository.dart';
 
 class NotificationRepoImp implements NotificationRepo {
 

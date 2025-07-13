@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/core/entities/prodcut_entity.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
-import 'package:peakmart/core/resources/values_manager.dart';
-import 'package:peakmart/features/home/presentation/state_m/home_cubits/states.dart';
-import 'package:peakmart/features/home/presentation/views/bid_section/widgets/bids_slider.dart';
-import 'package:peakmart/features/home/presentation/views/bid_section/widgets/custom_bid_item.dart';
+import 'package:Bid_Mart/core/entities/prodcut_entity.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:Bid_Mart/core/resources/values_manager.dart';
+import 'package:Bid_Mart/features/home/presentation/state_m/home_cubits/states.dart';
+import 'package:Bid_Mart/features/home/presentation/views/bid_section/widgets/bids_slider.dart';
+import 'package:Bid_Mart/features/home/presentation/views/bid_section/widgets/custom_bid_item.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 final ProductEntity fakeProduct = ProductEntity(
     id: 1,
     name: 'Product Name',
-    imageUrl: [],
+    imageUrl: const [],
     description: 'Product Description',
     endDate: DateTime.now().toString(),
     peopleRolledIn: 0,

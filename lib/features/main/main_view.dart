@@ -1,22 +1,22 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/app/app_prefs.dart';
-import 'package:peakmart/app/di.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/string_manager.dart';
-import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
-import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification.dart';
-import 'package:peakmart/features/auth/presentation/views/signup_for_bid/hold_screen.dart';
-import 'package:peakmart/features/auth/presentation/views/signup_for_bid/view.dart';
-import 'package:peakmart/features/bid_owner/presentation/views/bid_owner_view.dart';
-import 'package:peakmart/features/home/presentation/views/home_view.dart';
-import 'package:peakmart/features/notifications/presentation/state_m/notification_cubit.dart';
-import 'package:peakmart/features/notifications/presentation/state_m/notification_state.dart';
-import 'package:peakmart/features/notifications/presentation/state_m/notifications_cubit.dart';
-import 'package:peakmart/features/notifications/presentation/view/notification_view.dart';
-import 'package:peakmart/features/products/presentation/views/products_view.dart';
-import 'package:peakmart/features/profile/presentation/views/profile/view.dart';
+import 'package:Bid_Mart/app/app_prefs.dart';
+import 'package:Bid_Mart/app/di.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/string_manager.dart';
+import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/otp_verification/otp_verification.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/signup_for_bid/hold_screen.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/signup_for_bid/view.dart';
+import 'package:Bid_Mart/features/bid_owner/presentation/views/bid_owner_view.dart';
+import 'package:Bid_Mart/features/home/presentation/views/home_view.dart';
+import 'package:Bid_Mart/features/notifications/presentation/state_m/notification_cubit.dart';
+import 'package:Bid_Mart/features/notifications/presentation/state_m/notification_state.dart';
+import 'package:Bid_Mart/features/notifications/presentation/state_m/notifications_cubit.dart';
+import 'package:Bid_Mart/features/notifications/presentation/view/notification_view.dart';
+import 'package:Bid_Mart/features/products/presentation/views/products_view.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/profile/view.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key, this.currentPageIndex = 0});

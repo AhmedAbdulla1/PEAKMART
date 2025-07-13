@@ -1,6 +1,6 @@
-import 'package:peakmart/core/models/base_model.dart';
-import 'package:peakmart/features/home/domain/entity/category_entity.dart';
-import 'package:peakmart/features/home/domain/entity/content_entity.dart';
+import 'package:Bid_Mart/core/models/base_model.dart';
+import 'package:Bid_Mart/features/home/domain/entity/category_entity.dart';
+import 'package:Bid_Mart/features/home/domain/entity/content_entity.dart';
 
 class CategoriesResponse extends BaseResponse<CategoriesEntity> {
   final List<CategoryDataResponse>? data;

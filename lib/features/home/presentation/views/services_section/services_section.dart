@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/features/home/presentation/views/services_section/item_service.dart';
-import 'package:peakmart/features/home/presentation/views/services_section/item_service_model.dart';
+import 'package:Bid_Mart/features/home/presentation/views/services_section/item_service.dart';
+import 'package:Bid_Mart/features/home/presentation/views/services_section/item_service_model.dart';
 
 class ServicesSection extends StatelessWidget {
   const ServicesSection({super.key});
@@ -8,12 +8,12 @@ class ServicesSection extends StatelessWidget {
     ItemServiceModel(
         title: "Product delivery",
         description:
-            "You can choose to pay easily via PeakMart’s digital wallet, credit cards, in installments or by cash.",
+            "You can choose to pay easily via Bid_Mart’s digital wallet, credit cards, in installments or by cash.",
         image: "assets/images/Credit_Card.png"),
     ItemServiceModel(
         title: "Auction or direct sale",
         description:
-            "On PeakMart you can choose to sell your items through an auction, a direct sale with a set price, or through a hybrid of the two forms",
+            "On Bid_Mart you can choose to sell your items through an auction, a direct sale with a set price, or through a hybrid of the two forms",
         image: "assets/images/court_hmer.png"),
     ItemServiceModel(
         title: "100% Secure",

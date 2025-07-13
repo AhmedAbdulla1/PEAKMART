@@ -3,16 +3,16 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/extentions.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/shared_widgets/buttons.dart';
-import 'package:peakmart/core/shared_widgets/image_picker.dart';
-import 'package:peakmart/features/auth/data/model/request/seller_info_request.dart';
-import 'package:peakmart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
-import 'package:peakmart/features/auth/presentation/state_mang/signup_for_bid/cubit.dart';
-import 'package:peakmart/features/auth/presentation/views/signup_for_bid/widgets/dropdown_menu.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/extentions.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/core/shared_widgets/buttons.dart';
+import 'package:Bid_Mart/core/shared_widgets/image_picker.dart';
+import 'package:Bid_Mart/features/auth/data/model/request/seller_info_request.dart';
+import 'package:Bid_Mart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
+import 'package:Bid_Mart/features/auth/presentation/state_mang/signup_for_bid/cubit.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/signup_for_bid/widgets/dropdown_menu.dart';
 
 class AdditionalDetails extends StatefulWidget {
   const AdditionalDetails({super.key});
@@ -201,7 +201,7 @@ class _AdditionalDetailsState extends State<AdditionalDetails> {
                 if (!_isIdImageSelected && _fieldTouchedState['idImage']!)
                   const Text(
                     'Please upload your ID Photo',
-                    style: const TextStyle(color: Colors.red, fontSize: 12),
+                    style: TextStyle(color: Colors.red, fontSize: 12),
                   ),
               ],
             ),

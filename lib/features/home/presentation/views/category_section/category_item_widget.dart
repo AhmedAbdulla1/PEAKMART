@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
-import 'package:peakmart/core/resources/values_manager.dart';
-import 'package:peakmart/features/home/domain/entity/category_entity.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:Bid_Mart/core/resources/values_manager.dart';
+import 'package:Bid_Mart/features/home/domain/entity/category_entity.dart';
 
 class CategoryItemWidget extends StatelessWidget {
   const CategoryItemWidget(

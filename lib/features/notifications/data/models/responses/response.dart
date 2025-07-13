@@ -1,5 +1,5 @@
-import 'package:peakmart/core/models/base_model.dart';
-import 'package:peakmart/features/notifications/domain/notification_enitity.dart';
+import 'package:Bid_Mart/core/models/base_model.dart';
+import 'package:Bid_Mart/features/notifications/domain/notification_enitity.dart';
 
 class NotificationsResponse extends BaseResponse<NotificationsEntity> {
   final List<NotificationResponse> notifications;

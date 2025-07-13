@@ -1,23 +1,23 @@
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
-import 'package:peakmart/app/di.dart';
-import 'package:peakmart/app/network_info.dart';
-import 'package:peakmart/core/entities/empty_entity.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/responses/emty_response.dart';
-import 'package:peakmart/core/results/result.dart';
-import 'package:peakmart/features/profile/data/models/request/cancle_user_product_request.dart';
-import 'package:peakmart/features/profile/data/models/request/update_profile_image_request.dart';
-import 'package:peakmart/features/profile/data/models/request/update_profile_request.dart';
-import 'package:peakmart/features/profile/data/models/response/user_info_response.dart';
-import 'package:peakmart/features/profile/data/models/response/user_product_response.dart';
-import 'package:peakmart/features/profile/data/models/response/user_products_enrolled_response.dart';
-import 'package:peakmart/features/profile/data/remote_data_source.dart';
-import 'package:peakmart/features/profile/domain/enitiy/user_info_entity.dart';
-import 'package:peakmart/features/profile/domain/enitiy/user_product_entity.dart';
-import 'package:peakmart/features/profile/domain/enitiy/user_products_enrolled_entity.dart';
-import 'package:peakmart/features/profile/domain/profile_repo.dart';
+import 'package:Bid_Mart/app/di.dart';
+import 'package:Bid_Mart/app/network_info.dart';
+import 'package:Bid_Mart/core/entities/empty_entity.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/responses/emty_response.dart';
+import 'package:Bid_Mart/core/results/result.dart';
+import 'package:Bid_Mart/features/profile/data/models/request/cancle_user_product_request.dart';
+import 'package:Bid_Mart/features/profile/data/models/request/update_profile_image_request.dart';
+import 'package:Bid_Mart/features/profile/data/models/request/update_profile_request.dart';
+import 'package:Bid_Mart/features/profile/data/models/response/user_info_response.dart';
+import 'package:Bid_Mart/features/profile/data/models/response/user_product_response.dart';
+import 'package:Bid_Mart/features/profile/data/models/response/user_products_enrolled_response.dart';
+import 'package:Bid_Mart/features/profile/data/remote_data_source.dart';
+import 'package:Bid_Mart/features/profile/domain/enitiy/user_info_entity.dart';
+import 'package:Bid_Mart/features/profile/domain/enitiy/user_product_entity.dart';
+import 'package:Bid_Mart/features/profile/domain/enitiy/user_products_enrolled_entity.dart';
+import 'package:Bid_Mart/features/profile/domain/profile_repo.dart';
 
 class ProfileRepoImpl extends ProfileRepo {
   final ProfileDataSource _remoteDataSource = ProfileDataSource();

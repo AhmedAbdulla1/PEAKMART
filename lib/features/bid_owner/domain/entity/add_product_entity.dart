@@ -1,4 +1,4 @@
-import 'package:peakmart/core/entities/base_entity.dart';
+import 'package:Bid_Mart/core/entities/base_entity.dart';
 
 class AddProductEntity extends BaseEntity {
   final int productId;

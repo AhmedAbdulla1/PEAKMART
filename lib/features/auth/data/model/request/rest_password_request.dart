@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:peakmart/core/requests/base_request.dart';
+import 'package:Bid_Mart/core/requests/base_request.dart';
 
 class RestPasswordRequest extends BaseRequest {
   final String email;

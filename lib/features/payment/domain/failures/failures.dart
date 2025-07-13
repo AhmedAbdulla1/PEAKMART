@@ -5,13 +5,13 @@ abstract class Failure {
 }
 
 class ServerFailure extends Failure {
-  ServerFailure(String message) : super(message);
+  ServerFailure(super.message);
 }
 
 class NetworkFailure extends Failure {
-  NetworkFailure(String message) : super(message);
+  NetworkFailure(super.message);
 }
 
 class ParsingFailure extends Failure {
-  ParsingFailure(String message) : super(message);
+  ParsingFailure(super.message);
 }

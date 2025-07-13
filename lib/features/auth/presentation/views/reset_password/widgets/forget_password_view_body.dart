@@ -2,18 +2,18 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
-import 'package:peakmart/core/error_ui/error_viewer/toast/errv_toast_options.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/string_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
-import 'package:peakmart/core/shared_widgets/buttons.dart';
-import 'package:peakmart/core/shared_widgets/text_fields.dart';
-import 'package:peakmart/features/auth/presentation/state_mang/reset_pass_cubit/cubit.dart';
-import 'package:peakmart/features/auth/presentation/views/reset_password/view_model.dart';
-import 'package:peakmart/features/auth/presentation/views/reset_password/widgets/success_bottom_sheet.dart';
+import 'package:Bid_Mart/core/error_ui/error_viewer/error_viewer.dart';
+import 'package:Bid_Mart/core/error_ui/error_viewer/toast/errv_toast_options.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/string_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:Bid_Mart/core/shared_widgets/buttons.dart';
+import 'package:Bid_Mart/core/shared_widgets/text_fields.dart';
+import 'package:Bid_Mart/features/auth/presentation/state_mang/reset_pass_cubit/cubit.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/reset_password/view_model.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/reset_password/widgets/success_bottom_sheet.dart';
 
 class ForgetPasswordViewBody extends StatefulWidget {
   const ForgetPasswordViewBody({super.key});

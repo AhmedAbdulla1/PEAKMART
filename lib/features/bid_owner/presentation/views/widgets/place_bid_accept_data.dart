@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/extentions.dart';
-import 'package:peakmart/core/resources/string_manager.dart';
-import 'package:peakmart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
-import 'package:peakmart/features/bid_owner/presentation/state_mang/add_product_cubit/add_product_cubit.dart';
-import 'package:peakmart/features/bid_owner/presentation/views/widgets/custom_date_field.dart';
-import 'package:peakmart/features/home/domain/entity/category_entity.dart';
-import 'package:peakmart/features/map_screen/view.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/extentions.dart';
+import 'package:Bid_Mart/core/resources/string_manager.dart';
+import 'package:Bid_Mart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
+import 'package:Bid_Mart/features/bid_owner/presentation/state_mang/add_product_cubit/add_product_cubit.dart';
+import 'package:Bid_Mart/features/bid_owner/presentation/views/widgets/custom_date_field.dart';
+import 'package:Bid_Mart/features/home/domain/entity/category_entity.dart';
+import 'package:Bid_Mart/features/map_screen/view.dart';
 
 class PlaceBidAcceptData extends StatelessWidget {
   PlaceBidAcceptData({

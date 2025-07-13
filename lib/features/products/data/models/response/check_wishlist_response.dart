@@ -1,5 +1,5 @@
-import 'package:peakmart/core/models/base_model.dart';
-import 'package:peakmart/features/products/domain/entity/in_wishlist_entity.dart';
+import 'package:Bid_Mart/core/models/base_model.dart';
+import 'package:Bid_Mart/features/products/domain/entity/in_wishlist_entity.dart';
 
 class CheckWishlistResponse extends BaseResponse<CheckWishlistEntity> {
   final bool inWishlist;

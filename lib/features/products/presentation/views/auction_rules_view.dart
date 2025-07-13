@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/core/resources/string_manager.dart';
-import 'package:peakmart/core/resources/values_manager.dart';
-import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
-import 'package:peakmart/features/products/presentation/widgets/custom_scrollable_text.dart';
+import 'package:Bid_Mart/core/resources/string_manager.dart';
+import 'package:Bid_Mart/core/resources/values_manager.dart';
+import 'package:Bid_Mart/features/auth/presentation/shared_widgets/custom_appbar.dart';
+import 'package:Bid_Mart/features/products/presentation/widgets/custom_scrollable_text.dart';
 
 class AuctionRulesView extends StatelessWidget {
   const AuctionRulesView({super.key});

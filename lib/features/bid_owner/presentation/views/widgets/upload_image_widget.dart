@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:peakmart/core/resources/assets_manager.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/string_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/core/resources/assets_manager.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/string_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
 
 class UploadImageWidget extends StatefulWidget {
   const UploadImageWidget({super.key, required this.image});

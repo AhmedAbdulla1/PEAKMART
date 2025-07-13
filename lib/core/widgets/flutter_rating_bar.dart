@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:peakmart/core/constants/app/app_constants.dart';
+import 'package:Bid_Mart/core/constants/app/app_constants.dart';
 
 
 typedef RatingChangeCallback = void Function(double rating);
@@ -92,7 +92,7 @@ class _SmoothStarRatingState extends State<SmoothStarRating> {
 
   @override
   Widget build(BuildContext context) {
-    isEnglish = Intl.getCurrentLocale() == AppConstants.LANG_EN;
+    isEnglish = Intl.getCurrentLocale() == "en";
     return Material(
       color: Colors.transparent,
       child: Wrap(

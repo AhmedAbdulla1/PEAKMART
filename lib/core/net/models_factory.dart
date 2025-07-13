@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:peakmart/core/models/base_model.dart';
-import 'package:peakmart/core/net/create_model_interceptor/create_model.interceptor.dart';
+import 'package:Bid_Mart/core/models/base_model.dart';
+import 'package:Bid_Mart/core/net/create_model_interceptor/create_model.interceptor.dart';
 
 /// This class is singleton and used to get models from json responses
 class ModelsFactory {

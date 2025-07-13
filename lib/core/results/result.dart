@@ -1,5 +1,5 @@
 
-import 'package:peakmart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
 
 class Result<Error extends AppErrors, Data> {
   final Data? data;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/features/auth/presentation/state_mang/register_cubit.dart/register_cubit.dart';
-import 'package:peakmart/features/auth/presentation/views/sign_up/widgets/sign_up_view_body.dart';
+import 'package:Bid_Mart/features/auth/presentation/state_mang/register_cubit.dart/register_cubit.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/sign_up/widgets/sign_up_view_body.dart';
 
 class SignUpView extends StatelessWidget {
   const SignUpView({super.key});

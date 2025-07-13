@@ -1,13 +1,12 @@
-import 'dart:async';
 import 'dart:developer' as log;
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/results/result.dart';
-import 'package:peakmart/features/products/data/products_repo_imp.dart';
-import 'package:peakmart/features/products/domain/entity/top_bidders_entity.dart';
-import 'package:peakmart/features/products/domain/products_repo.dart';
-import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_states.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/results/result.dart';
+import 'package:Bid_Mart/features/products/data/products_repo_imp.dart';
+import 'package:Bid_Mart/features/products/domain/entity/top_bidders_entity.dart';
+import 'package:Bid_Mart/features/products/domain/products_repo.dart';
+import 'package:Bid_Mart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_states.dart';
 
 class TopBidderCubit extends Cubit<TopBiddersState> {
   final ProductsRepo productsRepo = ProductsRepoImp();
@@ -43,8 +42,4 @@ class TopBidderCubit extends Cubit<TopBiddersState> {
     );
   }
 
-  @override
-  Future<void> close() {
-    return super.close();
-  }
 }

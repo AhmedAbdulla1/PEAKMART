@@ -1,4 +1,4 @@
-import 'package:peakmart/features/payment/domain/entities/fee_entity.dart';
+import 'package:Bid_Mart/features/payment/domain/entities/fee_entity.dart';
 
 enum PaymentProcess {
   UPLOAD,

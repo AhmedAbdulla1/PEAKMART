@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
-import 'package:peakmart/core/error_ui/toast.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/widgets/no_internet_connection_screen.dart';
+import 'package:Bid_Mart/core/error_ui/toast.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/widgets/no_internet_connection_screen.dart';
 
 class ConnectionAwareScreen extends StatefulWidget {
   final Widget child;

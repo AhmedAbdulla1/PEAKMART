@@ -2,10 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
 
 // Placeholder routes (replace with your actual routes)
 const String bidRulesRoute = '/bid_rules';

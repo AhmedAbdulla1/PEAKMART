@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:peakmart/app/app_prefs.dart';
-import 'package:peakmart/app/di.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/extentions.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
+import 'package:Bid_Mart/app/app_prefs.dart';
+import 'package:Bid_Mart/app/di.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/extentions.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/login/login_view.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -35,7 +35,7 @@ class _ProfileViewState extends State<ProfileView> {
             children: [
               const Text(
                 'Show OnBoarding',
-                style: const TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 20),
               ),
               Switch(
                   value: onBoardingSwitch,
@@ -53,7 +53,7 @@ class _ProfileViewState extends State<ProfileView> {
             children: [
               const Text(
                 'Re login',
-                style: const TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 20),
               ),
               Switch(
                   value: reLoginSwitch,
@@ -72,7 +72,7 @@ class _ProfileViewState extends State<ProfileView> {
             children: [
               const Text(
                 'Logout',
-                style: const TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 20),
               ),
               Switch(
                   value: logoutSwitch,

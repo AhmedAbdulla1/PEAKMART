@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:392698229136:android:57a80699548afabc354315",
+        "mobilesdk_app_id": "1:392698229136:android:0a258e65e52b6410354315",
         "android_client_info": {
-          "package_name": "com.example.peakmart"
+          "package_name": "com.example.bidmart"
         }
       },
       "oauth_client": [],

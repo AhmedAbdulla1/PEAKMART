@@ -1,14 +1,14 @@
 import 'package:animated_reorderable_list/animated_reorderable_list.dart';
 import 'package:flutter/material.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/extentions.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
-import 'package:peakmart/core/widgets/waiting_widget.dart';
-import 'package:peakmart/features/products/domain/entity/top_bidders_entity.dart';
-import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_states.dart';
-import 'package:peakmart/features/products/presentation/widgets/top_bidders_item.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/extentions.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:Bid_Mart/core/widgets/waiting_widget.dart';
+import 'package:Bid_Mart/features/products/domain/entity/top_bidders_entity.dart';
+import 'package:Bid_Mart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_states.dart';
+import 'package:Bid_Mart/features/products/presentation/widgets/top_bidders_item.dart';
 
 class TopBiddersSection extends StatefulWidget {
   const TopBiddersSection({

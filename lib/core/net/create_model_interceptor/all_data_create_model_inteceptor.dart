@@ -1,5 +1,5 @@
 
-import 'package:peakmart/core/net/create_model_interceptor/create_model.interceptor.dart';
+import 'package:Bid_Mart/core/net/create_model_interceptor/create_model.interceptor.dart';
 
 /// Get the whole json response
 class AllDataCreateModelInterceptor extends CreateModelInterceptor {

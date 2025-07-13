@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:peakmart/core/requests/base_request.dart';
+import 'package:Bid_Mart/core/requests/base_request.dart';
 
 class AddProductRequest extends BaseRequest {
   final String name, description, location, startDate, deliveryDate;

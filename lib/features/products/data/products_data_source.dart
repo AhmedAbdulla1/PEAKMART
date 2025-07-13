@@ -1,21 +1,20 @@
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
-import 'package:peakmart/app/app_prefs.dart' show AppPreferences;
-import 'package:peakmart/app/di.dart';
-import 'package:peakmart/core/constants/enums/http_method.dart';
-import 'package:peakmart/core/data_source/remote_data_source.dart';
-import 'package:peakmart/core/entities/empty_entity.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/net/api_url.dart';
-import 'package:peakmart/core/net/response_validators/default_response_validator.dart';
-import 'package:peakmart/core/net/response_validators/response_validator.dart';
-import 'package:peakmart/core/responses/emty_response.dart';
-import 'package:peakmart/features/products/data/models/request/bid_request.dart';
-import 'package:peakmart/features/products/data/models/request/enroll_request.dart';
-import 'package:peakmart/features/products/data/models/request/pagination_request.dart';
-import 'package:peakmart/features/products/data/models/response/products_response.dart';
-import 'package:peakmart/features/products/data/models/response/top_bidders_response.dart';
+import 'package:Bid_Mart/app/app_prefs.dart' show AppPreferences;
+import 'package:Bid_Mart/app/di.dart';
+import 'package:Bid_Mart/core/constants/enums/http_method.dart';
+import 'package:Bid_Mart/core/data_source/remote_data_source.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/net/api_url.dart';
+import 'package:Bid_Mart/core/net/response_validators/default_response_validator.dart';
+import 'package:Bid_Mart/core/net/response_validators/response_validator.dart';
+import 'package:Bid_Mart/core/responses/emty_response.dart';
+import 'package:Bid_Mart/features/products/data/models/request/bid_request.dart';
+import 'package:Bid_Mart/features/products/data/models/request/enroll_request.dart';
+import 'package:Bid_Mart/features/products/data/models/request/pagination_request.dart';
+import 'package:Bid_Mart/features/products/data/models/response/products_response.dart';
+import 'package:Bid_Mart/features/products/data/models/response/top_bidders_response.dart';
 
 import 'models/response/check_wishlist_response.dart'
     show CheckWishlistResponse;

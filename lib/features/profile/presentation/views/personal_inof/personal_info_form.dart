@@ -3,12 +3,12 @@ import 'dart:developer';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/core/resources/extentions.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/shared_widgets/custom_text_field.dart';
-import 'package:peakmart/core/shared_widgets/select_country_widget.dart';
-import 'package:peakmart/features/profile/presentation/state_m/profile/cubit.dart';
+import 'package:Bid_Mart/core/resources/extentions.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/core/shared_widgets/custom_text_field.dart';
+import 'package:Bid_Mart/core/shared_widgets/select_country_widget.dart';
+import 'package:Bid_Mart/features/profile/presentation/state_m/profile/cubit.dart';
 
 class PersonalInfoForm extends StatefulWidget {
   final TextEditingController nameController;

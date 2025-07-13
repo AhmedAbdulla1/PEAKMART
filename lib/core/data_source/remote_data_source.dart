@@ -1,16 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
-import 'package:peakmart/core/constants/enums/http_method.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/models/base_model.dart';
-import 'package:peakmart/core/net/create_model_interceptor/create_model.interceptor.dart';
-import 'package:peakmart/core/net/create_model_interceptor/default_create_model_inteceptor.dart';
-import 'package:peakmart/core/net/http_client.dart';
-import 'package:peakmart/core/net/models_factory.dart';
-import 'package:peakmart/core/net/response_validators/default_response_validator.dart';
-import 'package:peakmart/core/net/response_validators/list_response_validator.dart';
-import 'package:peakmart/core/net/response_validators/response_validator.dart';
+import 'package:Bid_Mart/core/constants/enums/http_method.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/models/base_model.dart';
+import 'package:Bid_Mart/core/net/create_model_interceptor/create_model.interceptor.dart';
+import 'package:Bid_Mart/core/net/create_model_interceptor/default_create_model_inteceptor.dart';
+import 'package:Bid_Mart/core/net/http_client.dart';
+import 'package:Bid_Mart/core/net/models_factory.dart';
+import 'package:Bid_Mart/core/net/response_validators/default_response_validator.dart';
+import 'package:Bid_Mart/core/net/response_validators/list_response_validator.dart';
+import 'package:Bid_Mart/core/net/response_validators/response_validator.dart';
 
 class RemoteDataSource {
   Future<Either<AppErrors, T>> requestUploadFile<T extends BaseResponse>({

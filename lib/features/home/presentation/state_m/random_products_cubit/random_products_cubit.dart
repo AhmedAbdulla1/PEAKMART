@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/core/entities/prodcut_entity.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/features/home/presentation/state_m/random_products_cubit/random_products_states.dart';
+import 'package:Bid_Mart/core/entities/prodcut_entity.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/features/home/presentation/state_m/random_products_cubit/random_products_states.dart';
 
 class RandomProductsCubit extends Cubit<RandomProductsState> {
   List<ProductEntity> allProducts = [];

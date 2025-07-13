@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/core/widgets/waiting_widget.dart';
-import 'package:peakmart/features/profile/presentation/state_m/user_products/user_products_cubit.dart';
-import 'package:peakmart/features/profile/presentation/state_m/user_products/user_products_states.dart';
-import 'package:peakmart/features/profile/presentation/views/user_products/widgets/no_products_founded_widget.dart';
-import 'package:peakmart/features/profile/presentation/views/user_products/widgets/product_enrolled_item_widget.dart';
+import 'package:Bid_Mart/core/widgets/waiting_widget.dart';
+import 'package:Bid_Mart/features/profile/presentation/state_m/user_products/user_products_cubit.dart';
+import 'package:Bid_Mart/features/profile/presentation/state_m/user_products/user_products_states.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/user_products/widgets/no_products_founded_widget.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/user_products/widgets/product_enrolled_item_widget.dart';
 
 class EnrolledProductsTab extends StatefulWidget {
   const EnrolledProductsTab({super.key});

@@ -3,6 +3,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ReorderableListWithApi extends StatefulWidget {
+  const ReorderableListWithApi({super.key});
+
   @override
   _ReorderableListWithApiState createState() => _ReorderableListWithApiState();
 }
@@ -64,7 +66,7 @@ class _ReorderableListWithApiState extends State<ReorderableListWithApi> {
   @override
   Widget build(BuildContext context) {
     return isLoading
-        ? Center(child: CircularProgressIndicator())
+        ? const Center(child: CircularProgressIndicator())
         : ReorderableListView(
             shrinkWrap: true,
             onReorder: _onReorder,
@@ -96,10 +98,10 @@ class AnimatedListItem extends StatelessWidget {
     return Card(
       key: key,
       elevation: 2,
-      margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       child: ListTile(
         title: Text(item),
-        trailing: Icon(Icons.drag_handle),
+        trailing: const Icon(Icons.drag_handle),
       ),
     );
   }

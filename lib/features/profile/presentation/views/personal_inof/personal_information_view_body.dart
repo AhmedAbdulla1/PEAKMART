@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:peakmart/app/app_prefs.dart';
-import 'package:peakmart/app/di.dart';
-import 'package:peakmart/core/resources/extentions.dart';
-import 'package:peakmart/core/resources/values_manager.dart';
-import 'package:peakmart/core/shared_widgets/buttons.dart';
-import 'package:peakmart/features/auth/presentation/views/reset_password/forget_password_view.dart';
-import 'package:peakmart/features/profile/presentation/state_m/profile/cubit.dart';
-import 'package:peakmart/features/profile/presentation/views/personal_inof/passwrod_dialog.dart';
-import 'package:peakmart/features/profile/presentation/views/personal_inof/personal_info_form.dart';
-import 'package:peakmart/features/profile/presentation/views/personal_inof/profile_avatar.dart';
+import 'package:Bid_Mart/app/app_prefs.dart';
+import 'package:Bid_Mart/app/di.dart';
+import 'package:Bid_Mart/core/resources/extentions.dart';
+import 'package:Bid_Mart/core/resources/values_manager.dart';
+import 'package:Bid_Mart/core/shared_widgets/buttons.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/reset_password/forget_password_view.dart';
+import 'package:Bid_Mart/features/profile/presentation/state_m/profile/cubit.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/personal_inof/passwrod_dialog.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/personal_inof/personal_info_form.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/personal_inof/profile_avatar.dart';
 
 class PersonalInformationViewBody extends StatefulWidget {
   const PersonalInformationViewBody({super.key});

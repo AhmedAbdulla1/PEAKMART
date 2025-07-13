@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:peakmart/core/models/base_model.dart';
-import 'package:peakmart/core/responses/pagination_response.dart';
-import 'package:peakmart/features/home/domain/entity/content_entity.dart';
+import 'package:Bid_Mart/core/models/base_model.dart';
+import 'package:Bid_Mart/core/responses/pagination_response.dart';
+import 'package:Bid_Mart/features/home/domain/entity/content_entity.dart';
 
 class ContentResponse extends BaseResponse<ContentEntity> {
   final List<ContentDataResponse>? data;

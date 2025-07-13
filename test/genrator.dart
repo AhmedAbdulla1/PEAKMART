@@ -45,7 +45,7 @@ void main() async {
 }
 
 // Content for form_field_config.dart
-final _formFieldConfigContent = '''
+const _formFieldConfigContent = '''
 // ignore_for_file: prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
@@ -324,7 +324,7 @@ class FieldConfig {
 ''';
 
 // Content for form_controller.dart
-final _formControllerContent = '''
+const _formControllerContent = '''
 /// Controller class for managing form state and actions.
 class FormController {
   // Placeholder for future form management logic (submit, clear, etc.)
@@ -333,7 +333,7 @@ class FormController {
 ''';
 
 // Content for dynamic_form.dart
-final _dynamicFormContent = '''
+const _dynamicFormContent = '''
 import 'package:flutter/material.dart';
 import 'form_field_config.dart';
 import 'form_controller.dart';
@@ -437,7 +437,7 @@ class _DynamicFormState extends State<DynamicForm> {
 ''';
 
 // Content for form_field_builder.dart
-final _formFieldBuilderContent = '''
+const _formFieldBuilderContent = '''
 import 'package:flutter/material.dart';
 import 'form_field_config.dart';
 import 'widgets/phone_field.dart';
@@ -568,7 +568,7 @@ Widget buildFormField(
 ''';
 
 // Content for widgets/phone_field.dart
-final _phoneFieldContent = '''
+const _phoneFieldContent = '''
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import '../form_field_config.dart';
@@ -621,7 +621,7 @@ class PhoneField extends StatelessWidget {
 ''';
 
 // Content for widgets/country_picker_field.dart
-final _countryPickerFieldContent = '''
+const _countryPickerFieldContent = '''
 import 'package:flutter/material.dart';
 import 'package:country_picker/country_picker.dart';
 import '../form_field_config.dart';
@@ -685,7 +685,7 @@ class CountryPickerField extends StatelessWidget {
 ''';
 
 // Content for widgets/image_picker_field.dart
-final _imagePickerFieldContent = '''
+const _imagePickerFieldContent = '''
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';

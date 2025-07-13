@@ -3,19 +3,19 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/core/entities/prodcut_entity.dart';
-import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
-import 'package:peakmart/core/resources/values_manager.dart';
-import 'package:peakmart/features/home/presentation/state_m/category_cubit/category_cubit.dart';
-import 'package:peakmart/features/home/presentation/views/bid_section/widgets/custom_bid_item.dart';
-import 'package:peakmart/features/home/presentation/views/category_section/catrgory_view.dart';
-import 'package:peakmart/features/products/presentation/state_m/product_cubit/cubit.dart';
-import 'package:peakmart/features/products/presentation/state_m/product_cubit/state.dart';
-import 'package:peakmart/features/products/presentation/widgets/products_view_search_bar.dart';
+import 'package:Bid_Mart/core/entities/prodcut_entity.dart';
+import 'package:Bid_Mart/core/error_ui/error_viewer/error_viewer.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:Bid_Mart/core/resources/values_manager.dart';
+import 'package:Bid_Mart/features/home/presentation/state_m/category_cubit/category_cubit.dart';
+import 'package:Bid_Mart/features/home/presentation/views/bid_section/widgets/custom_bid_item.dart';
+import 'package:Bid_Mart/features/home/presentation/views/category_section/catrgory_view.dart';
+import 'package:Bid_Mart/features/products/presentation/state_m/product_cubit/cubit.dart';
+import 'package:Bid_Mart/features/products/presentation/state_m/product_cubit/state.dart';
+import 'package:Bid_Mart/features/products/presentation/widgets/products_view_search_bar.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class ProductsView extends StatefulWidget {
@@ -353,7 +353,7 @@ class FakeProductsGridView extends StatelessWidget {
             id: index,
             name: 'Product $index',
             description: 'Description $index',
-            imageUrl: [],
+            imageUrl: const [],
             endDate: DateTime.now().toString(),
             peopleRolledIn: 0,
             price: 0,
@@ -371,7 +371,7 @@ class FakeProductsGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

@@ -1,13 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
-import 'package:peakmart/core/net/api_url.dart';
-import 'package:peakmart/core/responses/emty_response.dart';
-import 'package:peakmart/features/payment/domain/entities/fee_entity.dart';
-import 'package:peakmart/features/payment/domain/entities/payment_entity.dart';
-import 'package:peakmart/features/payment/domain/failures/failures.dart';
+import 'package:Bid_Mart/core/net/api_url.dart';
+import 'package:Bid_Mart/core/responses/emty_response.dart';
+import 'package:Bid_Mart/features/payment/domain/entities/fee_entity.dart';
+import 'package:Bid_Mart/features/payment/domain/entities/payment_entity.dart';
+import 'package:Bid_Mart/features/payment/domain/failures/failures.dart';
 
 abstract class RemotePaymentDataSource {
   Future<PaymentEntity> fetchPaymentDetails(String tapId);
@@ -102,11 +101,11 @@ class RemotePaymentDataSourceImpl implements RemotePaymentDataSource {
         uri = Uri.parse(urlString);
       } catch (e) {
         log('Error parsing URL: $e');
-        throw FormatException('Invalid URL format: $urlString');
+        throw const FormatException('Invalid URL format: $urlString');
       }
 
       // التأكد من أن الـ Body صالح
-      if (data == null || data.isEmpty) {
+      if (data.isEmpty) {
         log('Error: Request body is null or empty');
         throw ArgumentError('Request body cannot be null or empty');
       }
@@ -118,7 +117,7 @@ class RemotePaymentDataSourceImpl implements RemotePaymentDataSource {
         headers: {
           'Content-Type': 'application/json', // تغيير الـ Content-Type
         },
-      ).timeout(Duration(seconds: 30), onTimeout: () {
+      ).timeout(const Duration(seconds: 30), onTimeout: () {
         log('Request timed out after 30 seconds');
         throw NetworkFailure('Request timed out');
       });
@@ -150,9 +149,9 @@ class RemotePaymentDataSourceImpl implements RemotePaymentDataSource {
       log('Error in confirmPayment: $e');
       log('Stack trace: $stackTrace');
       if (e is NetworkFailure) {
-        throw e;
+        rethrow;
       } else if (e is ParsingFailure) {
-        throw e;
+        rethrow;
       } else if (e is FormatException) {
         throw ServerFailure('Invalid URL or data format: $e');
       }

@@ -2,13 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/app/app_prefs.dart';
-import 'package:peakmart/app/di.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/results/result.dart';
-import 'package:peakmart/features/auth/data/model/request/register_request.dart';
-import 'package:peakmart/features/auth/domain/entity/register_entity.dart';
-import 'package:peakmart/features/auth/domain/repository/auth_repo.dart';
+import 'package:Bid_Mart/app/app_prefs.dart';
+import 'package:Bid_Mart/app/di.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/results/result.dart';
+import 'package:Bid_Mart/features/auth/data/model/request/register_request.dart';
+import 'package:Bid_Mart/features/auth/domain/entity/register_entity.dart';
+import 'package:Bid_Mart/features/auth/domain/repository/auth_repo.dart';
 
 part 'register_state.dart';
 

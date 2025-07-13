@@ -3,12 +3,12 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
-import 'package:peakmart/core/resources/extentions.dart';
-import 'package:peakmart/features/auth/presentation/state_mang/social_sign_in_cubit/social_sign_in_cubit.dart';
-import 'package:peakmart/features/auth/presentation/views/login/widgets/login_divider_widget.dart';
-import 'package:peakmart/features/auth/presentation/views/login/widgets/other_login_method_shape.dart';
-import 'package:peakmart/features/main/main_view.dart';
+import 'package:Bid_Mart/core/error_ui/error_viewer/error_viewer.dart';
+import 'package:Bid_Mart/core/resources/extentions.dart';
+import 'package:Bid_Mart/features/auth/presentation/state_mang/social_sign_in_cubit/social_sign_in_cubit.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/login/widgets/login_divider_widget.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/login/widgets/other_login_method_shape.dart';
+import 'package:Bid_Mart/features/main/main_view.dart';
 
 class OtherLoginWays extends StatelessWidget {
   const OtherLoginWays({super.key});

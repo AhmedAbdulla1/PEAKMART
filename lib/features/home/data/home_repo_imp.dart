@@ -1,27 +1,27 @@
 import 'dart:async';
 
 import 'package:dartz/dartz.dart';
-import 'package:peakmart/app/di.dart';
-import 'package:peakmart/app/network_info.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/results/result.dart';
-import 'package:peakmart/features/home/data/model/request/news_request.dart';
-import 'package:peakmart/features/home/data/model/response/bid_work_now_response.dart';
-import 'package:peakmart/features/home/data/model/response/category_response.dart';
-import 'package:peakmart/features/home/data/model/response/content_response.dart';
-import 'package:peakmart/features/home/data/model/response/ended_bids_response.dart';
-import 'package:peakmart/features/home/data/model/response/future_bids_response.dart';
-import 'package:peakmart/features/home/data/model/response/news_response.dart';
-import 'package:peakmart/features/home/data/model/response/trending_bids_response.dart';
-import 'package:peakmart/features/home/data/remote_data_source.dart';
-import 'package:peakmart/features/home/domain/entity/bid_work_now_entity.dart';
-import 'package:peakmart/features/home/domain/entity/category_entity.dart';
-import 'package:peakmart/features/home/domain/entity/content_entity.dart';
-import 'package:peakmart/features/home/domain/entity/ended_bids_entity.dart';
-import 'package:peakmart/features/home/domain/entity/future_bids_entity.dart';
-import 'package:peakmart/features/home/domain/entity/news_entity.dart';
-import 'package:peakmart/features/home/domain/entity/trending_bids_entity.dart';
-import 'package:peakmart/features/home/domain/home_repo.dart';
+import 'package:Bid_Mart/app/di.dart';
+import 'package:Bid_Mart/app/network_info.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/results/result.dart';
+import 'package:Bid_Mart/features/home/data/model/request/news_request.dart';
+import 'package:Bid_Mart/features/home/data/model/response/bid_work_now_response.dart';
+import 'package:Bid_Mart/features/home/data/model/response/category_response.dart';
+import 'package:Bid_Mart/features/home/data/model/response/content_response.dart';
+import 'package:Bid_Mart/features/home/data/model/response/ended_bids_response.dart';
+import 'package:Bid_Mart/features/home/data/model/response/future_bids_response.dart';
+import 'package:Bid_Mart/features/home/data/model/response/news_response.dart';
+import 'package:Bid_Mart/features/home/data/model/response/trending_bids_response.dart';
+import 'package:Bid_Mart/features/home/data/remote_data_source.dart';
+import 'package:Bid_Mart/features/home/domain/entity/bid_work_now_entity.dart';
+import 'package:Bid_Mart/features/home/domain/entity/category_entity.dart';
+import 'package:Bid_Mart/features/home/domain/entity/content_entity.dart';
+import 'package:Bid_Mart/features/home/domain/entity/ended_bids_entity.dart';
+import 'package:Bid_Mart/features/home/domain/entity/future_bids_entity.dart';
+import 'package:Bid_Mart/features/home/domain/entity/news_entity.dart';
+import 'package:Bid_Mart/features/home/domain/entity/trending_bids_entity.dart';
+import 'package:Bid_Mart/features/home/domain/home_repo.dart';
 
 class HomeRepositoryImp extends HomeRepository {
   final HomeDataSource _remoteDataSource = HomeDataSource();

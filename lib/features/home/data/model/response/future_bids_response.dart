@@ -1,6 +1,6 @@
-import 'package:peakmart/core/models/base_model.dart';
-import 'package:peakmart/core/responses/product_response.dart';
-import 'package:peakmart/features/home/domain/entity/future_bids_entity.dart';
+import 'package:Bid_Mart/core/models/base_model.dart';
+import 'package:Bid_Mart/core/responses/product_response.dart';
+import 'package:Bid_Mart/features/home/domain/entity/future_bids_entity.dart';
 
 class FutureBidsResponse extends BaseResponse<FutureBidsEntity> {
   final List<ProductResponse> data;

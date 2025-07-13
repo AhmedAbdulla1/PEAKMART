@@ -1,10 +1,9 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
-import 'package:peakmart/features/payment/domain/entities/payment_entity.dart';
-import 'package:peakmart/features/payment/domain/enum/enums.dart';
-import 'package:peakmart/features/payment/presentation/cubit/payment_cubit.dart';
-import 'package:peakmart/features/payment/presentation/views/payment_receipt_screen.dart';
+import 'package:Bid_Mart/features/auth/presentation/shared_widgets/custom_appbar.dart';
+import 'package:Bid_Mart/features/payment/domain/entities/payment_entity.dart';
+import 'package:Bid_Mart/features/payment/presentation/cubit/payment_cubit.dart';
+import 'package:Bid_Mart/features/payment/presentation/views/payment_receipt_screen.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
-import 'package:peakmart/core/widgets/waiting_widget.dart';
-import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
-import 'package:peakmart/features/profile/presentation/state_m/profile/cubit.dart';
-import 'package:peakmart/features/profile/presentation/views/personal_inof/personal_information_view_body.dart';
+import 'package:Bid_Mart/core/error_ui/error_viewer/error_viewer.dart';
+import 'package:Bid_Mart/core/widgets/waiting_widget.dart';
+import 'package:Bid_Mart/features/auth/presentation/shared_widgets/custom_appbar.dart';
+import 'package:Bid_Mart/features/profile/presentation/state_m/profile/cubit.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/personal_inof/personal_information_view_body.dart';
 
 class PersonalInformationView extends StatefulWidget {
   const PersonalInformationView({super.key});

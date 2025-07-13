@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/net/response_validators/response_validator.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/net/response_validators/response_validator.dart';
 
 class DefaultResponseValidator extends ResponseValidator {
   @override

@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:peakmart/core/models/base_model.dart';
-import 'package:peakmart/core/entities/base_entity.dart';
-import 'package:peakmart/features/auth/domain/entity/login_entity.dart';
+import 'package:Bid_Mart/core/models/base_model.dart';
+import 'package:Bid_Mart/core/entities/base_entity.dart';
+import 'package:Bid_Mart/features/auth/domain/entity/login_entity.dart';
 
 class LoginResponse extends BaseResponse<BaseEntity> {
   LoginData data;

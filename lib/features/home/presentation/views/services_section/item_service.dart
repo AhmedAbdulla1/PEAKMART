@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
-import 'package:peakmart/features/home/presentation/views/services_section/item_service_model.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:Bid_Mart/features/home/presentation/views/services_section/item_service_model.dart';
 
 class ItemService extends StatelessWidget {
   const ItemService({super.key, required this.itemServiceModel});

@@ -1,15 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/app/di.dart';
-import 'package:peakmart/core/entities/empty_entity.dart';
-import 'package:peakmart/core/entities/prodcut_entity.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/results/result.dart';
-import 'package:peakmart/features/profile/data/models/request/cancle_user_product_request.dart';
-import 'package:peakmart/features/profile/domain/enitiy/product_enrolled_entity.dart';
-import 'package:peakmart/features/profile/domain/enitiy/user_product_entity.dart';
-import 'package:peakmart/features/profile/domain/enitiy/user_products_enrolled_entity.dart';
-import 'package:peakmart/features/profile/domain/profile_repo.dart';
-import 'package:peakmart/features/profile/presentation/state_m/user_products/user_products_states.dart';
+import 'package:Bid_Mart/app/di.dart';
+import 'package:Bid_Mart/core/entities/empty_entity.dart';
+import 'package:Bid_Mart/core/entities/prodcut_entity.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/results/result.dart';
+import 'package:Bid_Mart/features/profile/data/models/request/cancle_user_product_request.dart';
+import 'package:Bid_Mart/features/profile/domain/enitiy/product_enrolled_entity.dart';
+import 'package:Bid_Mart/features/profile/domain/enitiy/user_product_entity.dart';
+import 'package:Bid_Mart/features/profile/domain/enitiy/user_products_enrolled_entity.dart';
+import 'package:Bid_Mart/features/profile/domain/profile_repo.dart';
+import 'package:Bid_Mart/features/profile/presentation/state_m/user_products/user_products_states.dart';
 
 class UserProductsCubit extends Cubit<UserProductsStates> {
   UserProductsCubit() : super(UserProductsInitial());

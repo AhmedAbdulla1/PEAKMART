@@ -1,5 +1,5 @@
-import 'package:peakmart/core/entities/base_entity.dart';
-import 'package:peakmart/core/entities/pagination_entity.dart';
+import 'package:Bid_Mart/core/entities/base_entity.dart';
+import 'package:Bid_Mart/core/entities/pagination_entity.dart';
 
 class NewsEntity extends BaseEntity {
   final List<NewsData> news;

@@ -1,6 +1,6 @@
-import 'package:peakmart/core/entities/base_entity.dart';
-import 'package:peakmart/core/entities/pagination_entity.dart';
-import 'package:peakmart/core/entities/prodcut_entity.dart';
+import 'package:Bid_Mart/core/entities/base_entity.dart';
+import 'package:Bid_Mart/core/entities/pagination_entity.dart';
+import 'package:Bid_Mart/core/entities/prodcut_entity.dart';
 
 class ProductsEntity extends BaseEntity {
   final List<ProductEntity> data;

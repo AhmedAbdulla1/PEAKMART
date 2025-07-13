@@ -1,8 +1,8 @@
 import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
-import 'package:peakmart/core/error_ui/dialogs/custom_dialogs.dart';
-import 'package:peakmart/core/error_ui/error_viewer/dialog/errv_dialog_options.dart';
-import 'package:peakmart/core/resources/string_manager.dart';
+import 'package:Bid_Mart/core/error_ui/dialogs/custom_dialogs.dart';
+import 'package:Bid_Mart/core/error_ui/error_viewer/dialog/errv_dialog_options.dart';
+import 'package:Bid_Mart/core/resources/string_manager.dart';
 
 void showCustomErrorDialog({
   required BuildContext context,

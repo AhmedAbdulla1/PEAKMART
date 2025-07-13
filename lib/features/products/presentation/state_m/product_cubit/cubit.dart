@@ -1,17 +1,17 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/core/entities/empty_entity.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/results/result.dart';
-import 'package:peakmart/features/products/data/models/request/bid_request.dart';
-import 'package:peakmart/features/products/data/models/request/enroll_request.dart';
-import 'package:peakmart/features/products/data/models/request/pagination_request.dart';
-import 'package:peakmart/features/products/data/products_repo_imp.dart';
-import 'package:peakmart/features/products/domain/entity/in_wishlist_entity.dart';
-import 'package:peakmart/features/products/domain/entity/prodcuts_entity.dart';
-import 'package:peakmart/features/products/domain/products_repo.dart';
-import 'package:peakmart/features/products/presentation/state_m/product_cubit/state.dart';
+import 'package:Bid_Mart/core/entities/empty_entity.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/results/result.dart';
+import 'package:Bid_Mart/features/products/data/models/request/bid_request.dart';
+import 'package:Bid_Mart/features/products/data/models/request/enroll_request.dart';
+import 'package:Bid_Mart/features/products/data/models/request/pagination_request.dart';
+import 'package:Bid_Mart/features/products/data/products_repo_imp.dart';
+import 'package:Bid_Mart/features/products/domain/entity/in_wishlist_entity.dart';
+import 'package:Bid_Mart/features/products/domain/entity/prodcuts_entity.dart';
+import 'package:Bid_Mart/features/products/domain/products_repo.dart';
+import 'package:Bid_Mart/features/products/presentation/state_m/product_cubit/state.dart';
 
 class ProductCubit extends Cubit<ProductState> {
   ProductCubit() : super(ProductInitial());

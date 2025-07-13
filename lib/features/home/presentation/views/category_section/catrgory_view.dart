@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
-import 'package:peakmart/features/home/domain/entity/category_entity.dart';
-import 'package:peakmart/features/home/presentation/state_m/category_cubit/category_cubit.dart';
-import 'package:peakmart/features/home/presentation/state_m/category_cubit/states.dart';
-import 'package:peakmart/features/home/presentation/views/category_section/category_item_widget.dart';
+import 'package:Bid_Mart/core/error_ui/error_viewer/error_viewer.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:Bid_Mart/features/home/domain/entity/category_entity.dart';
+import 'package:Bid_Mart/features/home/presentation/state_m/category_cubit/category_cubit.dart';
+import 'package:Bid_Mart/features/home/presentation/state_m/category_cubit/states.dart';
+import 'package:Bid_Mart/features/home/presentation/views/category_section/category_item_widget.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 // Fake CategoryEntity for skeleton loading

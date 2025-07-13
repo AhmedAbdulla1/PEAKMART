@@ -1,8 +1,8 @@
 // import 'package:flutter/material.dart';
-// import 'package:peakmart/features/home/presentation/views/bid_section/bid_card_model.dart';
-// import 'package:peakmart/features/home/presentation/views/bid_section/ended_bids_card_model.dart';
-// import 'package:peakmart/features/home/presentation/views/bid_section/widgets/custom_bid_item.dart';
-// import 'package:peakmart/features/home/presentation/views/bid_section/widgets/custom_ended_bids_item.dart';
+// import 'package:Bid_Mart/features/home/presentation/views/bid_section/bid_card_model.dart';
+// import 'package:Bid_Mart/features/home/presentation/views/bid_section/ended_bids_card_model.dart';
+// import 'package:Bid_Mart/features/home/presentation/views/bid_section/widgets/custom_bid_item.dart';
+// import 'package:Bid_Mart/features/home/presentation/views/bid_section/widgets/custom_ended_bids_item.dart';
 
 // class TransformingBidItem extends StatelessWidget {
 //   const TransformingBidItem(

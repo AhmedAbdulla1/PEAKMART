@@ -7,14 +7,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
-import 'package:peakmart/app/app_prefs.dart';
-import 'package:peakmart/app/di.dart';
-import 'package:peakmart/core/resources/extentions.dart';
-import 'package:peakmart/core/shared_widgets/buttons.dart';
-import 'package:peakmart/core/shared_widgets/select_country_widget.dart';
-import 'package:peakmart/features/auth/data/model/request/signup_for_bid_request.dart';
-import 'package:peakmart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
-import 'package:peakmart/features/auth/presentation/state_mang/signup_for_bid/cubit.dart';
+import 'package:Bid_Mart/app/app_prefs.dart';
+import 'package:Bid_Mart/app/di.dart';
+import 'package:Bid_Mart/core/resources/extentions.dart';
+import 'package:Bid_Mart/core/shared_widgets/buttons.dart';
+import 'package:Bid_Mart/core/shared_widgets/select_country_widget.dart';
+import 'package:Bid_Mart/features/auth/data/model/request/signup_for_bid_request.dart';
+import 'package:Bid_Mart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
+import 'package:Bid_Mart/features/auth/presentation/state_mang/signup_for_bid/cubit.dart';
 
 import 'widgets/dropdown_menu.dart';
 
@@ -27,7 +27,6 @@ class MainInfo extends StatefulWidget {
 
 class _MainInfoState extends State<MainInfo> {
   final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _countryController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _govController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
@@ -139,15 +138,6 @@ class _MainInfoState extends State<MainInfo> {
     return null;
   }
 
-  String? _validateInland(String? value) {
-    if (!_fieldTouchedState['inland']!) {
-      return null; // Don't show error if field hasn't been touched
-    }
-    if (value == null || value.isEmpty) {
-      return 'Field is required';
-    }
-    return null;
-  }
 
   @override
   Widget build(BuildContext context) {

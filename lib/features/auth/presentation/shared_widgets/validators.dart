@@ -1,4 +1,4 @@
-import 'package:peakmart/core/resources/string_manager.dart';
+import 'package:Bid_Mart/core/resources/string_manager.dart';
 
 class Validator {
   static String? validateEmail(String email) {

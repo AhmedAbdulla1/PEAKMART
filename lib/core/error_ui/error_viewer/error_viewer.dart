@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/resources/string_manager.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/resources/string_manager.dart';
 import 'dialog/errv_dialog_options.dart';
 import 'dialog/show_dialog_based_error_type.dart';
 import 'dialog/show_error_dialog.dart';

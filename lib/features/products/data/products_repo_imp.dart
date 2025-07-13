@@ -1,23 +1,23 @@
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
-import 'package:peakmart/app/di.dart';
-import 'package:peakmart/app/network_info.dart';
-import 'package:peakmart/core/entities/empty_entity.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/responses/emty_response.dart';
-import 'package:peakmart/core/results/result.dart';
-import 'package:peakmart/features/products/data/models/request/bid_request.dart';
-import 'package:peakmart/features/products/data/models/request/enroll_request.dart';
-import 'package:peakmart/features/products/data/models/request/pagination_request.dart';
-import 'package:peakmart/features/products/data/models/response/check_wishlist_response.dart';
-import 'package:peakmart/features/products/data/models/response/products_response.dart';
-import 'package:peakmart/features/products/data/models/response/top_bidders_response.dart';
-import 'package:peakmart/features/products/data/products_data_source.dart';
-import 'package:peakmart/features/products/domain/entity/in_wishlist_entity.dart';
-import 'package:peakmart/features/products/domain/entity/prodcuts_entity.dart';
-import 'package:peakmart/features/products/domain/entity/top_bidders_entity.dart';
-import 'package:peakmart/features/products/domain/products_repo.dart';
+import 'package:Bid_Mart/app/di.dart';
+import 'package:Bid_Mart/app/network_info.dart';
+import 'package:Bid_Mart/core/entities/empty_entity.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/responses/emty_response.dart';
+import 'package:Bid_Mart/core/results/result.dart';
+import 'package:Bid_Mart/features/products/data/models/request/bid_request.dart';
+import 'package:Bid_Mart/features/products/data/models/request/enroll_request.dart';
+import 'package:Bid_Mart/features/products/data/models/request/pagination_request.dart';
+import 'package:Bid_Mart/features/products/data/models/response/check_wishlist_response.dart';
+import 'package:Bid_Mart/features/products/data/models/response/products_response.dart';
+import 'package:Bid_Mart/features/products/data/models/response/top_bidders_response.dart';
+import 'package:Bid_Mart/features/products/data/products_data_source.dart';
+import 'package:Bid_Mart/features/products/domain/entity/in_wishlist_entity.dart';
+import 'package:Bid_Mart/features/products/domain/entity/prodcuts_entity.dart';
+import 'package:Bid_Mart/features/products/domain/entity/top_bidders_entity.dart';
+import 'package:Bid_Mart/features/products/domain/products_repo.dart';
 
 class ProductsRepoImp extends ProductsRepo {
   final ProductsDataSource _remoteDataSource = ProductsDataSource();

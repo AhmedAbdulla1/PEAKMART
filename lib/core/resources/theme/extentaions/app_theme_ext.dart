@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/theme/app_theming_cubit/app_theme_cubit.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/theme/app_theming_cubit/app_theme_cubit.dart';
 
 extension AppThemeExt on BuildContext {
   bool get isDarkMode {

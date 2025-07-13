@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
 
 Future<DateTime?> showCustomDatePicker({
   required BuildContext context,

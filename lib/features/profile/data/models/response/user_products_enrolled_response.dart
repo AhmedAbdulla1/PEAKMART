@@ -1,6 +1,6 @@
-import 'package:peakmart/core/models/base_model.dart';
-import 'package:peakmart/features/profile/data/models/response/products_enrolled_res.dart';
-import 'package:peakmart/features/profile/domain/enitiy/user_products_enrolled_entity.dart';
+import 'package:Bid_Mart/core/models/base_model.dart';
+import 'package:Bid_Mart/features/profile/data/models/response/products_enrolled_res.dart';
+import 'package:Bid_Mart/features/profile/domain/enitiy/user_products_enrolled_entity.dart';
 
 class UserProductsEnrolledResponse
     extends BaseResponse<UserProductsEnrolledEntity> {

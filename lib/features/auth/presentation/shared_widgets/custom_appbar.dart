@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:peakmart/core/resources/assets_manager.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
-import 'package:peakmart/core/resources/values_manager.dart';
+import 'package:Bid_Mart/core/resources/assets_manager.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:Bid_Mart/core/resources/values_manager.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
@@ -30,7 +30,7 @@ final void Function()? onBackPressed;
       ),
       child: AppBar(
         shadowColor: context.colorScheme.shadow,
-        backgroundColor: context.colorScheme.background,
+        backgroundColor: context.colorScheme.surface,
         elevation: 0,
         automaticallyImplyLeading: false,
         forceMaterialTransparency: true,
@@ -40,10 +40,10 @@ final void Function()? onBackPressed;
                 onPressed: onBackPressed??()=>Navigator.pop(context),
                 icon: SvgPicture.asset(
                   IconsAssets.arrowBack,
-                  color: context.colorScheme.onBackground,
+                  color: context.colorScheme.onSurface,
                 ),
                 style: ButtonStyle(
-                  shape: MaterialStateProperty.all(
+                  shape: WidgetStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100),
                       side: BorderSide(color: context.colorScheme.outline),
@@ -56,7 +56,7 @@ final void Function()? onBackPressed;
           title,
           style: getSemiBoldStyle(
             fontSize: FontSize.s20,
-            color: context.colorScheme.onBackground,
+            color: context.colorScheme.onSurface,
           ),
         ),
         centerTitle: centerTitle ?? true,

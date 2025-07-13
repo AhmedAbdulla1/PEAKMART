@@ -3,12 +3,12 @@ import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/features/payment/data/model/request.dart';
-import 'package:peakmart/features/payment/domain/entities/fee_entity.dart';
-import 'package:peakmart/features/payment/domain/entities/payment_entity.dart';
-import 'package:peakmart/features/payment/domain/enum/enums.dart';
-import 'package:peakmart/features/payment/domain/failures/failures.dart';
-import 'package:peakmart/features/payment/domain/usecases/payment_usecase.dart';
+import 'package:Bid_Mart/features/payment/data/model/request.dart';
+import 'package:Bid_Mart/features/payment/domain/entities/fee_entity.dart';
+import 'package:Bid_Mart/features/payment/domain/entities/payment_entity.dart';
+import 'package:Bid_Mart/features/payment/domain/enum/enums.dart';
+import 'package:Bid_Mart/features/payment/domain/failures/failures.dart';
+import 'package:Bid_Mart/features/payment/domain/usecases/payment_usecase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'payment_state.dart';

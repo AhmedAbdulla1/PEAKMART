@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:provider/provider.dart';
 
 import '../../features/bid_owner/presentation/state_mang/add_product_cubit/image_picker_controller.dart';
@@ -102,7 +102,7 @@ class AddProductImagePicker extends StatelessWidget {
                       ),
               ),
             ),
-            if (controller.images.length != 0)
+            if (controller.images.isNotEmpty)
               Padding(
                 padding: EdgeInsets.only(top: 10.h),
                 child: SizedBox(
@@ -112,7 +112,7 @@ class AddProductImagePicker extends StatelessWidget {
                     itemCount: controller.images.length,
                     itemBuilder: (context, index) {
                       log("index: $index, images length: ${controller.images.length}");
-                      if (index == controller.images.length - 1)
+                      if (index == controller.images.length - 1) {
                         return GestureDetector(
                           onTap: () {
                             controller.addImage();
@@ -133,6 +133,7 @@ class AddProductImagePicker extends StatelessWidget {
                             ),
                           ),
                         );
+                      }
                       return Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5.w),
                         child: Stack(children: [

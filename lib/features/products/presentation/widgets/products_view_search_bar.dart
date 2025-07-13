@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
 
 class ProductsViewSearchBar extends StatefulWidget {
   final Function(String) onSearch;

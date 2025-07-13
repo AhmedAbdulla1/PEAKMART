@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/core/error_ui/toast.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/string_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
-import 'package:peakmart/features/notifications/domain/notification_enitity.dart';
-import 'package:peakmart/features/notifications/presentation/state_m/notification_cubit.dart';
-import 'package:peakmart/features/notifications/presentation/widgets/notification_card.dart';
-import 'package:peakmart/features/profile/presentation/views/settings/notification_switch_widget.dart';
+import 'package:Bid_Mart/core/error_ui/toast.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/string_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/features/auth/presentation/shared_widgets/custom_appbar.dart';
+import 'package:Bid_Mart/features/notifications/domain/notification_enitity.dart';
+import 'package:Bid_Mart/features/notifications/presentation/state_m/notification_cubit.dart';
+import 'package:Bid_Mart/features/notifications/presentation/widgets/notification_card.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/settings/notification_switch_widget.dart';
 
 class NotificationsViewBody extends StatelessWidget {
   const NotificationsViewBody({super.key, required this.notifications});
@@ -23,9 +23,9 @@ class NotificationsViewBody extends StatelessWidget {
         isNotShowArrowBack: true,
         centerTitle: false,
         actions: [
-          const Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: const NotificationSwitchIconOnly(),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: NotificationSwitchIconOnly(),
           ),
         ],
       ),

@@ -151,7 +151,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Users/ahmed/StudioProjects/PEAKMART/android/app/.cxx/Debug/n4m49c53/x86"
+			"value" : "c:/Users/ahmed/StudioProjects/Bid_Mart/android/app/.cxx/Debug/n4m49c53/x86"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -751,7 +751,7 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "C:\\Users\\ahmed\\StudioProjects\\PEAKMART\\build\\app\\intermediates\\cxx\\Debug\\n4m49c53\\obj\\x86"
+			"value" : "C:\\Users\\ahmed\\StudioProjects\\Bid_Mart\\build\\app\\intermediates\\cxx\\Debug\\n4m49c53\\obj\\x86"
 		},
 		{
 			"name" : "CMAKE_LINKER",
@@ -1023,7 +1023,7 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "C:\\Users\\ahmed\\StudioProjects\\PEAKMART\\build\\app\\intermediates\\cxx\\Debug\\n4m49c53\\obj\\x86"
+			"value" : "C:\\Users\\ahmed\\StudioProjects\\Bid_Mart\\build\\app\\intermediates\\cxx\\Debug\\n4m49c53\\obj\\x86"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",
@@ -1331,7 +1331,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/ahmed/StudioProjects/PEAKMART/android/app/.cxx/Debug/n4m49c53/x86"
+			"value" : "C:/Users/ahmed/StudioProjects/Bid_Mart/android/app/.cxx/Debug/n4m49c53/x86"
 		},
 		{
 			"name" : "Project_IS_TOP_LEVEL",

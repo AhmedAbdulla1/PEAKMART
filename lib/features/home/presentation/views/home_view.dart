@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/features/home/presentation/state_m/category_cubit/category_cubit.dart';
-import 'package:peakmart/features/home/presentation/state_m/content_cubit/cubit.dart';
-import 'package:peakmart/features/home/presentation/state_m/home_cubits/bid_work_now_cubit.dart';
-import 'package:peakmart/features/home/presentation/state_m/home_cubits/ended_bids_cubit.dart';
-import 'package:peakmart/features/home/presentation/state_m/home_cubits/future_bids_cubit.dart';
-import 'package:peakmart/features/home/presentation/state_m/home_cubits/trending_bids_cubit.dart';
-import 'package:peakmart/features/home/presentation/state_m/news_cubit/cubit.dart';
-import 'package:peakmart/features/home/presentation/state_m/news_cubit/state.dart';
-import 'package:peakmart/features/home/presentation/views/home_view_body.dart';
-import 'package:peakmart/features/home/presentation/views/news_section/news_view.dart';
+import 'package:Bid_Mart/features/home/presentation/state_m/category_cubit/category_cubit.dart';
+import 'package:Bid_Mart/features/home/presentation/state_m/content_cubit/cubit.dart';
+import 'package:Bid_Mart/features/home/presentation/state_m/home_cubits/bid_work_now_cubit.dart';
+import 'package:Bid_Mart/features/home/presentation/state_m/home_cubits/ended_bids_cubit.dart';
+import 'package:Bid_Mart/features/home/presentation/state_m/home_cubits/future_bids_cubit.dart';
+import 'package:Bid_Mart/features/home/presentation/state_m/home_cubits/trending_bids_cubit.dart';
+import 'package:Bid_Mart/features/home/presentation/state_m/news_cubit/cubit.dart';
+import 'package:Bid_Mart/features/home/presentation/state_m/news_cubit/state.dart';
+import 'package:Bid_Mart/features/home/presentation/views/home_view_body.dart';
+import 'package:Bid_Mart/features/home/presentation/views/news_section/news_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key, required this.onCategorySelected});

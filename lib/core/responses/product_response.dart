@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:peakmart/core/entities/prodcut_entity.dart';
+import 'package:Bid_Mart/core/entities/prodcut_entity.dart';
 
 class ProductResponse {
   final int id;

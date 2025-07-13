@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
 
 class WaitingWidget extends StatelessWidget {
   const WaitingWidget({super.key});

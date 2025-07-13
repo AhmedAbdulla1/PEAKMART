@@ -1,4 +1,4 @@
-import 'package:peakmart/core/entities/base_entity.dart';
+import 'package:Bid_Mart/core/entities/base_entity.dart';
 
 class CategoriesEntity extends BaseEntity {
   final List<CategoryEntity> categories;
@@ -22,6 +22,5 @@ class CategoryEntity {
     required this.image,
   });
 
-  @override
   List<Object?> get props => [catId, catName, image];
 }

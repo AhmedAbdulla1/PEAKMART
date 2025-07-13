@@ -1,28 +1,27 @@
 import 'dart:developer' as log;
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/core/entities/prodcut_entity.dart';
-import 'package:peakmart/core/error_ui/toast.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/extentions.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
-import 'package:peakmart/features/home/presentation/state_m/home_cubits/future_bids_cubit.dart';
-import 'package:peakmart/features/home/presentation/views/bid_section/titled_bid_section.dart';
-import 'package:peakmart/features/payment/presentation/views/payment_dialog.dart';
-import 'package:peakmart/features/products/data/models/request/bid_request.dart';
-import 'package:peakmart/features/products/data/models/request/enroll_request.dart';
-import 'package:peakmart/features/products/domain/entity/top_bidders_entity.dart';
-import 'package:peakmart/features/products/presentation/state_m/product_cubit/cubit.dart';
-import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_cubit.dart';
-import 'package:peakmart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_states.dart';
-import 'package:peakmart/features/products/presentation/views/product_details/widgets/bid_dialog.dart';
-import 'package:peakmart/features/products/presentation/views/product_details/widgets/prodcut_details_images.dart';
-import 'package:peakmart/features/products/presentation/widgets/top_bidders.dart';
+import 'package:Bid_Mart/core/entities/prodcut_entity.dart';
+import 'package:Bid_Mart/core/error_ui/toast.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/extentions.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:Bid_Mart/features/home/presentation/state_m/home_cubits/future_bids_cubit.dart';
+import 'package:Bid_Mart/features/home/presentation/views/bid_section/titled_bid_section.dart';
+import 'package:Bid_Mart/features/payment/presentation/views/payment_dialog.dart';
+import 'package:Bid_Mart/features/products/data/models/request/bid_request.dart';
+import 'package:Bid_Mart/features/products/data/models/request/enroll_request.dart';
+import 'package:Bid_Mart/features/products/domain/entity/top_bidders_entity.dart';
+import 'package:Bid_Mart/features/products/presentation/state_m/product_cubit/cubit.dart';
+import 'package:Bid_Mart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_cubit.dart';
+import 'package:Bid_Mart/features/products/presentation/state_m/top_bidders_cubit/top_bidder_states.dart';
+import 'package:Bid_Mart/features/products/presentation/views/product_details/widgets/bid_dialog.dart';
+import 'package:Bid_Mart/features/products/presentation/views/product_details/widgets/prodcut_details_images.dart';
+import 'package:Bid_Mart/features/products/presentation/widgets/top_bidders.dart';
 
 class ProductDetailsViewBody extends StatefulWidget {
   const ProductDetailsViewBody(

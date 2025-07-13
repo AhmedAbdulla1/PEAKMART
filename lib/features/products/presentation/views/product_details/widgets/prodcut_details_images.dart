@@ -46,7 +46,7 @@ class _ProductDetailsImagesState extends State<ProductDetailsImages> {
             color: Colors.grey[200],
           ),
           child: selectedImageUrl.isEmpty
-              ? const Center(child: const Text('No Image Available'))
+              ? const Center(child: Text('No Image Available'))
               : CachedNetworkImage(
                   imageUrl: selectedImageUrl,
                   fit: BoxFit.cover,
@@ -57,14 +57,14 @@ class _ProductDetailsImagesState extends State<ProductDetailsImages> {
                     ),
                   ),
                   errorWidget: (context, url, error) => const Center(
-                    child: const Icon(Icons.error, color: Colors.red),
+                    child: Icon(Icons.error, color: Colors.red),
                   ),
                 ),
         ),
         const SizedBox(height: 10),
 
         // Thumbnail List Section
-        Container(
+        SizedBox(
           height: 80,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,

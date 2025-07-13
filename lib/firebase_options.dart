@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyA8BtfYGgrWzsU7L8ZaoRxkuwuZ7vXRQ2w',
-    appId: '1:392698229136:android:57a80699548afabc354315',
+    appId: '1:392698229136:android:0a258e65e52b6410354315',
     messagingSenderId: '392698229136',
     projectId: 'bidmart-a26d2',
     storageBucket: 'bidmart-a26d2.firebasestorage.app',
@@ -59,10 +59,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCJqHn-OzQZ19148vQ97GbiAnrOlN1glfQ',
-    appId: '1:392698229136:ios:d0864a9723f57776354315',
+    appId: '1:392698229136:ios:f9dd2cef0b61c0a2354315',
     messagingSenderId: '392698229136',
     projectId: 'bidmart-a26d2',
     storageBucket: 'bidmart-a26d2.firebasestorage.app',
-    iosBundleId: 'com.example.peakmart',
+    iosBundleId: 'com.example.bidmart',
   );
 }

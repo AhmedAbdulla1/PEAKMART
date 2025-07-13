@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/values_manager.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/values_manager.dart';
 
 void showCustomSnackBar(BuildContext context, String message) {
   final snackBar = SnackBar(

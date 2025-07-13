@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
 
 class CustomTextRow extends StatelessWidget {
   const CustomTextRow({super.key, required this.title, required this.value});

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:peakmart/app/app_prefs.dart';
-import 'package:peakmart/app/di.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
-import 'package:peakmart/core/resources/values_manager.dart';
-import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification.dart';
-import 'package:peakmart/features/auth/presentation/views/signup_for_bid/hold_screen.dart';
-import 'package:peakmart/features/auth/presentation/views/signup_for_bid/view.dart';
-import 'package:peakmart/features/home/domain/entity/content_entity.dart';
+import 'package:Bid_Mart/app/app_prefs.dart';
+import 'package:Bid_Mart/app/di.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:Bid_Mart/core/resources/values_manager.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/otp_verification/otp_verification.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/signup_for_bid/hold_screen.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/signup_for_bid/view.dart';
+import 'package:Bid_Mart/features/home/domain/entity/content_entity.dart';
 
 class ContentLoadedWidget extends StatelessWidget {
   const ContentLoadedWidget({
@@ -81,7 +81,7 @@ class ContentLoadedWidget extends StatelessWidget {
                 SizedBox(height: AppSize.s40.h),
                 ElevatedButton(
                   onPressed: () {
-                    print('${instance<AppPreferences>().getCookie("HKHN")}');
+                    print(instance<AppPreferences>().getCookie("HKHN"));
                     if (instance<AppPreferences>().getCookie("HKH") != '') {
                       Navigator.pushNamed(context, HoldScreen.routeName);
                     } else if (instance<AppPreferences>().getCookie("HKHN") !=

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/core/entities/prodcut_entity.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/features/home/presentation/views/bid_section/widgets/custom_bid_item.dart';
-import 'package:peakmart/features/home/presentation/views/bid_section/widgets/custom_ended_bid_item.dart';
+import 'package:Bid_Mart/core/entities/prodcut_entity.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/features/home/presentation/views/bid_section/widgets/custom_bid_item.dart';
+import 'package:Bid_Mart/features/home/presentation/views/bid_section/widgets/custom_ended_bid_item.dart';
 
 class BidItemStack extends StatelessWidget {
   const BidItemStack({

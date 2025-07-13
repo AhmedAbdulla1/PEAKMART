@@ -1,4 +1,4 @@
-import 'package:peakmart/core/entities/base_entity.dart';
+import 'package:Bid_Mart/core/entities/base_entity.dart';
 
 abstract class BaseResponse<T extends BaseEntity> {
   String message;

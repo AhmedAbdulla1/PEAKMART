@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/shared_widgets/buttons.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/shared_widgets/buttons.dart';
 
 class HoldScreen extends StatelessWidget {
   static const String routeName = '/hold-screen';

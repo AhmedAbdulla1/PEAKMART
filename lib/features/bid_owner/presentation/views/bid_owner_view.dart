@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/values_manager.dart';
-import 'package:peakmart/core/widgets/waiting_widget.dart';
-import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification.dart';
-import 'package:peakmart/features/auth/presentation/views/signup_for_bid/hold_screen.dart';
-import 'package:peakmart/features/auth/presentation/views/signup_for_bid/view.dart';
-import 'package:peakmart/features/bid_owner/presentation/state_mang/add_product_cubit/add_product_cubit.dart';
-import 'package:peakmart/features/bid_owner/presentation/state_mang/add_product_cubit/image_picker_controller.dart';
-import 'package:peakmart/features/bid_owner/presentation/views/widgets/add_product_view_body.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/values_manager.dart';
+import 'package:Bid_Mart/core/widgets/waiting_widget.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/otp_verification/otp_verification.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/signup_for_bid/hold_screen.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/signup_for_bid/view.dart';
+import 'package:Bid_Mart/features/bid_owner/presentation/state_mang/add_product_cubit/add_product_cubit.dart';
+import 'package:Bid_Mart/features/bid_owner/presentation/state_mang/add_product_cubit/image_picker_controller.dart';
+import 'package:Bid_Mart/features/bid_owner/presentation/views/widgets/add_product_view_body.dart';
 import 'package:provider/provider.dart';
 
 class BidOwnerView extends StatefulWidget {

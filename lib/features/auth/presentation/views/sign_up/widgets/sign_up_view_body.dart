@@ -2,16 +2,16 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/core/error_ui/dialogs/show_dialog.dart';
-import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
-import 'package:peakmart/core/error_ui/error_viewer/toast/errv_toast_options.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/values_manager.dart';
-import 'package:peakmart/core/widgets/waiting_widget.dart';
-import 'package:peakmart/features/auth/domain/entity/register_entity.dart';
-import 'package:peakmart/features/auth/presentation/state_mang/register_cubit.dart/register_cubit.dart';
-import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification.dart';
-import 'package:peakmart/features/auth/presentation/views/sign_up/widgets/sign_up_build_widgets.dart';
+import 'package:Bid_Mart/core/error_ui/dialogs/show_dialog.dart';
+import 'package:Bid_Mart/core/error_ui/error_viewer/error_viewer.dart';
+import 'package:Bid_Mart/core/error_ui/error_viewer/toast/errv_toast_options.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/values_manager.dart';
+import 'package:Bid_Mart/core/widgets/waiting_widget.dart';
+import 'package:Bid_Mart/features/auth/domain/entity/register_entity.dart';
+import 'package:Bid_Mart/features/auth/presentation/state_mang/register_cubit.dart/register_cubit.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/otp_verification/otp_verification.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/sign_up/widgets/sign_up_build_widgets.dart';
 
 class SignUpViewBody extends StatefulWidget {
   const SignUpViewBody({super.key});

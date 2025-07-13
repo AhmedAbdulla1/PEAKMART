@@ -1,5 +1,5 @@
-import 'package:peakmart/core/entities/prodcut_entity.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/entities/prodcut_entity.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
 
 sealed class BidsState {}
 

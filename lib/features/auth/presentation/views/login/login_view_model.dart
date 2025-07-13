@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:peakmart/core/resources/string_manager.dart';
+import 'package:Bid_Mart/core/resources/string_manager.dart';
 
 class LoginViewModel extends LoginViewModelOutput {
   final StreamController<String> _emailStreamController =

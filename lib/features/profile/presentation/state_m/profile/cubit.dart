@@ -4,17 +4,17 @@
 import 'dart:ui';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/app/app_prefs.dart';
-import 'package:peakmart/app/di.dart';
-import 'package:peakmart/core/entities/empty_entity.dart';
-import 'package:peakmart/core/error_ui/toast.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/results/result.dart';
-import 'package:peakmart/features/profile/data/models/request/update_profile_image_request.dart';
-import 'package:peakmart/features/profile/data/models/request/update_profile_request.dart';
-import 'package:peakmart/features/profile/domain/enitiy/user_info_entity.dart';
-import 'package:peakmart/features/profile/domain/profile_repo.dart';
+import 'package:Bid_Mart/app/app_prefs.dart';
+import 'package:Bid_Mart/app/di.dart';
+import 'package:Bid_Mart/core/entities/empty_entity.dart';
+import 'package:Bid_Mart/core/error_ui/toast.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/results/result.dart';
+import 'package:Bid_Mart/features/profile/data/models/request/update_profile_image_request.dart';
+import 'package:Bid_Mart/features/profile/data/models/request/update_profile_request.dart';
+import 'package:Bid_Mart/features/profile/domain/enitiy/user_info_entity.dart';
+import 'package:Bid_Mart/features/profile/domain/profile_repo.dart';
 
 part 'state.dart';
 

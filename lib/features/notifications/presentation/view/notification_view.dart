@@ -3,16 +3,16 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/core/error_ui/toast.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/widgets/waiting_widget.dart';
-import 'package:peakmart/features/notifications/data/firebase_cloud_messaging_service.dart';
-import 'package:peakmart/features/notifications/data/local_notification_service.dart';
-import 'package:peakmart/features/notifications/domain/notification_enitity.dart';
-import 'package:peakmart/features/notifications/presentation/state_m/notification_cubit.dart';
-import 'package:peakmart/features/notifications/presentation/state_m/notification_state.dart';
-import 'package:peakmart/features/notifications/presentation/state_m/notifications_cubit.dart';
-import 'package:peakmart/features/notifications/presentation/view/notifications_view_body.dart';
+import 'package:Bid_Mart/core/error_ui/toast.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/widgets/waiting_widget.dart';
+import 'package:Bid_Mart/features/notifications/data/firebase_cloud_messaging_service.dart';
+import 'package:Bid_Mart/features/notifications/data/local_notification_service.dart';
+import 'package:Bid_Mart/features/notifications/domain/notification_enitity.dart';
+import 'package:Bid_Mart/features/notifications/presentation/state_m/notification_cubit.dart';
+import 'package:Bid_Mart/features/notifications/presentation/state_m/notification_state.dart';
+import 'package:Bid_Mart/features/notifications/presentation/state_m/notifications_cubit.dart';
+import 'package:Bid_Mart/features/notifications/presentation/view/notifications_view_body.dart';
 
 class NotificationsView extends StatefulWidget {
   const NotificationsView({super.key});
@@ -56,8 +56,8 @@ class _NotificationsViewState extends State<NotificationsView>
         });
         LocalNotificationService.showBasicNotification(
           id: 0,
-          title: notificationMessage.title ?? 'Notification',
-          body: notificationMessage.description ?? '',
+          title: notificationMessage.title,
+          body: notificationMessage.description ,
         );
       },
     );

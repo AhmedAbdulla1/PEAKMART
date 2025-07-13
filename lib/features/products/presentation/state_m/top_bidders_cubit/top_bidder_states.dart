@@ -1,5 +1,5 @@
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/features/products/domain/entity/top_bidders_entity.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/features/products/domain/entity/top_bidders_entity.dart';
 
 sealed class TopBiddersState {}
 

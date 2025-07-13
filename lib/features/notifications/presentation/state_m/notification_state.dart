@@ -1,6 +1,6 @@
 // lib/features/notifications/presentation/state_m/notification_state.dart
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/features/notifications/domain/notification_enitity.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/features/notifications/domain/notification_enitity.dart';
 
 abstract class NotificationsState {}
 

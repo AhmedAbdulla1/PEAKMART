@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/core/resources/string_manager.dart';
-import 'package:peakmart/features/auth/domain/entity/register_entity.dart';
-import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
-import 'package:peakmart/features/auth/presentation/state_mang/otp_verfication_cubit/otp_verfication_cubit.dart';
-import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification_body.dart';
+import 'package:Bid_Mart/core/resources/string_manager.dart';
+import 'package:Bid_Mart/features/auth/domain/entity/register_entity.dart';
+import 'package:Bid_Mart/features/auth/presentation/shared_widgets/custom_appbar.dart';
+import 'package:Bid_Mart/features/auth/presentation/state_mang/otp_verfication_cubit/otp_verfication_cubit.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/otp_verification/otp_verification_body.dart';
 
 class OtpVerification extends StatelessWidget {
   const OtpVerification({

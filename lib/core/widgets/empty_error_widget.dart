@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/core/resources/string_manager.dart';
+import 'package:Bid_Mart/core/resources/string_manager.dart';
 
 class EmptyErrorScreenWidget extends StatefulWidget {
   final String message;

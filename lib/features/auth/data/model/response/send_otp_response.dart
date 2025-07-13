@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:peakmart/core/models/base_model.dart';
-import 'package:peakmart/features/auth/domain/entity/send_otp_entity.dart';
+import 'package:Bid_Mart/core/models/base_model.dart';
+import 'package:Bid_Mart/features/auth/domain/entity/send_otp_entity.dart';
 
 class SendOtpResponse extends BaseResponse {
   SendOtpData data;

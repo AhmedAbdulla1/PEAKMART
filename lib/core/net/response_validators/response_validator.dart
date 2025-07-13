@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
 
 abstract class ResponseValidator {
   AppErrors? error;

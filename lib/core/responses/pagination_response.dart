@@ -1,4 +1,4 @@
-import 'package:peakmart/core/entities/pagination_entity.dart';
+import 'package:Bid_Mart/core/entities/pagination_entity.dart';
 
 class PaginationResponse {
   PaginationResponse({

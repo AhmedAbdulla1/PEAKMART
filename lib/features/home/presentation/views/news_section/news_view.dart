@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/resources/values_manager.dart';
-import 'package:peakmart/features/home/domain/entity/news_entity.dart';
-import 'package:peakmart/features/home/presentation/views/news_section/animations_view_model.dart';
-import 'package:peakmart/features/products/presentation/views/product_details/product_details_view.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/core/resources/values_manager.dart';
+import 'package:Bid_Mart/features/home/domain/entity/news_entity.dart';
+import 'package:Bid_Mart/features/home/presentation/views/news_section/animations_view_model.dart';
+import 'package:Bid_Mart/features/products/presentation/views/product_details/product_details_view.dart';
 import 'package:text_scroll/text_scroll.dart';
 
 class AnimatedNewsContainer extends StatefulWidget {

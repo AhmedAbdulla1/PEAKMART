@@ -3,19 +3,19 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/core/error_ui/dialogs/custom_dialogs.dart';
-import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart'
+import 'package:Bid_Mart/core/error_ui/dialogs/custom_dialogs.dart';
+import 'package:Bid_Mart/core/error_ui/error_viewer/error_viewer.dart'
     show ErrorViewer;
-import 'package:peakmart/core/error_ui/error_viewer/toast/errv_toast_options.dart';
-import 'package:peakmart/core/error_ui/toast.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/extentions.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
-import 'package:peakmart/features/profile/presentation/state_m/user_products/user_products_cubit.dart';
-import 'package:peakmart/features/profile/presentation/state_m/user_products/user_products_states.dart';
-import 'package:peakmart/features/profile/presentation/views/personal_inof/passwrod_dialog.dart';
+import 'package:Bid_Mart/core/error_ui/error_viewer/toast/errv_toast_options.dart';
+import 'package:Bid_Mart/core/error_ui/toast.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/extentions.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:Bid_Mart/features/profile/presentation/state_m/user_products/user_products_cubit.dart';
+import 'package:Bid_Mart/features/profile/presentation/state_m/user_products/user_products_states.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/personal_inof/passwrod_dialog.dart';
 
 class CancelAndEndButtonsWidget extends StatelessWidget {
   const CancelAndEndButtonsWidget({super.key, required this.productId});

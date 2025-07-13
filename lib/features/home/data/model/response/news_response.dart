@@ -1,6 +1,6 @@
-import 'package:peakmart/core/models/base_model.dart';
-import 'package:peakmart/core/responses/pagination_response.dart';
-import 'package:peakmart/features/home/domain/entity/news_entity.dart';
+import 'package:Bid_Mart/core/models/base_model.dart';
+import 'package:Bid_Mart/core/responses/pagination_response.dart';
+import 'package:Bid_Mart/features/home/domain/entity/news_entity.dart';
 
 class NewsResponse extends BaseResponse<NewsEntity> {
   final List<NewsDataResponse> data;

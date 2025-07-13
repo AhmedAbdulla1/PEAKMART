@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:peakmart/features/profile/domain/enitiy/product_enrolled_entity.dart';
+import 'package:Bid_Mart/features/profile/domain/enitiy/product_enrolled_entity.dart';
 
 class ProductsEnrolledResponse {
   final num id, fees, highestBid, userBid;

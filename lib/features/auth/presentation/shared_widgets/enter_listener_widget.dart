@@ -6,10 +6,10 @@ class EnterListener extends StatefulWidget {
   final VoidCallback onEnter;
 
   const EnterListener({
-    Key? key,
+    super.key,
     required this.child,
     required this.onEnter,
-  }) : super(key: key);
+  });
 
   @override
   State<EnterListener> createState() => _EnterListenerState();

@@ -2,16 +2,16 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/app/app_prefs.dart';
-import 'package:peakmart/app/di.dart';
-import 'package:peakmart/core/entities/empty_entity.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/results/result.dart';
-import 'package:peakmart/features/bid_owner/data/models/request/add_product_request.dart';
-import 'package:peakmart/features/bid_owner/data/owner_repo_imp.dart';
-import 'package:peakmart/features/bid_owner/domain/entity/check_is_seller_entity.dart';
-import 'package:peakmart/features/bid_owner/domain/repository/owner_repo.dart';
-import 'package:peakmart/features/home/domain/entity/category_entity.dart';
+import 'package:Bid_Mart/app/app_prefs.dart';
+import 'package:Bid_Mart/app/di.dart';
+import 'package:Bid_Mart/core/entities/empty_entity.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/results/result.dart';
+import 'package:Bid_Mart/features/bid_owner/data/models/request/add_product_request.dart';
+import 'package:Bid_Mart/features/bid_owner/data/owner_repo_imp.dart';
+import 'package:Bid_Mart/features/bid_owner/domain/entity/check_is_seller_entity.dart';
+import 'package:Bid_Mart/features/bid_owner/domain/repository/owner_repo.dart';
+import 'package:Bid_Mart/features/home/domain/entity/category_entity.dart';
 
 part 'add_product_state.dart';
 

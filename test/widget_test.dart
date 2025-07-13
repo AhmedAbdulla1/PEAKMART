@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:peakmart/app/app.dart';
+import 'package:Bid_Mart/app/app.dart';
 
 
 void main() {

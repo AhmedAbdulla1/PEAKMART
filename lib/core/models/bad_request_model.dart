@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:peakmart/core/entities/base_entity.dart';
+import 'package:Bid_Mart/core/entities/base_entity.dart';
 
 import 'base_model.dart';
 

@@ -1,4 +1,3 @@
-import 'package:peakmart/features/payment/domain/enum/enums.dart';
 
 class PaymentEntity {
   final String id;

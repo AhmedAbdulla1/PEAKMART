@@ -1,7 +1,6 @@
-import 'package:peakmart/core/entities/prodcut_entity.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/features/products/domain/entity/prodcuts_entity.dart';
-import 'package:peakmart/features/profile/domain/enitiy/product_enrolled_entity.dart';
+import 'package:Bid_Mart/core/entities/prodcut_entity.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/features/profile/domain/enitiy/product_enrolled_entity.dart';
 
 abstract class UserProductsStates {}
 

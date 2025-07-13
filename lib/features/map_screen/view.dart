@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/widgets/waiting_widget.dart';
-import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
-import 'package:peakmart/features/map_screen/cubit/cubit.dart';
-import 'package:peakmart/features/map_screen/cubit/states.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/widgets/waiting_widget.dart';
+import 'package:Bid_Mart/features/auth/presentation/shared_widgets/custom_appbar.dart';
+import 'package:Bid_Mart/features/map_screen/cubit/cubit.dart';
+import 'package:Bid_Mart/features/map_screen/cubit/states.dart';
 
 class MapLocationScreen extends StatefulWidget {
   const MapLocationScreen({super.key});

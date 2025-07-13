@@ -1,6 +1,6 @@
-import 'package:peakmart/core/models/base_model.dart';
-import 'package:peakmart/core/responses/product_response.dart';
-import 'package:peakmart/features/profile/domain/enitiy/user_product_entity.dart';
+import 'package:Bid_Mart/core/models/base_model.dart';
+import 'package:Bid_Mart/core/responses/product_response.dart';
+import 'package:Bid_Mart/features/profile/domain/enitiy/user_product_entity.dart';
 
 class UserProductResponse extends BaseResponse<UserProductEntity> {
   final List<ProductResponse> data;

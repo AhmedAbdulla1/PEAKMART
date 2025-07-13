@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/core/resources/extentions.dart';
-import 'package:peakmart/core/resources/string_manager.dart';
-import 'package:peakmart/core/resources/values_manager.dart';
-import 'package:peakmart/features/home/presentation/views/apply_section/apply_view.dart';
-import 'package:peakmart/features/home/presentation/views/bid_section/titled_bid_section.dart';
-import 'package:peakmart/features/home/presentation/views/category_section/catrgory_view.dart';
-import 'package:peakmart/features/home/presentation/views/landing_section/landing_view.dart';
-import 'package:peakmart/features/home/presentation/views/offers_section/offers_view.dart';
-import 'package:peakmart/features/home/presentation/views/partners_section/partners_view.dart';
-import 'package:peakmart/features/home/presentation/views/services_section/services_section.dart';
+import 'package:Bid_Mart/core/resources/extentions.dart';
+import 'package:Bid_Mart/core/resources/string_manager.dart';
+import 'package:Bid_Mart/core/resources/values_manager.dart';
+import 'package:Bid_Mart/features/home/presentation/views/apply_section/apply_view.dart';
+import 'package:Bid_Mart/features/home/presentation/views/bid_section/titled_bid_section.dart';
+import 'package:Bid_Mart/features/home/presentation/views/category_section/catrgory_view.dart';
+import 'package:Bid_Mart/features/home/presentation/views/landing_section/landing_view.dart';
+import 'package:Bid_Mart/features/home/presentation/views/offers_section/offers_view.dart';
+import 'package:Bid_Mart/features/home/presentation/views/partners_section/partners_view.dart';
+import 'package:Bid_Mart/features/home/presentation/views/services_section/services_section.dart';
 
 import '../state_m/home_cubits/bid_work_now_cubit.dart';
 import '../state_m/home_cubits/ended_bids_cubit.dart';

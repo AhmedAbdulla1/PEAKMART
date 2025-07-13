@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/string_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/widgets/waiting_widget.dart';
-import 'package:peakmart/features/bid_owner/presentation/views/bid_owner_view.dart';
-import 'package:peakmart/features/home/domain/entity/content_entity.dart';
-import 'package:peakmart/features/home/presentation/state_m/content_cubit/cubit.dart';
-import 'package:peakmart/features/home/presentation/state_m/content_cubit/state.dart';
+import 'package:Bid_Mart/core/error_ui/error_viewer/error_viewer.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/string_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/core/widgets/waiting_widget.dart';
+import 'package:Bid_Mart/features/bid_owner/presentation/views/bid_owner_view.dart';
+import 'package:Bid_Mart/features/home/domain/entity/content_entity.dart';
+import 'package:Bid_Mart/features/home/presentation/state_m/content_cubit/cubit.dart';
+import 'package:Bid_Mart/features/home/presentation/state_m/content_cubit/state.dart';
 
 // Fake ContentData for skeleton loading
 ContentData fakeContentData = ContentData(

@@ -2,13 +2,13 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/app/di.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/results/result.dart';
-import 'package:peakmart/features/home/data/model/request/news_request.dart';
-import 'package:peakmart/features/home/domain/entity/news_entity.dart';
-import 'package:peakmart/features/home/domain/home_repo.dart';
-import 'package:peakmart/features/home/presentation/state_m/news_cubit/state.dart';
+import 'package:Bid_Mart/app/di.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/results/result.dart';
+import 'package:Bid_Mart/features/home/data/model/request/news_request.dart';
+import 'package:Bid_Mart/features/home/domain/entity/news_entity.dart';
+import 'package:Bid_Mart/features/home/domain/home_repo.dart';
+import 'package:Bid_Mart/features/home/presentation/state_m/news_cubit/state.dart';
 
 class NewsCubit extends Cubit<NewsState> {
   NewsCubit() : super(NewsInitial());

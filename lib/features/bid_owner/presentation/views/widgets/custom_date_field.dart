@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
 
 class CustomDateField extends StatefulWidget {
   final TextEditingController controller;
@@ -49,7 +49,6 @@ class _CustomDateFieldState extends State<CustomDateField> {
         lastDate = widget.lastDate ?? DateTime(2100);
         break;
       case DateTimeType.generalDate:
-      default:
         initialDate = DateTime.now();
         firstDate = widget.firstDate ?? DateTime(1900);
         lastDate = widget.lastDate ?? DateTime(2100);

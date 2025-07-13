@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:peakmart/core/resources/language_manager.dart';
+import 'package:Bid_Mart/core/resources/language_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const String prefsKeyLang = "PrefsKeyLang";
@@ -149,8 +149,8 @@ class AppPreferences {
     Set<String> keys = getCookiesKey().toSet();
     keys.addAll(value.keys);
     await _sharedPreferences.setStringList(cookiesKey, keys.toList());
-    print('on set  cookies ${_sharedPreferences.getStringList(cookiesKey)}');
-    print(getCookies());
+    log('on set  cookies ${_sharedPreferences.getStringList(cookiesKey)}');
+    log(getCookies().toString());
   }
 
   List<String> getCookiesKey() {

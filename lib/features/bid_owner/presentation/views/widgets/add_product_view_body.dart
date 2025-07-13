@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/core/resources/string_manager.dart';
-import 'package:peakmart/core/resources/values_manager.dart';
-import 'package:peakmart/core/shared_widgets/add_product_image_picker.dart';
-import 'package:peakmart/core/shared_widgets/buttons.dart';
-import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
-import 'package:peakmart/features/bid_owner/data/models/request/add_product_request.dart';
-import 'package:peakmart/features/bid_owner/presentation/state_mang/add_product_cubit/add_product_cubit.dart';
-import 'package:peakmart/features/bid_owner/presentation/state_mang/add_product_cubit/image_picker_controller.dart';
-import 'package:peakmart/features/bid_owner/presentation/views/add_product_details.dart';
-import 'package:peakmart/features/bid_owner/presentation/views/widgets/place_bid_accept_data.dart';
-import 'package:peakmart/features/home/domain/entity/category_entity.dart';
+import 'package:Bid_Mart/core/resources/string_manager.dart';
+import 'package:Bid_Mart/core/resources/values_manager.dart';
+import 'package:Bid_Mart/core/shared_widgets/add_product_image_picker.dart';
+import 'package:Bid_Mart/core/shared_widgets/buttons.dart';
+import 'package:Bid_Mart/features/auth/presentation/shared_widgets/custom_appbar.dart';
+import 'package:Bid_Mart/features/bid_owner/data/models/request/add_product_request.dart';
+import 'package:Bid_Mart/features/bid_owner/presentation/state_mang/add_product_cubit/add_product_cubit.dart';
+import 'package:Bid_Mart/features/bid_owner/presentation/state_mang/add_product_cubit/image_picker_controller.dart';
+import 'package:Bid_Mart/features/bid_owner/presentation/views/add_product_details.dart';
+import 'package:Bid_Mart/features/bid_owner/presentation/views/widgets/place_bid_accept_data.dart';
+import 'package:Bid_Mart/features/home/domain/entity/category_entity.dart';
 import 'package:provider/provider.dart';
 
 class AddProductViewBody extends StatefulWidget {

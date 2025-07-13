@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart' as toast;
-import 'package:peakmart/core/error_ui/toast.dart';
+import 'package:Bid_Mart/core/error_ui/toast.dart';
 
 import 'errv_toast_options.dart';
 

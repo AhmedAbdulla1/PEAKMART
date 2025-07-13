@@ -1,14 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/app/di.dart';
-import 'package:peakmart/core/entities/empty_entity.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/results/result.dart';
-import 'package:peakmart/features/auth/data/model/request/send_otp_request.dart';
-import 'package:peakmart/features/auth/data/model/request/verfiy_otp_request.dart';
-import 'package:peakmart/features/auth/domain/entity/send_otp_entity.dart';
-import 'package:peakmart/features/auth/domain/repository/auth_repo.dart';
+import 'package:Bid_Mart/app/di.dart';
+import 'package:Bid_Mart/core/entities/empty_entity.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/results/result.dart';
+import 'package:Bid_Mart/features/auth/data/model/request/send_otp_request.dart';
+import 'package:Bid_Mart/features/auth/data/model/request/verfiy_otp_request.dart';
+import 'package:Bid_Mart/features/auth/domain/entity/send_otp_entity.dart';
+import 'package:Bid_Mart/features/auth/domain/repository/auth_repo.dart';
 
 part 'otp_verfication_states.dart';
 

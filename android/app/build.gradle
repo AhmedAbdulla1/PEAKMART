@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.peakmart"
+    namespace = "com.example.bidmart"
     compileSdk = 35 
     ndkVersion = "28.0.13004108"
 
@@ -21,7 +21,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.peakmart"
+        applicationId = "com.example.bidmart"
         minSdk = 23
 
         targetSdk = 34

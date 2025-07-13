@@ -1,12 +1,12 @@
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/results/result.dart';
-import 'package:peakmart/features/home/data/model/request/news_request.dart';
-import 'package:peakmart/features/home/domain/entity/bid_work_now_entity.dart';
-import 'package:peakmart/features/home/domain/entity/content_entity.dart';
-import 'package:peakmart/features/home/domain/entity/ended_bids_entity.dart';
-import 'package:peakmart/features/home/domain/entity/future_bids_entity.dart';
-import 'package:peakmart/features/home/domain/entity/news_entity.dart';
-import 'package:peakmart/features/home/domain/entity/trending_bids_entity.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/results/result.dart';
+import 'package:Bid_Mart/features/home/data/model/request/news_request.dart';
+import 'package:Bid_Mart/features/home/domain/entity/bid_work_now_entity.dart';
+import 'package:Bid_Mart/features/home/domain/entity/content_entity.dart';
+import 'package:Bid_Mart/features/home/domain/entity/ended_bids_entity.dart';
+import 'package:Bid_Mart/features/home/domain/entity/future_bids_entity.dart';
+import 'package:Bid_Mart/features/home/domain/entity/news_entity.dart';
+import 'package:Bid_Mart/features/home/domain/entity/trending_bids_entity.dart';
 
 import 'entity/category_entity.dart';
 

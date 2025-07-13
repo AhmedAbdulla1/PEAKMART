@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:peakmart/core/constants/app/app_constants.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-
-
+import 'package:Bid_Mart/core/resources/color_manager.dart';
 
 class BaseErrorWidget extends StatefulWidget {
   final GestureTapCallback? onTap;
@@ -45,7 +42,7 @@ class _BaseErrorWidgetState extends State<BaseErrorWidget> {
               ),
               Text(
                 widget.title ?? '',
-                style:  TextStyle(
+                style: TextStyle(
                   fontSize: 20,
                   color: ColorManager.primary,
                 ),
@@ -73,24 +70,28 @@ class _BaseErrorWidgetState extends State<BaseErrorWidget> {
 class NoDataWidget extends StatelessWidget {
   final String? message;
   final NoData? noData;
+
   const NoDataWidget({super.key, this.message, this.noData});
+
   @override
   Widget build(BuildContext context) {
     return BaseErrorWidget(
       onTap: null,
-      title: noData?.message ?? message ,
+      title: noData?.message ?? message,
       subtitle: '',
-      icon: SvgPicture.asset(
-        noData?.image ?? AppConstants.no_data,
-        height: 0.25.sh,
-      ),
+      icon: noData?.image != null
+          ? SvgPicture.asset(
+              noData!.image!,
+              height: 0.25.sh,
+            )
+          : null,
     );
   }
 }
 
-class AppAssets {
-}
-class NoData{
+class AppAssets {}
+
+class NoData {
   final String? image;
   final String? message;
 

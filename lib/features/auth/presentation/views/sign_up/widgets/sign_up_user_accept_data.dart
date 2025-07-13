@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/countries.dart';
-import 'package:peakmart/core/resources/string_manager.dart';
-import 'package:peakmart/core/shared_widgets/text_fields.dart';
-import 'package:peakmart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
-import 'package:peakmart/features/auth/presentation/shared_widgets/password_text_form_field.dart';
+import 'package:Bid_Mart/core/resources/string_manager.dart';
+import 'package:Bid_Mart/core/shared_widgets/text_fields.dart';
+import 'package:Bid_Mart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
+import 'package:Bid_Mart/features/auth/presentation/shared_widgets/password_text_form_field.dart';
 
 class SignUpUserAcceptData extends StatefulWidget {
   const SignUpUserAcceptData({

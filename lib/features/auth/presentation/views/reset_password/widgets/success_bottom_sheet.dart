@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/core/resources/assets_manager.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/extentions.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/string_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/resources/theme/extentaions/app_theme_ext.dart';
-import 'package:peakmart/core/shared_widgets/buttons.dart';
-import 'package:peakmart/features/auth/presentation/state_mang/otp_verfication_cubit/otp_verfication_cubit.dart';
-import 'package:peakmart/features/auth/presentation/state_mang/reset_pass_cubit/cubit.dart';
-import 'package:peakmart/features/auth/presentation/views/login/login_view.dart';
-import 'package:peakmart/features/main/main_view.dart';
+import 'package:Bid_Mart/core/resources/assets_manager.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/extentions.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/string_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
+import 'package:Bid_Mart/core/shared_widgets/buttons.dart';
+import 'package:Bid_Mart/features/auth/presentation/state_mang/otp_verfication_cubit/otp_verfication_cubit.dart';
+import 'package:Bid_Mart/features/auth/presentation/state_mang/reset_pass_cubit/cubit.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/login/login_view.dart';
+import 'package:Bid_Mart/features/main/main_view.dart';
 import 'package:timer_button/timer_button.dart';
 
 class SuccessBottomSheet extends StatelessWidget {

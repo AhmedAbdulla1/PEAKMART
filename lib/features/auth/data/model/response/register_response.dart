@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:peakmart/core/entities/base_entity.dart';
-import 'package:peakmart/core/models/base_model.dart';
-import 'package:peakmart/features/auth/domain/entity/register_entity.dart';
+import 'package:Bid_Mart/core/entities/base_entity.dart';
+import 'package:Bid_Mart/core/models/base_model.dart';
+import 'package:Bid_Mart/features/auth/domain/entity/register_entity.dart';
 
 class RegisterResponse extends BaseResponse<BaseEntity> {
   RegisterData data;

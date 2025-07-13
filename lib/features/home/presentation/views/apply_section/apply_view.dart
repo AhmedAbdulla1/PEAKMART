@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
-import 'package:peakmart/core/resources/font_manager.dart';
-import 'package:peakmart/core/resources/style_manager.dart';
-import 'package:peakmart/core/widgets/waiting_widget.dart';
-import 'package:peakmart/features/home/domain/entity/content_entity.dart';
-import 'package:peakmart/features/home/presentation/state_m/content_cubit/cubit.dart';
-import 'package:peakmart/features/home/presentation/state_m/content_cubit/state.dart';
-import 'package:peakmart/features/products/presentation/views/privacy_and_policy_view.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/font_manager.dart';
+import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:Bid_Mart/core/widgets/waiting_widget.dart';
+import 'package:Bid_Mart/features/home/domain/entity/content_entity.dart';
+import 'package:Bid_Mart/features/home/presentation/state_m/content_cubit/cubit.dart';
+import 'package:Bid_Mart/features/home/presentation/state_m/content_cubit/state.dart';
+import 'package:Bid_Mart/features/products/presentation/views/privacy_and_policy_view.dart';
 
 class ApplyView extends StatelessWidget {
   ApplyView({super.key});
@@ -19,7 +19,7 @@ class ApplyView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ContentCubit, ContentState>(builder: (context, state) {
       if (state is ContentError) {
-        return SizedBox();
+        return const SizedBox();
         //
         // ErrorViewer.showError(
         //   error: state.errors, context: context, callback: () {});

@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:peakmart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/color_manager.dart';
 
 import '../errv_options.dart';
 

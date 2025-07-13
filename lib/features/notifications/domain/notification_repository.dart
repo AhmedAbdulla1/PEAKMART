@@ -1,8 +1,8 @@
 // lib/features/notifications/domain/notification_repo.dart
-import 'package:peakmart/core/entities/empty_entity.dart';
-import 'package:peakmart/core/errors/app_errors.dart';
-import 'package:peakmart/core/results/result.dart';
-import 'package:peakmart/features/notifications/data/models/requests/request.dart';
+import 'package:Bid_Mart/core/entities/empty_entity.dart';
+import 'package:Bid_Mart/core/errors/app_errors.dart';
+import 'package:Bid_Mart/core/results/result.dart';
+import 'package:Bid_Mart/features/notifications/data/models/requests/request.dart';
 
 import 'notification_enitity.dart';
 

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:peakmart/core/error_ui/dialogs/show_dialog.dart';
-import 'package:peakmart/core/error_ui/error_viewer/error_viewer.dart';
-import 'package:peakmart/core/resources/values_manager.dart';
-import 'package:peakmart/core/widgets/waiting_widget.dart';
-import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
-import 'package:peakmart/features/auth/presentation/state_mang/signup_for_bid/cubit.dart';
-import 'package:peakmart/features/auth/presentation/views/otp_verification/otp_verification.dart';
-import 'package:peakmart/features/auth/presentation/views/signup_for_bid/additional_details.dart';
-import 'package:peakmart/features/auth/presentation/views/signup_for_bid/main_info.dart';
+import 'package:Bid_Mart/core/error_ui/dialogs/show_dialog.dart';
+import 'package:Bid_Mart/core/error_ui/error_viewer/error_viewer.dart';
+import 'package:Bid_Mart/core/resources/values_manager.dart';
+import 'package:Bid_Mart/core/widgets/waiting_widget.dart';
+import 'package:Bid_Mart/features/auth/presentation/shared_widgets/custom_appbar.dart';
+import 'package:Bid_Mart/features/auth/presentation/state_mang/signup_for_bid/cubit.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/otp_verification/otp_verification.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/signup_for_bid/additional_details.dart';
+import 'package:Bid_Mart/features/auth/presentation/views/signup_for_bid/main_info.dart';
 
 class SignUpForBidView extends StatefulWidget {
   static const String routeName = '/signUpForBid';

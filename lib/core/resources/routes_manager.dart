@@ -1,4 +1,8 @@
 //
+import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/about_us_view.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/contact_us_view.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/exchange__return_policy_view.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/privacy_policy_view.dart';
 import 'package:flutter/material.dart';
 import 'package:Bid_Mart/app/app_prefs.dart';
 import 'package:Bid_Mart/app/di.dart';

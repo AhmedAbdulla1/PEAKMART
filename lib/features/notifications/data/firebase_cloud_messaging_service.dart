@@ -4,7 +4,6 @@ import 'dart:developer';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:Bid_Mart/app/app.dart';
-import 'package:Bid_Mart/features/products/presentation/views/product_details/product_details_view.dart';
 import 'package:Bid_Mart/features/notifications/data/local_notification_service.dart';
 import 'package:Bid_Mart/features/notifications/domain/notification_enitity.dart';
 

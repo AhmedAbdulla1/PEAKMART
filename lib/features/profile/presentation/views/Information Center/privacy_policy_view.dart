@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/core/resources/values_manager.dart';
-import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
-import 'package:peakmart/features/products/presentation/widgets/custom_scrollable_text.dart';
-import 'package:peakmart/features/profile/presentation/views/Information%20Center/build_text_body_widget.dart';
-import 'package:peakmart/features/profile/presentation/views/Information%20Center/build_title_widget.dart';
+import 'package:Bid_Mart/core/resources/values_manager.dart';
+import 'package:Bid_Mart/features/auth/presentation/shared_widgets/custom_appbar.dart';
+import 'package:Bid_Mart/features/products/presentation/widgets/custom_scrollable_text.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/build_text_body_widget.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/build_title_widget.dart';
 
 class PrivacyPolicyView extends StatelessWidget {
   const PrivacyPolicyView({super.key});

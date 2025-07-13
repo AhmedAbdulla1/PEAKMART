@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:peakmart/core/resources/values_manager.dart';
-import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
-import 'package:peakmart/features/home/presentation/views/services_section/services_section.dart';
-import 'package:peakmart/features/profile/presentation/views/Information%20Center/build_text_body_widget.dart';
-import 'package:peakmart/features/profile/presentation/views/Information%20Center/build_title_widget.dart';
-import 'package:peakmart/features/profile/presentation/views/Information%20Center/contributors_section.dart'
+import 'package:Bid_Mart/core/resources/values_manager.dart';
+import 'package:Bid_Mart/features/auth/presentation/shared_widgets/custom_appbar.dart';
+import 'package:Bid_Mart/features/home/presentation/views/services_section/services_section.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/build_text_body_widget.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/build_title_widget.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/contributors_section.dart'
     show ContributorsSection;
 
 class AboutUsView extends StatelessWidget {

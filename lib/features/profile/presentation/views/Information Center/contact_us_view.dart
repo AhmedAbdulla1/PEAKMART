@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peakmart/features/auth/presentation/shared_widgets/custom_appbar.dart';
+import 'package:Bid_Mart/features/auth/presentation/shared_widgets/custom_appbar.dart';
 
 class ContactUsView extends StatelessWidget {
   const ContactUsView({super.key});

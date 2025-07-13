@@ -1,5 +1,10 @@
-import 'dart:developer';
 
+
+import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/about_us_view.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/contact_us_view.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/exchange__return_policy_view.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/privacy_policy_view.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/profile/profile_menu_item.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

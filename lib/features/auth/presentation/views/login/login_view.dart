@@ -14,9 +14,7 @@ import 'package:Bid_Mart/core/shared_widgets/buttons.dart';
 import 'package:Bid_Mart/core/shared_widgets/text_fields.dart';
 import 'package:Bid_Mart/features/auth/presentation/shared_widgets/account_creation_or_login_prompt.dart';
 import 'package:Bid_Mart/features/auth/presentation/state_mang/login_cubit/cubit.dart';
-import 'package:Bid_Mart/features/auth/presentation/state_mang/social_sign_in_cubit/social_sign_in_cubit.dart';
 import 'package:Bid_Mart/features/auth/presentation/views/login/login_view_model.dart';
-import 'package:Bid_Mart/features/auth/presentation/views/login/widgets/other_login_ways.dart';
 import 'package:Bid_Mart/features/auth/presentation/views/reset_password/forget_password_view.dart';
 import 'package:Bid_Mart/features/main/main_view.dart';
 

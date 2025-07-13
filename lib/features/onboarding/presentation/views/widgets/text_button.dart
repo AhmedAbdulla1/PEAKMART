@@ -5,20 +5,21 @@ import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
 
 import '../../../../../core/resources/style_manager.dart';
 
-class NextTextButton extends StatelessWidget {
+class CustomTextButton extends StatelessWidget {
   final VoidCallback? onPressed;
 
-  const NextTextButton({
+  const CustomTextButton({
     super.key,
     required this.onPressed,
+    required this.title,
   });
-
+  final String title;
   @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onPressed,
       child: Text(
-        'Next',
+        title,
         style: getBoldStyle(
             fontSize: FontSize.s18,
             color: context.isDarkMode

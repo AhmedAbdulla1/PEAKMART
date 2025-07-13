@@ -128,12 +128,7 @@ class _SignUpBuildWidgetsState extends State<SignUpBuildWidgets> {
                 );
               },
             ),
-            60.vGap,
-            BlocProvider(
-              create: (context) => SignInWithSocialCubit(),
-              child: const OtherLoginWays(),
-            ),
-            15.vGap,
+            20.vGap,
             AccountCreationOrLoginPrompt(
               text: AppStrings.alreadyHaveAnAccount,
               textButton: AppStrings.login,

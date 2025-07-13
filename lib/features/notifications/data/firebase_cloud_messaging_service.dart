@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:Bid_Mart/app/app.dart';
@@ -94,12 +95,11 @@ class FirebaseCloudMessagingService {
     final navigator = MyApp.navigatorKey.currentState;
     if (navigator == null) return;
 
-    final productIdString = message.data['product_id'];
-    final productId = int.tryParse(productIdString ?? '') ?? 0;
+    // final routeName = message.data['route_name'];
 
     navigator.pushNamed(
-      ProductDetails.routeName,
-      arguments: productId,
+      '/signUpForBid',
+      arguments: message.data['arg'] ?? {},
     );
   }
 

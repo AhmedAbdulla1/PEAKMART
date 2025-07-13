@@ -5,26 +5,26 @@ import 'models/onboarding_model.dart';
 List<OnboardingModel> onboardingList = [
   const OnboardingModel(
     image: ImageAssets.onBoardingPageOne,
-    title: 'Choose Products',
+    title: 'Explore Auctions',
     description:
-        'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.',
+        'Browse a wide range of live auctions across categories. Find products you love and track bids in real-time.',
   ),
   const OnboardingModel(
     image: ImageAssets.onBoardingPageTwo,
-    title: 'Make Payment',
+    title: 'Place Secure Bids',
     description:
-        'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.',
+        'Bid confidently with our secure and transparent bidding system. We ensure fair play and encrypted transactions.',
   ),
   const OnboardingModel(
     image: ImageAssets.onBoardingPageThree,
-    title: 'Get Your Order',
+    title: 'Win & Pay Easily',
     description:
-        'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.',
+        'Once you win the auction, pay instantly through secure gateways. Enjoy a smooth and hassle-free checkout process.',
   ),
   const OnboardingModel(
     image: ImageAssets.onBoardingPageFour,
-    title: 'Start Bidding',
+    title: 'Track & Receive',
     description:
-        'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.',
+        'Monitor your order status, delivery, and history from one place. Your product is on its way—fast and safe!',
   ),
 ];

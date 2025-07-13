@@ -167,7 +167,27 @@ class RouteGenerator {
           settings:
               const RouteSettings(name: PersonalInformationView.routeName),
         );
-
+      case ContactUsView.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const ContactUsView(),
+          settings: const RouteSettings(name: ContactUsView.routeName),
+        );
+      case AboutUsView.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const AboutUsView(),
+          settings: const RouteSettings(name: AboutUsView.routeName),
+        );
+      case PrivacyPolicyView.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const PrivacyPolicyView(),
+          settings: const RouteSettings(name: PrivacyPolicyView.routeName),
+        );
+      case ExchangeReturnPolicyView.routeName:
+        return MaterialPageRoute(
+          builder: (_) => const ExchangeReturnPolicyView(),
+          settings:
+              const RouteSettings(name: ExchangeReturnPolicyView.routeName),
+        );
       case SettingsView.routeName:
         return MaterialPageRoute(
           builder: (_) => const SettingsView(),

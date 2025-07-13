@@ -57,8 +57,8 @@ class NewsCubit extends Cubit<NewsState> {
       });
     } else {
       _currentIndex = 0; // Reset index if needed for looping
-      emit(ShowNewNews(
-          data.news[_currentIndex])); // All news displayed, hide the section
+      _showNextNewsWithTimer();
+      // All news displayed, hide the section
     }
   }
 

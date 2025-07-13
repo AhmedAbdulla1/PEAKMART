@@ -138,11 +138,6 @@ class _LogInViewState extends State<LogInView> {
                   );
                 },
               ),
-              35.vGap,
-              BlocProvider(
-                create: (context) => SignInWithSocialCubit(),
-                child: const OtherLoginWays(),
-              ),
               20.vGap,
               AccountCreationOrLoginPrompt(
                 text: AppStrings.createAccount,

@@ -68,32 +68,30 @@ class _MyAppState extends State<MyApp> {
       designSize: const Size(390, 844),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context, child) =>
-          MultiBlocProvider(
-            providers: [
-              BlocProvider(create: (context) => AppThemeCubit()),
-              BlocProvider(create: (context) => NotificationsCubit()),
-              BlocProvider(create: (context) =>
-                  NotificationCubit(di.instance<NotificationRepo>())),
-            ],
-            child: BlocBuilder<AppThemeCubit, ThemeMode>(
-              builder: (context, themeMode) {
-                return MaterialApp(
-                  debugShowCheckedModeBanner: false,
-                  locale: context.locale,
-                  navigatorKey: MyApp.navigatorKey,
-                  supportedLocales: context.supportedLocales,
-                  localizationsDelegates: context.localizationDelegates,
-                  themeMode: themeMode,
-                  theme: getLightTheme(),
-                  darkTheme: getDarkTheme(),
-                  title: 'Bid_Mart',
-                  initialRoute: Routes.root,
-                  onGenerateRoute: RouteGenerator.getRoute,
-                );
-              },
-            ),
-          ),
+      builder: (context, child) => MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => AppThemeCubit(),),
+          BlocProvider(create: (context) => NotificationsCubit()),
+          BlocProvider(create: (context) => NotificationCubit(di.instance<NotificationRepo>() )),
+        ],
+        child: BlocBuilder<AppThemeCubit, ThemeMode>(
+          builder: (context, themeMode) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              locale: context.locale,
+              navigatorKey:MyApp.navigatorKey,
+              supportedLocales: context.supportedLocales,
+              localizationsDelegates: context.localizationDelegates,
+              themeMode: themeMode,
+              theme: getLightTheme(),
+              darkTheme: getDarkTheme(),
+              title: 'Bid Mart',
+              initialRoute: Routes.root,
+              onGenerateRoute: RouteGenerator.getRoute,
+            );
+          },
+        ),
+      ),
     );
   }
 }

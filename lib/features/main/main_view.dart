@@ -1,6 +1,3 @@
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Bid_Mart/app/app_prefs.dart';
 import 'package:Bid_Mart/app/di.dart';
 import 'package:Bid_Mart/core/resources/color_manager.dart';
@@ -17,6 +14,10 @@ import 'package:Bid_Mart/features/notifications/presentation/state_m/notificatio
 import 'package:Bid_Mart/features/notifications/presentation/view/notification_view.dart';
 import 'package:Bid_Mart/features/products/presentation/views/products_view.dart';
 import 'package:Bid_Mart/features/profile/presentation/views/profile/view.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key, this.currentPageIndex = 0});
@@ -153,7 +154,7 @@ class _MainViewState extends State<MainView> {
         body: getBottomNavigationBarBody()[_currentIndex],
         bottomNavigationBar: ConvexAppBar(
           key: ValueKey(_currentIndex),
-          height: 55,
+          height: 55.h,
           curve: Curves.easeInOut,
           style: TabStyle.custom,
           color: context.isDarkMode

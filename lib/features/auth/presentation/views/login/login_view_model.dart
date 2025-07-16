@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:Bid_Mart/core/resources/string_manager.dart';
+import 'package:flutter/material.dart';
 
 class LoginViewModel extends LoginViewModelOutput {
   final StreamController<String> _emailStreamController =
@@ -55,8 +56,7 @@ class LoginViewModel extends LoginViewModelOutput {
     final emailRegex = RegExp(
       r'^[a-zA-Z0-9._%+-]{3,}@(gmail\.com|outlook\.com|icloud\.com)$',
     );
-
-    print(emailRegex.hasMatch(email));
+debugPrint(emailRegex.hasMatch(email).toString());
     return emailRegex.hasMatch(email) ? null : AppStrings.emailNotValid;
   }
 

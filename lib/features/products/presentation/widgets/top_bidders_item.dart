@@ -22,7 +22,7 @@ class TopBidderItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final baseColor = isFaded
-        ? ColorManager.greyColor.withOpacity(0.3)
+        ? ColorManager.greyColor.withValues(alpha:.3)
         : context.colorScheme.surface;
     final bool isDarkMode = context.isDarkMode;
     final primaryColor =

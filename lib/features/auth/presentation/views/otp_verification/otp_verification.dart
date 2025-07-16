@@ -21,7 +21,7 @@ class OtpVerification extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('autoSendOtp $autoSendOtp');
+    debugPrint('autoSendOtp $autoSendOtp');
     return SafeArea(
       child: Scaffold(
         appBar: CustomAppBar(

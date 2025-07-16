@@ -1,5 +1,6 @@
 import 'package:Bid_Mart/core/models/base_model.dart';
 import 'package:Bid_Mart/features/products/domain/entity/top_bidders_entity.dart';
+import 'package:flutter/material.dart';
 
 class TopBiddersResponse extends BaseResponse<TopBiddersEntity> {
   final List<TopBiddersDataResponse> data;
@@ -15,7 +16,7 @@ class TopBiddersResponse extends BaseResponse<TopBiddersEntity> {
       required this.userStatus});
 
   factory TopBiddersResponse.fromJson(Map<String, dynamic> json) {
-    print('json $json');
+    debugPrint('json $json');
     return TopBiddersResponse(
         data: List<TopBiddersDataResponse>.from(json["data"]
             .map((bidder) => TopBiddersDataResponse.fromJson(bidder))),

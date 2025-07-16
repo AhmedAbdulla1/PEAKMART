@@ -1,17 +1,17 @@
 import 'package:Bid_Mart/features/payment/domain/entities/fee_entity.dart';
 
 enum PaymentProcess {
-  UPLOAD,
-  ENROLL,
-  BID;
+  upload,
+  enroll,
+  bid;
 
   num getFee(FeesEntity fees) {
     switch (this) {
-      case PaymentProcess.UPLOAD:
+      case PaymentProcess.upload:
         return (fees.uploadFee + fees.payFee) / 100;
-      case PaymentProcess.ENROLL:
+      case PaymentProcess.enroll:
         return (fees.enrollFee + fees.payFee) / 100;
-      case PaymentProcess.BID:
+      case PaymentProcess.bid:
         return (fees.bidFee + fees.payFee) / 100;
     }
   }

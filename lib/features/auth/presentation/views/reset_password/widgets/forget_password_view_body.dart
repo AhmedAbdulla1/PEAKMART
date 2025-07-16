@@ -61,7 +61,7 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
           );
         }
         if (state is ResetPassSuccessState) {
-          print('success');
+          log('success');
           showSuccessBottomSheet(context);
         }
       }, builder: (context, state) {

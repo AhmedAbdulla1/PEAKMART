@@ -18,6 +18,7 @@ import 'package:Bid_Mart/features/products/domain/entity/in_wishlist_entity.dart
 import 'package:Bid_Mart/features/products/domain/entity/prodcuts_entity.dart';
 import 'package:Bid_Mart/features/products/domain/entity/top_bidders_entity.dart';
 import 'package:Bid_Mart/features/products/domain/products_repo.dart';
+import 'package:flutter/material.dart';
 
 class ProductsRepoImp extends ProductsRepo {
   final ProductsDataSource _remoteDataSource = ProductsDataSource();
@@ -176,7 +177,7 @@ class ProductsRepoImp extends ProductsRepo {
           return Result(data: response.toEntity());
         });
       } catch (error ,st) {
-        print(st);
+        debugPrint(st.toString());
         log("in repo impl ${error.toString()}");
         result = Result(error: const AppErrors.responseError());
       }
@@ -199,7 +200,7 @@ class ProductsRepoImp extends ProductsRepo {
           return Result(data: response.toEntity());
         });
       } catch (error ,st) {
-        print(st);
+        log(st.toString());
         log("in repo impl ${error.toString()}");
         result = Result(error: const AppErrors.responseError());
       }
@@ -222,7 +223,7 @@ class ProductsRepoImp extends ProductsRepo {
           return Result(data: response.toEntity());
         });
       } catch (error ,st) {
-        print(st);
+        log(st.toString());
         log("in repo impl ${error.toString()}");
         result = Result(error: const AppErrors.responseError());
       }

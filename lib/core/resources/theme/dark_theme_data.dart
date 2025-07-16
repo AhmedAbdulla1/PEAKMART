@@ -216,7 +216,7 @@ ThemeData getDarkTheme() {
         ),
         borderSide: BorderSide(color: ColorManager.grey1),
       ),
-      fillColor: ColorManager.darkGrey.withOpacity(.2),
+      fillColor: ColorManager.darkGrey.withValues(alpha:.2),
       filled: true,
     ),
     textSelectionTheme: TextSelectionThemeData(

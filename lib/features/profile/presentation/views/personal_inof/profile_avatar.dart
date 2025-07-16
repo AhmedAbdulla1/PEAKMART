@@ -34,7 +34,7 @@ class ProfileAvatar extends StatelessWidget {
           radius: AppSize.s55.r + AppSize.s1_5.r,
           child: CircleAvatar(
             radius: AppSize.s55.r,
-            backgroundColor: Colors.purple.withOpacity(0.2),
+            backgroundColor: Colors.purple.withValues(alpha:0.2),
             backgroundImage: imageProvider,
           ),
         ),

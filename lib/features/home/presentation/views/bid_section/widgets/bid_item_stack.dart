@@ -38,7 +38,7 @@ class BidItemStack extends StatelessWidget {
             width: double.infinity,
             clipBehavior: Clip.antiAliasWithSaveLayer,
             decoration: BoxDecoration(
-              color: ColorManager.black.withOpacity(0.3),
+              color: ColorManager.black.withValues(alpha:.3),
               borderRadius: const BorderRadius.all(
                 Radius.circular(23),
               ),

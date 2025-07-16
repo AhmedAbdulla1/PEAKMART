@@ -2,12 +2,13 @@ import 'dart:convert';
 
 import 'package:Bid_Mart/core/errors/app_errors.dart';
 import 'package:Bid_Mart/core/net/response_validators/response_validator.dart';
+import 'package:flutter/material.dart';
 
 class DefaultResponseValidator extends ResponseValidator {
   @override
   void processData(dynamic data) {
-    print('In default validator');
-    print('data type ${data.runtimeType}');
+    debugPrint('In default validator');
+    debugPrint('data type ${data.runtimeType}');
 
     Map<String, dynamic> jsonData;
 
@@ -17,7 +18,7 @@ class DefaultResponseValidator extends ResponseValidator {
       try {
         jsonData = jsonDecode(data.toString());
       } catch (e) {
-        print('Error decoding JSON: $e');
+        debugPrint('Error decoding JSON: $e');
         error = const AppErrors.customError(message: 'Invalid data format');
         errorMessage = 'Invalid data format';
         return;

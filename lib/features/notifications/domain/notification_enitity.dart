@@ -7,11 +7,11 @@ class NotificationEntity extends BaseEntity {
   final String? icon;
   final int userId;
   final String description;
-  String seen;
+ final String seen;
   final String? url;
   final String createdAt;
 
-  NotificationEntity({
+  const NotificationEntity({
     required this.id,
     required this.title,
     this.icon,

@@ -3,65 +3,72 @@ import 'dart:developer';
 import 'package:Bid_Mart/core/models/base_model.dart';
 import 'package:Bid_Mart/core/net/create_model_interceptor/create_model.interceptor.dart';
 
-/// This class is singleton and used to get models from json responses
+/// Singleton class used to create models from JSON responses.
 class ModelsFactory {
-  static const FROM_JSON = "FROM_JSON";
-  static const CREATE_MODEL_INTERCEPTOR = "CREATE_MODEL_INTERCEPTOR";
+  static const _fromJsonKey = "FROM_JSON";
+  static const _interceptorKey = "CREATE_MODEL_INTERCEPTOR";
 
-  static final _instance = ModelsFactory._();
+  static final ModelsFactory _instance = ModelsFactory._();
 
-  factory ModelsFactory() {
-    return _instance;
-  }
+  factory ModelsFactory() => _instance;
 
   ModelsFactory._();
 
-  /// Mapping each model name with the actual value using fromJson factory method and createModelInterceptor.
-  /// Map structure
-  /// "model_name":{
-  /// "FROM_JSON": fromJson factoryMethod (dynamic Function(dynamic),
-  /// "CREATE_MODEL_INTERCEPTOR": CreateModelInterceptor
+  /// Map structure:
+  /// {
+  ///   "ModelName": {
+  ///     "FROM_JSON": fromJson factory method,
+  ///     "CREATE_MODEL_INTERCEPTOR": CreateModelInterceptor
+  ///   }
   /// }
-  ///
   final Map<String, dynamic> _modelsMap = {};
 
-  /// Register the model in the map.
+  /// Register a model into the factory.
   void registerModel(
     String modelName,
     dynamic Function(dynamic) modelCreator,
     String createModelInterceptorName,
     CreateModelInterceptor createModelInterceptor,
   ) {
-    print('ddd');
-    final Map<String, dynamic> modelInfo = {};
-    modelInfo.putIfAbsent(FROM_JSON, () => modelCreator);
+    final Map<String, dynamic> modelInfo = {
+      _fromJsonKey: modelCreator,
+      _interceptorKey: createModelInterceptor,
+    };
 
-    modelInfo.putIfAbsent(
-        CREATE_MODEL_INTERCEPTOR, () => createModelInterceptor);
-
-    _modelsMap.putIfAbsent(modelName, () => modelInfo);
+    _modelsMap[modelName] = modelInfo;
   }
 
-  /// Generate the desired T model.
-  T createModel<T extends BaseResponse>(json) {
-    log('in create model $T');
+  /// Generate a single model of type T.
+  T createModel<T extends BaseResponse>(dynamic json) {
+    log('Creating model: $T');
+
     final modelName = T.toString();
     final modelInfo = _modelsMap[modelName];
-    print('after model info');
-    final fromJson = modelInfo[FROM_JSON];
-    print('after from json info');
 
-    final createModelInterceptor = modelInfo[CREATE_MODEL_INTERCEPTOR];
-    print('after create model interceptor info');
+    if (modelInfo == null) {
+      throw Exception("Model '$modelName' is not registered in ModelsFactory.");
+    }
 
-    final model = createModelInterceptor.getModel(fromJson, json);
+    final modelFromJson = modelInfo[_fromJsonKey];
+    final interceptor = modelInfo[_interceptorKey];
+
+    if (modelFromJson == null || interceptor == null) {
+      throw Exception("Model '$modelName' is missing required mappings.");
+    }
+
+    final model = interceptor.getModel(modelFromJson, json);
     return model;
   }
 
-  /// Generate list of T model.
-  List<T?> createModelsList<T extends BaseResponse>(json) {
-    return (json as List)
-        .map((m) => m == null ? null : createModel<T>(m))
-        .toList();
+  /// Generate a list of models of type T.
+  List<T?> createModelsList<T extends BaseResponse>(dynamic json) {
+    if (json is! List) {
+      throw Exception(
+          "Expected a List for model list creation, got: ${json.runtimeType}");
+    }
+
+    return json.map<T?>((item) {
+      return item == null ? null : createModel<T>(item);
+    }).toList();
   }
 }

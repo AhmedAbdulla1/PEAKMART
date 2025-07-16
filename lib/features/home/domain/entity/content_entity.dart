@@ -34,4 +34,4 @@ class ContentData {
   });
 }
 
-enum SectionName { Cover, Ads, Apply, Parteners }
+enum SectionName { cover, ads, apply, parteners }

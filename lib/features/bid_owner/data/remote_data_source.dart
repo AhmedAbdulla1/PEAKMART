@@ -13,6 +13,7 @@ import 'package:Bid_Mart/core/responses/emty_response.dart';
 import 'package:Bid_Mart/features/bid_owner/data/models/request/add_product_request.dart';
 import 'package:Bid_Mart/features/bid_owner/data/models/response/check_is_seller_response.dart';
 import 'package:Bid_Mart/features/home/data/model/response/category_response.dart';
+import 'package:flutter/material.dart';
 
 class AddProductValidator extends ResponseValidator {
   @override
@@ -29,15 +30,14 @@ class OwnerDataSource extends RemoteDataSource {
       AddProductRequest body) async {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
-    print('cookie string $cookieString');
-    print('body ${body.toJson()}');
+    debugPrint('cookie string $cookieString');
+    debugPrint('body ${body.toJson()}');
     return request<EmptyResponse>(
-      method: HttpMethod.POST,
+      method: HttpMethod.post,
       body: body.toJson(),
       files: body.getFiles(),
       responseValidator: AddProductValidator(),
       converter: (json) {
-        print('inconverter $json');
         return EmptyResponse.fromJson(json);
       },
       headers: {
@@ -53,7 +53,7 @@ class OwnerDataSource extends RemoteDataSource {
     AppPreferences appPref = instance<AppPreferences>();
     log(appPref.getUserId());
     return request<CheckIsSellerResponse>(
-      method: HttpMethod.GET,
+      method: HttpMethod.get,
       queryParameters: {
         "userId": appPref.getUserId(),
       },
@@ -68,7 +68,7 @@ class OwnerDataSource extends RemoteDataSource {
 
   Future<Either<AppErrors, CategoriesResponse>> getCategories() async {
     return request<CategoriesResponse>(
-        method: HttpMethod.GET,
+        method: HttpMethod.get,
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           log("message done in Trending bids request");

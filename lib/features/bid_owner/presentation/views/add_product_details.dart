@@ -1,7 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:Bid_Mart/core/error_ui/dialogs/show_dialog.dart';
 import 'package:Bid_Mart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:Bid_Mart/core/error_ui/error_viewer/toast/errv_toast_options.dart';
@@ -19,6 +15,10 @@ import 'package:Bid_Mart/features/bid_owner/data/models/request/add_product_requ
 import 'package:Bid_Mart/features/bid_owner/presentation/state_mang/add_product_cubit/add_product_cubit.dart';
 import 'package:Bid_Mart/features/payment/domain/enum/enums.dart';
 import 'package:Bid_Mart/features/payment/presentation/views/payment_dialog.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../core/resources/style_manager.dart';
 
@@ -102,7 +102,7 @@ class _AddProductDetailsState extends State<AddProductDetails> {
                           context: context,
                           builder: (context) => PaymentDialog(
                               netPrice: widget.addProductRequest.startingPrice,
-                              paymentProcess: PaymentProcess.UPLOAD),
+                              paymentProcess: PaymentProcess.upload),
                         ).then((value) {
                           if (value.containsKey('payment_status') &&
                               value['payment_status'] == 'success') {
@@ -249,7 +249,7 @@ class _AddProductDetailsState extends State<AddProductDetails> {
         alignment: Alignment.centerLeft,
         child: Wrap(
           children: [
-            Icon(FontAwesomeIcons.mapMarkerAlt,
+            Icon(FontAwesomeIcons.locationDot,
                 color: ColorManager.primary, size: 20),
             16.hGap,
             Text("Location: ", style: getBoldStyle(fontSize: FontSize.s16)),
@@ -273,7 +273,7 @@ class _AddProductDetailsState extends State<AddProductDetails> {
       children: [
         _buildLocationItem(),
         _buildInfoRow(AppStrings.auctionStart,
-            widget.addProductRequest.startDate, FontAwesomeIcons.calendarAlt),
+            widget.addProductRequest.startDate, FontAwesomeIcons.calendarDay),
         _buildInfoRow(
             AppStrings.deliveryDate,
             widget.addProductRequest.deliveryDate,

@@ -1,7 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:Bid_Mart/core/entities/prodcut_entity.dart';
 import 'package:Bid_Mart/core/resources/assets_manager.dart';
 import 'package:Bid_Mart/core/resources/color_manager.dart';
@@ -10,6 +6,10 @@ import 'package:Bid_Mart/core/resources/string_manager.dart';
 import 'package:Bid_Mart/core/resources/style_manager.dart';
 import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:Bid_Mart/core/widgets/waiting_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../../../../core/resources/values_manager.dart';
 
@@ -70,7 +70,7 @@ class CustomEndedBidItem extends StatelessWidget {
                     Container(
                       width: double.infinity,
                       height: double.infinity,
-                      color: ColorManager.black.withOpacity(.5),
+                      color: ColorManager.black.withValues(alpha: 0.5),
                     ),
                     Positioned(
                       top: 15.h,

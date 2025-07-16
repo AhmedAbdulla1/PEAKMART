@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:Bid_Mart/app/app_prefs.dart';
 import 'package:Bid_Mart/app/di.dart';
 import 'package:Bid_Mart/core/resources/color_manager.dart';
 import 'package:Bid_Mart/core/resources/extentions.dart';
 import 'package:Bid_Mart/core/resources/style_manager.dart';
 import 'package:Bid_Mart/features/auth/presentation/views/login/login_view.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -17,7 +17,6 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
   bool onBoardingSwitch = false;
   bool reLoginSwitch = false;
-  bool logoutSwitch = false;
   final AppPreferences _appPreferences = instance<AppPreferences>();
 
   @override
@@ -30,69 +29,59 @@ class _ProfileViewState extends State<ProfileView> {
           Text('Profile',
               style: getBoldStyle(color: ColorManager.primary, fontSize: 20)),
           20.vGap,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Show OnBoarding',
-                style: TextStyle(fontSize: 20),
-              ),
-              Switch(
-                  value: onBoardingSwitch,
-                  onChanged: (value) {
-                    setState(() {
-                      onBoardingSwitch = value;
-                    });
-                    _appPreferences.remove(pressKeyOnBoardingScreen);
-                  }),
-            ],
+
+          // Show Onboarding Switch
+          SwitchListTile(
+            title:
+                const Text('Show OnBoarding', style: TextStyle(fontSize: 18)),
+            value: onBoardingSwitch,
+            onChanged: (value) {
+              setState(() {
+                onBoardingSwitch = value;
+              });
+              _appPreferences.remove(pressKeyOnBoardingScreen);
+            },
           ),
-          20.vGap,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Re login',
-                style: TextStyle(fontSize: 20),
-              ),
-              Switch(
-                  value: reLoginSwitch,
-                  onChanged: (value) {
-                    setState(() {
-                      reLoginSwitch = value;
-                    });
-                    _appPreferences.remove(pressKeyLoginScreen);
-                    _appPreferences.remove(userIdKey);
-                  }),
-            ],
+
+          // Re-Login Switch
+          SwitchListTile(
+            title: const Text('Re login', style: TextStyle(fontSize: 18)),
+            value: reLoginSwitch,
+            onChanged: (value) {
+              setState(() {
+                reLoginSwitch = value;
+              });
+              _appPreferences.remove(pressKeyLoginScreen);
+              _appPreferences.remove(userIdKey);
+            },
           ),
-          20.vGap,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Logout',
-                style: TextStyle(fontSize: 20),
-              ),
-              Switch(
-                  value: logoutSwitch,
-                  onChanged: (value) async {
-                    setState(() {
-                      logoutSwitch = value;
-                    });
-                    await _appPreferences.logout();
-                    print('logout');
-                    print(_appPreferences.getCookiesKey());
-                    Navigator.pushNamed(context, LogInView.routeName);
-                  }),
-            ],
-          ),
-          20.vGap,
-          ElevatedButton(
-              onPressed: () {
-                Phoenix.rebirth(context);
+
+          // Logout Button
+          ListTile(
+            title: const Text('Logout', style: TextStyle(fontSize: 18)),
+            trailing: ElevatedButton(
+              onPressed: () async {
+                await _appPreferences.logout();
+                if (!mounted) return;
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  LogInView.routeName,
+                  (_) => false,
+                );
               },
-              child: const Text('Re start'))
+              child: const Text('Logout'),
+            ),
+          ),
+
+          20.vGap,
+
+          // Re-start app (Phoenix)
+          ElevatedButton(
+            onPressed: () {
+              Phoenix.rebirth(context);
+            },
+            child: const Text('Re start'),
+          ),
         ],
       ),
     );

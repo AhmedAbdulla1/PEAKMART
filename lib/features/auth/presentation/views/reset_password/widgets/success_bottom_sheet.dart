@@ -83,7 +83,7 @@ class SuccessBottomSheet extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushReplacementNamed(context, MainView.routeName);
                   },
-                  text: AppStrings.Continue,
+                  text: AppStrings.continue_,
                 )
         ],
       ),

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -11,12 +12,12 @@ extension Gaps on num {
 extension HandleCookies on List<Cookie> {
 
   Map<String, String> toMap() {
-    print('to map');
+    log('to map');
     Map<String, String> map = {};
     for (Cookie cookie in this) {
       map[cookie.name] = cookie.value;
     }
-    print('map $map');
+    log('map $map');
     return map;
   }
 }

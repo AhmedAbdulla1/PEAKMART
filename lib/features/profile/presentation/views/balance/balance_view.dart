@@ -32,7 +32,7 @@ class BalanceView extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(AppPadding.p16),
             decoration: BoxDecoration(
-              color: primaryColor.withOpacity(0.05),
+              color: primaryColor.withValues(alpha:0.05),
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: primaryColor, width: 1),
             ),

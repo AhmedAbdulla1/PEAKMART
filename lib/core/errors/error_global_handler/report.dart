@@ -41,7 +41,7 @@ class Report {
         "deviceParameters": deviceParameters,
         "applicationParameters": applicationParameters,
         "dateTime": dateTime.toIso8601String(),
-        "platformType": describeEnum(platformType),
+        "platformType":platformType,
       };
 
   

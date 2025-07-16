@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:dartz/dartz.dart';
 import 'package:Bid_Mart/app/di.dart';
 import 'package:Bid_Mart/app/network_info.dart';
 import 'package:Bid_Mart/core/entities/empty_entity.dart';
@@ -14,6 +13,8 @@ import 'package:Bid_Mart/features/bid_owner/domain/entity/check_is_seller_entity
 import 'package:Bid_Mart/features/bid_owner/domain/repository/owner_repo.dart';
 import 'package:Bid_Mart/features/home/data/model/response/category_response.dart';
 import 'package:Bid_Mart/features/home/domain/entity/category_entity.dart';
+import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 
 import 'remote_data_source.dart';
 
@@ -39,15 +40,15 @@ class OwnerRepoImp extends OwnerRepo {
           return Result(data: response.toEntity());
         });
       } catch (error, stacktrace) {
-        print("Unexpected Error: $error");
-        print(stacktrace);
+        debugPrint("Unexpected Error: $error");
+        debugPrint(stacktrace.toString());
         result = Result(
             error: const AppErrors.responseError(
                 message: "Unexpected error occurred"));
       }
     }
 
-    return result; 
+    return result;
   }
 
   @override
@@ -64,8 +65,8 @@ class OwnerRepoImp extends OwnerRepo {
           return Result(data: response.toEntity());
         });
       } catch (error, stacktrace) {
-        print("Unexpected Error: $error");
-        print(stacktrace);
+        debugPrint("Unexpected Error: $error");
+        debugPrint(stacktrace.toString());
         result = Result(
             error: const AppErrors.responseError(
                 message: "Unexpected error occurred"));

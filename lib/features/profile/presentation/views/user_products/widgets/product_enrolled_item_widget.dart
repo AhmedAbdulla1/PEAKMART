@@ -29,7 +29,7 @@ class ProductEnrolledItemWidget extends StatelessWidget {
       context: context,
       builder: (_) => PaymentDialog(
         netPrice: product.highestBid.toDouble(),
-        paymentProcess: PaymentProcess.BID,
+        paymentProcess: PaymentProcess.bid,
       ),
     );
   }

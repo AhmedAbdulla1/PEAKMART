@@ -34,9 +34,11 @@ class _MyAppState extends State<MyApp> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    _appPreferences.getLocale().then((value) {
-      context.setLocale(value);
-    });
+  _appPreferences.getLocale().then((value) {
+  if (!mounted) return;
+  context.setLocale(value);
+});
+
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final msg = FirebaseCloudMessagingService.initialMessage;

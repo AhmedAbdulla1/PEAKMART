@@ -281,7 +281,7 @@ The platform reserves the right to change these rules at any time. Users will be
   static const String enter4Digits = 'Enter 4 Digits Code';
   static const String enter4digitsSubTitle =
       'Enter the 4 digits code that you received on your email.';
-  static const String Continue = 'Continue';
+  static const String continue_ = 'Continue';
   static const String doctor = 'Are you a doctor ?';
   static const String addProfilePicture = 'Profile Picture';
 

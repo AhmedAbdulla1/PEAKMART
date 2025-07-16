@@ -87,10 +87,8 @@ void showCustomDialogWithIconDialog({
     barrierDismissible: isDesmissible ?? true,
     context: context,
     builder: (BuildContext context) {
-      return WillPopScope(
-        onWillPop: () async {
-          return isBackPopped ?? true;
-        },
+      return PopScope(
+         canPop: isBackPopped ?? true,
         child: Dialog(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),

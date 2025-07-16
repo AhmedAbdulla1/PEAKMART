@@ -15,14 +15,15 @@ import 'package:Bid_Mart/features/profile/data/models/request/update_profile_req
 import 'package:Bid_Mart/features/profile/data/models/response/user_info_response.dart';
 import 'package:Bid_Mart/features/profile/data/models/response/user_product_response.dart';
 import 'package:Bid_Mart/features/profile/data/models/response/user_products_enrolled_response.dart';
+import 'package:flutter/material.dart';
 
 class ProfileDataSource extends RemoteDataSource {
   Future<Either<AppErrors, UserProductResponse>> getProductsUploaded() async {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
-    print('cookie string $cookieString');
+    debugPrint('cookie string $cookieString');
     return request<UserProductResponse>(
-        method: HttpMethod.GET,
+        method:  HttpMethod.get,
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           return UserProductResponse.fromJson(json);
@@ -37,7 +38,7 @@ class ProfileDataSource extends RemoteDataSource {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
     return request<UserProductResponse>(
-        method: HttpMethod.GET,
+        method:  HttpMethod.get,
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           return UserProductResponse.fromJson(json);
@@ -52,9 +53,9 @@ class ProfileDataSource extends RemoteDataSource {
       getProductsEnrolled() async {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
-    print('cookie string $cookieString');
+    debugPrint('cookie string $cookieString');
     return request<UserProductsEnrolledResponse>(
-        method: HttpMethod.GET,
+        method:  HttpMethod.get,
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           return UserProductsEnrolledResponse.fromJson(json);
@@ -73,7 +74,7 @@ class ProfileDataSource extends RemoteDataSource {
     String cookieString = appPreferences.getCookies().join(';');
 
     return request<EmptyResponse>(
-      method: HttpMethod.POST,
+      method:  HttpMethod.post,
       body: {
         ...cancleRequest.toJson(),
         "hkh": appPreferences.getCookie("HKH"),
@@ -93,10 +94,10 @@ class ProfileDataSource extends RemoteDataSource {
   Future<Either<AppErrors, UserInfoResponse>> getUserInfo() async {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
-    print('hk ${appPreferences.getUserId()}');
-    print('cookie string $cookieString');
+    debugPrint('hk ${appPreferences.getUserId()}');
+    debugPrint('cookie string $cookieString');
     return request<UserInfoResponse>(
-        method: HttpMethod.GET,
+        method:  HttpMethod.get,
         body: {
           "HK": appPreferences.getUserId(),
         },
@@ -112,7 +113,7 @@ class ProfileDataSource extends RemoteDataSource {
       UpdateProfileRequest updateProfileRequest) async {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
-    print('cookie string $cookieString');
+    debugPrint('cookie string $cookieString');
     log("hkh: ${appPreferences.getCookie("HKH")}");
     final body = {
       ...updateProfileRequest.toMap(),
@@ -121,7 +122,7 @@ class ProfileDataSource extends RemoteDataSource {
     };
     log("Body : $body");
     return request<EmptyResponse>(
-      method: HttpMethod.POST,
+      method:  HttpMethod.post,
       body: {
         ...updateProfileRequest.toMap(),
         "hk": appPreferences.getUserId(),
@@ -129,7 +130,7 @@ class ProfileDataSource extends RemoteDataSource {
       },
       responseValidator: DefaultResponseValidator(),
       converter: (json) {
-        print('inconverter $json');
+        debugPrint('inconverter $json');
         return EmptyResponse.fromJson(json);
       },
       headers: {"cookie": cookieString},
@@ -142,14 +143,14 @@ class ProfileDataSource extends RemoteDataSource {
       UpdateProfileImageRequest body) async {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
-    print('cookie string $cookieString');
+    debugPrint('cookie string $cookieString');
     return request<EmptyResponse>(
-      method: HttpMethod.POST,
+      method:  HttpMethod.post,
       body: body.toMap(),
       files: body.getFiles(),
       responseValidator: DefaultResponseValidator(),
       converter: (json) {
-        print('inconverter $json');
+        debugPrint('inconverter $json');
         return EmptyResponse.fromJson(json);
       },
       headers: {
@@ -164,12 +165,12 @@ class ProfileDataSource extends RemoteDataSource {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
     cookieString +="HK=290;" ;
-    print('cookie string $cookieString');
+    debugPrint('cookie string $cookieString');
     return request<EmptyResponse>(
-      method: HttpMethod.GET,
+      method:  HttpMethod.get,
       responseValidator: DefaultResponseValidator(),
       converter: (json) {
-        print('inconverter $json');
+        debugPrint('inconverter $json');
         return EmptyResponse.fromJson(json);
       },
       headers: {"cookie": cookieString},

@@ -30,7 +30,7 @@ class MoreItem extends StatelessWidget {
             ),
             title: Text(
               title,
-              textScaleFactor: 1.0,
+            textScaler : const TextScaler.linear(1),
               // style: getIt<AppTextStyles>().headline5,
             ),
           ),

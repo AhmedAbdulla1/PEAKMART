@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:Bid_Mart/core/net/api_url.dart';
 import 'package:Bid_Mart/core/responses/emty_response.dart';
@@ -34,7 +35,6 @@ class RemotePaymentDataSourceImpl implements RemotePaymentDataSource {
           throw ParsingFailure('Payment ID is missing or empty');
         }
         log('after json decode');
-        print(data);
         return PaymentEntity(
           id: data['id'],
           status: data['status'] ?? 'CAPTURED',
@@ -62,7 +62,7 @@ class RemotePaymentDataSourceImpl implements RemotePaymentDataSource {
     final response = await client.get(Uri.parse(APIUrls.paymentFees));
 
     if (response.statusCode == 200) {
-      print(response.body);
+      debugPrint(response.body);
       try {
         final data = jsonDecode(response.body);
         return FeesEntity(

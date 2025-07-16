@@ -15,6 +15,7 @@ import 'package:Bid_Mart/features/products/data/models/request/enroll_request.da
 import 'package:Bid_Mart/features/products/data/models/request/pagination_request.dart';
 import 'package:Bid_Mart/features/products/data/models/response/products_response.dart';
 import 'package:Bid_Mart/features/products/data/models/response/top_bidders_response.dart';
+import 'package:flutter/material.dart';
 
 import 'models/response/check_wishlist_response.dart'
     show CheckWishlistResponse;
@@ -23,7 +24,7 @@ class ProductsDataSource extends RemoteDataSource {
   Future<Either<AppErrors, ProductsResponse>> getProducts(
       PaginationRequest getProductsPaginationRequest) async {
     return request<ProductsResponse>(
-        method: HttpMethod.GET,
+        method:  HttpMethod.get,
         queryParameters: getProductsPaginationRequest.toJson(),
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
@@ -36,7 +37,7 @@ class ProductsDataSource extends RemoteDataSource {
   Future<Either<AppErrors, ProductsResponse>> getProductById(
       int productId) async {
     return request<ProductsResponse>(
-        method: HttpMethod.GET,
+        method:  HttpMethod.get,
         queryParameters: {
           "id": productId,
           "userId": instance<AppPreferences>().getUserId(),
@@ -51,14 +52,14 @@ class ProductsDataSource extends RemoteDataSource {
   Future<Either<AppErrors, CheckWishlistResponse>> checkProductInWishlist(
       int productId) async {
     return request<CheckWishlistResponse>(
-        method: HttpMethod.GET,
+        method:  HttpMethod.get,
         queryParameters: {
           "pid": productId,
           "uid": instance<AppPreferences>().getUserId(),
         },
         responseValidator: CheckWishlistValidator(),
         converter: (json) {
-          print('json check in wich list');
+          debugPrint('json check in wich list');
           return CheckWishlistResponse.fromJson(json);
         },
         url: APIUrls.checkInWishlist);
@@ -67,14 +68,14 @@ class ProductsDataSource extends RemoteDataSource {
   Future<Either<AppErrors, EmptyResponse>> addProductInWishlist(
       int productId) async {
     return request<EmptyResponse>(
-        method: HttpMethod.GET,
+        method:  HttpMethod.get,
         queryParameters: {
           "pid": productId,
           "uid": instance<AppPreferences>().getUserId(),
         },
         responseValidator: CheckWishlistValidator(),
         converter: (json) {
-          print('json check in wich list');
+          debugPrint('json check in wich list');
           return EmptyResponse.fromJson(json);
         },
         url: APIUrls.addToWishlist);
@@ -83,14 +84,14 @@ class ProductsDataSource extends RemoteDataSource {
   Future<Either<AppErrors, EmptyResponse>> removeProductFromWishlist(
       int productId) async {
     return request<EmptyResponse>(
-        method: HttpMethod.GET,
+        method:  HttpMethod.get,
         queryParameters: {
           "pid": productId,
           "uid": instance<AppPreferences>().getUserId(),
         },
         responseValidator: CheckWishlistValidator(),
         converter: (json) {
-          print('json check in wich list');
+          debugPrint('json check in wich list');
           return EmptyResponse.fromJson(json);
         },
         url: APIUrls.removeFromWishlist);
@@ -99,7 +100,7 @@ class ProductsDataSource extends RemoteDataSource {
   Future<Either<AppErrors, ProductsResponse>> getProductsByCategory(
       int catId, PaginationRequest getProductsPaginationRequest) async {
     return request<ProductsResponse>(
-        method: HttpMethod.GET,
+        method:  HttpMethod.get,
         queryParameters: {
           "id": catId,
           ...getProductsPaginationRequest.toJson(),
@@ -117,7 +118,7 @@ class ProductsDataSource extends RemoteDataSource {
     String userId = appPreferences.getUserId();
     log("userId is $userId");
     return request<TopBiddersResponse>(
-        method: HttpMethod.GET,
+        method:  HttpMethod.get,
         queryParameters: {"id": productId, "uid": userId},
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
@@ -133,7 +134,7 @@ class ProductsDataSource extends RemoteDataSource {
     log("userId is $userId");
     enrollRequest.printRequest();
     return request<EmptyResponse>(
-        method: HttpMethod.POST,
+        method:  HttpMethod.post,
         body: enrollRequest.toJson(),
         responseValidator: EnrollValidator(),
         converter: (json) {
@@ -145,7 +146,7 @@ class ProductsDataSource extends RemoteDataSource {
   Future<Either<AppErrors, EmptyResponse>> bid(BidRequest bidRequest) async {
     bidRequest.printRequest();
     return request<EmptyResponse>(
-        method: HttpMethod.POST,
+        method:  HttpMethod.post,
         body: bidRequest.toJson(),
         responseValidator: DefaultResponseValidator(),
         converter: (json) {

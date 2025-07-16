@@ -18,6 +18,7 @@ import 'package:Bid_Mart/features/profile/domain/enitiy/user_info_entity.dart';
 import 'package:Bid_Mart/features/profile/domain/enitiy/user_product_entity.dart';
 import 'package:Bid_Mart/features/profile/domain/enitiy/user_products_enrolled_entity.dart';
 import 'package:Bid_Mart/features/profile/domain/profile_repo.dart';
+import 'package:flutter/material.dart';
 
 class ProfileRepoImpl extends ProfileRepo {
   final ProfileDataSource _remoteDataSource = ProfileDataSource();
@@ -141,7 +142,7 @@ class ProfileRepoImpl extends ProfileRepo {
       try {
         Either<AppErrors, EmptyResponse> response = await _remoteDataSource
             .updaterProfileImage(updateProfileImageRequest);
-        print('response: $response');
+        debugPrint('response: $response');
 
         result = response.fold((error) {
           return Result(error: error);

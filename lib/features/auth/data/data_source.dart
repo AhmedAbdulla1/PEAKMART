@@ -17,12 +17,13 @@ import 'package:Bid_Mart/features/auth/data/model/request/verfiy_otp_request.dar
 import 'package:Bid_Mart/features/auth/data/model/response/login_response.dart';
 import 'package:Bid_Mart/features/auth/data/model/response/register_response.dart';
 import 'package:Bid_Mart/features/auth/data/model/response/send_otp_response.dart';
+import 'package:flutter/material.dart';
 
 class AuthDataSource extends RemoteDataSource {
   Future<Either<AppErrors, LoginResponse>> login(
       LoginRequest loginRequest) async {
     return request<LoginResponse>(
-      method: HttpMethod.POST,
+      method:  HttpMethod.post,
       body: loginRequest.toJson(),
       responseValidator: DefaultResponseValidator(),
       converter: (json) {
@@ -36,7 +37,7 @@ class AuthDataSource extends RemoteDataSource {
   Future<Either<AppErrors, EmptyResponse>> restPassword(
       RestPasswordRequest resetPassword) async {
     return request<EmptyResponse>(
-        method: HttpMethod.POST,
+        method:  HttpMethod.post,
         body: resetPassword.toJson(),
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
@@ -48,7 +49,7 @@ class AuthDataSource extends RemoteDataSource {
   Future<Either<AppErrors, RegisterResponse>> register(
       RegisterRequest registerRequest) async {
     return request<RegisterResponse>(
-      method: HttpMethod.POST,
+      method:  HttpMethod.post,
       body: registerRequest.toJson(),
       responseValidator: DefaultResponseValidator(),
       converter: (json) {
@@ -62,7 +63,7 @@ class AuthDataSource extends RemoteDataSource {
   Future<Either<AppErrors, SendOtpResponse>> sendOtp(
       SendOtpRequest sendOtpRequest) async {
     return request<SendOtpResponse>(
-        method: HttpMethod.POST,
+        method:  HttpMethod.post,
         body: sendOtpRequest.toJson(),
         headers: sendOtpRequest.toHeaders(),
         responseValidator: DefaultResponseValidator(),
@@ -75,7 +76,7 @@ class AuthDataSource extends RemoteDataSource {
   Future<Either<AppErrors, EmptyResponse>> verfiyOtp(
       VerfiyOtpRequest verfiyOtpRequest) async {
     return request<EmptyResponse>(
-        method: HttpMethod.POST,
+        method:  HttpMethod.post,
         body: verfiyOtpRequest.toJson(),
         headers: verfiyOtpRequest.toHeaders(),
         responseValidator: DefaultResponseValidator(),
@@ -88,9 +89,9 @@ class AuthDataSource extends RemoteDataSource {
   Future<Either<AppErrors, EmptyResponse>> sendWatsAppOtp() async {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
-    print('cookie string $cookieString');
+    debugPrint('cookie string $cookieString');
     return request<EmptyResponse>(
-        method: HttpMethod.POST,
+        method:  HttpMethod.post,
         headers: {"cookie": cookieString},
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
@@ -103,9 +104,9 @@ class AuthDataSource extends RemoteDataSource {
       VerfiyOtpRequest verfiyOtpRequest) async {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
-    print('cookie string $cookieString');
+    debugPrint('cookie string $cookieString');
     return request<EmptyResponse>(
-        method: HttpMethod.POST,
+        method:  HttpMethod.post,
         body: verfiyOtpRequest.toJson(),
         headers: {"cookie": cookieString},
         responseValidator: DefaultResponseValidator(),
@@ -120,9 +121,9 @@ class AuthDataSource extends RemoteDataSource {
       {required RegisterAsSellerRequest registerRequest}) async {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
-    print('cookie string $cookieString');
+    debugPrint('cookie string $cookieString');
     return request<EmptyResponse>(
-      method: HttpMethod.POST,
+      method:  HttpMethod.post,
       body: registerRequest.toJson(),
       responseValidator: DefaultResponseValidator(),
       converter: (json) {
@@ -138,9 +139,9 @@ class AuthDataSource extends RemoteDataSource {
       {required SellerInfoRequest sellerInfoRequest}) async {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
-    print('cookie string $cookieString');
+    debugPrint('cookie string $cookieString');
     return request<EmptyResponse>(
-      method: HttpMethod.POST,
+      method:  HttpMethod.post,
       body: sellerInfoRequest.toJson(),
       responseValidator: DefaultResponseValidator(),
       converter: (json) {

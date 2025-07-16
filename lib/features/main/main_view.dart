@@ -37,8 +37,6 @@ class _MainViewState extends State<MainView> {
   void initState() {
     super.initState();
 
-    super.initState();
-
     _currentIndex = widget.currentPageIndex;
 
     final notificationCubit = context.read<NotificationCubit>();

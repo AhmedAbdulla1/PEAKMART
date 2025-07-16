@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Bid_Mart/core/widgets/waiting_widget.dart';
 import 'package:Bid_Mart/features/main/main_view.dart';
 import 'package:Bid_Mart/features/profile/presentation/state_m/user_products/user_products_cubit.dart';
 import 'package:Bid_Mart/features/profile/presentation/state_m/user_products/user_products_states.dart';
 import 'package:Bid_Mart/features/profile/presentation/views/user_products/widgets/no_products_founded_widget.dart';
-import 'package:Bid_Mart/features/profile/presentation/views/user_products/widgets/wishList_item.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/user_products/widgets/wishlist_item.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WishListTab extends StatefulWidget {
   const WishListTab({super.key});
@@ -22,12 +22,7 @@ class _UploadedProductsTabState extends State<WishListTab>
   @override
   void initState() {
     super.initState();
-    final cubit = context.read<UserProductsCubit>();
-    if (cubit.wishListProducts.isNotEmpty) {
-      cubit.emit(WishListLoaded(products: cubit.wishListProducts));
-    } else {
-      cubit.getWishListProducts();
-    }
+    context.read<UserProductsCubit>().loadCachedWishlistProductsIfAny();
   }
 
   Widget buildNoProductsView() {

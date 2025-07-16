@@ -1,2 +1,2 @@
-enum ErrorWidgetOptions { NONE, IMAGE, LOTTIE }
-enum OrientationOptions { PORTRAIT, LANDSCAPE, BOTH }
+// enum ErrorWidgetOptions { NONE, IMAGE, LOTTIE }
+// enum OrientationOptions { PORTRAIT, LANDSCAPE, BOTH }

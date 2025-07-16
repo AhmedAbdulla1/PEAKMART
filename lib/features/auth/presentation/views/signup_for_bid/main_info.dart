@@ -1,12 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:country_picker/country_picker.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:http/http.dart' as http;
 import 'package:Bid_Mart/app/app_prefs.dart';
 import 'package:Bid_Mart/app/di.dart';
 import 'package:Bid_Mart/core/resources/extentions.dart';
@@ -15,6 +9,12 @@ import 'package:Bid_Mart/core/shared_widgets/select_country_widget.dart';
 import 'package:Bid_Mart/features/auth/data/model/request/signup_for_bid_request.dart';
 import 'package:Bid_Mart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
 import 'package:Bid_Mart/features/auth/presentation/state_mang/signup_for_bid/cubit.dart';
+import 'package:country_picker/country_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:http/http.dart' as http;
 
 import 'widgets/dropdown_menu.dart';
 
@@ -138,7 +138,6 @@ class _MainInfoState extends State<MainInfo> {
     return null;
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -251,14 +250,14 @@ class CookieService {
     final AppPreferences appPreferences = instance<AppPreferences>();
     try {
       String cookieString = appPreferences.getCookies().join(';');
-      print('cookie string $cookieString');
+      log('cookie string $cookieString');
       // Make the HTTP GET request
       final response = await http.get(url, headers: {"cookie": '    hhgg'});
 
       if (response.statusCode == 200) {
         // Parse the JSON response
         final cookies = jsonDecode(response.body);
-        print('cookies ${response.body}');
+        log('cookies ${response.body}');
         return cookies;
       } else {
         // Handle non-200 status codes

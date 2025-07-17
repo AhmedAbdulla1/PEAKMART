@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Bid_Mart/core/error_ui/toast.dart';
 import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/extentions.dart';
 import 'package:Bid_Mart/core/resources/font_manager.dart';
 import 'package:Bid_Mart/core/resources/string_manager.dart';
 import 'package:Bid_Mart/core/resources/style_manager.dart';
@@ -10,6 +9,10 @@ import 'package:Bid_Mart/features/notifications/domain/notification_enitity.dart
 import 'package:Bid_Mart/features/notifications/presentation/state_m/notification_cubit.dart';
 import 'package:Bid_Mart/features/notifications/presentation/widgets/notification_card.dart';
 import 'package:Bid_Mart/features/profile/presentation/views/settings/notification_switch_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 
 class NotificationsViewBody extends StatelessWidget {
   const NotificationsViewBody({super.key, required this.notifications});
@@ -30,10 +33,25 @@ class NotificationsViewBody extends StatelessWidget {
         ],
       ),
       body: notifications.isEmpty
-          ? Center(
-              child: Text("You don't have any notifications currently.",
-                  textAlign: TextAlign.center,
-                  style: getBoldStyle(fontSize: FontSize.s22)),
+          ? Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Spacer(),
+                  LottieBuilder.asset("assets/lottie/no_notifications.json",
+                      height: 200.h, width: 200.w, fit: BoxFit.cover),
+                  8.vGap,
+                  Text("You don't have any notifications currently.",
+                      textAlign: TextAlign.center,
+                      style: getMediumStyle(
+                          fontSize: FontSize.s20, color: ColorManager.red)),
+                  const Spacer(
+                    flex: 2,
+                  ),
+                ],
+              ),
             )
           : RefreshIndicator(
               onRefresh: () {

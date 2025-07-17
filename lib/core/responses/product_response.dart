@@ -19,7 +19,7 @@ class ProductResponse {
     return ProductResponse(
       id: json['I_ID'] ?? 0,
       name: json['ITEM_NAME'] ?? "",
-      description: json['DESCRIPTION'] ?? "",
+      description: json['DESCRIPTION'] ?? json['description'],
       imageUrl: photos,
       startingPrice: json['STARTING_PRICE'] ?? "",
       expectedPrice: json['EXPECTED_PRICE'] ?? "",

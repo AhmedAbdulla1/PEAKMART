@@ -83,9 +83,6 @@ class WishlistItemWidget extends StatelessWidget {
                       product.description,
                       style: getMediumStyle(
                         fontSize: FontSize.s12,
-                        color: context.isDarkMode
-                            ? ColorManager.grey
-                            : ColorManager.grey1,
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,

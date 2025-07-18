@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:Bid_Mart/core/net/response_validators/response_validator.dart';
 import 'package:dartz/dartz.dart';
 import 'package:Bid_Mart/app/app_prefs.dart';
 import 'package:Bid_Mart/app/di.dart';
@@ -33,6 +34,7 @@ class ProfileDataSource extends RemoteDataSource {
         headers: {"cookie": cookieString},
         url: APIUrls.getProductsUploaded);
   }
+
   Future<Either<AppErrors, UserProductResponse>> getWishlistProducts() async {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
@@ -42,12 +44,11 @@ class ProfileDataSource extends RemoteDataSource {
         converter: (json) {
           return UserProductResponse.fromJson(json);
         },
-        queryParameters: {
-          'uid':appPreferences.getUserId()
-        },
+        queryParameters: {'uid': appPreferences.getUserId()},
         headers: {"cookie": cookieString},
         url: APIUrls.getProductsWishlist);
   }
+
   Future<Either<AppErrors, UserProductsEnrolledResponse>>
       getProductsEnrolled() async {
     final AppPreferences appPreferences = instance<AppPreferences>();
@@ -86,7 +87,6 @@ class ProfileDataSource extends RemoteDataSource {
         return EmptyResponse.fromJson(json);
       },
       url: APIUrls.cancelUserProduct,
-      
     );
   }
 
@@ -160,14 +160,14 @@ class ProfileDataSource extends RemoteDataSource {
       url: APIUrls.updateUserImage,
     );
   }
+
   Future<Either<AppErrors, EmptyResponse>> logout() async {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
-    cookieString +="HK=290;" ;
     print('cookie string $cookieString');
     return request<EmptyResponse>(
       method: HttpMethod.GET,
-      responseValidator: DefaultResponseValidator(),
+      responseValidator: LogoutValidator(),
       converter: (json) {
         print('inconverter $json');
         return EmptyResponse.fromJson(json);
@@ -175,5 +175,16 @@ class ProfileDataSource extends RemoteDataSource {
       headers: {"cookie": cookieString},
       url: APIUrls.logout,
     );
+  }
+}
+
+class LogoutValidator extends ResponseValidator {
+  @override
+  void processData(data) {
+    if (!(data['success'] ?? false)) {
+      error =
+          AppErrors.customError(message: data['message'] ?? 'Unknown error');
+      errorMessage = data['message'] ?? 'Unknown error';
+    }
   }
 }

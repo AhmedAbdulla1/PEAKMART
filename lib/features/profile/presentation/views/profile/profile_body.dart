@@ -1,5 +1,3 @@
-
-
 import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/about_us_view.dart';
 import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/contact_us_view.dart';
 import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/exchange__return_policy_view.dart';
@@ -250,9 +248,11 @@ class ProfileScreen extends StatelessWidget {
   }
 
   void showLogoutDialog(BuildContext context) {
+    final rootContext = context; // احفظ context الرئيسي
+
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (BuildContext dialogContext) {
         return AlertDialog(
           alignment: Alignment.center,
           actionsAlignment: MainAxisAlignment.spaceBetween,
@@ -269,7 +269,7 @@ class ProfileScreen extends StatelessWidget {
               child: Text('Cancel',
                   style: getRegularStyle(fontSize: 20, color: Colors.blue)),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(dialogContext).pop();
               },
             ),
             Container(
@@ -282,10 +282,18 @@ class ProfileScreen extends StatelessWidget {
                   style:
                       getRegularStyle(fontSize: 20, color: ColorManager.red)),
               onPressed: () {
-                Navigator.of(context).pop();
-                ProfileCubit().logout(onSuccess: () {
-                  Navigator.pushReplacementNamed(context, LogInView.routeName);
-                });
+                Navigator.of(dialogContext).pop(); // اقفل الـ dialog أولاً
+                Navigator.pushReplacementNamed(
+                    rootContext, LogInView.routeName);
+                // ProfileCubit().logout(onSuccess: () {
+                //   print('logout success');
+                //
+                //   // استخدم rootContext مش dialogContext
+                //   if (rootContext.mounted) {
+                //     Navigator.pushReplacementNamed(
+                //         rootContext, LogInView.routeName);
+                //   }
+                // });
               },
             ),
           ],

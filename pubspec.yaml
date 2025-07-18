@@ -96,7 +96,7 @@ dependencies:
   timezone:
   flutter_timezone:
   flutter_local_notifications: ^19.3.0
-  skeletonizer: ^2.1.0+1
+  skeletonizer:
 
 dev_dependencies:
   flutter_test:

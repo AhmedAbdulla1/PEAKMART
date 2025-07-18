@@ -1,5 +1,4 @@
 import 'package:Bid_Mart/core/resources/theme/app_theming_cubit/app_theme_cubit.dart';
-import 'package:Bid_Mart/core/shared_widgets/buttons.dart';
 import 'package:Bid_Mart/core/shared_widgets/change_theme_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +8,7 @@ import 'package:Bid_Mart/app/di.dart';
 import 'package:Bid_Mart/features/auth/presentation/views/login/login_view.dart';
 import 'package:Bid_Mart/features/onboarding/presentation/views/widgets/text_button.dart';
 import 'package:Bid_Mart/features/onboarding/presentation/views/widgets/skip_text_button.dart';
-
+import 'package:Bid_Mart/features/onboarding/presentation/views/widgets/text_button.dart';
 import '../../../data/page_view_content.dart';
 import 'onboarding_title_and_descr_sectiont.dart';
 import 'page_change_point.dart';

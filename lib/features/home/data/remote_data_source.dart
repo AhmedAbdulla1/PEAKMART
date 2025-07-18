@@ -19,7 +19,7 @@ class HomeDataSource extends RemoteDataSource {
   Future<Either<AppErrors, NewsResponse>> getNews(
       NewsRequest newsRequest) async {
     return request<NewsResponse>(
-        method: HttpMethod.GET,
+        method:  HttpMethod.get,
         queryParameters: newsRequest.toJson(),
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
@@ -30,7 +30,7 @@ class HomeDataSource extends RemoteDataSource {
 
   Future<Either<AppErrors, ContentResponse>> getContent() async {
     return request<ContentResponse>(
-        method: HttpMethod.GET,
+        method:  HttpMethod.get,
         queryParameters: {'page': 1, 'limit': 12},
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
@@ -41,7 +41,7 @@ class HomeDataSource extends RemoteDataSource {
 
   Future<Either<AppErrors, BidWorkNowResponse>> getBidWorkNow() async {
     return request<BidWorkNowResponse>(
-        method: HttpMethod.GET,
+        method:  HttpMethod.get,
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           log("message done in getBidWorkNow request");
@@ -53,7 +53,7 @@ class HomeDataSource extends RemoteDataSource {
 
   Future<Either<AppErrors, EndedBidsResponse>> getEndedBids() async {
     return request<EndedBidsResponse>(
-        method: HttpMethod.GET,
+        method:  HttpMethod.get,
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           log("message done in ended bids request");
@@ -64,7 +64,7 @@ class HomeDataSource extends RemoteDataSource {
 
   Future<Either<AppErrors, FutureBidsResponse>> getFutureBids() async {
     return request<FutureBidsResponse>(
-        method: HttpMethod.GET,
+        method:  HttpMethod.get,
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           log("message done in Future bids request");
@@ -75,7 +75,7 @@ class HomeDataSource extends RemoteDataSource {
 
   Future<Either<AppErrors, TrendingBidsResponse>> getTrendingBids() async {
     return request<TrendingBidsResponse>(
-        method: HttpMethod.GET,
+        method:  HttpMethod.get,
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           log("message done in Trending bids request");
@@ -86,7 +86,7 @@ class HomeDataSource extends RemoteDataSource {
 
   Future<Either<AppErrors, CategoriesResponse>> getCategories() async {
     return request<CategoriesResponse>(
-        method: HttpMethod.GET,
+        method:  HttpMethod.get,
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           log("message done in Trending bids request");

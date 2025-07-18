@@ -68,7 +68,7 @@ class AddProductImagePicker extends StatelessWidget {
                 height: 150.h,
                 decoration: BoxDecoration(
                   color: context.isDarkMode
-                      ? ColorManager.darkGrey.withOpacity(.2)
+                      ? ColorManager.darkGrey.withValues(alpha:.2)
                       : Colors.grey[200],
                   borderRadius: BorderRadius.circular(10.r),
                   border: Border.all(

@@ -29,7 +29,6 @@ class AnimationViewModel {
   }
 
   void startTextAnimation() {
-    print('start text animation');
     _isStartTextController.add(true);
   }
 

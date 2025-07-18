@@ -1,1 +1,1 @@
-enum PlatformType { Android, iOS, Web, Unknown }
+enum PlatformType { android, ios, web, unknown }

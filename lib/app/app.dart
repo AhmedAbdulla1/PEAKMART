@@ -34,9 +34,11 @@ class _MyAppState extends State<MyApp> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    _appPreferences.getLocale().then((value) {
-      context.setLocale(value);
-    });
+  _appPreferences.getLocale().then((value) {
+  if (!mounted) return;
+  context.setLocale(value);
+});
+
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final msg = FirebaseCloudMessagingService.initialMessage;
@@ -46,11 +48,9 @@ class _MyAppState extends State<MyApp> {
         final productIdString = msg.data['product_id'];
         final productId = int.tryParse(productIdString ?? '') ?? 0;
 
-        // أول حاجة نروح للـ MainView (لو التطبيق لسه مفتوحش)
         MyApp.navigatorKey.currentState?.pushNamed(
             MainView.routeName, arguments: 0);
 
-        // بعدين نفتح صفحة التفاصيل
         Future.delayed(const Duration(milliseconds: 300), () {
           MyApp.navigatorKey.currentState?.pushNamed(
             ProductDetails.routeName,
@@ -85,7 +85,7 @@ class _MyAppState extends State<MyApp> {
               themeMode: themeMode,
               theme: getLightTheme(),
               darkTheme: getDarkTheme(),
-              title: 'Bid Mart',
+              title: 'BidMart',
               initialRoute: Routes.root,
               onGenerateRoute: RouteGenerator.getRoute,
             );

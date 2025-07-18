@@ -6,7 +6,7 @@ import 'package:Bid_Mart/features/auth/presentation/shared_widgets/custom_appbar
 import 'package:Bid_Mart/features/profile/presentation/state_m/user_products/user_products_cubit.dart';
 import 'package:Bid_Mart/features/profile/presentation/views/user_products/widgets/enrolled_products_tab.dart';
 import 'package:Bid_Mart/features/profile/presentation/views/user_products/widgets/uploaded_products_tab.dart';
-import 'package:Bid_Mart/features/profile/presentation/views/user_products/widgets/wishList_tab.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/user_products/widgets/wishlist_tab.dart';
 
 class UserProductsView extends StatefulWidget {
   static const String routeName = '/userProductsView';
@@ -24,7 +24,6 @@ class _UserProductsViewState extends State<UserProductsView>
   late UserProductsCubit _userProductsCubit;
   bool _enrolledFetched = false;
   bool _uploadedFetched = false;
-  final bool _wishListFetched = false;
 
   @override
   void initState() {

@@ -230,7 +230,7 @@ class _ProductsViewState extends State<ProductsView> {
                   }
 
                   if (state is ProductError) {
-                    return GetProductFailure(context, state);
+                    return getProductFailure(context, state);
                   }
 
                   if (filteredProducts.isEmpty) {
@@ -262,7 +262,7 @@ class _ProductsViewState extends State<ProductsView> {
     );
   }
 
-  SizedBox GetProductFailure(BuildContext context, ProductError state) {
+  SizedBox getProductFailure(BuildContext context, ProductError state) {
     return SizedBox(
       height: 300,
       child: Center(

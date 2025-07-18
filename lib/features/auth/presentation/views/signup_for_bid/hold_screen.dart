@@ -26,7 +26,7 @@ class HoldScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
+                        color: Colors.grey.withValues(alpha:0.5),
                         spreadRadius: 2,
                         blurRadius: 5,
                         offset: const Offset(0, 3), // Shadow position
@@ -65,7 +65,6 @@ class HoldScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: CustomElevatedButtonWithoutStream(
                   onPressed: () {
-                    print('=== Navigation Stack (Bottom to Top) ===');
                     int index = 0;
 
                     // Get the Navigator's state
@@ -83,10 +82,10 @@ class HoldScreen extends StatelessWidget {
 
                     // Print the stack
                     for (var routeName in stack) {
-                      print('[$index] Route: $routeName');
+                      debugPrint('[$index] Route: $routeName');
                       index++;
                     }
-                    print('=====================');
+                    debugPrint('=====================');
                     Navigator.pop(context);
                   },
                   text: 'Back To Home',

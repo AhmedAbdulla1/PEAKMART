@@ -149,9 +149,9 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
               ),
               const Spacer(flex: 8),
               CustomElevatedButton(
-                textButton: AppStrings.Continue,
+                textButton: AppStrings.continue_,
                 onPressed: () {
-                  print('=== Navigation Stack (Bottom to Top) ===');
+                  debugPrint('=== Navigation Stack (Bottom to Top) ===');
                   int index = 0;
 
                   // Get the Navigator's state
@@ -169,10 +169,10 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
 
                   // Print the stack
                   for (var routeName in stack) {
-                    print('[$index] Route: $routeName');
+                    debugPrint('[$index] Route: $routeName');
                     index++;
                   }
-                  print('=====================');
+                  debugPrint('=====================');
                   Navigator.pushReplacementNamed(context, HoldScreen.routeName);
                   if (verificationCode.isNotEmpty) {
                     verfiyOtp(context);

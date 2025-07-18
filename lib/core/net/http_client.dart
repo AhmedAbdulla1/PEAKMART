@@ -1,12 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:cookie_jar/cookie_jar.dart';
-import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
-import 'package:dio_cookie_manager/dio_cookie_manager.dart';
-import 'package:http_parser/http_parser.dart';
-import 'package:injectable/injectable.dart';
 import 'package:Bid_Mart/app/app_prefs.dart';
 import 'package:Bid_Mart/app/di.dart';
 import 'package:Bid_Mart/core/constants/enums/http_method.dart';
@@ -14,6 +8,13 @@ import 'package:Bid_Mart/core/errors/app_errors.dart';
 import 'package:Bid_Mart/core/models/base_model.dart';
 import 'package:Bid_Mart/core/net/response_validators/response_validator.dart';
 import 'package:Bid_Mart/core/resources/extentions.dart';
+import 'package:cookie_jar/cookie_jar.dart';
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:flutter/material.dart';
+import 'package:http_parser/http_parser.dart';
+import 'package:injectable/injectable.dart';
 
 import 'api_url.dart';
 import 'base_http_client.dart';
@@ -73,7 +74,7 @@ class HttpClient extends BaseHttpClient {
         //   handler.next(options);
         // },
         onResponse: (response, handler) {
-      print("Future<void> onResponse${response.requestOptions.path}");
+      debugPrint("Future<void> onResponse${response.requestOptions.path}");
       try {
         final int? statusCode = response.statusCode;
         switch (statusCode) {
@@ -138,7 +139,7 @@ class HttpClient extends BaseHttpClient {
     Response response;
     try {
       switch (method) {
-        case HttpMethod.GET:
+        case HttpMethod.get:
           response = await _client.get(
             url,
             data: body,
@@ -147,8 +148,8 @@ class HttpClient extends BaseHttpClient {
             options: Options(headers: headers),
           );
           break;
-        case HttpMethod.POST:
-          print("body $body");
+        case HttpMethod.post:
+          debugPrint("body $body");
 
           // Handle multipart request if files are provided
           if (files != null && files.isNotEmpty) {
@@ -157,7 +158,7 @@ class HttpClient extends BaseHttpClient {
 
             // Add files to FormData
             for (var file in files) {
-              print("file $file");
+              debugPrint("file $file");
               formData.files.add(MapEntry(
                 file['fieldName'], // Field name for the file
                 await MultipartFile.fromFile(
@@ -175,7 +176,6 @@ class HttpClient extends BaseHttpClient {
               queryParameters: queryParameters,
               options: Options(headers: headers),
               cancelToken: cancelToken,
-
             );
           } else {
             // Normal POST request
@@ -190,9 +190,9 @@ class HttpClient extends BaseHttpClient {
             );
           }
 
-          print("response $response");
+          debugPrint("response $response");
           break;
-        case HttpMethod.PUT:
+        case HttpMethod.put:
           response = await _client.put(
             url,
             data: isFormData && body != null ? FormData.fromMap(body) : body,
@@ -201,7 +201,7 @@ class HttpClient extends BaseHttpClient {
             cancelToken: cancelToken,
           );
           break;
-        case HttpMethod.DELETE:
+        case HttpMethod.delete:
           response = await _client.delete(
             url,
             data: isFormData && body != null ? FormData.fromMap(body) : body,
@@ -213,10 +213,10 @@ class HttpClient extends BaseHttpClient {
       }
 
       // Process the response
-      print('Response status code: ${response.statusCode}');
-      print('Response data: ${response.data}');
+      debugPrint('Response status code: ${response.statusCode}');
+      debugPrint('Response data: ${response.data}');
       responseValidator.processData(response.data);
-      print("isValid ${responseValidator.isValid}");
+      debugPrint("isValid ${responseValidator.isValid}");
       if (responseValidator.isValid) {
         if (response.statusCode == 401) {
           return const Left(UnauthorizedError());
@@ -234,7 +234,6 @@ class HttpClient extends BaseHttpClient {
         if (saveCookies) {
           List<Cookie> cookies = await cookieJar.loadForRequest(Uri.parse(url));
           await appPreferences.setCookies(cookies.toMap());
-          print('Cookies after request: $cookies');
         }
 
         return Right(model);
@@ -279,14 +278,14 @@ class HttpClient extends BaseHttpClient {
     Response response;
     try {
       switch (method) {
-        case HttpMethod.GET:
+        case HttpMethod.get:
           response = await _client.get(
             url,
             queryParameters: queryParameters,
             cancelToken: cancelToken,
           );
           break;
-        case HttpMethod.POST:
+        case HttpMethod.post:
           response = await _client.post(
             url,
             data: isFormData && body != null ? FormData.fromMap(body) : body,
@@ -295,7 +294,7 @@ class HttpClient extends BaseHttpClient {
             cancelToken: cancelToken,
           );
           break;
-        case HttpMethod.PUT:
+        case HttpMethod.put:
           response = await _client.put(
             url,
             data: isFormData && body != null ? FormData.fromMap(body) : body,
@@ -304,7 +303,7 @@ class HttpClient extends BaseHttpClient {
             cancelToken: cancelToken,
           );
           break;
-        case HttpMethod.DELETE:
+        case HttpMethod.delete:
           response = await _client.delete(
             url,
             data: isFormData && body != null ? FormData.fromMap(body) : body,
@@ -340,12 +339,13 @@ class HttpClient extends BaseHttpClient {
         return Right(model);
       } else if (responseValidator.hasError) {
         return Left(CustomError(message: responseValidator.errorMessage!));
-      } else
+      } else {
         return const Left(
           CustomError(
             message: 'genral error',
           ),
         );
+      }
     }
 
     /// Handling errors
@@ -424,8 +424,9 @@ class HttpClient extends BaseHttpClient {
         return Right(model);
       } else if (responseValidator.hasError) {
         return Left(CustomError(message: responseValidator.errorMessage!));
-      } else
+      } else {
         return const Left(UnknownError());
+      }
     }
     // Handling errors
     on DioException catch (e) {
@@ -448,13 +449,13 @@ class HttpClient extends BaseHttpClient {
     Response response;
     try {
       switch (method) {
-        case HttpMethod.GET:
+        case HttpMethod.get:
           response = await _client.get(
             url,
             queryParameters: queryParameters,
           );
           break;
-        case HttpMethod.POST:
+        case HttpMethod.post:
           response = await _client.post(
             url,
             data: body,
@@ -462,7 +463,7 @@ class HttpClient extends BaseHttpClient {
             options: Options(),
           );
           break;
-        case HttpMethod.PUT:
+        case HttpMethod.put:
           response = await _client.put(
             url,
             data: body,
@@ -470,7 +471,7 @@ class HttpClient extends BaseHttpClient {
             options: Options(),
           );
           break;
-        case HttpMethod.DELETE:
+        case HttpMethod.delete:
           response = await _client.delete(
             url,
             data: body,
@@ -504,9 +505,10 @@ class HttpClient extends BaseHttpClient {
       if (error.type == DioExceptionType.badResponse) {
         switch (error.response!.statusCode) {
           case 400:
-            print(error.response!.statusCode);
-            print(error.response!.data);
-            return BadRequestError(message: error.response!.data["message"]??"");
+            debugPrint(error.response!.statusCode.toString());
+            debugPrint(error.response!.data);
+            return BadRequestError(
+                message: error.response!.data["message"] ?? "");
           case 401:
             return UnauthorizedError(message: error.response!.data["message"]);
           case 403:
@@ -542,8 +544,9 @@ class HttpClient extends BaseHttpClient {
         return const TimeoutError();
       } else if (error.type == DioExceptionType.cancel) {
         return const CancelError('cancel error');
-      } else
+      } else {
         return const UnknownError();
+      }
     }
   }
 }

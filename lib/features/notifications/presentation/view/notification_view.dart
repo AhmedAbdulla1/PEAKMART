@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Bid_Mart/core/error_ui/toast.dart';
 import 'package:Bid_Mart/core/resources/color_manager.dart';
 import 'package:Bid_Mart/core/widgets/waiting_widget.dart';
@@ -13,6 +11,8 @@ import 'package:Bid_Mart/features/notifications/presentation/state_m/notificatio
 import 'package:Bid_Mart/features/notifications/presentation/state_m/notification_state.dart';
 import 'package:Bid_Mart/features/notifications/presentation/state_m/notifications_cubit.dart';
 import 'package:Bid_Mart/features/notifications/presentation/view/notifications_view_body.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NotificationsView extends StatefulWidget {
   const NotificationsView({super.key});
@@ -38,7 +38,6 @@ class _NotificationsViewState extends State<NotificationsView>
 
     context.read<NotificationCubit>().fetchNotifications();
 
-    // Listen to FCM stream
     _fcmSubscription =
         FirebaseCloudMessagingService.streamController.stream.listen(
       (notificationMessage) {
@@ -54,10 +53,11 @@ class _NotificationsViewState extends State<NotificationsView>
           _fcmNotifications.insert(0, notificationMessage);
           log("📥 New notification added: ${notificationMessage.title}");
         });
+
         LocalNotificationService.showBasicNotification(
           id: 0,
           title: notificationMessage.title,
-          body: notificationMessage.description ,
+          body: notificationMessage.description,
         );
       },
     );
@@ -94,13 +94,11 @@ class _NotificationsViewState extends State<NotificationsView>
       builder: (context, state) {
         if (state is NotificationsLoading && allNotifications.isEmpty) {
           return const WaitingWidget();
-        } else if (allNotifications.isNotEmpty) {
-          return NotificationsViewBody(notifications: allNotifications);
-        } else if (state is NotificationsError) {
-          return const Center(child: Text("Something went wrong 😢"));
-        } else {
-          return const SizedBox.shrink();
         }
+
+        return NotificationsViewBody(
+          notifications: allNotifications,
+        );
       },
     );
   }

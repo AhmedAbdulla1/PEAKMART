@@ -10,7 +10,7 @@ import 'package:Bid_Mart/features/home/presentation/views/landing_section/conten
 
 // Fake ContentData for skeleton loading
 ContentData fakeContentData = ContentData(
-  sectionName: SectionName.Cover,
+  sectionName: SectionName.cover,
   subTitle: 'Placeholder Title',
   content: 'Placeholder subtitle text for skeleton loading',
   image: {
@@ -71,7 +71,7 @@ class _LandingViewState extends State<LandingView>
 
         if (state is ContentLoaded) {
           _contentData = state.contentEntity.data.firstWhere(
-            (element) => element.sectionName == SectionName.Cover,
+            (element) => element.sectionName == SectionName.cover,
             orElse: () => fakeContentData,
           );
           return BlocProvider(

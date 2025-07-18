@@ -111,7 +111,7 @@ class PaymentCubit extends Cubit<PaymentState> {
     );
   }
 
-  Future<FeesEntity?> _getCachedFees() async {
+  Future<FeesEntity?> getCachedFees() async {
     final prefs = await SharedPreferences.getInstance();
     final cached = prefs.getString('cached_fees');
     if (cached == null) return null;

@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:Bid_Mart/core/resources/assets_manager.dart';
 import 'package:Bid_Mart/core/resources/font_manager.dart';
 import 'package:Bid_Mart/core/resources/style_manager.dart';
 import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:Bid_Mart/core/resources/values_manager.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
@@ -14,9 +14,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.centerTitle,
     this.isNotShowArrowBack = false,
-    this.bottomWidget, this.onBackPressed,
+    this.bottomWidget,
+    this.onBackPressed,
   });
-final void Function()? onBackPressed;
+  final void Function()? onBackPressed;
   final String title;
   final List<Widget>? actions;
   final bool? centerTitle, isNotShowArrowBack;
@@ -37,10 +38,13 @@ final void Function()? onBackPressed;
         leading: isNotShowArrowBack!
             ? null
             : IconButton(
-                onPressed: onBackPressed??()=>Navigator.pop(context),
+                onPressed: onBackPressed ?? () => Navigator.pop(context),
                 icon: SvgPicture.asset(
                   IconsAssets.arrowBack,
-                  color: context.colorScheme.onSurface,
+                  colorFilter: ColorFilter.mode(
+                    context.colorScheme.onSurface,
+                    BlendMode.srcIn,
+                  ),
                 ),
                 style: ButtonStyle(
                   shape: WidgetStateProperty.all(

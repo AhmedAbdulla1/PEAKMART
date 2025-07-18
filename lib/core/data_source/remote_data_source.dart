@@ -1,6 +1,3 @@
-import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
-import 'package:http_parser/http_parser.dart';
 import 'package:Bid_Mart/core/constants/enums/http_method.dart';
 import 'package:Bid_Mart/core/errors/app_errors.dart';
 import 'package:Bid_Mart/core/models/base_model.dart';
@@ -11,6 +8,10 @@ import 'package:Bid_Mart/core/net/models_factory.dart';
 import 'package:Bid_Mart/core/net/response_validators/default_response_validator.dart';
 import 'package:Bid_Mart/core/net/response_validators/list_response_validator.dart';
 import 'package:Bid_Mart/core/net/response_validators/response_validator.dart';
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:http_parser/http_parser.dart';
 
 class RemoteDataSource {
   Future<Either<AppErrors, T>> requestUploadFile<T extends BaseResponse>({
@@ -72,7 +73,7 @@ class RemoteDataSource {
             CustomError(message: "Catch error in remote data source"));
       }
     } else
-      return const Left(UnknownError());
+     { return const Left(UnknownError());}
   }
 
   Future<Either<AppErrors, T>> request<T extends BaseResponse>({
@@ -100,7 +101,7 @@ class RemoteDataSource {
       createModelInterceptor,
     );
 
-    print('url for request $url');
+    debugPrint('url for request $url');
 
     /// Send the request.
     final response = await HttpClient().sendRequest<T>(
@@ -119,7 +120,7 @@ class RemoteDataSource {
 
     /// convert jsonResponse to model and return it
     if (response.isLeft()) {
-      print(response);
+      debugPrint(response.toString());
       return Left((response as Left<AppErrors, T>).value);
     } else if (response.isRight()) {
       try {
@@ -183,6 +184,6 @@ class RemoteDataSource {
             CustomError(message: "Catch error in remote data source"));
       }
     } else
-      return const Left(UnknownError());
+    {  return const Left(UnknownError());}
   }
 }

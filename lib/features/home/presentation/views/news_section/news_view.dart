@@ -80,7 +80,7 @@ class _AnimatedNewsContainerState extends State<AnimatedNewsContainer>
                           borderRadius: BorderRadius.circular(5.r),
                           boxShadow: [
                             BoxShadow(
-                              color: ColorManager.black.withOpacity(0.1),
+                              color: ColorManager.black.withValues(alpha: 0.1),
                               spreadRadius: 5,
                               blurRadius: 7,
                               offset: const Offset(

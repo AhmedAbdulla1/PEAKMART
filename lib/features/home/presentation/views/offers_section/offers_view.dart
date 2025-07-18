@@ -15,7 +15,7 @@ import 'package:Bid_Mart/features/home/presentation/state_m/content_cubit/state.
 
 // Fake ContentData for skeleton loading
 ContentData fakeContentData = ContentData(
-  sectionName: SectionName.Ads,
+  sectionName: SectionName.ads,
   subTitle: 'Placeholder Ad Title',
   content: 'Placeholder ad content',
   image: {
@@ -27,14 +27,13 @@ ContentData fakeContentData = ContentData(
 );
 
 class OffersView extends StatelessWidget {
-  OffersView({
+  const OffersView({
     super.key,
     this.imageLink =
         'https://www.picserver.org/highway-signs2/images/for-sale.jpg',
   });
 
   final String imageLink;
-  late ContentData _contentData;
 
   @override
   Widget build(BuildContext context) {
@@ -87,8 +86,8 @@ class OffersView extends StatelessWidget {
         );
       }
       if (state is ContentLoaded) {
-        _contentData = state.contentEntity.data.firstWhere(
-          (element) => element.sectionName == SectionName.Ads,
+        final ContentData contentData = state.contentEntity.data.firstWhere(
+          (element) => element.sectionName == SectionName.ads,
           orElse: () => fakeContentData,
         );
         return Skeletonizer(
@@ -101,7 +100,7 @@ class OffersView extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: Image.network(
-                    _contentData.image["background"],
+                    contentData.image["background"],
                     loadingBuilder: (context, child, loadingProgress) {
                       if (loadingProgress == null) return child;
                       return const Center(child: WaitingWidget());

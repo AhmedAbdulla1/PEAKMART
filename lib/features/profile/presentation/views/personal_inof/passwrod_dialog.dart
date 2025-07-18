@@ -109,8 +109,6 @@ Future<String?> showPasswordDialog(BuildContext context) async {
                     );
                     return;
                   }
-                  print(password);
-
                   // If validation passes, return the password
                   Navigator.pop(
                       context, password); // Return the entered password
@@ -142,7 +140,6 @@ Future<String?> showPasswordDialog(BuildContext context) async {
       );
     },
   );
-  print("Result: $result");
   // passwordController.dispose(); // Dispose of the controller after use
   return result;
 }

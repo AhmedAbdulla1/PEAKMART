@@ -38,13 +38,13 @@ class NotificationCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: isSeen
                 ? (context.isDarkMode
-                    ? ColorManager.blueDarker.withOpacity(0.1)
+                    ? ColorManager.blueDarker.withValues(alpha: .1)
                     : ColorManager.grey3)
                 : context.primaryColor.withOpacity(0.1),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color: isSeen
-                  ? ColorManager.white.withOpacity(0.5)
+                  ? ColorManager.white.withValues(alpha:0.5)
                   : context.primaryColor.withOpacity(0.7),
               width: 1.5,
             ),

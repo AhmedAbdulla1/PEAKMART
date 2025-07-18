@@ -1,4 +1,4 @@
 enum SystemType {
-  Android,
-  IOS,
+  android,
+  ios,
 }

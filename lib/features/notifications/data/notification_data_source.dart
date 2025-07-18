@@ -15,7 +15,7 @@ import 'package:Bid_Mart/features/notifications/data/models/responses/response.d
 class NotificationsDataSource extends RemoteDataSource {
   Future<Either<AppErrors, NotificationsResponse>> getNotifications() async {
     return request<NotificationsResponse>(
-        method: HttpMethod.POST,
+        method:  HttpMethod.post,
         body: {
           "user_id": instance<AppPreferences>().getUserId(),
         },
@@ -29,7 +29,7 @@ class NotificationsDataSource extends RemoteDataSource {
 
   Future<Either<AppErrors, EmptyResponse>> updateNotification(NotificationRequest notification) async {
     return request<EmptyResponse>(
-        method: HttpMethod.POST,
+        method:  HttpMethod.post,
         body: notification.toJson(),
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
@@ -39,7 +39,7 @@ class NotificationsDataSource extends RemoteDataSource {
   }
   Future<Either<AppErrors, EmptyResponse>> deleteNotification(NotificationRequest notification) async {
     return request<EmptyResponse>(
-        method: HttpMethod.POST,
+        method:  HttpMethod.post,
         body: notification.toJson(),
         responseValidator: DefaultResponseValidator(),
         converter: (json) {

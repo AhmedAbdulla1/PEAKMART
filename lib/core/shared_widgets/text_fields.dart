@@ -41,7 +41,7 @@ class CustomPhoneTextField extends StatelessWidget {
       ),
       initialCountryCode: 'EG',
       dropdownDecoration: BoxDecoration(
-        color: ColorManager.primary.withOpacity(0.01),
+        color: ColorManager.primary.withValues(alpha:0.01),
         borderRadius: BorderRadius.circular(8.r),
       ),
       inputFormatters: [

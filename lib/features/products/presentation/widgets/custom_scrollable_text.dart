@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:Bid_Mart/core/resources/color_manager.dart';
 import 'package:Bid_Mart/core/resources/font_manager.dart';
 import 'package:Bid_Mart/core/resources/style_manager.dart';
 import 'package:Bid_Mart/core/resources/values_manager.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomScrollableText extends StatelessWidget {
@@ -15,7 +15,7 @@ class CustomScrollableText extends StatelessWidget {
       height: 300.h,
       padding: const EdgeInsets.all(AppPadding.p12),
       decoration: BoxDecoration(
-        color: ColorManager.darkGrey.withOpacity(.05),
+        color: ColorManager.darkGrey.withValues(alpha: .05),
         borderRadius: BorderRadius.circular(AppSize.s12),
       ),
       child: Scrollbar(

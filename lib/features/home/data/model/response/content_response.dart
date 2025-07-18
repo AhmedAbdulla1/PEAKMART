@@ -88,15 +88,15 @@ extension StringExtension on String? {
   SectionName toSectionName() {
     switch (this) {
       case "Cover":
-        return SectionName.Cover;
+        return SectionName.cover;
       case "Ads":
-        return SectionName.Ads;
+        return SectionName.ads;
       case "Apply":
-        return SectionName.Apply;
+        return SectionName.apply;
       case "Parteners":
-        return SectionName.Parteners;
+        return SectionName.parteners;
       default:
-        return SectionName.Cover;
+        return SectionName.cover;
     }
   }
 }

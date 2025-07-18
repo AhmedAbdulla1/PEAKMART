@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:Bid_Mart/core/resources/style_manager.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 class CustomNavigationBar extends StatefulWidget {
   final List<NavBarItem> items;
@@ -57,7 +57,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, -5),
           ),
@@ -95,7 +95,10 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                   const SizedBox(height: 5),
                   SvgPicture.asset(
                     item.iconPath,
-                    color: isSelected ? selectedColor : unselectedColor,
+                    colorFilter: ColorFilter.mode(
+                      isSelected ? selectedColor : unselectedColor,
+                      BlendMode.srcIn,
+                    ),
                     height: 24,
                   ),
                   const SizedBox(height: 5),

@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:Bid_Mart/core/net/response_validators/response_validator.dart';
 import 'package:dartz/dartz.dart';
 import 'package:Bid_Mart/app/app_prefs.dart';
 import 'package:Bid_Mart/app/di.dart';
@@ -34,7 +33,6 @@ class ProfileDataSource extends RemoteDataSource {
         headers: {"cookie": cookieString},
         url: APIUrls.getProductsUploaded);
   }
-
   Future<Either<AppErrors, UserProductResponse>> getWishlistProducts() async {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
@@ -44,11 +42,12 @@ class ProfileDataSource extends RemoteDataSource {
         converter: (json) {
           return UserProductResponse.fromJson(json);
         },
-        queryParameters: {'uid': appPreferences.getUserId()},
+        queryParameters: {
+          'uid':appPreferences.getUserId()
+        },
         headers: {"cookie": cookieString},
         url: APIUrls.getProductsWishlist);
   }
-
   Future<Either<AppErrors, UserProductsEnrolledResponse>>
       getProductsEnrolled() async {
     final AppPreferences appPreferences = instance<AppPreferences>();
@@ -87,6 +86,7 @@ class ProfileDataSource extends RemoteDataSource {
         return EmptyResponse.fromJson(json);
       },
       url: APIUrls.cancelUserProduct,
+      
     );
   }
 

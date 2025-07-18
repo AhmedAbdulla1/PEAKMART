@@ -22,12 +22,8 @@ class _UploadedProductsTabState extends State<UploadedProductsTab>
   @override
   void initState() {
     super.initState();
-    final cubit = context.read<UserProductsCubit>();
-    if (cubit.uploadedProducts.isNotEmpty) {
-      cubit.emit(UserProductsLoaded(products: cubit.uploadedProducts));
-    } else {
-      cubit.getUploadedProducts();
-    }
+       context.read<UserProductsCubit>().loadCachedUploadedProductsIfAny();
+
   }
 
   Widget buildNoProductsView() {

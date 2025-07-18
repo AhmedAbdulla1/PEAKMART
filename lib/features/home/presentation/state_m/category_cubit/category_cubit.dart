@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Bid_Mart/app/di.dart';
 import 'package:Bid_Mart/features/home/domain/home_repo.dart';
@@ -9,7 +11,7 @@ class CategoryCubit extends Cubit<CategoryState> {
   CategoryCubit() : super(CategoryInitial());
 
   void getCategory() async {
-    print('getCategory');
+    log('getCategory');
     emit(CategoryLoading());
     final result = await _homeRepository.getCategory();
     result.pick(

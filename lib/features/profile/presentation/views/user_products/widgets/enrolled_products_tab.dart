@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Bid_Mart/core/widgets/waiting_widget.dart';
 import 'package:Bid_Mart/features/profile/presentation/state_m/user_products/user_products_cubit.dart';
 import 'package:Bid_Mart/features/profile/presentation/state_m/user_products/user_products_states.dart';
 import 'package:Bid_Mart/features/profile/presentation/views/user_products/widgets/no_products_founded_widget.dart';
 import 'package:Bid_Mart/features/profile/presentation/views/user_products/widgets/product_enrolled_item_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EnrolledProductsTab extends StatefulWidget {
   const EnrolledProductsTab({super.key});
@@ -21,12 +21,7 @@ class _EnrolledProductsTabState extends State<EnrolledProductsTab>
   @override
   void initState() {
     super.initState();
-    final cubit = context.read<UserProductsCubit>();
-    if (cubit.enrolledProducts.isNotEmpty) {
-      cubit.emit(ProductsEnrolledLoaded(products: cubit.enrolledProducts));
-    } else {
-      cubit.getEnrolledProducts();
-    }
+    context.read<UserProductsCubit>().loadCachedEnrolledProductsIfAny();
   }
 
   Widget buildNoProductsView() {

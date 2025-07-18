@@ -27,7 +27,7 @@ class PaymentDialog extends StatefulWidget {
 
   const PaymentDialog({
     super.key,
-    this.paymentProcess = PaymentProcess.ENROLL,
+    this.paymentProcess = PaymentProcess.enroll,
     required this.netPrice,
   });
 
@@ -190,13 +190,13 @@ class _PaymentDialogState extends State<PaymentDialog> {
         builder: (context, state) {
           String processText;
           switch (widget.paymentProcess) {
-            case PaymentProcess.UPLOAD:
+            case PaymentProcess.upload:
               processText = 'The upload fee is ';
               break;
-            case PaymentProcess.ENROLL:
+            case PaymentProcess.enroll:
               processText = 'The Bid insurance to enroll is ';
               break;
-            case PaymentProcess.BID:
+            case PaymentProcess.bid:
               processText = 'The bid insurance to enroll is ';
               break;
           }

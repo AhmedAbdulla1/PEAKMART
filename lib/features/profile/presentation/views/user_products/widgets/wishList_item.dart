@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:Bid_Mart/core/entities/prodcut_entity.dart';
 import 'package:Bid_Mart/core/resources/color_manager.dart';
 import 'package:Bid_Mart/core/resources/extentions.dart';
@@ -9,6 +7,8 @@ import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:Bid_Mart/features/products/presentation/views/product_details/product_details_view.dart';
 import 'package:Bid_Mart/features/products/presentation/views/product_details/widgets/product_details_view_body.dart';
 import 'package:Bid_Mart/features/profile/presentation/views/user_products/widgets/product_images_slider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WishlistItemWidget extends StatelessWidget {
   const WishlistItemWidget({
@@ -83,9 +83,6 @@ class WishlistItemWidget extends StatelessWidget {
                       product.description,
                       style: getMediumStyle(
                         fontSize: FontSize.s12,
-                        color: context.isDarkMode
-                            ? ColorManager.grey
-                            : ColorManager.grey1,
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,

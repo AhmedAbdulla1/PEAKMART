@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Bid_Mart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:Bid_Mart/core/resources/color_manager.dart';
 import 'package:Bid_Mart/core/resources/extentions.dart';
@@ -12,11 +10,11 @@ import 'package:Bid_Mart/features/home/domain/entity/content_entity.dart';
 import 'package:Bid_Mart/features/home/presentation/state_m/content_cubit/cubit.dart';
 import 'package:Bid_Mart/features/home/presentation/state_m/content_cubit/state.dart';
 import 'package:Bid_Mart/features/home/presentation/views/partners_section/partner_card.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PartnersView extends StatelessWidget {
-  PartnersView({super.key});
-
-  late ContentData _contentData;
+  const PartnersView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,21 +25,21 @@ class PartnersView extends StatelessWidget {
                 context: context, error: state.errors, callback: () {}));
       }
       if (state is ContentLoaded) {
-        _contentData = state.contentEntity.data.firstWhere(
-            (element) => element.sectionName == SectionName.Parteners);
+        final ContentData contentData = state.contentEntity.data.firstWhere(
+            (element) => element.sectionName == SectionName.parteners);
         return Padding(
           padding: const EdgeInsets.symmetric(
               vertical: AppPadding.p20, horizontal: AppPadding.p30),
           child: Column(
             children: [
               Text(
-                _contentData.content,
+                contentData.content,
                 style: getBoldStyle(
                     fontSize: FontSize.s16, color: context.primaryColor),
               ),
               6.vGap,
               Text(
-                _contentData.subTitle ?? "",
+                contentData.subTitle ?? "",
                 style: getRegularStyle(
                     fontSize: FontSize.s12,
                     color: context.isDarkMode
@@ -56,13 +54,13 @@ class PartnersView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Expanded(
-                      child: PartnerCard(imageLink: _contentData.image["p1"])),
+                      child: PartnerCard(imageLink: contentData.image["p1"])),
                   Expanded(
-                      child: PartnerCard(imageLink: _contentData.image["p2"])),
+                      child: PartnerCard(imageLink: contentData.image["p2"])),
                   Expanded(
-                      child: PartnerCard(imageLink: _contentData.image["p3"])),
+                      child: PartnerCard(imageLink: contentData.image["p3"])),
                   Expanded(
-                      child: PartnerCard(imageLink: _contentData.image["p4"])),
+                      child: PartnerCard(imageLink: contentData.image["p4"])),
                 ],
               ),
             ],

@@ -1,4 +1,3 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Bid_Mart/app/di.dart';
 import 'package:Bid_Mart/core/entities/empty_entity.dart';
 import 'package:Bid_Mart/core/entities/prodcut_entity.dart';
@@ -10,6 +9,7 @@ import 'package:Bid_Mart/features/profile/domain/enitiy/user_product_entity.dart
 import 'package:Bid_Mart/features/profile/domain/enitiy/user_products_enrolled_entity.dart';
 import 'package:Bid_Mart/features/profile/domain/profile_repo.dart';
 import 'package:Bid_Mart/features/profile/presentation/state_m/user_products/user_products_states.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserProductsCubit extends Cubit<UserProductsStates> {
   UserProductsCubit() : super(UserProductsInitial());
@@ -152,5 +152,29 @@ class UserProductsCubit extends Cubit<UserProductsStates> {
     }, onError: (error) {
       emit(CancelUserProductFailed(error: error));
     });
+  }
+
+  void loadCachedEnrolledProductsIfAny() {
+    if (enrolledProducts.isNotEmpty) {
+      emit(ProductsEnrolledLoaded(products: enrolledProducts));
+    } else {
+      getEnrolledProducts();
+    }
+  }
+
+  void loadCachedUploadedProductsIfAny() {
+    if (uploadedProducts.isNotEmpty) {
+      emit(UserProductsLoaded(products: uploadedProducts));
+    } else {
+      getUploadedProducts();
+    }
+  }
+
+  void loadCachedWishlistProductsIfAny() {
+    if (wishListProducts.isNotEmpty) {
+      emit(WishListLoaded(products: wishListProducts));
+    } else {
+      getWishListProducts();
+    }
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:Bid_Mart/core/net/response_validators/response_validator.dart';
 import 'package:dartz/dartz.dart';
 import 'package:Bid_Mart/app/app_prefs.dart';
 import 'package:Bid_Mart/app/di.dart';
@@ -22,7 +23,7 @@ class ProfileDataSource extends RemoteDataSource {
     String cookieString = appPreferences.getCookies().join(';');
     print('cookie string $cookieString');
     return request<UserProductResponse>(
-        method: HttpMethod.GET,
+        method: HttpMethod.get,
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           return UserProductResponse.fromJson(json);
@@ -37,7 +38,7 @@ class ProfileDataSource extends RemoteDataSource {
     final AppPreferences appPreferences = instance<AppPreferences>();
     String cookieString = appPreferences.getCookies().join(';');
     return request<UserProductResponse>(
-        method: HttpMethod.GET,
+        method: HttpMethod.get,
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           return UserProductResponse.fromJson(json);
@@ -54,7 +55,7 @@ class ProfileDataSource extends RemoteDataSource {
     String cookieString = appPreferences.getCookies().join(';');
     print('cookie string $cookieString');
     return request<UserProductsEnrolledResponse>(
-        method: HttpMethod.GET,
+        method: HttpMethod.get,
         responseValidator: DefaultResponseValidator(),
         converter: (json) {
           return UserProductsEnrolledResponse.fromJson(json);
@@ -73,7 +74,7 @@ class ProfileDataSource extends RemoteDataSource {
     String cookieString = appPreferences.getCookies().join(';');
 
     return request<EmptyResponse>(
-      method: HttpMethod.POST,
+      method: HttpMethod.post,
       body: {
         ...cancleRequest.toJson(),
         "hkh": appPreferences.getCookie("HKH"),
@@ -96,7 +97,7 @@ class ProfileDataSource extends RemoteDataSource {
     print('hk ${appPreferences.getUserId()}');
     print('cookie string $cookieString');
     return request<UserInfoResponse>(
-        method: HttpMethod.GET,
+        method: HttpMethod.get,
         body: {
           "HK": appPreferences.getUserId(),
         },
@@ -121,7 +122,7 @@ class ProfileDataSource extends RemoteDataSource {
     };
     log("Body : $body");
     return request<EmptyResponse>(
-      method: HttpMethod.POST,
+      method: HttpMethod.post,
       body: {
         ...updateProfileRequest.toMap(),
         "hk": appPreferences.getUserId(),
@@ -144,7 +145,7 @@ class ProfileDataSource extends RemoteDataSource {
     String cookieString = appPreferences.getCookies().join(';');
     print('cookie string $cookieString');
     return request<EmptyResponse>(
-      method: HttpMethod.POST,
+      method: HttpMethod.post,
       body: body.toMap(),
       files: body.getFiles(),
       responseValidator: DefaultResponseValidator(),
@@ -166,7 +167,7 @@ class ProfileDataSource extends RemoteDataSource {
     String cookieString = appPreferences.getCookies().join(';');
     print('cookie string $cookieString');
     return request<EmptyResponse>(
-      method: HttpMethod.GET,
+      method: HttpMethod.get,
       responseValidator: LogoutValidator(),
       converter: (json) {
         print('inconverter $json');

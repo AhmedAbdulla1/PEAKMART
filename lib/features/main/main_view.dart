@@ -13,7 +13,7 @@ import 'package:Bid_Mart/features/notifications/presentation/state_m/notificatio
 import 'package:Bid_Mart/features/notifications/presentation/state_m/notifications_cubit.dart';
 import 'package:Bid_Mart/features/notifications/presentation/view/notification_view.dart';
 import 'package:Bid_Mart/features/products/presentation/views/products_view.dart';
-import 'package:Bid_Mart/features/profile/presentation/views/profile/view.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/profile/profile_view.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

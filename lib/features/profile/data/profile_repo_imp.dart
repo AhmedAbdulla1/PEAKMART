@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:dartz/dartz.dart';
 import 'package:Bid_Mart/app/di.dart';
 import 'package:Bid_Mart/app/network_info.dart';
 import 'package:Bid_Mart/core/entities/empty_entity.dart';
@@ -18,6 +17,7 @@ import 'package:Bid_Mart/features/profile/domain/enitiy/user_info_entity.dart';
 import 'package:Bid_Mart/features/profile/domain/enitiy/user_product_entity.dart';
 import 'package:Bid_Mart/features/profile/domain/enitiy/user_products_enrolled_entity.dart';
 import 'package:Bid_Mart/features/profile/domain/profile_repo.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 
 class ProfileRepoImpl extends ProfileRepo {
@@ -181,22 +181,35 @@ class ProfileRepoImpl extends ProfileRepo {
 
   @override
   Future<Result<AppErrors, EmptyEntity>> logout() async {
-    Result<AppErrors, EmptyEntity> result;
-    if (await _networkInfo.isConnected) {
-      try {
-        Either<AppErrors, EmptyResponse> response =
-            await _remoteDataSource.logout();
-        result = response.fold((error) {
-          return Result(error: error);
-        }, (response) {
-          return Result(data: response.toEntity());
-        });
-      } catch (error) {
-        result = Result(error: const AppErrors.responseError());
-      }
-    } else {
-      result = Result(error: const AppErrors.connectionError());
+    if (!await _networkInfo.isConnected) {
+      log("❌ No internet connection");
+      return Result(error: const AppErrors.connectionError());
     }
-    return result;
+
+    try {
+      Either<AppErrors, EmptyResponse> response =
+          await _remoteDataSource.logout();
+
+      return response.fold(
+        (error) {
+          log("⚠️ Error in profile repo: $error");
+          return Result(error: error);
+        },
+        (data) {
+          log("✅ Logout successful: $data");
+          return Result(data: data.toEntity());
+        },
+      );
+    } catch (error, stack) {
+      log("❌ Exception in logout(): $error");
+      log("📌 StackTrace: $stack");
+      return Result(
+        error: AppErrors.responseError(
+          message: error.toString().isNotEmpty
+              ? error.toString()
+              : 'Unknown logout error',
+        ),
+      );
+    }
   }
 }

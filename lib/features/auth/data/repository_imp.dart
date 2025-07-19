@@ -1,4 +1,5 @@
-import 'package:dartz/dartz.dart';
+import 'dart:developer';
+
 import 'package:Bid_Mart/app/di.dart';
 import 'package:Bid_Mart/app/network_info.dart';
 import 'package:Bid_Mart/core/entities/empty_entity.dart';
@@ -20,6 +21,7 @@ import 'package:Bid_Mart/features/auth/domain/entity/login_entity.dart';
 import 'package:Bid_Mart/features/auth/domain/entity/register_entity.dart';
 import 'package:Bid_Mart/features/auth/domain/entity/send_otp_entity.dart';
 import 'package:Bid_Mart/features/auth/domain/repository/auth_repo.dart';
+import 'package:dartz/dartz.dart';
 
 class AuthRepositoryImp implements AuthRepo {
   final AuthDataSource _authDataSource = AuthDataSource();
@@ -122,15 +124,20 @@ class AuthRepositoryImp implements AuthRepo {
       try {
         Either<AppErrors, EmptyResponse> response =
             await _authDataSource.verfiyOtp(verfiyOtpRequest);
+        log("Response: $response");
         result = response.fold((error) {
+          log("Error1: $error");
           return Result(error: error);
         }, (response) {
+          log("Response1: $response");
           return Result(data: response.toEntity());
         });
       } catch (error) {
+        log("Error2: $error");
         result = Result(error: const AppErrors.responseError());
       }
     } else {
+      log("No internet connection");
       result = Result(error: const AppErrors.connectionError());
     }
     return result;

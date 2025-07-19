@@ -1,8 +1,5 @@
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:Bid_Mart/core/error_ui/dialogs/custom_dialogs.dart';
 import 'package:Bid_Mart/core/error_ui/error_viewer/error_viewer.dart'
     show ErrorViewer;
@@ -16,6 +13,9 @@ import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:Bid_Mart/features/profile/presentation/state_m/user_products/user_products_cubit.dart';
 import 'package:Bid_Mart/features/profile/presentation/state_m/user_products/user_products_states.dart';
 import 'package:Bid_Mart/features/profile/presentation/views/personal_inof/passwrod_dialog.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CancelAndEndButtonsWidget extends StatelessWidget {
   const CancelAndEndButtonsWidget({super.key, required this.productId});
@@ -38,10 +38,12 @@ class CancelAndEndButtonsWidget extends StatelessWidget {
       onConfirm: () async {
         Navigator.pop(context);
         final userPassword = await showPasswordDialog(context);
+        if (!context.mounted) return;
         if (userPassword == null || userPassword.isEmpty) {
           Toast.show("Please enter your password to proceed.");
           return;
         }
+
         status == "ended"
             ? context.read<UserProductsCubit>().endProduct(
                   productId: productId,

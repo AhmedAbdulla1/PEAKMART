@@ -1,12 +1,12 @@
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Bid_Mart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:Bid_Mart/core/widgets/waiting_widget.dart';
 import 'package:Bid_Mart/features/profile/domain/enitiy/user_info_entity.dart';
 import 'package:Bid_Mart/features/profile/presentation/state_m/profile/cubit.dart';
 import 'package:Bid_Mart/features/profile/presentation/views/profile/profile_body.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SummaryProfileScreen extends StatelessWidget {
   const SummaryProfileScreen({super.key});
@@ -31,7 +31,7 @@ class SummaryProfileScreen extends StatelessWidget {
           } else if (state is ProfileError) {
             return const ProfileScreen(
                 userinfo: UserInfoEntity(
-                    userName: "Uer",
+                    userName: "User",
                     phone: "01111111111",
                     photo: "https://picsum.photos/800/600",
                     sellerInfo: {},

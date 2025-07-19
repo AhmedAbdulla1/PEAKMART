@@ -1,14 +1,7 @@
-
-
-import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/about_us_view.dart';
-import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/contact_us_view.dart';
-import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/exchange__return_policy_view.dart';
-import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/privacy_policy_view.dart';
-import 'package:Bid_Mart/features/profile/presentation/views/profile/profile_menu_item.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:Bid_Mart/app/app_prefs.dart';
+import 'package:Bid_Mart/app/di.dart';
 import 'package:Bid_Mart/core/resources/color_manager.dart';
+import 'package:Bid_Mart/core/resources/extentions.dart';
 import 'package:Bid_Mart/core/resources/font_manager.dart';
 import 'package:Bid_Mart/core/resources/style_manager.dart';
 import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
@@ -17,10 +10,18 @@ import 'package:Bid_Mart/core/widgets/waiting_widget.dart';
 import 'package:Bid_Mart/features/auth/presentation/views/login/login_view.dart';
 import 'package:Bid_Mart/features/profile/domain/enitiy/user_info_entity.dart';
 import 'package:Bid_Mart/features/profile/presentation/state_m/profile/cubit.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/about_us_view.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/contact_us_view.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/exchange__return_policy_view.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/Information%20Center/privacy_policy_view.dart';
 import 'package:Bid_Mart/features/profile/presentation/views/balance/balance_view.dart';
 import 'package:Bid_Mart/features/profile/presentation/views/personal_inof/personal_inof_screen.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/profile/profile_menu_item.dart';
 import 'package:Bid_Mart/features/profile/presentation/views/settings/settings_view.dart';
 import 'package:Bid_Mart/features/profile/presentation/views/user_products/user_product_view.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key, required this.userinfo});
@@ -219,6 +220,7 @@ class ProfileScreen extends StatelessWidget {
             iconColor: Colors.red,
             onTap: () => showLogoutDialog(context),
           ),
+          20.vGap,
         ],
       ),
     );
@@ -250,9 +252,11 @@ class ProfileScreen extends StatelessWidget {
   }
 
   void showLogoutDialog(BuildContext context) {
+    final AppPreferences _appPreferences = instance<AppPreferences>();
+
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (BuildContext dialogContext) {
         return AlertDialog(
           alignment: Alignment.center,
           actionsAlignment: MainAxisAlignment.spaceBetween,
@@ -281,11 +285,13 @@ class ProfileScreen extends StatelessWidget {
               child: Text('Logout',
                   style:
                       getRegularStyle(fontSize: 20, color: ColorManager.red)),
-              onPressed: () {
-                Navigator.of(context).pop();
-                ProfileCubit().logout(onSuccess: () {
-                  Navigator.pushReplacementNamed(context, LogInView.routeName);
-                });
+              onPressed: () async {
+                await _appPreferences.logout();
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  LogInView.routeName,
+                  (_) => false,
+                );
               },
             ),
           ],

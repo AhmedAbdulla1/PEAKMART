@@ -1,9 +1,9 @@
 // Profile Cubit (profile_cubit.dart)
 // ===============================
 
+import 'dart:developer';
 import 'dart:ui';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Bid_Mart/app/app_prefs.dart';
 import 'package:Bid_Mart/app/di.dart';
 import 'package:Bid_Mart/core/entities/empty_entity.dart';
@@ -15,6 +15,7 @@ import 'package:Bid_Mart/features/profile/data/models/request/update_profile_ima
 import 'package:Bid_Mart/features/profile/data/models/request/update_profile_request.dart';
 import 'package:Bid_Mart/features/profile/domain/enitiy/user_info_entity.dart';
 import 'package:Bid_Mart/features/profile/domain/profile_repo.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'state.dart';
 
@@ -182,15 +183,17 @@ class ProfileCubit extends Cubit<ProfileState> {
   void logout({required VoidCallback onSuccess}) async {
     emit(ProfileLoading());
     Result<AppErrors, EmptyEntity> result = await profileRepo.logout();
-    result.pick(
-        onData: (data) {
-          invalidateCache();
-          appPreferences.setIsSeller(false);
-          appPreferences.logout().then((_) => onSuccess());
-        },
-        onError: (error) {
-          emitError(error, () => logout(onSuccess: onSuccess));
-        });
+    result.pick(onData: (data) {
+      invalidateCache();
+      emitLoaded();
+      appPreferences.setIsSeller(false);
+      appPreferences.logout().then((_) => onSuccess());
+      log("Logged out");
+    }, onError: (error) {
+      log("Failed to logout");
+      log(error.toString());
+      emitError(error, () => logout(onSuccess: onSuccess));
+    });
   }
 
   void emitLoaded({bool updateOriginal = false, bool fromCache = false}) {

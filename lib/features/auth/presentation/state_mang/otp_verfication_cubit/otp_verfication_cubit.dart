@@ -3,6 +3,7 @@ import 'package:Bid_Mart/core/errors/app_errors.dart';
 import 'package:Bid_Mart/features/auth/data/model/request/send_otp_request.dart';
 import 'package:Bid_Mart/features/auth/data/model/request/verfiy_otp_request.dart';
 import 'package:Bid_Mart/features/auth/domain/repository/auth_repo.dart';
+import 'package:Bid_Mart/features/notifications/data/firebase_cloud_messaging_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,6 +11,7 @@ part 'otp_verfication_states.dart';
 
 class OtpVerfictionCubit extends Cubit<OtpVerificationState> {
   final AuthRepo _authRepo = instance<AuthRepo>();
+  final String? token = FirebaseCloudMessagingService.token;
 
   OtpVerfictionCubit() : super(OtpVerificationInitialState());
 

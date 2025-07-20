@@ -286,12 +286,11 @@ class ProfileScreen extends StatelessWidget {
                   style:
                       getRegularStyle(fontSize: 20, color: ColorManager.red)),
               onPressed: () async {
-                await _appPreferences.logout();
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  LogInView.routeName,
-                  (_) => false,
-                );
+                // await _appPreferences.logout();
+                context.read<ProfileCubit>().logout(onSuccess: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, LogInView.routeName, (route) => false);
+                });
               },
             ),
           ],

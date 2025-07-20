@@ -250,7 +250,7 @@ class _AddProductDetailsState extends State<AddProductDetails> {
         child: Wrap(
           children: [
             Icon(FontAwesomeIcons.locationDot,
-                color: ColorManager.primary, size: 20),
+                color: context.primaryColor, size: 20),
             16.hGap,
             Text("Location: ", style: getBoldStyle(fontSize: FontSize.s16)),
             const Spacer(),

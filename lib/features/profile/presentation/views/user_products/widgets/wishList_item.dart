@@ -90,19 +90,20 @@ class WishlistItemWidget extends StatelessWidget {
                     6.vGap,
 
                     // End date and price
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Wrap(
+                      spacing: 20,
+                      runSpacing: 10,
                       children: [
                         CustomRichText(
-                            title: "End Date: ", description: _getEndDate()),
+                            title: "Start Date: ",
+                            description: product.startDate ?? ""),
                         CustomRichText(
-                            title: "Price Now: \$",
-                            description: product.price.toString()),
+                            title: "End Date: ", description: _getEndDate()),
                       ],
                     ),
                     10.vGap,
 
-                    //* Remove from fav
+                    
                   ],
                 ),
               ),

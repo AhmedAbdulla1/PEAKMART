@@ -28,6 +28,9 @@ class _EnrolledProductsTabState extends State<EnrolledProductsTab>
     return NoProductsFoundedWidget(
       title: 'No products enrolled yet.',
       buttonText: 'Retry',
+      onRefresh: () async {
+        await context.read<UserProductsCubit>().getEnrolledProducts();
+      },
       onButtonPressed: () {
         // Navigator.pushNamed(context, MainView.routeName, arguments: 1);
         final cubit = context.read<UserProductsCubit>();

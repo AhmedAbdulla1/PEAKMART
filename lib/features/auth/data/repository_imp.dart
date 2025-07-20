@@ -132,8 +132,9 @@ class AuthRepositoryImp implements AuthRepo {
           log("Response1: $response");
           return Result(data: response.toEntity());
         });
-      } catch (error) {
+      } catch (error, stack) {
         log("Error2: $error");
+        log('stack : $stack');
         result = Result(error: const AppErrors.responseError());
       }
     } else {

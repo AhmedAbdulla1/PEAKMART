@@ -29,6 +29,10 @@ class _UploadedProductsTabState extends State<WishListTab>
     return NoProductsFoundedWidget(
       title: 'No products in wishlist',
       buttonText: 'Explore products',
+      onRefresh: ()async {
+         context.read<UserProductsCubit>().restWishListPram();
+        await context.read<UserProductsCubit>().getWishListProducts();
+      },
       onButtonPressed: () {
         Navigator.pushNamed(context, MainView.routeName, arguments: 1);
       },

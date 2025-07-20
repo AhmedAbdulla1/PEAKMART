@@ -63,6 +63,8 @@ class FirebaseCloudMessagingService {
         createdAt: DateTime.now().toIso8601String(),
         icon: null,
         userId: 290,
+        arg: 12,
+        routeName: 'main'
       );
 
       streamController.add(newNotification);

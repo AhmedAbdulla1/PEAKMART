@@ -506,7 +506,7 @@ class HttpClient extends BaseHttpClient {
         switch (error.response!.statusCode) {
           case 400:
             debugPrint(error.response!.statusCode.toString());
-            debugPrint(error.response!.data);
+            // debugPrint(error.response!.data);
             return BadRequestError(
                 message: error.response!.data["message"] ?? "");
           case 401:

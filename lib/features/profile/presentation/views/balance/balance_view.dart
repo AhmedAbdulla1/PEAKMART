@@ -143,12 +143,14 @@ class _TransactionButton extends StatelessWidget {
                 content: "Are you sure you want to $type \$$value?",
                 onConfirm: () {
                   Navigator.pop(context);
-                  Toast.show("Processing $type of \$$value...",
-                      backgroundColor: ColorManager.green);
+                 
                   // Call your logic here
-                  PaymentDialog(
-                    paymentProcess: PaymentProcess.bid,
-                    netPrice: double.tryParse(value) ?? 0,
+                  showDialog(
+                    context: context,
+                    builder: (_) => PaymentDialog(
+                      paymentProcess: PaymentProcess.deposit,
+                      netPrice: double.tryParse(value) ?? 0,
+                    ),
                   );
                 },
               );

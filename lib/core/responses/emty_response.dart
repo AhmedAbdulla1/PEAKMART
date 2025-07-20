@@ -40,7 +40,7 @@ class EmptyResponse extends BaseResponse<EmptyEntity> {
       if (msg is Map<String, dynamic>) return msg['en']?.toString() ?? '';
       return '';
     }
-
+    print(jsonData);
     return EmptyResponse(
       message: extractMessage(jsonData['message']),
       status: jsonData['status']?.toString() ?? '',

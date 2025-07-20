@@ -199,6 +199,15 @@ class _PaymentDialogState extends State<PaymentDialog> {
             case PaymentProcess.bid:
               processText = 'The bid insurance to enroll is ';
               break;
+            case PaymentProcess.deposit:
+              processText = 'The deposit fee is ';
+              break;
+            case PaymentProcess.withdraw:
+              processText = 'The withdraw fee is ';
+              break;
+            case PaymentProcess.winner:
+              processText = 'The winner fee is ';
+              break;
           }
 
           return Dialog(

@@ -1,3 +1,4 @@
+import 'package:Bid_Mart/core/resources/theme/extentaions/app_theme_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:Bid_Mart/core/resources/color_manager.dart';
@@ -19,7 +20,7 @@ final Function(String)? onSubmit;
       borderRadius: BorderRadius.circular(12),
       borderColor: ColorManager.grey1,
       textStyle:
-          getRegularStyle(fontSize: FontSize.s32, color: ColorManager.black),
+          getRegularStyle(fontSize: FontSize.s32, color: context.primaryColor),
       showFieldAsBox: true,
       onCodeChanged: (String code) {},
       onSubmit: onSubmit

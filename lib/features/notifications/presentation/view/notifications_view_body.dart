@@ -14,9 +14,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
-class NotificationsViewBody extends StatelessWidget {
+class NotificationsViewBody extends StatefulWidget {
   const NotificationsViewBody({super.key, required this.notifications});
   final List<NotificationEntity> notifications;
+
+  @override
+  State<NotificationsViewBody> createState() => _NotificationsViewBodyState();
+}
+
+class _NotificationsViewBodyState extends State<NotificationsViewBody> {
+  late List<NotificationEntity> localNotifications;
+
+  @override
+  void initState() {
+    super.initState();
+    localNotifications = List.from(widget.notifications);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +45,7 @@ class NotificationsViewBody extends StatelessWidget {
           ),
         ],
       ),
-      body: notifications.isEmpty
+      body: localNotifications.isEmpty
           ? Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
@@ -40,30 +53,35 @@ class NotificationsViewBody extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Spacer(),
-                  LottieBuilder.asset("assets/lottie/no_notifications.json",
-                      height: 200.h, width: 200.w, fit: BoxFit.cover),
-                  8.vGap,
-                  Text("You don't have any notifications currently.",
-                      textAlign: TextAlign.center,
-                      style: getMediumStyle(
-                          fontSize: FontSize.s20, color: ColorManager.red)),
-                  const Spacer(
-                    flex: 2,
+                  LottieBuilder.asset(
+                    "assets/lottie/no_notifications.json",
+                    height: 200.h,
+                    width: 200.w,
+                    fit: BoxFit.cover,
                   ),
+                  8.vGap,
+                  Text(
+                    "You don't have any notifications currently.",
+                    textAlign: TextAlign.center,
+                    style: getMediumStyle(
+                      fontSize: FontSize.s20,
+                      color: ColorManager.red,
+                    ),
+                  ),
+                  const Spacer(flex: 2),
                 ],
               ),
             )
           : RefreshIndicator(
-              onRefresh: () {
-                return BlocProvider.of<NotificationCubit>(context)
-                    .fetchNotifications();
+              onRefresh: () async {
+                await context.read<NotificationCubit>().fetchNotifications();
               },
               child: ListView.separated(
                 padding: const EdgeInsets.all(16),
-                itemCount: notifications.length,
+                itemCount: localNotifications.length,
                 separatorBuilder: (_, __) => const SizedBox(height: 10),
                 itemBuilder: (context, index) {
-                  final item = notifications[index];
+                  final item = localNotifications[index];
                   final isSeen = item.seen == "1";
 
                   return Dismissible(
@@ -72,21 +90,23 @@ class NotificationsViewBody extends StatelessWidget {
                     background: Container(
                       alignment: Alignment.centerRight,
                       padding: const EdgeInsets.only(right: 20),
-                      child: CircleAvatar(
+                      child: const CircleAvatar(
                         radius: 24,
                         backgroundColor: Colors.red,
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.delete, color: Colors.white),
-                          iconSize: 20,
-                          splashRadius: 24,
-                        ),
+                        child: const Icon(Icons.delete, color: Colors.white),
                       ),
                     ),
                     onDismissed: (_) {
-                      // context.read<NotificationCubit>().deleteNotification(item.id);
-                      Toast.show("Notification '${item.title}' dismissed",
-                          backgroundColor: ColorManager.red);
+                      setState(() {
+                        localNotifications.removeAt(index);
+                      });
+                      context
+                          .read<NotificationCubit>()
+                          .deleteNotification(item.id);
+                      Toast.show(
+                        "Notification '${item.title}' deleted successfully",
+                        backgroundColor: ColorManager.red,
+                      );
                     },
                     child: NotificationCard(item: item, isSeen: isSeen),
                   );

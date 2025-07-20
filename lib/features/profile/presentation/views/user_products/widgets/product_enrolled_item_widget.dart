@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'dart:developer';
+
 import 'package:Bid_Mart/core/resources/color_manager.dart';
 import 'package:Bid_Mart/core/resources/extentions.dart';
 import 'package:Bid_Mart/core/resources/font_manager.dart';
@@ -11,6 +11,8 @@ import 'package:Bid_Mart/features/products/presentation/views/product_details/pr
 import 'package:Bid_Mart/features/products/presentation/views/product_details/widgets/product_details_view_body.dart';
 import 'package:Bid_Mart/features/profile/domain/enitiy/product_enrolled_entity.dart';
 import 'package:Bid_Mart/features/profile/presentation/views/user_products/widgets/product_images_slider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductEnrolledItemWidget extends StatelessWidget {
   const ProductEnrolledItemWidget({
@@ -25,11 +27,15 @@ class ProductEnrolledItemWidget extends StatelessWidget {
   final bool? isUsingWithRandomProducts;
 
   void _showPaymentDialog(BuildContext context) {
+    double netPrice = (product.highestBid-product.fees).toDouble();
+    log(netPrice.toString(), name: 'net price');
+    log(product.highestBid.toString(), name: 'highest bid');
+    log(product.fees.toString(), name: 'fees');
     showDialog(
       context: context,
       builder: (_) => PaymentDialog(
-        netPrice: product.highestBid.toDouble(),
-        paymentProcess: PaymentProcess.bid,
+        netPrice: netPrice,
+        paymentProcess: PaymentProcess.winner,
       ),
     );
   }
@@ -37,13 +43,16 @@ class ProductEnrolledItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final today = DateTime.now();
+    final todayDateOnly = DateTime(today.year, today.month, today.day);
+
     final productEndDate = DateTime.tryParse(product.endDate);
+    log(productEndDate.toString(), name: 'end date');
+
     final showCompleteButton = product.winnerStatus &&
         productEndDate != null &&
-        productEndDate.year == today.year &&
-        productEndDate.month == today.month &&
-        productEndDate.day == today.day;
+        productEndDate.isBefore(todayDateOnly);
 
+    print(product.id);
     return InkWell(
       splashColor: context.isDarkMode ? ColorManager.black : ColorManager.white,
       onTap: () {

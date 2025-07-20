@@ -68,6 +68,8 @@ class NotificationCubit extends Cubit<NotificationsState> {
                   seen: "1",
                   url: notification.url,
                   createdAt: notification.createdAt,
+                  arg:  notification.arg,
+                  routeName: notification.routeName,
                 );
               }
               return notification;

@@ -187,7 +187,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       invalidateCache();
       emitLoaded();
       appPreferences.setIsSeller(false);
-      appPreferences.logout().then((_) => onSuccess());
+      appPreferences.logout().then((_) => onSuccess);
       log("Logged out");
     }, onError: (error) {
       log("Failed to logout");

@@ -22,6 +22,7 @@ class APIUrls {
   static const updateUserInfo = "${baseUrl}data/update_info.php";
   static const updateUserImage = "${baseUrl}data/change_photo.php";
   static const cancelUserProduct = "${baseUrl}data/p_status.php";
+  static const own = "${baseUrl}data/own.php";
   static const logout = "${baseUrl}login_API/logout.php";
 
 

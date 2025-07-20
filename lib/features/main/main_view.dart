@@ -8,12 +8,13 @@ import 'package:Bid_Mart/features/auth/presentation/views/signup_for_bid/hold_sc
 import 'package:Bid_Mart/features/auth/presentation/views/signup_for_bid/view.dart';
 import 'package:Bid_Mart/features/bid_owner/presentation/views/bid_owner_view.dart';
 import 'package:Bid_Mart/features/home/presentation/views/home_view.dart';
+import 'package:Bid_Mart/features/main/connection_aware_screen.dart';
 import 'package:Bid_Mart/features/notifications/presentation/state_m/notification_cubit.dart';
 import 'package:Bid_Mart/features/notifications/presentation/state_m/notification_state.dart';
 import 'package:Bid_Mart/features/notifications/presentation/state_m/notifications_cubit.dart';
 import 'package:Bid_Mart/features/notifications/presentation/view/notification_view.dart';
 import 'package:Bid_Mart/features/products/presentation/views/products_view.dart';
-import 'package:Bid_Mart/features/profile/presentation/views/profile/view.dart';
+import 'package:Bid_Mart/features/profile/presentation/views/profile/profile_view.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -137,8 +138,8 @@ class _MainViewState extends State<MainView> {
 
   List<Widget> getBottomNavigationBarBody() {
     return [
-      HomeView(onCategorySelected: _onCategorySelected),
-      ProductsView(categoryId: _selectedCategoryId),
+      ConnectionAwareScreen(child: HomeView(onCategorySelected: _onCategorySelected)),
+      ConnectionAwareScreen(child: ProductsView(categoryId: _selectedCategoryId)),
       const BidOwnerView(),
       const NotificationsView(),
       const SummaryProfileScreen(),

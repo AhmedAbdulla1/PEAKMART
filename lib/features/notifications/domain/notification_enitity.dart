@@ -10,6 +10,8 @@ class NotificationEntity extends BaseEntity {
  final String seen;
   final String? url;
   final String createdAt;
+  final String routeName;
+  final int arg ;
 
   const NotificationEntity({
     required this.id,
@@ -20,6 +22,8 @@ class NotificationEntity extends BaseEntity {
     required this.seen,
     this.url,
     required this.createdAt,
+    required this.arg,
+    required this.routeName,
   });
 
   @override

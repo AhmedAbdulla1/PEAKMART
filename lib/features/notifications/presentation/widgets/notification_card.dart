@@ -1,4 +1,7 @@
+import 'package:Bid_Mart/features/notifications/presentation/state_m/notification_cubit.dart';
+import 'package:Bid_Mart/features/products/presentation/views/product_details/product_details_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:Bid_Mart/core/resources/color_manager.dart';
 import 'package:Bid_Mart/core/resources/extentions.dart';
@@ -26,8 +29,9 @@ class NotificationCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
+        Navigator.pushNamed(context,item.routeName, arguments: item.arg);
         if (!isSeen) {
-          // context.read<NotificationCubit>().markAsRead(item.id);
+          context.read<NotificationCubit>().markAsRead(item.id);
         }
       },
       child: Material(

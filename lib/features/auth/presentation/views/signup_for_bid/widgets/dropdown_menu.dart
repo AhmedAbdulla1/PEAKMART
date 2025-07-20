@@ -38,7 +38,7 @@ class CustomDropdownMenu extends StatelessWidget {
           fontSize: FontSize.s14,
         ),
         labelStyle: getRegularStyle(
-          color: context.isDarkMode ? ColorManager.grey : ColorManager.darkGrey,
+          color: context.isDarkMode ? ColorManager.grey : ColorManager.black,
           fontSize: FontSize.s14,
         ),
         prefixIcon: icon,

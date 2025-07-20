@@ -1,163 +1,111 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Bid_Mart/app/di.dart';
-import 'package:Bid_Mart/core/entities/empty_entity.dart';
 import 'package:Bid_Mart/core/errors/app_errors.dart';
-import 'package:Bid_Mart/core/results/result.dart';
 import 'package:Bid_Mart/features/auth/data/model/request/send_otp_request.dart';
 import 'package:Bid_Mart/features/auth/data/model/request/verfiy_otp_request.dart';
-import 'package:Bid_Mart/features/auth/domain/entity/send_otp_entity.dart';
 import 'package:Bid_Mart/features/auth/domain/repository/auth_repo.dart';
+import 'package:Bid_Mart/features/notifications/data/firebase_cloud_messaging_service.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'otp_verfication_states.dart';
 
 class OtpVerfictionCubit extends Cubit<OtpVerificationState> {
-  AuthRepo authRepo = instance<AuthRepo>();
+  final AuthRepo _authRepo = instance<AuthRepo>();
+  final String? token = FirebaseCloudMessagingService.token;
 
   OtpVerfictionCubit() : super(OtpVerificationInitialState());
-  bool isOtpVerified = false;
+
   String otp = '';
 
-// late BuildContext context;
   Future<void> sendOtp({
     required SendOtpRequest sendOtpRequest,
   }) async {
-    emit(
-      OtpVerificationLoadingState(),
-    );
-
-    debugPrint('in cubit key is ${sendOtpRequest.key}');
-    Result<AppErrors, SendOtpEntity> result =
-        await authRepo.sendOtp(SendOtpRequest(
-      email: sendOtpRequest.email,
-      username: sendOtpRequest.username,
-      key: sendOtpRequest.key,
-    ));
-
-    result.pick(onData: (data) {
-      debugPrint(
-        'data in cubit is $data',
-      );
-      // Navigator.pop(context);
-      emit(
-        SendOtpVerificationSuccessState(),
-      );
-    }, onError: (error) {
-      debugPrint(
-        error.toString(),
-      );
-      // Navigator.pop(context);
-      emit(
-        OtpVerificationFailureState(
-          errors: error,
-          onRetry: () {},
-        ),
-      );
-    });
-  }
-
-  Future<void> verfiyOtp({required VerfiyOtpRequest verfiyOtpRequest}) async {
-    otp = verfiyOtpRequest.otp;
     emit(OtpVerificationLoadingState());
-    // ShowDialog().showElasticDialog(
-    //   context: context,
-    //   builder: (context) => const WaitingWidget(),
-    //   barrierDismissible: false,
-    // );
-    Result<AppErrors, EmptyEntity> result = await authRepo.verfiyOtp(
-      VerfiyOtpRequest(
-        otp: verfiyOtpRequest.otp,
-        email: verfiyOtpRequest.email,
-        username: verfiyOtpRequest.username,
-      ),
-    );
+    debugPrint('➡️ Sending OTP with key: ${sendOtpRequest.key}');
+
+    final result = await _authRepo.sendOtp(sendOtpRequest);
 
     result.pick(
-      onData: (data) {
-        debugPrint(
-          'in otp verification data is $data, otp is $otp',
-        );
-        // Navigator.pop(context);
-
-        emit(
-          OtpVerificationSuccessState(isVerified: true),
-        );
+      onData: (_) {
+        debugPrint('✅ OTP sent successfully');
+        emit(SendOtpVerificationSuccessState());
       },
       onError: (error) {
-        debugPrint(
-          error.toString(),
-        );
-        // Navigator.pop(context);
-        emit(
-          OtpVerificationFailureState(
+        debugPrint('❌ Error sending OTP: $error');
+        emit(OtpVerificationFailureState(
             errors: error,
-            onRetry: () {},
-          ),
-        );
+            onRetry: () {
+              sendOtp(sendOtpRequest: sendOtpRequest);
+            }));
+      },
+    );
+  }
+
+  Future<void> verfiyOtp({
+    required VerfiyOtpRequest verfiyOtpRequest,
+  }) async {
+    otp = verfiyOtpRequest.otp;
+    emit(OtpVerificationLoadingState());
+    debugPrint('➡️ Verifying OTP: $otp');
+
+    final result = await _authRepo.verfiyOtp(verfiyOtpRequest);
+
+    result.pick(
+      onData: (_) {
+        debugPrint('✅ OTP verified successfully');
+        emit(OtpVerificationSuccessState(isVerified: true));
+      },
+      onError: (error) {
+        debugPrint('❌ OTP verification failed: $error');
+        emit(OtpVerificationFailureState(
+            errors: error,
+            onRetry: () {
+              verfiyOtp(verfiyOtpRequest: verfiyOtpRequest);
+            }));
       },
     );
   }
 
   Future<void> sendWatsAppOtp() async {
-    emit(
-      OtpVerificationLoadingState(),
+    emit(OtpVerificationLoadingState());
+    debugPrint('➡️ Sending WhatsApp OTP');
+
+    final result = await _authRepo.sendWatsAppOtp();
+
+    result.pick(
+      onData: (_) {
+        debugPrint('✅ WhatsApp OTP sent');
+        emit(SendOtpVerificationSuccessState());
+      },
+      onError: (error) {
+        debugPrint('❌ WhatsApp OTP send failed: $error');
+        emit(OtpVerificationFailureState(
+            errors: error, onRetry: sendWatsAppOtp));
+      },
     );
-
-    Result<AppErrors, EmptyEntity> result = await authRepo.sendWatsAppOtp();
-
-    result.pick(onData: (data) {
-      debugPrint(
-        'data in cubit is $data',
-      );
-      // Navigator.pop(context);
-      emit(
-        SendOtpVerificationSuccessState(),
-      );
-    }, onError: (error) {
-      debugPrint(
-        error.toString(),
-      );
-      // Navigator.pop(context);
-      emit(
-        OtpVerificationFailureState(
-          errors: error,
-          onRetry: () {},
-        ),
-      );
-    });
   }
 
   Future<void> verifyWatsAppOtp({
     required VerfiyOtpRequest verifyOtpRequest,
   }) async {
-    emit(
-      OtpVerificationLoadingState(),
+    emit(OtpVerificationLoadingState());
+    debugPrint('➡️ Verifying WhatsApp OTP: ${verifyOtpRequest.otp}');
+
+    final result = await _authRepo.verfiyWatsAppOtp(verifyOtpRequest);
+
+    result.pick(
+      onData: (_) {
+        debugPrint('✅ WhatsApp OTP verified');
+        emit(WatsAppOtpVerificationSuccessState());
+      },
+      onError: (error) {
+        debugPrint('❌ WhatsApp OTP verification failed: $error');
+        emit(OtpVerificationFailureState(
+            errors: error,
+            onRetry: () {
+              verifyWatsAppOtp(verifyOtpRequest: verifyOtpRequest);
+            }));
+      },
     );
-
-    debugPrint('in cubit key is ${verifyOtpRequest.otp}');
-    Result<AppErrors, EmptyEntity> result =
-        await authRepo.verfiyWatsAppOtp(verifyOtpRequest);
-
-    result.pick(onData: (data) {
-      debugPrint(
-        'data in cubit is $data',
-      );
-      // Navigator.pop(context);
-      emit(
-        WatsAppOtpVerificationSuccessState(),
-      );
-    }, onError: (error) {
-      debugPrint(
-        error.toString(),
-      );
-      // Navigator.pop(context);
-      emit(
-        OtpVerificationFailureState(
-          errors: error,
-          onRetry: () {},
-        ),
-      );
-    });
   }
 }

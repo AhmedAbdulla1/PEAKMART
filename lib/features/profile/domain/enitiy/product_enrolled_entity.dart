@@ -4,8 +4,9 @@ class ProductsEnrolledEntity extends BaseEntity {
   final num id, fees, highestBid, userBid;
   final String itemName, endDate;
   final List<String> imageUrl;
-
+  
   final bool owned, endStatus, enrollmentStatus, winnerStatus;
+           
 
   const ProductsEnrolledEntity(
       {required this.id,

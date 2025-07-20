@@ -30,6 +30,9 @@ class _UploadedProductsTabState extends State<UploadedProductsTab>
     return NoProductsFoundedWidget(
       title: 'No products uploaded yet.',
       buttonText: 'Upload a product',
+      onRefresh: () async {
+        await context.read<UserProductsCubit>().getUploadedProducts();
+      },
       onButtonPressed: () {
         Navigator.pushNamed(context, MainView.routeName, arguments: 3);
       },

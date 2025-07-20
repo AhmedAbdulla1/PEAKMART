@@ -1,3 +1,4 @@
+import 'package:Bid_Mart/features/main/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:Bid_Mart/core/resources/font_manager.dart';
 import 'package:Bid_Mart/core/shared_widgets/buttons.dart';
@@ -86,7 +87,7 @@ class HoldScreen extends StatelessWidget {
                       index++;
                     }
                     debugPrint('=====================');
-                    Navigator.pop(context);
+                    Navigator.pushReplacementNamed(context,MainView.routeName,);
                   },
                   text: 'Back To Home',
                 ),

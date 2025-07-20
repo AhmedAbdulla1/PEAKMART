@@ -1,8 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Bid_Mart/core/resources/color_manager.dart';
 import 'package:Bid_Mart/core/resources/extentions.dart';
 import 'package:Bid_Mart/core/resources/font_manager.dart';
@@ -13,6 +10,9 @@ import 'package:Bid_Mart/features/auth/data/model/request/seller_info_request.da
 import 'package:Bid_Mart/features/auth/presentation/shared_widgets/custom_text_form_field.dart';
 import 'package:Bid_Mart/features/auth/presentation/state_mang/signup_for_bid/cubit.dart';
 import 'package:Bid_Mart/features/auth/presentation/views/signup_for_bid/widgets/dropdown_menu.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AdditionalDetails extends StatefulWidget {
   const AdditionalDetails({super.key});
@@ -223,10 +223,16 @@ class _AdditionalDetailsState extends State<AdditionalDetails> {
               ),
               label: 'Bank Name',
               items: const [
-                "Bank masr1",
-                "Bank masr2",
-                "Bank elahly 1",
-                "Bank elahly 2",
+                "National Bank of Egypt",
+                "Banque Misr",
+                "Banque du Caire",
+                // "Commercial International Bank (CIB)",
+                "Bank of Alexandria",
+                "QNB Alahli",
+                "HSBC Egypt",
+                // "Abu Dhabi Islamic Bank (ADIB)",
+                "Emirates NBD Egypt",
+                "Credit Agricole Egypt",
               ],
               validator: _validateBankName,
               onChanged: (value) {

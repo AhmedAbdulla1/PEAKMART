@@ -117,7 +117,7 @@ class RemoteDataSource {
       files: files,
       isFormData: isFormData,
     );
-
+    debugPrint('response ${response}');
     /// convert jsonResponse to model and return it
     if (response.isLeft()) {
       debugPrint(response.toString());

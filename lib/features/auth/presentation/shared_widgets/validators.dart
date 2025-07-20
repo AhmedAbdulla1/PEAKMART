@@ -71,7 +71,7 @@ class Validator {
   }
 
   static String? validateUserName(String userName) {
-    final regex = RegExp(r'^[a-zA-Z][a-zA-Z0-9_]{2,}$');
+    final regex = RegExp(r'^[a-zA-Z][a-zA-Z0-9_ ]{2,}$');
     if (userName.isEmpty) {
       return AppStrings.usernameRequired;
     } else if (!RegExp(r'^[a-zA-Z]').hasMatch(userName)) {

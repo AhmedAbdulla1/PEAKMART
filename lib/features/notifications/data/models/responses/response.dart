@@ -51,6 +51,8 @@ class NotificationResponse {
   String seen;
   final String? url;
   final String createdAt;
+  final String routName;
+  final String arg;
 
   NotificationResponse({
     required this.id,
@@ -61,6 +63,8 @@ class NotificationResponse {
     required this.seen,
     this.url,
     required this.createdAt,
+    required this.arg,
+    required this.routName,
   });
 
   factory NotificationResponse.fromJson(Map<String, dynamic> json) {
@@ -73,18 +77,23 @@ class NotificationResponse {
       seen: json['seen'],
       url: json['url'],
       createdAt: json['created_at'],
+      routName: json['route_name'],
+      arg: json['arg'],
     );
   }
 
   NotificationEntity toEntity() {
     return NotificationEntity(
-        createdAt: createdAt,
-        description: description,
-        id: id,
-        seen: seen,
-        title: title,
-        userId: userId,
-        icon: icon,
-        url: url);
+      createdAt: createdAt,
+      description: description,
+      id: id,
+      seen: seen,
+      title: title,
+      userId: userId,
+      icon: icon,
+      url: url,
+      routeName: routName,
+      arg: int.tryParse(arg) ?? -1,
+    );
   }
 }

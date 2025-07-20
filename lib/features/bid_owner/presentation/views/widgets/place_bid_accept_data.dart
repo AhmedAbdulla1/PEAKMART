@@ -45,6 +45,8 @@ class PlaceBidAcceptData extends StatelessWidget {
         expectedPriceController.text.isEmpty) {
       return "Both prices are required";
     }
+
+
     int? startingPrice = int.tryParse(startingPriceController.text);
     int? expectedPrice = int.tryParse(expectedPriceController.text);
 
@@ -60,6 +62,12 @@ class PlaceBidAcceptData extends StatelessWidget {
     if (expectedPrice > 3 * startingPrice) {
       return "Expected price must be less than 3 times of the starting price";
     }
+    // todo
+    // if (0 < startingPrice && startingPrice <= 200){
+    //   if (expectedPrice > 2000)  return "Expected price must be not greater than 2000$ as a small amount";
+    // }else if (startingPrice > 200){
+    //   if (expectedPrice < startingPrice*3)  return "Expected price must be not greater than 300% of the starting price";
+    // }
     return null;
   }
 

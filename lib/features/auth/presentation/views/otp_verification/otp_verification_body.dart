@@ -1,8 +1,5 @@
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:Bid_Mart/core/error_ui/dialogs/show_dialog.dart';
 import 'package:Bid_Mart/core/error_ui/error_viewer/error_viewer.dart';
 import 'package:Bid_Mart/core/error_ui/error_viewer/toast/errv_toast_options.dart';
@@ -23,6 +20,9 @@ import 'package:Bid_Mart/features/auth/presentation/views/otp_verification/otp_r
 import 'package:Bid_Mart/features/auth/presentation/views/reset_password/widgets/success_bottom_sheet.dart';
 import 'package:Bid_Mart/features/auth/presentation/views/signup_for_bid/hold_screen.dart';
 import 'package:Bid_Mart/features/main/main_view.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OtpVerificationBody extends StatefulWidget {
   const OtpVerificationBody({
@@ -30,28 +30,31 @@ class OtpVerificationBody extends StatefulWidget {
     this.registerEntity,
     this.autoSend = false,
   });
+
   final RegisterEntity? registerEntity;
   final bool autoSend;
+
   @override
   State<OtpVerificationBody> createState() => _OtpVerificationBodyState();
 }
 
 class _OtpVerificationBodyState extends State<OtpVerificationBody> {
   String verificationCode = '';
-
   late bool autoSend;
+
   @override
   void initState() {
-    autoSend = widget.autoSend;
     super.initState();
+    autoSend = widget.autoSend;
+
     if (widget.registerEntity != null) {
-      BlocProvider.of<OtpVerfictionCubit>(context).sendOtp(
-        sendOtpRequest: SendOtpRequest(
-          key: 'SM',
-          username: widget.registerEntity!.userName,
-          email: widget.registerEntity!.email,
-        ),
-      );
+      context.read<OtpVerfictionCubit>().sendOtp(
+            sendOtpRequest: SendOtpRequest(
+              key: 'SM',
+              username: widget.registerEntity!.userName,
+              email: widget.registerEntity!.email,
+            ),
+          );
     }
   }
 
@@ -62,41 +65,35 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
           AppPadding.p29, AppPadding.p20, AppPadding.p29, 0),
       child: BlocConsumer<OtpVerfictionCubit, OtpVerificationState>(
         listener: (context, state) {
-          if (state is OtpVerificationSuccessState) {
-            // Navigator.pop(context);
-            if (state.isVerified) {
-              log('Success state in verify otp');
-              state.isVerified
-                  ? showSuccessBottomSheet(
-                      context, AppStrings.otpSuccessMessage)
-                  : null;
+          if (state is OtpVerificationSuccessState && state.isVerified) {
+            log('✅ OTP Verified Successfully');
+            showSuccessBottomSheet(context, AppStrings.otpSuccessMessage);
+            Future.delayed(const Duration(seconds: 3), () {
+              Navigator.pushReplacementNamed(context, MainView.routeName);
+            });
+          }
 
-              state.isVerified
-                  ? Future.delayed(const Duration(seconds: 3), () {
-                      Navigator.pushReplacementNamed(
-                          context, MainView.routeName);
-                    })
-                  : null;
-            }
-          }
-          if (state is SendOtpVerificationSuccessState) {
-            // Navigator.pop(context);
-          }
           if (state is WatsAppOtpVerificationSuccessState) {
             Navigator.pushReplacementNamed(context, HoldScreen.routeName);
-          } else if (state is OtpVerificationFailureState) {
-            log('Failure state');
-            // Navigator.pop(context);
+          }
+
+          if (state is OtpVerificationFailureState) {
+            log('❌ OTP Verification Failed: ${state.errors}');
+            if (Navigator.canPop(context)) Navigator.pop(context);
+
             ErrorViewer.showError(
-                errorViewerOptions: ErrVToastOptions(
-                  textColor: ColorManager.white,
-                  backGroundColor: ColorManager.lightGrey,
-                ),
-                context: context,
-                error: state.errors,
-                callback: state.onRetry);
-          } else if (state is OtpVerificationLoadingState) {
-            log('Loading state');
+              errorViewerOptions: ErrVToastOptions(
+                textColor: ColorManager.white,
+                backGroundColor: ColorManager.lightGrey,
+              ),
+              context: context,
+              error: state.errors,
+              callback: state.onRetry,
+            );
+          }
+
+          if (state is OtpVerificationLoadingState) {
+            log('🔄 Loading...');
             ShowDialog().showElasticDialog(
               context: context,
               builder: (context) => const WaitingWidget(),
@@ -105,6 +102,9 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
           }
         },
         builder: (context, state) {
+          final cubit = context.read<OtpVerfictionCubit>();
+          final isLoading = state is OtpVerificationLoadingState;
+
           return Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -123,10 +123,8 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
               CustomOtpTextField(
                 onSubmit: (value) {
                   verificationCode = value;
+                  log('📩 Code submitted: $value');
                   verfiyOtp(context);
-
-                  log('verification code is: $verificationCode');
-                  log('value is: $value');
                 },
               ),
               SizedBox(height: 25.h),
@@ -134,7 +132,7 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
                 autoStart: autoSend,
                 onPressed: () {
                   if (widget.registerEntity != null) {
-                    BlocProvider.of<OtpVerfictionCubit>(context).sendOtp(
+                    cubit.sendOtp(
                       sendOtpRequest: SendOtpRequest(
                         key: 'SM',
                         username: widget.registerEntity!.userName,
@@ -142,46 +140,26 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
                       ),
                     );
                   } else {
-                    BlocProvider.of<OtpVerfictionCubit>(context)
-                        .sendWatsAppOtp();
+                    cubit.sendWatsAppOtp();
                   }
                 },
               ),
               const Spacer(flex: 8),
               CustomElevatedButton(
+                minimumSize: Size(double.infinity, 50.h),
                 textButton: AppStrings.continue_,
-                onPressed: () {
-                  debugPrint('=== Navigation Stack (Bottom to Top) ===');
-                  int index = 0;
-
-                  // Get the Navigator's state
-                  final navigator = Navigator.of(context);
-
-                  // Use a temporary list to collect route names without popping
-                  List<String> stack = [];
-                  navigator.popUntil((route) {
-                    stack.add(route.settings.name ?? 'Unnamed Route');
-                    return true; // Keep the route in the stack, don't pop
-                  });
-
-                  // Reverse the list to show the stack from bottom to top
-                  stack = stack.reversed.toList();
-
-                  // Print the stack
-                  for (var routeName in stack) {
-                    debugPrint('[$index] Route: $routeName');
-                    index++;
-                  }
-                  debugPrint('=====================');
-                  Navigator.pushReplacementNamed(context, HoldScreen.routeName);
-                  if (verificationCode.isNotEmpty) {
-                    verfiyOtp(context);
-                  } else {
-                    log('Verification code is empty');
-                  }
-                },
+                onPressed: isLoading
+                    ? null
+                    : () {
+                        if (verificationCode.isNotEmpty) {
+                          log('➡️ Continue with code: $verificationCode');
+                          verfiyOtp(context);
+                        } else {
+                          log('⚠️ Empty verification code');
+                        }
+                      },
               ),
-              const Spacer(flex: 1)
+              const Spacer(flex: 1),
             ],
           );
         },
@@ -190,21 +168,27 @@ class _OtpVerificationBodyState extends State<OtpVerificationBody> {
   }
 
   void verfiyOtp(BuildContext context) {
+    final cubit = context.read<OtpVerfictionCubit>();
+
     if (widget.registerEntity != null) {
-      BlocProvider.of<OtpVerfictionCubit>(context).verfiyOtp(
-          verfiyOtpRequest: VerfiyOtpRequest(
-              email: widget.registerEntity!.email,
-              username: widget.registerEntity!.userName,
-              otp: verificationCode));
+      cubit.verfiyOtp(
+        verfiyOtpRequest: VerfiyOtpRequest(
+          email: widget.registerEntity!.email,
+          username: widget.registerEntity!.userName,
+          otp: verificationCode,
+        ),
+      );
     } else {
-      BlocProvider.of<OtpVerfictionCubit>(context).verifyWatsAppOtp(
-          verifyOtpRequest: VerfiyOtpRequest(
-        email: '',
-        username: '',
-        otp: verificationCode,
-      ));
+      cubit.verifyWatsAppOtp(
+        verifyOtpRequest: VerfiyOtpRequest(
+          email: '',
+          username: '',
+          otp: verificationCode,
+        ),
+      );
     }
-    log('otp is: ${BlocProvider.of<OtpVerfictionCubit>(context).otp}');
+
+    log('🔒 Sent OTP: ${cubit.otp}');
   }
 }
 

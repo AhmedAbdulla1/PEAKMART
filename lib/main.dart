@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:Bid_Mart/core/widgets/error_screen_handler.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -42,32 +43,30 @@ void main() async {
     WebViewPlatform.instance = AndroidWebViewPlatform();
   }
 
-  // Handle Flutter framework errors (build/render exceptions)
-  // ErrorWidget.builder = (FlutterErrorDetails details) {
-  //   return const Center(
-  //     child: Text(
-  //       'Oops! Something went wrong.',
-  //       style: TextStyle(color: Colors.red, fontSize: 18),
-  //     ),
-  //   );
-  // };
+  ErrorWidget.builder = (FlutterErrorDetails details) {
+    return const Center(
+      child: Text(
+        'Oops! Something went wrong.',
+        style: TextStyle(color: Colors.red, fontSize: 18),
+      ),
+    );
+  };
 
-  // Handle all uncaught errors globally
-  // FlutterError.onError = (FlutterErrorDetails details) async {
-  //   FlutterError.presentError(details);
-  //   runApp(
-  //     EasyLocalization(
-  //       supportedLocales: const [englishLocale, arabicLocale],
-  //       path: assetPathLocalizations,
-  //       child: Phoenix(
-  //         child: MaterialApp(
-  //           debugShowCheckedModeBanner: false,
-  //           home: ErrorScreenHandler(errorDetails: details),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // };
+  FlutterError.onError = (FlutterErrorDetails details) async {
+    FlutterError.presentError(details);
+    runApp(
+      EasyLocalization(
+        supportedLocales: const [englishLocale, arabicLocale],
+        path: assetPathLocalizations,
+        child: Phoenix(
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: ErrorScreenHandler(errorDetails: details),
+          ),
+        ),
+      ),
+    );
+  };
 
   runApp(
     EasyLocalization(

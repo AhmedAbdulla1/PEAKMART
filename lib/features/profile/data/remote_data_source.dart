@@ -17,6 +17,8 @@ import 'package:Bid_Mart/features/profile/data/models/response/user_products_enr
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 
+import 'models/request/own_product_request.dart';
+
 class ProfileDataSource extends RemoteDataSource {
   Future<Either<AppErrors, UserProductResponse>> getProductsUploaded() async {
     final AppPreferences appPreferences = instance<AppPreferences>();
@@ -158,6 +160,24 @@ class ProfileDataSource extends RemoteDataSource {
       },
       isFormData: true,
       url: APIUrls.updateUserImage,
+    );
+  }
+
+  Future<Either<AppErrors, EmptyResponse>> ownProduct(
+      OwnProductRequest ownProductRequest) async {
+    final AppPreferences appPreferences = instance<AppPreferences>();
+    String cookieString = appPreferences.getCookies().join(';');
+    // cookieString +="HK=290;" ;
+    return request<EmptyResponse>(
+      method: HttpMethod.get,
+      responseValidator: DefaultResponseValidator(),
+      queryParameters: ownProductRequest.toJson(),
+      body: ownProductRequest.toJson(),
+      converter: (json) {
+        return EmptyResponse.fromJson(json);
+      },
+      headers: {"cookie": cookieString},
+      url: APIUrls.own,
     );
   }
 

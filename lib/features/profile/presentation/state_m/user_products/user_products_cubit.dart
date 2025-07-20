@@ -4,6 +4,7 @@ import 'package:Bid_Mart/core/entities/prodcut_entity.dart';
 import 'package:Bid_Mart/core/errors/app_errors.dart';
 import 'package:Bid_Mart/core/results/result.dart';
 import 'package:Bid_Mart/features/profile/data/models/request/cancle_user_product_request.dart';
+import 'package:Bid_Mart/features/profile/data/models/request/own_product_request.dart';
 import 'package:Bid_Mart/features/profile/domain/enitiy/product_enrolled_entity.dart';
 import 'package:Bid_Mart/features/profile/domain/enitiy/user_product_entity.dart';
 import 'package:Bid_Mart/features/profile/domain/enitiy/user_products_enrolled_entity.dart';
@@ -153,6 +154,28 @@ class UserProductsCubit extends Cubit<UserProductsStates> {
       emit(CancelUserProductFailed(error: error));
     });
   }
+
+  Future<void> ownProduct({
+    required int productId,
+    required String amount,
+    required String tapId
+  }) async {
+    emit(CancelUserProductLoading());
+    Result<AppErrors, EmptyEntity> result =
+    await profileRepo.ownProducts(OwnProductRequest(
+      productId: productId,
+      amount: amount,
+      tapId: tapId,
+    ));
+    result.pick(onData: (data) {
+      emit(EndUserProductSuccess());
+      resetUploadedProducts();
+      getUploadedProducts();
+    }, onError: (error) {
+      emit(CancelUserProductFailed(error: error));
+    });
+  }
+
 
   void loadCachedEnrolledProductsIfAny() {
     if (enrolledProducts.isNotEmpty) {

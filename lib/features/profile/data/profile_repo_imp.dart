@@ -7,6 +7,7 @@ import 'package:Bid_Mart/core/errors/app_errors.dart';
 import 'package:Bid_Mart/core/responses/emty_response.dart';
 import 'package:Bid_Mart/core/results/result.dart';
 import 'package:Bid_Mart/features/profile/data/models/request/cancle_user_product_request.dart';
+import 'package:Bid_Mart/features/profile/data/models/request/own_product_request.dart';
 import 'package:Bid_Mart/features/profile/data/models/request/update_profile_image_request.dart';
 import 'package:Bid_Mart/features/profile/data/models/request/update_profile_request.dart';
 import 'package:Bid_Mart/features/profile/data/models/response/user_info_response.dart';
@@ -165,6 +166,28 @@ class ProfileRepoImpl extends ProfileRepo {
       try {
         Either<AppErrors, UserProductResponse> response =
             await _remoteDataSource.getWishlistProducts();
+        result = response.fold((error) {
+          return Result(error: error);
+        }, (response) {
+          return Result(data: response.toEntity());
+        });
+      } catch (error) {
+        result = Result(error: const AppErrors.responseError());
+      }
+    } else {
+      result = Result(error: const AppErrors.connectionError());
+    }
+    return result;
+  }
+
+  @override
+  Future<Result<AppErrors, EmptyEntity>> ownProducts(
+      OwnProductRequest ownProductsRequest) async {
+    Result<AppErrors, EmptyEntity> result;
+    if (await _networkInfo.isConnected) {
+      try {
+        Either<AppErrors, EmptyResponse> response =
+            await _remoteDataSource.ownProduct(ownProductsRequest);
         result = response.fold((error) {
           return Result(error: error);
         }, (response) {

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:Bid_Mart/core/error_ui/toast.dart';
 import 'package:Bid_Mart/core/resources/color_manager.dart';
 import 'package:Bid_Mart/core/resources/extentions.dart';
 import 'package:Bid_Mart/core/resources/font_manager.dart';
@@ -10,8 +11,10 @@ import 'package:Bid_Mart/features/payment/presentation/views/payment_dialog.dart
 import 'package:Bid_Mart/features/products/presentation/views/product_details/product_details_view.dart';
 import 'package:Bid_Mart/features/products/presentation/views/product_details/widgets/product_details_view_body.dart';
 import 'package:Bid_Mart/features/profile/domain/enitiy/product_enrolled_entity.dart';
+import 'package:Bid_Mart/features/profile/presentation/state_m/user_products/user_products_cubit.dart';
 import 'package:Bid_Mart/features/profile/presentation/views/user_products/widgets/product_images_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductEnrolledItemWidget extends StatelessWidget {
@@ -27,7 +30,7 @@ class ProductEnrolledItemWidget extends StatelessWidget {
   final bool? isUsingWithRandomProducts;
 
   void _showPaymentDialog(BuildContext context) {
-    double netPrice = (product.highestBid-product.fees).toDouble();
+    double netPrice = (product.highestBid - product.fees).toDouble();
     log(netPrice.toString(), name: 'net price');
     log(product.highestBid.toString(), name: 'highest bid');
     log(product.fees.toString(), name: 'fees');
@@ -37,7 +40,18 @@ class ProductEnrolledItemWidget extends StatelessWidget {
         netPrice: netPrice,
         paymentProcess: PaymentProcess.winner,
       ),
-    );
+    ).then((value) {
+      if (value.containsKey('payment_status') &&
+          value['payment_status'] == 'success') {
+        context.read<UserProductsCubit>().ownProduct(
+              amount: value['fees'].toString(),
+              tapId: value['tap_id'],
+              productId: product.id.toInt(),
+            );
+        Toast.show("Product successfully Uploaded",
+            backgroundColor: ColorManager.green);
+      }
+    });
   }
 
   @override
